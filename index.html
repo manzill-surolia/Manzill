@@ -9,6 +9,19 @@
             padding-left: 20px; /* Adjust as needed */
             padding-right: 100px; /* Adjust as needed */
         }
+        .donut {
+            display: inline-block;
+            margin: 10px;
+            width: 42px;
+            height: 42px;
+}
+
+        .donut .chart-label {
+            fill: #333;
+            font-size: 0.8em;
+            text-anchor: middle;
+            transform: translateY(0.3em);
+}
     </style>
 </head>
 <body>
@@ -23,6 +36,25 @@
             Proficient in various risk assessment tools and methodologies. 
             Committed to staying up-to-date with the latest developments in the field of cyber risk.
         </p>
+        <h2>Skills</h2>
+        <svg class="donut">
+            <circle class="donut-hole" cx="21" cy="21" r="15.91549430918954" fill="#fff"></circle>
+            <circle class="donut-ring" cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#d2d3d4" stroke-width="3"></circle>
+            <circle class="donut-segment" cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#ce4b99" stroke-width="3" stroke-dasharray="30 70" stroke-dashoffset="25"></circle>
+            <text x="50%" y="50%" class="chart-label">Linux</text>
+        </svg>
+        <svg class="donut">
+            <circle class="donut-hole" cx="21" cy="21" r="15.91549430918954" fill="#fff"></circle>
+            <circle class="donut-ring" cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#d2d3d4" stroke-width="3"></circle>
+            <circle class="donut-segment" cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#ce4b99" stroke-width="3" stroke-dasharray="70 30" stroke-dashoffset="25"></circle>
+            <text x="50%" y="50%" class="chart-label">C#, PHP</text>
+        </svg>
+        <svg class="donut">
+            <circle class="donut-hole" cx="21" cy="21" r="15.91549430918954" fill="#fff"></circle>
+            <circle class="donut-ring" cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#d2d3d4" stroke-width="3"></circle>
+            <circle class="donut-segment" cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#ce4b99" stroke-width="3" stroke-dasharray="10 90" stroke-dashoffset="25"></circle>
+            <text x="50%" y="50%" class="chart-label">Cloud</text>
+        </svg>
     </div>
 </body>
 </html>

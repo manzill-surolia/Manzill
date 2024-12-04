@@ -11,8 +11,10 @@
         .content-container {
             display: flex;
             justify-content: space-between;
-            align-items: center;
-            margin: 20px;
+            align-items: flex-start; /* Top-align the items */
+            margin: 0;
+            padding: 20px; /* Add some padding around the container */
+            flex-wrap: wrap; /* Allow items to wrap for smaller screens */
         }
 
         /* Style for the text section */
@@ -29,20 +31,36 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional shadow */
         }
 
+        /* Remove extra spacing from body and HTML */
+        body, html {
+            margin: 0;
+            padding: 0;
+        }
+
         /* Responsive design for smaller screens */
         @media (max-width: 768px) {
             .content-container {
-                flex-direction: column;
-                align-items: flex-start;
+                flex-direction: column; /* Stack text and image vertically */
+                align-items: flex-start; /* Align items to the left */
             }
 
             .text-content, .image-content {
-                max-width: 100%;
+                max-width: 100%; /* Full width for both text and image */
                 margin-right: 0;
+            }
+
+            .text-content {
+                margin-bottom: 20px; /* Add space below the text */
             }
 
             .image-content img {
                 width: 100%; /* Full width for smaller screens */
+            }
+
+            /* Adjust text size for better readability */
+            .text-content p {
+                font-size: 16px; /* Slightly larger font size for small screens */
+                line-height: 1.5; /* Improved line spacing */
             }
         }
     </style>

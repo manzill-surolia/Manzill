@@ -13,7 +13,7 @@
         }
 
         .content-wrapper {
-            display: flex; /* Flexbox layout for side-by-side alignment */
+            display: flex; /* Flexbox layout for inline content */
             flex-wrap: wrap; /* Allow wrapping for smaller screens */
             align-items: center; /* Align items vertically */
             gap: 20px; /* Spacing between items */
@@ -24,28 +24,37 @@
             height: auto;
         }
 
+        .text-content {
+            width: 55%; /* Adjust width to balance space with the image */
+        }
+
         /* Media query for mobile devices */
         @media (max-width: 768px) {
             img {
                 width: 100%; /* Full width for mobile */
             }
 
+            .text-content {
+                width: 100%; /* Full width for mobile */
+                text-align: center; /* Center align text */
+            }
+
             .content-wrapper {
                 flex-direction: column; /* Stack items vertically on smaller screens */
-                text-align: center; /* Center align text */
             }
         }
     </style>
 </head>
 <body>
     <div class="content-wrapper">
-        <!-- Image -->
+        <!-- GIF -->
         <img src="https://raw.githubusercontent.com/manzill-surolia/Manzill/refs/heads/main/risk.gif" alt="Risk Analysis">
         
         <!-- Text Content -->
-        <div>
-            <h1>About Manzill Surolia</h1>
-            <p>A seasoned risk practitioner with over 10 years of experience in cyber security, governance, risk management and compliance. Strong background in governance, risk, and compliance (GRC), with hands-on experience in security auditing, regulatory compliance (HITRUST, PCI-DSS, FedRAMP, ISO 27001, NIST), and overseeing data protection measures. Adept in designing incident response plans, business continuity plans (BCP), and driving initiatives in security posture management.</p>
+        <div class="text-content">
+            <p>
+                A seasoned risk practitioner with over 10 years of experience in cyber security, governance, risk management and compliance. Strong background in governance, risk, and compliance (GRC), with hands-on experience in security auditing, regulatory compliance (HITRUST, PCI-DSS, FedRAMP, ISO 27001, NIST), and overseeing data protection measures. Adept in designing incident response plans, business continuity plans (BCP), and driving initiatives in security posture management.
+            </p>
             <p>Connect with Manzill Surolia on LinkedIn</p>
         </div>
     </div>

@@ -24,21 +24,29 @@
             height: auto;
         }
 
-        .text-content {
-            width: 55%; /* Adjust width to balance space with the image */
+        h1 {
+            font-size: 2rem; /* Smaller h1 (1/4th of the original assumed 8rem) */
+            margin: 0 0 20px 0; /* Add spacing below */
         }
 
-        h1, h2 {
-            margin: 0 0 20px 0; /* Add consistent spacing below headings */
+        h2 {
+            font-size: 1.5rem; /* Smaller h2 (1/3rd of the original assumed 4.5rem) */
+            margin: 0 0 15px 0; /* Add spacing below */
+        }
+
+        p {
+            font-size: 0.9rem; /* Smaller paragraph text */
+            margin: 0 0 10px 0; /* Add spacing below */
         }
 
         a {
             text-decoration: none; /* Remove underline */
-            color: inherit; /* Use current text color */
+            color: blue; /* Default link color */
+            transition: color 0.3s ease; /* Smooth color change on hover */
         }
 
         a:hover {
-            color: blue; /* Change to blue on hover */
+            color: #0056b3; /* Slightly darker blue for hover */
         }
 
         /* Media query for mobile devices */

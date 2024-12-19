@@ -24,29 +24,21 @@
             height: auto;
         }
 
-        h1 {
-            font-size: 2rem; /* Smaller h1 (1/4th of the original assumed 8rem) */
-            margin: 0 0 20px 0; /* Add spacing below */
+        .text-content {
+            width: 55%; /* Adjust width to balance space with the image */
         }
 
-        h2 {
-            font-size: 1.5rem; /* Smaller h2 (1/3rd of the original assumed 4.5rem) */
-            margin: 0 0 15px 0; /* Add spacing below */
-        }
-
-        p {
-            font-size: 0.9rem; /* Smaller paragraph text */
-            margin: 0 0 10px 0; /* Add spacing below */
+        h1, h2 {
+            margin: 0 0 20px 0; /* Add consistent spacing below headings */
         }
 
         a {
             text-decoration: none; /* Remove underline */
-            color: blue; /* Default link color */
-            transition: color 0.3s ease; /* Smooth color change on hover */
+            color: inherit; /* Use current text color */
         }
 
         a:hover {
-            color: #0056b3; /* Slightly darker blue for hover */
+            color: blue; /* Change to blue on hover */
         }
 
         /* Media query for mobile devices */
@@ -70,7 +62,7 @@
     <!-- Main Content -->
     <main>
         <!-- Main Heading -->
-        <h1>Cyber Security Assessment</h1>
+        <h1 style="font-size: 0.5rem; margin: 0 0 20px 0;">Cyber Security Assessment</h1>
 
         <!-- Content Wrapper -->
         <div class="content-wrapper">
@@ -80,11 +72,11 @@
             <!-- Text Content -->
             <div class="text-content">
                 <!-- Subheading -->
-                <h2>About Manzill Surolia</h2>
-                <p>
+                <h2 style="font-size: 1.0rem; margin: 0 0 15px 0;">About Manzill Surolia</h2>
+                <p style="font-size: 0.5rem; margin: 0 0 10px 0;">
                     A seasoned risk practitioner with over 10 years of experience in cyber security, governance, risk management and compliance. Strong background in governance, risk, and compliance (GRC), with hands-on experience in security auditing, regulatory compliance (HITRUST, PCI-DSS, FedRAMP, ISO 27001, NIST), and overseeing data protection measures. Adept in designing incident response plans, business continuity plans (BCP), and driving initiatives in security posture management.
                 </p>
-                <p>
+                <p style="font-size: 0.5rem; margin: 0 0 10px 0;">
                     <a href="https://in.linkedin.com/in/manzill">Connect with Manzill Surolia on LinkedIn</a>
                 </p>
             </div>

@@ -4,8 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#b71c1c">
 
-    <title>Regulatory Controls, Decoded &mdash; 58 Security &amp; Privacy Frameworks Analysed | Manzill Surolia</title>
+    <title>Cyber Security | Manzill Surolia</title>
     <meta name="description" content="A vectorised, facts-first analysis of 58 security &amp; privacy frameworks. Two-thirds of controls have a semantic twin in another framework; ~10 capabilities answer most of them. By Manzill Surolia.">
     <meta name="keywords" content="Security Frameworks, Control Crosswalk, GRC, Compliance Mapping, NIST 800-53, NIST 800-171, ISO 27001, PCI DSS, CMMC, GDPR, HIPAA, SOC 2, TF-IDF, Cosine Similarity">
     <meta name="author" content="Manzill Surolia">
@@ -16,16 +17,27 @@
     <!-- Open Graph -->
     <meta property="og:type" content="article">
     <meta property="og:site_name" content="Manzill Surolia">
+    <meta property="og:locale" content="en_US">
     <meta property="og:title" content="Regulatory Controls, Decoded &mdash; 58 Security &amp; Privacy Frameworks Analysed">
     <meta property="og:description" content="Two-thirds of security controls have a semantic twin in another framework; ~10 capabilities answer most of 58 frameworks. A vectorised, facts-first analysis.">
     <meta property="og:url" content="https://www.manzill.com/">
     <meta property="og:image" content="https://www.manzill.com/lawyer1.png">
+    <meta property="og:image:alt" content="Manzill Surolia &mdash; Cyber Security &amp; GRC analysis">
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="Regulatory Controls, Decoded">
     <meta name="twitter:description" content="A vectorised, facts-first analysis of 58 security &amp; privacy frameworks &mdash; by Manzill Surolia.">
     <meta name="twitter:image" content="https://www.manzill.com/lawyer1.png">
+    <meta name="twitter:image:alt" content="Manzill Surolia &mdash; Cyber Security &amp; GRC analysis">
+
+    <!-- Fonts: Inter (modern UI) with system fallback -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap">
+
+    <!-- flag JS early so scroll-in animations don't flash unstyled content -->
+    <script>document.documentElement.classList.add('js');</script>
 
     <style>
 :root {
@@ -55,7 +67,7 @@
 html { -webkit-text-size-adjust: 100%; }
 body {
   margin: 0;
-  font-family: 'Noto Sans Devanagari', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   background: var(--bg);
   color: var(--text);
   line-height: 1.55;
@@ -95,22 +107,6 @@ header.site {
   font-weight: 900;
   font-size: 1.15rem;
 }
-.date-strip {
-  margin-left: auto;
-  font-size: .82rem;
-  opacity: .92;
-  display: flex;
-  gap: 10px;
-  align-items: center;
-}
-.date-strip .archive-link {
-  background: rgba(255,255,255,.15);
-  border: 1px solid rgba(255,255,255,.28);
-  color: #fff;
-  padding: 6px 12px;
-  border-radius: 999px;
-}
-.date-strip .archive-link:hover { background: rgba(255,255,255,.25); }
 .refresh-btn {
   background: var(--surface);
   border: 1px solid var(--border);
@@ -402,15 +398,18 @@ section.feed { margin-bottom: 36px; }
 
 /* ---- analysis-specific components (built on the brand tokens) ---- */
 .brand .logo { font-family: system-ui, sans-serif; }
-.date-strip .tag {
-  background: rgba(255,255,255,.15);
-  border: 1px solid rgba(255,255,255,.28);
-  padding: 6px 12px; border-radius: 999px; white-space: nowrap;
-}
 
 .hero { margin: 26px 0 6px; }
+.hero .eyebrow {
+  margin: 0 0 6px;
+  font-size: .8rem;
+  font-weight: 700;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  color: var(--brand);
+}
 .hero h1 {
-  font-size: clamp(1.8rem, 4.4vw, 2.7rem);
+  font-size: clamp(1.5rem, 3.2vw, 2.05rem);
   line-height: 1.12;
   letter-spacing: -.015em;
 }
@@ -576,18 +575,46 @@ aside.sidebar { position: sticky; top: 64px; }
 .author-card .socials a:hover { text-decoration: underline; }
 .author-card .tag-hash { color: var(--muted); }
 
-/* footer */
-footer.site-footer {
-  border-top: 3px solid var(--accent);
-  background: var(--surface);
-}
-footer.site-footer .bar { color: var(--muted); font-size: .85rem; justify-content: center; }
-footer.site-footer p { margin: 0; }
-
 @media (max-width: 860px) {
   .layout { grid-template-columns: 1fr; gap: 8px; }
   aside.sidebar { position: static; margin-top: 8px; }
 }
+
+/* ---- scroll-in animations (progressive enhancement: active only when .js) ---- */
+.js .meter .fill {
+  transform: scaleX(0); transform-origin: left;
+  transition: transform .9s cubic-bezier(.22,1,.36,1);
+}
+.js .animate.in-view .meter .fill { transform: scaleX(1); }
+
+.js .animate.stat-grid .stat {
+  opacity: 0; transform: translateY(12px);
+  transition: opacity .5s ease, transform .5s ease;
+}
+.js .animate.stat-grid.in-view .stat { opacity: 1; transform: none; }
+.js .animate.stat-grid.in-view .stat:nth-child(2){ transition-delay: .07s; }
+.js .animate.stat-grid.in-view .stat:nth-child(3){ transition-delay: .14s; }
+.js .animate.stat-grid.in-view .stat:nth-child(4){ transition-delay: .21s; }
+.js .animate.stat-grid.in-view .stat:nth-child(5){ transition-delay: .28s; }
+
+.js .animate table.data-table tbody tr {
+  opacity: 0; transform: translateY(6px);
+  transition: opacity .45s ease, transform .45s ease;
+}
+.js .animate.in-view table.data-table tbody tr { opacity: 1; transform: none; }
+.js .animate.in-view table.data-table tbody tr:nth-child(2){ transition-delay: .04s; }
+.js .animate.in-view table.data-table tbody tr:nth-child(3){ transition-delay: .08s; }
+.js .animate.in-view table.data-table tbody tr:nth-child(4){ transition-delay: .12s; }
+.js .animate.in-view table.data-table tbody tr:nth-child(5){ transition-delay: .16s; }
+.js .animate.in-view table.data-table tbody tr:nth-child(6){ transition-delay: .20s; }
+.js .animate.in-view table.data-table tbody tr:nth-child(7){ transition-delay: .24s; }
+.js .animate.in-view table.data-table tbody tr:nth-child(8){ transition-delay: .28s; }
+
+.js .animate.chart-card, .js .animate.heatmap-figure {
+  opacity: 0; transform: translateY(10px);
+  transition: opacity .5s ease, transform .5s ease;
+}
+.js .animate.chart-card.in-view, .js .animate.heatmap-figure.in-view { opacity: 1; transform: none; }
 </style>
 
     <script type="application/ld+json">
@@ -618,6 +645,9 @@ footer.site-footer p { margin: 0; }
       "author": { "@type": "Person", "name": "Manzill Surolia", "url": "https://www.manzill.com/" },
       "publisher": { "@type": "Person", "name": "Manzill Surolia" },
       "datePublished": "2026-07-07",
+      "dateModified": "2026-07-07",
+      "articleSection": "Cyber Security",
+      "keywords": "Security Frameworks, Control Crosswalk, GRC, Compliance Mapping, NIST 800-53, NIST 800-171, ISO 27001, PCI DSS, CMMC, GDPR, HIPAA, SOC 2, TF-IDF, Cosine Similarity",
       "image": "https://www.manzill.com/lawyer1.png",
       "mainEntityOfPage": "https://www.manzill.com/",
       "about": [
@@ -634,14 +664,12 @@ footer.site-footer p { margin: 0; }
           <span class="logo">M</span>
           <span>Manzill Surolia</span>
         </a>
-        <div class="date-strip">
-          <span class="tag">Analysis &middot; 7 Jul 2026</span>
-        </div>
       </div>
     </header>
 
     <main>
       <section class="hero">
+        <p class="eyebrow">Analysis &middot; 7 Jul 2026</p>
         <h1>Regulatory Controls, Decoded</h1>
         <p class="sub">A vectorised, facts-first analysis of 58 security &amp; privacy frameworks.</p>
       </section>
@@ -659,7 +687,7 @@ footer.site-footer p { margin: 0; }
         <article class="content">
 
           <section id="overview">
-            <div class="stat-grid">
+            <div class="stat-grid animate">
         <div class="stat"><span class="num">58</span><span class="lbl">frameworks compared</span></div>
         <div class="stat"><span class="num">64%</span><span class="lbl">controls have a twin in another framework</span></div>
         <div class="stat"><span class="num">37%</span><span class="lbl">near-identical cross-framework</span></div>
@@ -668,7 +696,7 @@ footer.site-footer p { margin: 0; }
             </div>
             <p class="lede">The headline finding, measured &mdash; not asserted. Every control was turned into a numerical vector (TF-IDF over its title and requirement text) and compared to every other by cosine similarity. Nearly two-thirds of all controls have a semantic twin in a <strong>different</strong> framework; one in three is near-identical. Regulations do not invent new requirements &mdash; they re-word shared ones.</p>
 
-            <figure class="chart-card">
+            <figure class="chart-card animate">
               <figcaption>Share of controls with a semantic twin in a different framework</figcaption>
           <div class="thr-row"><span class="thr-lab">&ge; 0.5 <span class="thr-sub">related</span></span><span class="meter"><span class="track"><span class="fill" style="width:64%"></span></span><b>64%</b></span></div>
           <div class="thr-row"><span class="thr-lab">&ge; 0.6 <span class="thr-sub">strong</span></span><span class="meter"><span class="track"><span class="fill" style="width:56%"></span></span><b>56%</b></span></div>
@@ -680,7 +708,7 @@ footer.site-footer p { margin: 0; }
           <section id="commonality">
             <div class="section-head"><h2>1 &middot; The Commonality: Frameworks Ask for the Same Things</h2></div>
             <p>Searching every control for core capabilities shows how few ideas the field actually turns on. Ten capabilities recur across most of the 58 frameworks.</p>
-            <div class="table-wrap">
+            <div class="table-wrap animate">
               <table class="data-table">
                 <thead><tr><th>Universal capability</th><th>In % of frameworks</th><th>Reading</th></tr></thead>
                 <tbody>
@@ -702,7 +730,7 @@ footer.site-footer p { margin: 0; }
           <section id="similarity">
             <div class="section-head"><h2>2 &middot; The Similarity: Which Regulations Are Really the Same</h2></div>
             <p>Comparing frameworks vector-to-vector (average of their control vectors) surfaces near-duplicate standards. Some pairs are versions of one document; others are genuinely different standards that have quietly converged &mdash; the ones worth a single crosswalk.</p>
-            <div class="table-wrap">
+            <div class="table-wrap animate">
               <table class="data-table">
                 <thead><tr><th>Framework pair</th><th>Similarity</th><th>Type</th></tr></thead>
                 <tbody>
@@ -717,7 +745,7 @@ footer.site-footer p { margin: 0; }
             </div>
             <div class="callout"><p>&#9656; Frameworks are distinct as documents (average pairwise similarity just 0.12) yet overlap heavily control-by-control. The redundancy lives in the controls, not the framing &mdash; which is exactly why &lsquo;comply once, report many&rsquo; works.</p></div>
 
-            <figure class="heatmap-figure">
+            <figure class="heatmap-figure animate">
               <figcaption>Framework-to-framework similarity (control-text overlap)</figcaption>
               <div class="table-wrap">
                 <table class="heatmap">
@@ -745,7 +773,7 @@ footer.site-footer p { margin: 0; }
           <section id="structure">
             <div class="section-head"><h2>3 &middot; The Structure: Machine-Discovered Themes</h2></div>
             <p>Clustering the control vectors (no labels supplied) reproduces the security syllabus on its own &mdash; identity, access, incident/risk and privacy emerge as the load-bearing themes.</p>
-            <div class="table-wrap">
+            <div class="table-wrap animate">
               <table class="data-table">
                 <thead><tr><th>Machine-discovered theme (top terms)</th><th>% of controls</th><th>% of frameworks</th></tr></thead>
                 <tbody>
@@ -762,7 +790,7 @@ footer.site-footer p { margin: 0; }
           <section id="crosswalk">
             <div class="section-head"><h2>4 &middot; One Capability, Five Frameworks (worked crosswalk)</h2></div>
             <p>One idea &mdash; least privilege &mdash; written five different ways across five frameworks.</p>
-            <div class="table-wrap">
+            <div class="table-wrap animate">
               <table class="data-table">
                 <thead><tr><th>Framework</th><th>Control ref.</th><th>Same idea, different words</th></tr></thead>
                 <tbody>
@@ -808,10 +836,21 @@ footer.site-footer p { margin: 0; }
       </div>
     </main>
 
-    <footer class="site-footer">
-      <div class="bar">
-        <p>&copy; 2026 Manzill Surolia. All rights reserved.</p>
-      </div>
-    </footer>
+    <script>
+    (function () {
+      var els = document.querySelectorAll('.animate');
+      var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (reduce || !('IntersectionObserver' in window)) {
+        els.forEach(function (el) { el.classList.add('in-view'); });
+        return;
+      }
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) { e.target.classList.add('in-view'); io.unobserve(e.target); }
+        });
+      }, { threshold: 0.15 });
+      els.forEach(function (el) { io.observe(el); });
+    })();
+    </script>
 </body>
 </html>

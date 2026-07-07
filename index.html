@@ -5,41 +5,590 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="robots" content="index, follow">
 
-    <title>Manzill Surolia | Cyber Security &amp; GRC Professional</title>
-    <meta name="description" content="Manzill Surolia — cyber security &amp; GRC professional with 10+ years in governance, risk, compliance and security auditing (ISO 27001, NIST, PCI-DSS, HITRUST, FedRAMP).">
-    <meta name="keywords" content="Cyber Security, Risk Management, Governance, GRC, Compliance, HITRUST, PCI-DSS, FedRAMP, ISO 27001, NIST">
+    <title>Regulatory Controls, Decoded &mdash; 58 Security &amp; Privacy Frameworks Analysed | Manzill Surolia</title>
+    <meta name="description" content="A vectorised, facts-first analysis of 58 security &amp; privacy frameworks. Two-thirds of controls have a semantic twin in another framework; ~10 capabilities answer most of them. By Manzill Surolia.">
+    <meta name="keywords" content="Security Frameworks, Control Crosswalk, GRC, Compliance Mapping, NIST 800-53, NIST 800-171, ISO 27001, PCI DSS, CMMC, GDPR, HIPAA, SOC 2, TF-IDF, Cosine Similarity">
     <meta name="author" content="Manzill Surolia">
 
     <link rel="canonical" href="https://www.manzill.com/">
-    <link rel="icon" type="image/png" href="lawyer1.png">
+    <link rel="icon" type="image/png" href="/lawyer1.png">
 
     <!-- Open Graph -->
-    <meta property="og:type" content="profile">
+    <meta property="og:type" content="article">
     <meta property="og:site_name" content="Manzill Surolia">
-    <meta property="og:title" content="Manzill Surolia | Cyber Security &amp; GRC Professional">
-    <meta property="og:description" content="Cyber security &amp; GRC professional with 10+ years in governance, risk, compliance and security auditing (ISO 27001, NIST, PCI-DSS, HITRUST, FedRAMP).">
+    <meta property="og:title" content="Regulatory Controls, Decoded &mdash; 58 Security &amp; Privacy Frameworks Analysed">
+    <meta property="og:description" content="Two-thirds of security controls have a semantic twin in another framework; ~10 capabilities answer most of 58 frameworks. A vectorised, facts-first analysis.">
     <meta property="og:url" content="https://www.manzill.com/">
     <meta property="og:image" content="https://www.manzill.com/lawyer1.png">
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="Manzill Surolia | Cyber Security &amp; GRC Professional">
-    <meta name="twitter:description" content="Cyber security &amp; GRC professional with 10+ years in governance, risk, compliance and security auditing.">
+    <meta name="twitter:title" content="Regulatory Controls, Decoded">
+    <meta name="twitter:description" content="A vectorised, facts-first analysis of 58 security &amp; privacy frameworks &mdash; by Manzill Surolia.">
     <meta name="twitter:image" content="https://www.manzill.com/lawyer1.png">
 
     <style>
-        a {
-            text-decoration: none;
-            color: blue; /* Default link color */
-        }
-        a:hover {
-            color: darkred; /* Hover color */
-        }
-        h1 {
-            font-size: 1.5em; /* keep close to the previous h2 size */
-            margin-bottom: 0.2em;
-        }
-    </style>
+:root {
+  --brand: #b71c1c;
+  --brand-dark: #7f0000;
+  --accent: #f5b400;
+  --bg: #fafafa;
+  --surface: #ffffff;
+  --text: #1a1a1a;
+  --muted: #6b6b6b;
+  --border: #e5e5e5;
+  --shadow: 0 1px 3px rgba(0,0,0,.06), 0 4px 12px rgba(0,0,0,.04);
+  --radius: 12px;
+  --maxw: 1100px;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0f0f10;
+    --surface: #18181b;
+    --text: #f1f1f1;
+    --muted: #a1a1aa;
+    --border: #2a2a2e;
+    --shadow: 0 1px 3px rgba(0,0,0,.4), 0 4px 12px rgba(0,0,0,.3);
+  }
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  font-family: 'Noto Sans Devanagari', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: inherit; text-decoration: none; }
+img { display: block; max-width: 100%; height: auto; }
+
+header.site {
+  background: var(--brand);
+  color: #fff;
+  border-bottom: 3px solid var(--accent);
+  box-shadow: var(--shadow);
+}
+.bar {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 800;
+  font-size: 1.4rem;
+}
+.brand .logo {
+  width: 34px; height: 34px;
+  background: #fff;
+  color: var(--brand);
+  border-radius: 8px;
+  display: grid;
+  place-items: center;
+  font-weight: 900;
+  font-size: 1.15rem;
+}
+.date-strip {
+  margin-left: auto;
+  font-size: .82rem;
+  opacity: .92;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.date-strip .archive-link {
+  background: rgba(255,255,255,.15);
+  border: 1px solid rgba(255,255,255,.28);
+  color: #fff;
+  padding: 6px 12px;
+  border-radius: 999px;
+}
+.date-strip .archive-link:hover { background: rgba(255,255,255,.25); }
+.refresh-btn {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--brand);
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: .76rem;
+  cursor: pointer;
+  font-family: inherit;
+}
+.refresh-btn:hover { background: rgba(183,28,28,.08); border-color: var(--brand); }
+.refresh-btn[aria-busy="true"] { opacity: .6; pointer-events: none; }
+#status { align-items: center; }
+
+.hero { margin: 8px 0 4px; }
+.hero h1 { font-size: 1.5rem; margin: 0; font-weight: 800; }
+
+main {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 20px 16px 60px;
+}
+
+section.feed { margin-bottom: 36px; }
+.section-head {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin: 8px 0 14px;
+}
+.section-head h2 {
+  font-size: 1.25rem;
+  margin: 0;
+  padding-left: 12px;
+  border-left: 4px solid var(--brand);
+  font-weight: 800;
+}
+.section-head .count {
+  color: var(--muted);
+  font-size: .82rem;
+}
+
+.tabs {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 6px;
+  margin: 4px 0 22px;
+  position: sticky;
+  top: 8px;
+  z-index: 10;
+  box-shadow: var(--shadow);
+}
+.tabs::-webkit-scrollbar { height: 4px; }
+.tab {
+  flex: 0 0 auto;
+  background: transparent;
+  border: 0;
+  color: var(--text);
+  text-decoration: none;
+  padding: 8px 14px;
+  border-radius: 999px;
+  font-family: inherit;
+  font-size: .92rem;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: background .15s ease, color .15s ease;
+}
+.tab:hover { background: rgba(183,28,28,.08); }
+.tab[aria-selected="true"] {
+  background: var(--brand);
+  color: #fff;
+}
+.tab .badge {
+  background: rgba(0,0,0,.08);
+  font-size: .72rem;
+  padding: 1px 7px;
+  border-radius: 999px;
+  font-weight: 700;
+}
+.tab[aria-selected="true"] .badge { background: rgba(255,255,255,.22); }
+.tab--cta { color: var(--brand); font-weight: 700; }
+.tab--cta:hover { background: rgba(183,28,28,.12); }
+.tab-ext { font-size: .78em; opacity: .85; }
+@media (prefers-color-scheme: dark) {
+  .tab:hover { background: rgba(255,255,255,.06); }
+  .tab .badge { background: rgba(255,255,255,.10); }
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 18px;
+}
+.grid-text {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 12px;
+}
+.card-text {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--brand);
+  border-radius: 10px;
+  padding: 14px 16px;
+  box-shadow: var(--shadow);
+  transition: transform .15s ease, box-shadow .15s ease;
+}
+.card-text:hover { transform: translateY(-1px); box-shadow: 0 6px 18px rgba(0,0,0,.10); }
+.card-text a { display: block; }
+.card-text h3 {
+  font-size: 1rem;
+  margin: 0 0 6px;
+  line-height: 1.45;
+  font-weight: 700;
+}
+.card-text .desc {
+  font-size: .88rem;
+  color: var(--muted);
+  margin: 0 0 8px;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.card-text .info {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  font-size: .76rem;
+  color: var(--muted);
+  flex-wrap: wrap;
+}
+.card-text .info .src { font-weight: 700; color: var(--brand); }
+.card-text .info .dot { width: 3px; height: 3px; background: currentColor; border-radius: 50%; opacity: .5; }
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+  transition: transform .15s ease, box-shadow .15s ease;
+}
+.card:hover { transform: translateY(-2px); box-shadow: 0 6px 18px rgba(0,0,0,.10); }
+.card .thumb {
+  aspect-ratio: 16/9;
+  background: linear-gradient(135deg, #2a2a2a, #555);
+  overflow: hidden;
+}
+.card .thumb img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+}
+.card .body {
+  padding: 14px 16px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: 1;
+}
+.card h3 {
+  font-size: 1.04rem;
+  margin: 0;
+  line-height: 1.4;
+  font-weight: 700;
+}
+.card .desc {
+  font-size: .9rem;
+  color: var(--muted);
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.card .info {
+  margin-top: auto;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  font-size: .78rem;
+  color: var(--muted);
+  flex-wrap: wrap;
+}
+.card .info .src { font-weight: 700; color: var(--brand); }
+.card .info .dot { width: 3px; height: 3px; background: currentColor; border-radius: 50%; opacity: .5; }
+
+.skeleton .card {
+  background: var(--surface);
+  pointer-events: none;
+}
+.skeleton .thumb {
+  background: linear-gradient(90deg, var(--border) 25%, rgba(0,0,0,.04) 50%, var(--border) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.2s infinite;
+}
+.skeleton .body > * {
+  background: var(--border);
+  border-radius: 4px;
+  height: 12px;
+  animation: shimmer 1.2s infinite;
+  background-size: 200% 100%;
+}
+.skeleton .body h3 { height: 18px; width: 90%; }
+.skeleton .body .desc { height: 12px; width: 75%; }
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+.empty-note {
+  padding: 16px;
+  background: var(--surface);
+  border: 1px dashed var(--border);
+  border-radius: var(--radius);
+  color: var(--muted);
+  font-size: .9rem;
+  grid-column: 1/-1;
+}
+
+.editorial-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--accent);
+  border-radius: var(--radius);
+  padding: 18px 20px;
+  margin-bottom: 18px;
+  box-shadow: var(--shadow);
+}
+.editorial-card h2 {
+  margin: 0 0 10px;
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--brand);
+}
+.editorial-card p {
+  margin: 0 0 12px;
+  font-size: .95rem;
+  line-height: 1.7;
+}
+.editorial-card .byline {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid var(--border);
+  font-size: .85rem;
+  color: var(--muted);
+}
+.editorial-card .byline strong { color: var(--text); }
+
+.error-box {
+  padding: 24px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  text-align: center;
+  color: var(--muted);
+}
+.error-box button {
+  margin-top: 12px;
+  background: var(--brand);
+  color: #fff;
+  border: 0;
+  padding: 8px 18px;
+  border-radius: 999px;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.fade-in { animation: fade .35s ease-out both; }
+@keyframes fade {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+
+/* ---- analysis-specific components (built on the brand tokens) ---- */
+.brand .logo { font-family: system-ui, sans-serif; }
+.date-strip .tag {
+  background: rgba(255,255,255,.15);
+  border: 1px solid rgba(255,255,255,.28);
+  padding: 6px 12px; border-radius: 999px; white-space: nowrap;
+}
+
+.hero { margin: 26px 0 6px; }
+.hero h1 {
+  font-size: clamp(1.8rem, 4.4vw, 2.7rem);
+  line-height: 1.12;
+  letter-spacing: -.015em;
+}
+.hero .sub {
+  margin: .5rem 0 0;
+  color: var(--muted);
+  font-size: clamp(1rem, 2.2vw, 1.18rem);
+  max-width: 62ch;
+}
+
+.tab[href] { text-decoration: none; }
+
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 320px;
+  gap: 30px;
+  align-items: start;
+}
+article.content > section { margin-bottom: 40px; scroll-margin-top: 64px; }
+article.content > section:first-child { margin-top: 6px; }
+article.content p { margin: 0 0 14px; }
+.lede {
+  font-size: 1.06rem;
+  line-height: 1.72;
+}
+.note { font-size: .88rem; color: var(--muted); margin: 6px 0 0; }
+.reading { color: var(--muted); }
+
+/* stat tiles */
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 12px;
+  margin: 18px 0 22px;
+}
+.stat {
+  background: linear-gradient(135deg, var(--brand), var(--brand-dark));
+  color: #fff;
+  border-radius: var(--radius);
+  padding: 16px 16px 14px;
+  box-shadow: var(--shadow);
+  display: flex; flex-direction: column; gap: 4px;
+  border-top: 3px solid var(--accent);
+}
+.stat .num { font-size: 2rem; font-weight: 900; line-height: 1; letter-spacing: -.02em; }
+.stat .lbl { font-size: .82rem; opacity: .95; line-height: 1.35; }
+
+/* meter (bar) */
+.meter { display: flex; align-items: center; gap: 10px; }
+.meter .track {
+  flex: 1 1 auto; min-width: 60px; height: 9px;
+  background: var(--border); border-radius: 999px; overflow: hidden;
+}
+.meter .fill {
+  display: block; height: 100%;
+  background: linear-gradient(90deg, var(--brand), var(--brand-dark));
+  border-radius: 999px;
+}
+.meter b { font-variant-numeric: tabular-nums; min-width: 3.4ch; text-align: right; font-weight: 700; }
+
+/* chart card (threshold bars) */
+.chart-card {
+  margin: 22px 0 0;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px 18px 18px;
+  box-shadow: var(--shadow);
+}
+.chart-card figcaption {
+  font-weight: 700; font-size: .95rem; margin-bottom: 12px;
+  padding-left: 10px; border-left: 3px solid var(--accent);
+}
+.thr-row { display: flex; align-items: center; gap: 14px; margin: 10px 0; }
+.thr-lab { flex: 0 0 128px; font-size: .86rem; font-weight: 600; }
+.thr-sub { display: block; color: var(--muted); font-weight: 400; font-size: .78rem; }
+.chart-card .meter { flex: 1; }
+
+/* data tables */
+.table-wrap {
+  overflow-x: auto; -webkit-overflow-scrolling: touch;
+  border: 1px solid var(--border); border-radius: var(--radius);
+  box-shadow: var(--shadow); background: var(--surface);
+}
+table.data-table { border-collapse: collapse; width: 100%; font-size: .92rem; }
+table.data-table th, table.data-table td {
+  text-align: left; padding: 11px 14px; vertical-align: middle;
+  border-bottom: 1px solid var(--border);
+}
+table.data-table thead th {
+  background: var(--brand); color: #fff; font-weight: 700;
+  font-size: .82rem; letter-spacing: .01em; white-space: nowrap;
+}
+table.data-table tbody tr:nth-child(even) { background: rgba(183,28,28,.035); }
+table.data-table tbody tr:last-child td { border-bottom: 0; }
+table.data-table tbody tr:hover { background: rgba(183,28,28,.07); }
+.mcell { min-width: 140px; }
+td.ref { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-weight: 700; color: var(--brand); white-space: nowrap; }
+@media (prefers-color-scheme: dark) {
+  table.data-table tbody tr:nth-child(even) { background: rgba(255,255,255,.03); }
+  table.data-table tbody tr:hover { background: rgba(183,28,28,.16); }
+}
+
+/* callout */
+.callout {
+  background: rgba(245,180,0,.10);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--accent);
+  border-radius: var(--radius);
+  padding: 14px 18px; margin: 16px 0 0;
+}
+.callout p { margin: 0; font-weight: 600; color: var(--text); }
+
+/* heatmap */
+.heatmap-figure { margin: 20px 0 0; }
+.heatmap-figure figcaption {
+  font-weight: 700; font-size: .95rem; margin-bottom: 12px;
+  padding-left: 10px; border-left: 3px solid var(--accent);
+}
+table.heatmap { border-collapse: collapse; font-size: .74rem; width: auto; }
+table.heatmap th, table.heatmap td { border: 1px solid var(--border); }
+table.heatmap td.hm {
+  width: 44px; min-width: 40px; height: 34px; text-align: center;
+  font-variant-numeric: tabular-nums; color: var(--text);
+}
+table.heatmap td.hm.hi { color: #fff; font-weight: 700; }
+th.hm-col { padding: 6px 3px; font-size: .68rem; font-weight: 700; background: var(--surface); }
+th.hm-col span { display: block; white-space: nowrap; }
+th.hm-row {
+  text-align: right; padding: 4px 10px; font-size: .74rem; font-weight: 700;
+  white-space: nowrap; background: var(--surface); position: sticky; left: 0;
+}
+table.heatmap thead th:first-child { background: var(--surface); position: sticky; left: 0; z-index: 1; }
+.hm-legend { display: flex; align-items: center; gap: 8px; font-size: .78rem; color: var(--muted); margin-top: 10px; }
+.hm-legend .scale {
+  flex: 0 0 120px; height: 10px; border-radius: 999px;
+  background: linear-gradient(90deg, rgba(183,28,28,.06), rgba(183,28,28,1));
+  border: 1px solid var(--border);
+}
+
+/* takeaways */
+ul.takeaways { margin: 6px 0 0; padding-left: 0; list-style: none; }
+ul.takeaways li {
+  position: relative; padding: 10px 0 10px 30px;
+  border-bottom: 1px solid var(--border); font-size: .98rem;
+}
+ul.takeaways li:last-child { border-bottom: 0; }
+ul.takeaways li::before {
+  content: "\25B8"; color: var(--brand); position: absolute; left: 6px; top: 10px; font-weight: 900;
+}
+.method {
+  margin-top: 22px; font-size: .86rem; color: var(--muted);
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 14px 16px;
+}
+.method strong { color: var(--text); }
+
+/* sidebar */
+aside.sidebar { position: sticky; top: 64px; }
+.author-card p.name { font-size: 1.15rem; font-weight: 800; color: var(--text); margin-bottom: 10px; }
+.author-card .socials { font-size: .9rem; }
+.author-card .socials a { color: var(--brand); font-weight: 700; }
+.author-card .socials a:hover { text-decoration: underline; }
+.author-card .tag-hash { color: var(--muted); }
+
+/* footer */
+footer.site-footer {
+  border-top: 3px solid var(--accent);
+  background: var(--surface);
+}
+footer.site-footer .bar { color: var(--muted); font-size: .85rem; justify-content: center; }
+footer.site-footer p { margin: 0; }
+
+@media (max-width: 860px) {
+  .layout { grid-template-columns: 1fr; gap: 8px; }
+  aside.sidebar { position: static; margin-top: 8px; }
+}
+</style>
 
     <script type="application/ld+json">
     {
@@ -50,16 +599,8 @@
       "image": "https://www.manzill.com/lawyer1.png",
       "jobTitle": "Cyber Security & GRC Professional",
       "knowsAbout": [
-        "Cyber Security",
-        "Risk Management",
-        "Governance",
-        "GRC",
-        "Compliance",
-        "HITRUST",
-        "PCI-DSS",
-        "FedRAMP",
-        "ISO 27001",
-        "NIST"
+        "Cyber Security", "Risk Management", "Governance", "GRC", "Compliance",
+        "HITRUST", "PCI-DSS", "FedRAMP", "ISO 27001", "NIST"
       ],
       "sameAs": [
         "https://in.linkedin.com/in/manzill",
@@ -68,29 +609,209 @@
       ]
     }
     </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "Regulatory Controls, Decoded",
+      "description": "A vectorised, facts-first analysis of 58 security and privacy frameworks using TF-IDF vectors and cosine similarity.",
+      "author": { "@type": "Person", "name": "Manzill Surolia", "url": "https://www.manzill.com/" },
+      "publisher": { "@type": "Person", "name": "Manzill Surolia" },
+      "datePublished": "2026-07-07",
+      "image": "https://www.manzill.com/lawyer1.png",
+      "mainEntityOfPage": "https://www.manzill.com/",
+      "about": [
+        "NIST 800-53", "NIST 800-171", "CMMC", "ISO 27001", "PCI DSS",
+        "GDPR", "HIPAA", "SOC 2", "CIS Benchmarks", "Security control mapping"
+      ]
+    }
+    </script>
 </head>
 <body>
-    <header>
-        <h1>Manzill Surolia</h1>
+    <header class="site">
+      <div class="bar">
+        <a class="brand" href="/">
+          <span class="logo">M</span>
+          <span>Manzill Surolia</span>
+        </a>
+        <div class="date-strip">
+          <span class="tag">Analysis &middot; 7 Jul 2026</span>
+        </div>
+      </div>
     </header>
-    <main>
-        <p>
-            <b>Education: </b>LL.B, MCA<br>
-            <b>Experience: </b>Cyber security professional with over 10 years of experience in cyber security, governance, risk management, and compliance.
-            Strong background in governance, risk, and compliance (GRC), with hands-on experience in security auditing, regulatory
-            compliance (HITRUST, PCI-DSS, FedRAMP, ISO 27001, NIST), and overseeing data protection measures.
-            Adept in designing incident response plans, business continuity plans (BCP), and driving initiatives in security posture management.
-        </p>
-<p>
-  <a href="https://in.linkedin.com/in/manzill"><img src="https://static.licdn.com/scds/common/u/images/logos/favicons/v1/favicon.ico" width="16" height="16" alt="LinkedIn"> </a>
-  <a href="https://x.com/manzill"> <img src="https://abs.twimg.com/favicons/twitter.2.ico" width="16" height="16" alt="X"> </a>
-  <a href="https://www.facebook.com/manzill"> <img src="https://www.facebook.com/favicon.ico" width="16" height="16" alt="Facebook"> </a>
-  #Manzill
-</p>
 
+    <main>
+      <section class="hero">
+        <h1>Regulatory Controls, Decoded</h1>
+        <p class="sub">A vectorised, facts-first analysis of 58 security &amp; privacy frameworks.</p>
+      </section>
+
+      <nav class="tabs" aria-label="Sections">
+        <a class="tab" href="#overview">Overview</a>
+        <a class="tab" href="#commonality">Commonality</a>
+        <a class="tab" href="#similarity">Similarity</a>
+        <a class="tab" href="#structure">Structure</a>
+        <a class="tab" href="#crosswalk">Crosswalk</a>
+        <a class="tab" href="#bottom-line">Bottom line</a>
+      </nav>
+
+      <div class="layout">
+        <article class="content">
+
+          <section id="overview">
+            <div class="stat-grid">
+        <div class="stat"><span class="num">58</span><span class="lbl">frameworks compared</span></div>
+        <div class="stat"><span class="num">64%</span><span class="lbl">controls have a twin in another framework</span></div>
+        <div class="stat"><span class="num">37%</span><span class="lbl">near-identical cross-framework</span></div>
+        <div class="stat"><span class="num">97%</span><span class="lbl">frameworks require logging &amp; monitoring</span></div>
+        <div class="stat"><span class="num">~10</span><span class="lbl">capabilities cover the whole field</span></div>
+            </div>
+            <p class="lede">The headline finding, measured &mdash; not asserted. Every control was turned into a numerical vector (TF-IDF over its title and requirement text) and compared to every other by cosine similarity. Nearly two-thirds of all controls have a semantic twin in a <strong>different</strong> framework; one in three is near-identical. Regulations do not invent new requirements &mdash; they re-word shared ones.</p>
+
+            <figure class="chart-card">
+              <figcaption>Share of controls with a semantic twin in a different framework</figcaption>
+          <div class="thr-row"><span class="thr-lab">&ge; 0.5 <span class="thr-sub">related</span></span><span class="meter"><span class="track"><span class="fill" style="width:64%"></span></span><b>64%</b></span></div>
+          <div class="thr-row"><span class="thr-lab">&ge; 0.6 <span class="thr-sub">strong</span></span><span class="meter"><span class="track"><span class="fill" style="width:56%"></span></span><b>56%</b></span></div>
+          <div class="thr-row"><span class="thr-lab">&ge; 0.7 <span class="thr-sub">very close</span></span><span class="meter"><span class="track"><span class="fill" style="width:46%"></span></span><b>46%</b></span></div>
+          <div class="thr-row"><span class="thr-lab">&ge; 0.8 <span class="thr-sub">near-identical</span></span><span class="meter"><span class="track"><span class="fill" style="width:36%"></span></span><b>36%</b></span></div>
+            </figure>
+          </section>
+
+          <section id="commonality">
+            <div class="section-head"><h2>1 &middot; The Commonality: Frameworks Ask for the Same Things</h2></div>
+            <p>Searching every control for core capabilities shows how few ideas the field actually turns on. Ten capabilities recur across most of the 58 frameworks.</p>
+            <div class="table-wrap">
+              <table class="data-table">
+                <thead><tr><th>Universal capability</th><th>In % of frameworks</th><th>Reading</th></tr></thead>
+                <tbody>
+            <tr><td>Logging &amp; monitoring</td><td class="mcell"><span class="meter"><span class="track"><span class="fill" style="width:97%"></span></span><b>97%</b></span></td><td class="reading">The one near-universal control</td></tr>
+            <tr><td>Access control / least privilege</td><td class="mcell"><span class="meter"><span class="track"><span class="fill" style="width:79%"></span></span><b>79%</b></span></td><td class="reading">Identity is the perimeter</td></tr>
+            <tr><td>Vulnerability &amp; patch management</td><td class="mcell"><span class="meter"><span class="track"><span class="fill" style="width:67%"></span></span><b>67%</b></span></td><td class="reading">Hygiene, everywhere</td></tr>
+            <tr><td>Incident response</td><td class="mcell"><span class="meter"><span class="track"><span class="fill" style="width:66%"></span></span><b>66%</b></span></td><td class="reading">Assume breach; prove readiness</td></tr>
+            <tr><td>Third-party / supply-chain assurance</td><td class="mcell"><span class="meter"><span class="track"><span class="fill" style="width:66%"></span></span><b>66%</b></span></td><td class="reading">Risk crosses org boundaries</td></tr>
+            <tr><td>Encryption (transit &amp; rest)</td><td class="mcell"><span class="meter"><span class="track"><span class="fill" style="width:60%"></span></span><b>60%</b></span></td><td class="reading">Data protection by default</td></tr>
+            <tr><td>Awareness &amp; training</td><td class="mcell"><span class="meter"><span class="track"><span class="fill" style="width:53%"></span></span><b>53%</b></span></td><td class="reading">The human control</td></tr>
+            <tr><td>Backup &amp; recovery</td><td class="mcell"><span class="meter"><span class="track"><span class="fill" style="width:50%"></span></span><b>50%</b></span></td><td class="reading">Resilience is compliance</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="note">Risk assessment and multi-factor authentication follow at 43% each, completing the ten.</p>
+            <div class="callout"><p>&#9656; Master ~10 capabilities and you answer the substance of most of 58 frameworks. The work is finite; only the paperwork multiplies.</p></div>
+          </section>
+
+          <section id="similarity">
+            <div class="section-head"><h2>2 &middot; The Similarity: Which Regulations Are Really the Same</h2></div>
+            <p>Comparing frameworks vector-to-vector (average of their control vectors) surfaces near-duplicate standards. Some pairs are versions of one document; others are genuinely different standards that have quietly converged &mdash; the ones worth a single crosswalk.</p>
+            <div class="table-wrap">
+              <table class="data-table">
+                <thead><tr><th>Framework pair</th><th>Similarity</th><th>Type</th></tr></thead>
+                <tbody>
+            <tr><td>CMMC v2.0 Level 2 &nbsp;&asymp;&nbsp; NIST 800-171</td><td class="mcell"><span class="meter"><span class="track"><span class="fill" style="width:94%"></span></span><b>0.94</b></span></td><td class="reading">Cross-standard &mdash; map once, claim both</td></tr>
+            <tr><td>ISO 27799 (health) &nbsp;&asymp;&nbsp; ISO/IEC 27033-1 (network)</td><td class="mcell"><span class="meter"><span class="track"><span class="fill" style="width:94%"></span></span><b>0.94</b></span></td><td class="reading">Cross-standard convergence</td></tr>
+            <tr><td>ISO 19791 &nbsp;&asymp;&nbsp; ISO 27799</td><td class="mcell"><span class="meter"><span class="track"><span class="fill" style="width:93%"></span></span><b>0.93</b></span></td><td class="reading">Cross-standard convergence</td></tr>
+            <tr><td>EU GDPR &nbsp;&asymp;&nbsp; UK GDPR</td><td class="mcell"><span class="meter"><span class="track"><span class="fill" style="width:98%"></span></span><b>0.98</b></span></td><td class="reading">Same law, two jurisdictions</td></tr>
+            <tr><td>CIS Implementation Group 2 &nbsp;&asymp;&nbsp; Group 3</td><td class="mcell"><span class="meter"><span class="track"><span class="fill" style="width:98%"></span></span><b>0.98</b></span></td><td class="reading">Tiers of one framework</td></tr>
+            <tr><td>ASD Essential 8 ML2 &nbsp;&asymp;&nbsp; ML3</td><td class="mcell"><span class="meter"><span class="track"><span class="fill" style="width:96%"></span></span><b>0.96</b></span></td><td class="reading">Maturity tiers of one framework</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="callout"><p>&#9656; Frameworks are distinct as documents (average pairwise similarity just 0.12) yet overlap heavily control-by-control. The redundancy lives in the controls, not the framing &mdash; which is exactly why &lsquo;comply once, report many&rsquo; works.</p></div>
+
+            <figure class="heatmap-figure">
+              <figcaption>Framework-to-framework similarity (control-text overlap)</figcaption>
+              <div class="table-wrap">
+                <table class="heatmap">
+                  <thead><tr><th></th><th class="hm-col"><span>800-53</span></th><th class="hm-col"><span>800-171</span></th><th class="hm-col"><span>CMMC</span></th><th class="hm-col"><span>CSF</span></th><th class="hm-col"><span>27001</span></th><th class="hm-col"><span>PCI 4.0</span></th><th class="hm-col"><span>Azure</span></th><th class="hm-col"><span>FSBP</span></th><th class="hm-col"><span>GDPR</span></th><th class="hm-col"><span>HIPAA</span></th><th class="hm-col"><span>Ess 8</span></th><th class="hm-col"><span>SOC 2</span></th></tr></thead>
+                  <tbody>
+          <tr><th class="hm-row" scope="row">NIST 800-53</th><td class="hm hi" style="background:rgba(183,28,28,1.00)" title="NIST 800-53 × NIST 800-53 = 1.00">1.00</td><td class="hm hi" style="background:rgba(183,28,28,0.53)" title="NIST 800-53 × NIST 800-171 = 0.53">0.53</td><td class="hm hi" style="background:rgba(183,28,28,0.50)" title="NIST 800-53 × CMMC L2 = 0.50">0.50</td><td class="hm" style="background:rgba(183,28,28,0.29)" title="NIST 800-53 × NIST CSF = 0.29">0.29</td><td class="hm" style="background:rgba(183,28,28,0.37)" title="NIST 800-53 × ISO 27001 = 0.37">0.37</td><td class="hm" style="background:rgba(183,28,28,0.32)" title="NIST 800-53 × PCI DSS 4.0 = 0.32">0.32</td><td class="hm" style="background:rgba(183,28,28,0.15)" title="NIST 800-53 × CIS Azure = 0.15">0.15</td><td class="hm" style="background:rgba(183,28,28,0.13)" title="NIST 800-53 × AWS FSBP = 0.13">0.13</td><td class="hm" style="background:rgba(183,28,28,0.12)" title="NIST 800-53 × EU GDPR = 0.12">0.12</td><td class="hm" style="background:rgba(183,28,28,0.15)" title="NIST 800-53 × HIPAA = 0.15">0.15</td><td class="hm" style="background:rgba(183,28,28,0.14)" title="NIST 800-53 × Essential 8 = 0.14">0.14</td><td class="hm" style="background:rgba(183,28,28,0.22)" title="NIST 800-53 × SOC 2 = 0.22">0.22</td></tr>
+          <tr><th class="hm-row" scope="row">NIST 800-171</th><td class="hm hi" style="background:rgba(183,28,28,0.53)" title="NIST 800-171 × NIST 800-53 = 0.53">0.53</td><td class="hm hi" style="background:rgba(183,28,28,1.00)" title="NIST 800-171 × NIST 800-171 = 1.00">1.00</td><td class="hm hi" style="background:rgba(183,28,28,0.94)" title="NIST 800-171 × CMMC L2 = 0.94">0.94</td><td class="hm" style="background:rgba(183,28,28,0.22)" title="NIST 800-171 × NIST CSF = 0.22">0.22</td><td class="hm" style="background:rgba(183,28,28,0.28)" title="NIST 800-171 × ISO 27001 = 0.28">0.28</td><td class="hm" style="background:rgba(183,28,28,0.25)" title="NIST 800-171 × PCI DSS 4.0 = 0.25">0.25</td><td class="hm" style="background:rgba(183,28,28,0.15)" title="NIST 800-171 × CIS Azure = 0.15">0.15</td><td class="hm" style="background:rgba(183,28,28,0.11)" title="NIST 800-171 × AWS FSBP = 0.11">0.11</td><td class="hm" style="background:rgba(183,28,28,0.05)" title="NIST 800-171 × EU GDPR = 0.05">0.05</td><td class="hm" style="background:rgba(183,28,28,0.12)" title="NIST 800-171 × HIPAA = 0.12">0.12</td><td class="hm" style="background:rgba(183,28,28,0.15)" title="NIST 800-171 × Essential 8 = 0.15">0.15</td><td class="hm" style="background:rgba(183,28,28,0.13)" title="NIST 800-171 × SOC 2 = 0.13">0.13</td></tr>
+          <tr><th class="hm-row" scope="row">CMMC L2</th><td class="hm hi" style="background:rgba(183,28,28,0.50)" title="CMMC L2 × NIST 800-53 = 0.50">0.50</td><td class="hm hi" style="background:rgba(183,28,28,0.94)" title="CMMC L2 × NIST 800-171 = 0.94">0.94</td><td class="hm hi" style="background:rgba(183,28,28,1.00)" title="CMMC L2 × CMMC L2 = 1.00">1.00</td><td class="hm" style="background:rgba(183,28,28,0.21)" title="CMMC L2 × NIST CSF = 0.21">0.21</td><td class="hm" style="background:rgba(183,28,28,0.27)" title="CMMC L2 × ISO 27001 = 0.27">0.27</td><td class="hm" style="background:rgba(183,28,28,0.25)" title="CMMC L2 × PCI DSS 4.0 = 0.25">0.25</td><td class="hm" style="background:rgba(183,28,28,0.16)" title="CMMC L2 × CIS Azure = 0.16">0.16</td><td class="hm" style="background:rgba(183,28,28,0.12)" title="CMMC L2 × AWS FSBP = 0.12">0.12</td><td class="hm" style="background:rgba(183,28,28,0.05)" title="CMMC L2 × EU GDPR = 0.05">0.05</td><td class="hm" style="background:rgba(183,28,28,0.13)" title="CMMC L2 × HIPAA = 0.13">0.13</td><td class="hm" style="background:rgba(183,28,28,0.14)" title="CMMC L2 × Essential 8 = 0.14">0.14</td><td class="hm" style="background:rgba(183,28,28,0.13)" title="CMMC L2 × SOC 2 = 0.13">0.13</td></tr>
+          <tr><th class="hm-row" scope="row">NIST CSF</th><td class="hm" style="background:rgba(183,28,28,0.29)" title="NIST CSF × NIST 800-53 = 0.29">0.29</td><td class="hm" style="background:rgba(183,28,28,0.22)" title="NIST CSF × NIST 800-171 = 0.22">0.22</td><td class="hm" style="background:rgba(183,28,28,0.21)" title="NIST CSF × CMMC L2 = 0.21">0.21</td><td class="hm hi" style="background:rgba(183,28,28,1.00)" title="NIST CSF × NIST CSF = 1.00">1.00</td><td class="hm" style="background:rgba(183,28,28,0.35)" title="NIST CSF × ISO 27001 = 0.35">0.35</td><td class="hm" style="background:rgba(183,28,28,0.25)" title="NIST CSF × PCI DSS 4.0 = 0.25">0.25</td><td class="hm" style="background:rgba(183,28,28,0.07)" title="NIST CSF × CIS Azure = 0.07">0.07</td><td class="hm" style="background:rgba(183,28,28,0.05)" title="NIST CSF × AWS FSBP = 0.05">0.05</td><td class="hm" style="background:rgba(183,28,28,0.09)" title="NIST CSF × EU GDPR = 0.09">0.09</td><td class="hm" style="background:rgba(183,28,28,0.13)" title="NIST CSF × HIPAA = 0.13">0.13</td><td class="hm" style="background:rgba(183,28,28,0.08)" title="NIST CSF × Essential 8 = 0.08">0.08</td><td class="hm" style="background:rgba(183,28,28,0.21)" title="NIST CSF × SOC 2 = 0.21">0.21</td></tr>
+          <tr><th class="hm-row" scope="row">ISO 27001</th><td class="hm" style="background:rgba(183,28,28,0.37)" title="ISO 27001 × NIST 800-53 = 0.37">0.37</td><td class="hm" style="background:rgba(183,28,28,0.28)" title="ISO 27001 × NIST 800-171 = 0.28">0.28</td><td class="hm" style="background:rgba(183,28,28,0.27)" title="ISO 27001 × CMMC L2 = 0.27">0.27</td><td class="hm" style="background:rgba(183,28,28,0.35)" title="ISO 27001 × NIST CSF = 0.35">0.35</td><td class="hm hi" style="background:rgba(183,28,28,1.00)" title="ISO 27001 × ISO 27001 = 1.00">1.00</td><td class="hm" style="background:rgba(183,28,28,0.30)" title="ISO 27001 × PCI DSS 4.0 = 0.30">0.30</td><td class="hm" style="background:rgba(183,28,28,0.09)" title="ISO 27001 × CIS Azure = 0.09">0.09</td><td class="hm" style="background:rgba(183,28,28,0.09)" title="ISO 27001 × AWS FSBP = 0.09">0.09</td><td class="hm" style="background:rgba(183,28,28,0.12)" title="ISO 27001 × EU GDPR = 0.12">0.12</td><td class="hm" style="background:rgba(183,28,28,0.17)" title="ISO 27001 × HIPAA = 0.17">0.17</td><td class="hm" style="background:rgba(183,28,28,0.12)" title="ISO 27001 × Essential 8 = 0.12">0.12</td><td class="hm" style="background:rgba(183,28,28,0.25)" title="ISO 27001 × SOC 2 = 0.25">0.25</td></tr>
+          <tr><th class="hm-row" scope="row">PCI DSS 4.0</th><td class="hm" style="background:rgba(183,28,28,0.32)" title="PCI DSS 4.0 × NIST 800-53 = 0.32">0.32</td><td class="hm" style="background:rgba(183,28,28,0.25)" title="PCI DSS 4.0 × NIST 800-171 = 0.25">0.25</td><td class="hm" style="background:rgba(183,28,28,0.25)" title="PCI DSS 4.0 × CMMC L2 = 0.25">0.25</td><td class="hm" style="background:rgba(183,28,28,0.25)" title="PCI DSS 4.0 × NIST CSF = 0.25">0.25</td><td class="hm" style="background:rgba(183,28,28,0.30)" title="PCI DSS 4.0 × ISO 27001 = 0.30">0.30</td><td class="hm hi" style="background:rgba(183,28,28,1.00)" title="PCI DSS 4.0 × PCI DSS 4.0 = 1.00">1.00</td><td class="hm" style="background:rgba(183,28,28,0.14)" title="PCI DSS 4.0 × CIS Azure = 0.14">0.14</td><td class="hm" style="background:rgba(183,28,28,0.10)" title="PCI DSS 4.0 × AWS FSBP = 0.10">0.10</td><td class="hm" style="background:rgba(183,28,28,0.09)" title="PCI DSS 4.0 × EU GDPR = 0.09">0.09</td><td class="hm" style="background:rgba(183,28,28,0.18)" title="PCI DSS 4.0 × HIPAA = 0.18">0.18</td><td class="hm" style="background:rgba(183,28,28,0.11)" title="PCI DSS 4.0 × Essential 8 = 0.11">0.11</td><td class="hm" style="background:rgba(183,28,28,0.15)" title="PCI DSS 4.0 × SOC 2 = 0.15">0.15</td></tr>
+          <tr><th class="hm-row" scope="row">CIS Azure</th><td class="hm" style="background:rgba(183,28,28,0.15)" title="CIS Azure × NIST 800-53 = 0.15">0.15</td><td class="hm" style="background:rgba(183,28,28,0.15)" title="CIS Azure × NIST 800-171 = 0.15">0.15</td><td class="hm" style="background:rgba(183,28,28,0.16)" title="CIS Azure × CMMC L2 = 0.16">0.16</td><td class="hm" style="background:rgba(183,28,28,0.07)" title="CIS Azure × NIST CSF = 0.07">0.07</td><td class="hm" style="background:rgba(183,28,28,0.09)" title="CIS Azure × ISO 27001 = 0.09">0.09</td><td class="hm" style="background:rgba(183,28,28,0.14)" title="CIS Azure × PCI DSS 4.0 = 0.14">0.14</td><td class="hm hi" style="background:rgba(183,28,28,1.00)" title="CIS Azure × CIS Azure = 1.00">1.00</td><td class="hm" style="background:rgba(183,28,28,0.20)" title="CIS Azure × AWS FSBP = 0.20">0.20</td><td class="hm" style="background:rgba(183,28,28,0.06)" title="CIS Azure × EU GDPR = 0.06">0.06</td><td class="hm" style="background:rgba(183,28,28,0.05)" title="CIS Azure × HIPAA = 0.05">0.05</td><td class="hm" style="background:rgba(183,28,28,0.13)" title="CIS Azure × Essential 8 = 0.13">0.13</td><td class="hm" style="background:rgba(183,28,28,0.05)" title="CIS Azure × SOC 2 = 0.05">0.05</td></tr>
+          <tr><th class="hm-row" scope="row">AWS FSBP</th><td class="hm" style="background:rgba(183,28,28,0.13)" title="AWS FSBP × NIST 800-53 = 0.13">0.13</td><td class="hm" style="background:rgba(183,28,28,0.11)" title="AWS FSBP × NIST 800-171 = 0.11">0.11</td><td class="hm" style="background:rgba(183,28,28,0.12)" title="AWS FSBP × CMMC L2 = 0.12">0.12</td><td class="hm" style="background:rgba(183,28,28,0.05)" title="AWS FSBP × NIST CSF = 0.05">0.05</td><td class="hm" style="background:rgba(183,28,28,0.09)" title="AWS FSBP × ISO 27001 = 0.09">0.09</td><td class="hm" style="background:rgba(183,28,28,0.10)" title="AWS FSBP × PCI DSS 4.0 = 0.10">0.10</td><td class="hm" style="background:rgba(183,28,28,0.20)" title="AWS FSBP × CIS Azure = 0.20">0.20</td><td class="hm hi" style="background:rgba(183,28,28,1.00)" title="AWS FSBP × AWS FSBP = 1.00">1.00</td><td class="hm" style="background:rgba(183,28,28,0.05)" title="AWS FSBP × EU GDPR = 0.05">0.05</td><td class="hm" style="background:rgba(183,28,28,0.05)" title="AWS FSBP × HIPAA = 0.05">0.05</td><td class="hm" style="background:rgba(183,28,28,0.08)" title="AWS FSBP × Essential 8 = 0.08">0.08</td><td class="hm" style="background:rgba(183,28,28,0.05)" title="AWS FSBP × SOC 2 = 0.05">0.05</td></tr>
+          <tr><th class="hm-row" scope="row">EU GDPR</th><td class="hm" style="background:rgba(183,28,28,0.12)" title="EU GDPR × NIST 800-53 = 0.12">0.12</td><td class="hm" style="background:rgba(183,28,28,0.05)" title="EU GDPR × NIST 800-171 = 0.05">0.05</td><td class="hm" style="background:rgba(183,28,28,0.05)" title="EU GDPR × CMMC L2 = 0.05">0.05</td><td class="hm" style="background:rgba(183,28,28,0.09)" title="EU GDPR × NIST CSF = 0.09">0.09</td><td class="hm" style="background:rgba(183,28,28,0.12)" title="EU GDPR × ISO 27001 = 0.12">0.12</td><td class="hm" style="background:rgba(183,28,28,0.09)" title="EU GDPR × PCI DSS 4.0 = 0.09">0.09</td><td class="hm" style="background:rgba(183,28,28,0.06)" title="EU GDPR × CIS Azure = 0.06">0.06</td><td class="hm" style="background:rgba(183,28,28,0.05)" title="EU GDPR × AWS FSBP = 0.05">0.05</td><td class="hm hi" style="background:rgba(183,28,28,1.00)" title="EU GDPR × EU GDPR = 1.00">1.00</td><td class="hm" style="background:rgba(183,28,28,0.06)" title="EU GDPR × HIPAA = 0.06">0.06</td><td class="hm" style="background:rgba(183,28,28,0.04)" title="EU GDPR × Essential 8 = 0.04">0.04</td><td class="hm" style="background:rgba(183,28,28,0.21)" title="EU GDPR × SOC 2 = 0.21">0.21</td></tr>
+          <tr><th class="hm-row" scope="row">HIPAA</th><td class="hm" style="background:rgba(183,28,28,0.15)" title="HIPAA × NIST 800-53 = 0.15">0.15</td><td class="hm" style="background:rgba(183,28,28,0.12)" title="HIPAA × NIST 800-171 = 0.12">0.12</td><td class="hm" style="background:rgba(183,28,28,0.13)" title="HIPAA × CMMC L2 = 0.13">0.13</td><td class="hm" style="background:rgba(183,28,28,0.13)" title="HIPAA × NIST CSF = 0.13">0.13</td><td class="hm" style="background:rgba(183,28,28,0.17)" title="HIPAA × ISO 27001 = 0.17">0.17</td><td class="hm" style="background:rgba(183,28,28,0.18)" title="HIPAA × PCI DSS 4.0 = 0.18">0.18</td><td class="hm" style="background:rgba(183,28,28,0.05)" title="HIPAA × CIS Azure = 0.05">0.05</td><td class="hm" style="background:rgba(183,28,28,0.05)" title="HIPAA × AWS FSBP = 0.05">0.05</td><td class="hm" style="background:rgba(183,28,28,0.06)" title="HIPAA × EU GDPR = 0.06">0.06</td><td class="hm hi" style="background:rgba(183,28,28,1.00)" title="HIPAA × HIPAA = 1.00">1.00</td><td class="hm" style="background:rgba(183,28,28,0.04)" title="HIPAA × Essential 8 = 0.04">0.04</td><td class="hm" style="background:rgba(183,28,28,0.12)" title="HIPAA × SOC 2 = 0.12">0.12</td></tr>
+          <tr><th class="hm-row" scope="row">Essential 8</th><td class="hm" style="background:rgba(183,28,28,0.14)" title="Essential 8 × NIST 800-53 = 0.14">0.14</td><td class="hm" style="background:rgba(183,28,28,0.15)" title="Essential 8 × NIST 800-171 = 0.15">0.15</td><td class="hm" style="background:rgba(183,28,28,0.14)" title="Essential 8 × CMMC L2 = 0.14">0.14</td><td class="hm" style="background:rgba(183,28,28,0.08)" title="Essential 8 × NIST CSF = 0.08">0.08</td><td class="hm" style="background:rgba(183,28,28,0.12)" title="Essential 8 × ISO 27001 = 0.12">0.12</td><td class="hm" style="background:rgba(183,28,28,0.11)" title="Essential 8 × PCI DSS 4.0 = 0.11">0.11</td><td class="hm" style="background:rgba(183,28,28,0.13)" title="Essential 8 × CIS Azure = 0.13">0.13</td><td class="hm" style="background:rgba(183,28,28,0.08)" title="Essential 8 × AWS FSBP = 0.08">0.08</td><td class="hm" style="background:rgba(183,28,28,0.04)" title="Essential 8 × EU GDPR = 0.04">0.04</td><td class="hm" style="background:rgba(183,28,28,0.04)" title="Essential 8 × HIPAA = 0.04">0.04</td><td class="hm hi" style="background:rgba(183,28,28,1.00)" title="Essential 8 × Essential 8 = 1.00">1.00</td><td class="hm" style="background:rgba(183,28,28,0.07)" title="Essential 8 × SOC 2 = 0.07">0.07</td></tr>
+          <tr><th class="hm-row" scope="row">SOC 2</th><td class="hm" style="background:rgba(183,28,28,0.22)" title="SOC 2 × NIST 800-53 = 0.22">0.22</td><td class="hm" style="background:rgba(183,28,28,0.13)" title="SOC 2 × NIST 800-171 = 0.13">0.13</td><td class="hm" style="background:rgba(183,28,28,0.13)" title="SOC 2 × CMMC L2 = 0.13">0.13</td><td class="hm" style="background:rgba(183,28,28,0.21)" title="SOC 2 × NIST CSF = 0.21">0.21</td><td class="hm" style="background:rgba(183,28,28,0.25)" title="SOC 2 × ISO 27001 = 0.25">0.25</td><td class="hm" style="background:rgba(183,28,28,0.15)" title="SOC 2 × PCI DSS 4.0 = 0.15">0.15</td><td class="hm" style="background:rgba(183,28,28,0.05)" title="SOC 2 × CIS Azure = 0.05">0.05</td><td class="hm" style="background:rgba(183,28,28,0.05)" title="SOC 2 × AWS FSBP = 0.05">0.05</td><td class="hm" style="background:rgba(183,28,28,0.21)" title="SOC 2 × EU GDPR = 0.21">0.21</td><td class="hm" style="background:rgba(183,28,28,0.12)" title="SOC 2 × HIPAA = 0.12">0.12</td><td class="hm" style="background:rgba(183,28,28,0.07)" title="SOC 2 × Essential 8 = 0.07">0.07</td><td class="hm hi" style="background:rgba(183,28,28,1.00)" title="SOC 2 × SOC 2 = 1.00">1.00</td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="hm-legend"><span>Less overlap</span><span class="scale" aria-hidden="true"></span><span>More overlap</span></div>
+            </figure>
+          </section>
+
+          <section id="structure">
+            <div class="section-head"><h2>3 &middot; The Structure: Machine-Discovered Themes</h2></div>
+            <p>Clustering the control vectors (no labels supplied) reproduces the security syllabus on its own &mdash; identity, access, incident/risk and privacy emerge as the load-bearing themes.</p>
+            <div class="table-wrap">
+              <table class="data-table">
+                <thead><tr><th>Machine-discovered theme (top terms)</th><th>% of controls</th><th>% of frameworks</th></tr></thead>
+                <tbody>
+            <tr><td>Technical safeguards, audit &amp; records</td><td class="mcell"><span class="meter"><span class="track"><span class="fill" style="width:47%"></span></span><b>47%</b></span></td><td class="mcell"><span class="meter"><span class="track"><span class="fill" style="width:88%"></span></span><b>88%</b></span></td></tr>
+            <tr><td>Incident, risk &amp; testing</td><td class="mcell"><span class="meter"><span class="track"><span class="fill" style="width:13%"></span></span><b>13%</b></span></td><td class="mcell"><span class="meter"><span class="track"><span class="fill" style="width:53%"></span></span><b>53%</b></span></td></tr>
+            <tr><td>Identity &amp; authentication</td><td class="mcell"><span class="meter"><span class="track"><span class="fill" style="width:10%"></span></span><b>10%</b></span></td><td class="mcell"><span class="meter"><span class="track"><span class="fill" style="width:67%"></span></span><b>67%</b></span></td></tr>
+            <tr><td>Access control (incl. physical &amp; privileged)</td><td class="mcell"><span class="meter"><span class="track"><span class="fill" style="width:7%"></span></span><b>7%</b></span></td><td class="mcell"><span class="meter"><span class="track"><span class="fill" style="width:72%"></span></span><b>72%</b></span></td></tr>
+            <tr><td>Privacy &amp; personal-data processing</td><td class="mcell"><span class="meter"><span class="track"><span class="fill" style="width:4%"></span></span><b>4%</b></span></td><td class="mcell"><span class="meter"><span class="track"><span class="fill" style="width:55%"></span></span><b>55%</b></span></td></tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <section id="crosswalk">
+            <div class="section-head"><h2>4 &middot; One Capability, Five Frameworks (worked crosswalk)</h2></div>
+            <p>One idea &mdash; least privilege &mdash; written five different ways across five frameworks.</p>
+            <div class="table-wrap">
+              <table class="data-table">
+                <thead><tr><th>Framework</th><th>Control ref.</th><th>Same idea, different words</th></tr></thead>
+                <tbody>
+            <tr><td>NIST 800-53 rev.5</td><td class="ref">AC-6</td><td class="reading">Least Privilege</td></tr>
+            <tr><td>NIST 800-171</td><td class="ref">3.1.5</td><td class="reading">Least Privilege</td></tr>
+            <tr><td>PCI DSS v4.0</td><td class="ref">7.2.1</td><td class="reading">Access by role &amp; least privilege</td></tr>
+            <tr><td>CIS AWS Foundations</td><td class="ref">1.22</td><td class="reading">No IAM policy with full '*:*' admin</td></tr>
+            <tr><td>AWS Foundational Sec. BP</td><td class="ref">EC2.18</td><td class="reading">Security groups block unrestricted access</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <section id="bottom-line">
+            <div class="section-head"><h2>Bottom line</h2></div>
+            <ul class="takeaways">
+          <li><strong>~2 in 3 controls are restatements</strong> &mdash; of a control already written in another regulation.</li>
+          <li><strong>Logging first</strong> &mdash; present in 97% of frameworks &mdash; the highest-leverage first investment.</li>
+          <li><strong>Collapse the duplicates</strong> &mdash; CMMC L2 and NIST 800-171 are 94% the same; map one to the other, don&rsquo;t run two programmes.</li>
+          <li><strong>Weight by impact</strong> &mdash; GDPR is small by control-count but carries the largest penalties &mdash; count is not consequence.</li>
+          <li><strong>Build once, report many</strong> &mdash; the redundancy is at the control level, so a single capability answers dozens of identifiers.</li>
+            </ul>
+            <p class="method"><strong>Method.</strong> Each control&rsquo;s title + requirement text was vectorised with TF-IDF (1&ndash;2-word terms); twins, framework similarity and themes are derived from cosine similarity, nearest-neighbour search and k-means clustering over those vectors.</p>
+          </section>
+
+        </article>
+
+        <aside class="sidebar">
+          <div class="editorial-card author-card">
+            <h2>About the Author</h2>
+            <p class="name">Manzill Surolia</p>
+            <p><strong>Education:</strong> LL.B, MCA</p>
+            <p><strong>Experience:</strong> Cyber security professional with over 10 years of experience in cyber security, governance, risk management, and compliance. Strong background in governance, risk, and compliance (GRC), with hands-on experience in security auditing, regulatory compliance (HITRUST, PCI-DSS, FedRAMP, ISO 27001, NIST), and overseeing data protection measures. Adept in designing incident response plans, business continuity plans (BCP), and driving initiatives in security posture management.</p>
+            <p class="socials">
+              <a href="https://in.linkedin.com/in/manzill" rel="me">LinkedIn</a> &middot;
+              <a href="https://x.com/manzill" rel="me">X</a> &middot;
+              <a href="https://www.facebook.com/manzill" rel="me">Facebook</a>
+              <span class="tag-hash">&nbsp;&middot; #Manzill</span>
+            </p>
+            <div class="byline">&copy; 2026 <strong>Manzill Surolia</strong>. All rights reserved.</div>
+          </div>
+        </aside>
+      </div>
     </main>
-    <footer>
-        <p>&copy; 2025 Manzill Surolia. All rights reserved.</p>
+
+    <footer class="site-footer">
+      <div class="bar">
+        <p>&copy; 2026 Manzill Surolia. All rights reserved.</p>
+      </div>
     </footer>
 </body>
 </html>

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="robots" content="index, follow">
-    <meta name="theme-color" content="#b71c1c">
+    <meta name="theme-color" content="#0e3a5f">
 
     <title>Cyber Security | Manzill Surolia</title>
     <meta name="description" content="A vectorised, facts-first analysis of 58 security &amp; privacy frameworks. Two-thirds of controls have a semantic twin in another framework; ~10 capabilities answer most of them. By Manzill Surolia.">
@@ -46,25 +46,27 @@
 
     <style>
 :root {
-  --brand: #b71c1c;
-  --brand-dark: #7f0000;
-  --accent: #f5b400;
-  --bg: #fafafa;
+  --brand: #0e3a5f;
+  --brand-dark: #082438;
+  --link: #0d5d92;
+  --accent: #12a5b8;
+  --bg: #f6f8fa;
   --surface: #ffffff;
-  --text: #1a1a1a;
-  --muted: #6b6b6b;
-  --border: #e5e5e5;
+  --text: #0f1a24;
+  --muted: #55636e;
+  --border: #dde4ea;
   --shadow: 0 1px 3px rgba(0,0,0,.06), 0 4px 12px rgba(0,0,0,.04);
   --radius: 12px;
   --maxw: 1100px;
 }
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg: #0f0f10;
-    --surface: #18181b;
-    --text: #f1f1f1;
-    --muted: #a1a1aa;
-    --border: #2a2a2e;
+    --link: #5cb3e0;
+    --bg: #0d1117;
+    --surface: #161b22;
+    --text: #e6edf3;
+    --muted: #8b98a5;
+    --border: #26303b;
     --shadow: 0 1px 3px rgba(0,0,0,.4), 0 4px 12px rgba(0,0,0,.3);
   }
 }
@@ -115,14 +117,14 @@ header.site {
 .refresh-btn {
   background: var(--surface);
   border: 1px solid var(--border);
-  color: var(--brand);
+  color: var(--link);
   padding: 3px 10px;
   border-radius: 999px;
   font-size: .76rem;
   cursor: pointer;
   font-family: inherit;
 }
-.refresh-btn:hover { background: rgba(183,28,28,.08); border-color: var(--brand); }
+.refresh-btn:hover { background: rgba(14,58,95,.08); border-color: var(--brand); }
 .refresh-btn[aria-busy="true"] { opacity: .6; pointer-events: none; }
 #status { align-items: center; }
 
@@ -189,7 +191,7 @@ section.feed { margin-bottom: 36px; }
   gap: 6px;
   transition: background .15s ease, color .15s ease;
 }
-.tab:hover { background: rgba(183,28,28,.08); }
+.tab:hover { background: rgba(14,58,95,.08); }
 .tab[aria-selected="true"] {
   background: var(--brand);
   color: #fff;
@@ -202,8 +204,8 @@ section.feed { margin-bottom: 36px; }
   font-weight: 700;
 }
 .tab[aria-selected="true"] .badge { background: rgba(255,255,255,.22); }
-.tab--cta { color: var(--brand); font-weight: 700; }
-.tab--cta:hover { background: rgba(183,28,28,.12); }
+.tab--cta { color: var(--link); font-weight: 700; }
+.tab--cta:hover { background: rgba(14,58,95,.12); }
 .tab-ext { font-size: .78em; opacity: .85; }
 @media (prefers-color-scheme: dark) {
   .tab:hover { background: rgba(255,255,255,.06); }
@@ -254,7 +256,7 @@ section.feed { margin-bottom: 36px; }
   color: var(--muted);
   flex-wrap: wrap;
 }
-.card-text .info .src { font-weight: 700; color: var(--brand); }
+.card-text .info .src { font-weight: 700; color: var(--link); }
 .card-text .info .dot { width: 3px; height: 3px; background: currentColor; border-radius: 50%; opacity: .5; }
 
 .card {
@@ -308,7 +310,7 @@ section.feed { margin-bottom: 36px; }
   color: var(--muted);
   flex-wrap: wrap;
 }
-.card .info .src { font-weight: 700; color: var(--brand); }
+.card .info .src { font-weight: 700; color: var(--link); }
 .card .info .dot { width: 3px; height: 3px; background: currentColor; border-radius: 50%; opacity: .5; }
 
 .skeleton .card {
@@ -357,7 +359,7 @@ section.feed { margin-bottom: 36px; }
   margin: 0 0 10px;
   font-size: 1.1rem;
   font-weight: 800;
-  color: var(--brand);
+  color: var(--link);
 }
 .editorial-card p {
   margin: 0 0 12px;
@@ -411,7 +413,7 @@ section.feed { margin-bottom: 36px; }
   font-weight: 700;
   letter-spacing: .05em;
   text-transform: uppercase;
-  color: var(--brand);
+  color: var(--link);
 }
 .hero h1 {
   font-size: clamp(1.5rem, 3.2vw, 2.05rem);
@@ -509,19 +511,19 @@ table.data-table thead th {
   background: var(--brand); color: #fff; font-weight: 700;
   font-size: .82rem; letter-spacing: .01em; white-space: nowrap;
 }
-table.data-table tbody tr:nth-child(even) { background: rgba(183,28,28,.035); }
+table.data-table tbody tr:nth-child(even) { background: rgba(14,58,95,.035); }
 table.data-table tbody tr:last-child td { border-bottom: 0; }
-table.data-table tbody tr:hover { background: rgba(183,28,28,.07); }
+table.data-table tbody tr:hover { background: rgba(14,58,95,.07); }
 .mcell { min-width: 140px; }
-td.ref { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-weight: 700; color: var(--brand); white-space: nowrap; }
+td.ref { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-weight: 700; color: var(--link); white-space: nowrap; }
 @media (prefers-color-scheme: dark) {
   table.data-table tbody tr:nth-child(even) { background: rgba(255,255,255,.03); }
-  table.data-table tbody tr:hover { background: rgba(183,28,28,.16); }
+  table.data-table tbody tr:hover { background: rgba(14,58,95,.16); }
 }
 
 /* callout */
 .callout {
-  background: rgba(245,180,0,.10);
+  background: rgba(18,165,184,.10);
   border: 1px solid var(--border);
   border-left: 4px solid var(--accent);
   border-radius: var(--radius);
@@ -552,7 +554,7 @@ table.heatmap thead th:first-child { background: var(--surface); position: stick
 .hm-legend { display: flex; align-items: center; gap: 8px; font-size: .78rem; color: var(--muted); margin-top: 10px; }
 .hm-legend .scale {
   flex: 0 0 120px; height: 10px; border-radius: 999px;
-  background: linear-gradient(90deg, rgba(183,28,28,.06), rgba(183,28,28,1));
+  background: linear-gradient(90deg, rgba(14,58,95,.06), rgba(14,58,95,1));
   border: 1px solid var(--border);
 }
 
@@ -564,7 +566,7 @@ ul.takeaways li {
 }
 ul.takeaways li:last-child { border-bottom: 0; }
 ul.takeaways li::before {
-  content: "\25B8"; color: var(--brand); position: absolute; left: 6px; top: 10px; font-weight: 900;
+  content: "\25B8"; color: var(--link); position: absolute; left: 6px; top: 10px; font-weight: 900;
 }
 .method {
   margin-top: 22px; font-size: .86rem; color: var(--muted);
@@ -577,7 +579,7 @@ ul.takeaways li::before {
 aside.sidebar { position: sticky; top: 64px; }
 .author-card p.name { font-size: 1.15rem; font-weight: 800; color: var(--text); margin-bottom: 10px; }
 .author-card .socials { font-size: .9rem; }
-.author-card .socials a { color: var(--brand); font-weight: 700; }
+.author-card .socials a { color: var(--link); font-weight: 700; }
 .author-card .socials a:hover { text-decoration: underline; }
 .author-card .tag-hash { color: var(--muted); }
 
@@ -757,18 +759,18 @@ aside.sidebar { position: sticky; top: 64px; }
                 <table class="heatmap">
                   <thead><tr><th></th><th class="hm-col"><span>800-53</span></th><th class="hm-col"><span>800-171</span></th><th class="hm-col"><span>CMMC</span></th><th class="hm-col"><span>CSF</span></th><th class="hm-col"><span>27001</span></th><th class="hm-col"><span>PCI 4.0</span></th><th class="hm-col"><span>Azure</span></th><th class="hm-col"><span>FSBP</span></th><th class="hm-col"><span>GDPR</span></th><th class="hm-col"><span>HIPAA</span></th><th class="hm-col"><span>Ess 8</span></th><th class="hm-col"><span>SOC 2</span></th></tr></thead>
                   <tbody>
-          <tr><th class="hm-row" scope="row">NIST 800-53</th><td class="hm hi" style="background:rgba(183,28,28,1.00)" title="NIST 800-53 × NIST 800-53 = 1.00">1.00</td><td class="hm hi" style="background:rgba(183,28,28,0.53)" title="NIST 800-53 × NIST 800-171 = 0.53">0.53</td><td class="hm hi" style="background:rgba(183,28,28,0.50)" title="NIST 800-53 × CMMC L2 = 0.50">0.50</td><td class="hm" style="background:rgba(183,28,28,0.29)" title="NIST 800-53 × NIST CSF = 0.29">0.29</td><td class="hm" style="background:rgba(183,28,28,0.37)" title="NIST 800-53 × ISO 27001 = 0.37">0.37</td><td class="hm" style="background:rgba(183,28,28,0.32)" title="NIST 800-53 × PCI DSS 4.0 = 0.32">0.32</td><td class="hm" style="background:rgba(183,28,28,0.15)" title="NIST 800-53 × CIS Azure = 0.15">0.15</td><td class="hm" style="background:rgba(183,28,28,0.13)" title="NIST 800-53 × AWS FSBP = 0.13">0.13</td><td class="hm" style="background:rgba(183,28,28,0.12)" title="NIST 800-53 × EU GDPR = 0.12">0.12</td><td class="hm" style="background:rgba(183,28,28,0.15)" title="NIST 800-53 × HIPAA = 0.15">0.15</td><td class="hm" style="background:rgba(183,28,28,0.14)" title="NIST 800-53 × Essential 8 = 0.14">0.14</td><td class="hm" style="background:rgba(183,28,28,0.22)" title="NIST 800-53 × SOC 2 = 0.22">0.22</td></tr>
-          <tr><th class="hm-row" scope="row">NIST 800-171</th><td class="hm hi" style="background:rgba(183,28,28,0.53)" title="NIST 800-171 × NIST 800-53 = 0.53">0.53</td><td class="hm hi" style="background:rgba(183,28,28,1.00)" title="NIST 800-171 × NIST 800-171 = 1.00">1.00</td><td class="hm hi" style="background:rgba(183,28,28,0.94)" title="NIST 800-171 × CMMC L2 = 0.94">0.94</td><td class="hm" style="background:rgba(183,28,28,0.22)" title="NIST 800-171 × NIST CSF = 0.22">0.22</td><td class="hm" style="background:rgba(183,28,28,0.28)" title="NIST 800-171 × ISO 27001 = 0.28">0.28</td><td class="hm" style="background:rgba(183,28,28,0.25)" title="NIST 800-171 × PCI DSS 4.0 = 0.25">0.25</td><td class="hm" style="background:rgba(183,28,28,0.15)" title="NIST 800-171 × CIS Azure = 0.15">0.15</td><td class="hm" style="background:rgba(183,28,28,0.11)" title="NIST 800-171 × AWS FSBP = 0.11">0.11</td><td class="hm" style="background:rgba(183,28,28,0.05)" title="NIST 800-171 × EU GDPR = 0.05">0.05</td><td class="hm" style="background:rgba(183,28,28,0.12)" title="NIST 800-171 × HIPAA = 0.12">0.12</td><td class="hm" style="background:rgba(183,28,28,0.15)" title="NIST 800-171 × Essential 8 = 0.15">0.15</td><td class="hm" style="background:rgba(183,28,28,0.13)" title="NIST 800-171 × SOC 2 = 0.13">0.13</td></tr>
-          <tr><th class="hm-row" scope="row">CMMC L2</th><td class="hm hi" style="background:rgba(183,28,28,0.50)" title="CMMC L2 × NIST 800-53 = 0.50">0.50</td><td class="hm hi" style="background:rgba(183,28,28,0.94)" title="CMMC L2 × NIST 800-171 = 0.94">0.94</td><td class="hm hi" style="background:rgba(183,28,28,1.00)" title="CMMC L2 × CMMC L2 = 1.00">1.00</td><td class="hm" style="background:rgba(183,28,28,0.21)" title="CMMC L2 × NIST CSF = 0.21">0.21</td><td class="hm" style="background:rgba(183,28,28,0.27)" title="CMMC L2 × ISO 27001 = 0.27">0.27</td><td class="hm" style="background:rgba(183,28,28,0.25)" title="CMMC L2 × PCI DSS 4.0 = 0.25">0.25</td><td class="hm" style="background:rgba(183,28,28,0.16)" title="CMMC L2 × CIS Azure = 0.16">0.16</td><td class="hm" style="background:rgba(183,28,28,0.12)" title="CMMC L2 × AWS FSBP = 0.12">0.12</td><td class="hm" style="background:rgba(183,28,28,0.05)" title="CMMC L2 × EU GDPR = 0.05">0.05</td><td class="hm" style="background:rgba(183,28,28,0.13)" title="CMMC L2 × HIPAA = 0.13">0.13</td><td class="hm" style="background:rgba(183,28,28,0.14)" title="CMMC L2 × Essential 8 = 0.14">0.14</td><td class="hm" style="background:rgba(183,28,28,0.13)" title="CMMC L2 × SOC 2 = 0.13">0.13</td></tr>
-          <tr><th class="hm-row" scope="row">NIST CSF</th><td class="hm" style="background:rgba(183,28,28,0.29)" title="NIST CSF × NIST 800-53 = 0.29">0.29</td><td class="hm" style="background:rgba(183,28,28,0.22)" title="NIST CSF × NIST 800-171 = 0.22">0.22</td><td class="hm" style="background:rgba(183,28,28,0.21)" title="NIST CSF × CMMC L2 = 0.21">0.21</td><td class="hm hi" style="background:rgba(183,28,28,1.00)" title="NIST CSF × NIST CSF = 1.00">1.00</td><td class="hm" style="background:rgba(183,28,28,0.35)" title="NIST CSF × ISO 27001 = 0.35">0.35</td><td class="hm" style="background:rgba(183,28,28,0.25)" title="NIST CSF × PCI DSS 4.0 = 0.25">0.25</td><td class="hm" style="background:rgba(183,28,28,0.07)" title="NIST CSF × CIS Azure = 0.07">0.07</td><td class="hm" style="background:rgba(183,28,28,0.05)" title="NIST CSF × AWS FSBP = 0.05">0.05</td><td class="hm" style="background:rgba(183,28,28,0.09)" title="NIST CSF × EU GDPR = 0.09">0.09</td><td class="hm" style="background:rgba(183,28,28,0.13)" title="NIST CSF × HIPAA = 0.13">0.13</td><td class="hm" style="background:rgba(183,28,28,0.08)" title="NIST CSF × Essential 8 = 0.08">0.08</td><td class="hm" style="background:rgba(183,28,28,0.21)" title="NIST CSF × SOC 2 = 0.21">0.21</td></tr>
-          <tr><th class="hm-row" scope="row">ISO 27001</th><td class="hm" style="background:rgba(183,28,28,0.37)" title="ISO 27001 × NIST 800-53 = 0.37">0.37</td><td class="hm" style="background:rgba(183,28,28,0.28)" title="ISO 27001 × NIST 800-171 = 0.28">0.28</td><td class="hm" style="background:rgba(183,28,28,0.27)" title="ISO 27001 × CMMC L2 = 0.27">0.27</td><td class="hm" style="background:rgba(183,28,28,0.35)" title="ISO 27001 × NIST CSF = 0.35">0.35</td><td class="hm hi" style="background:rgba(183,28,28,1.00)" title="ISO 27001 × ISO 27001 = 1.00">1.00</td><td class="hm" style="background:rgba(183,28,28,0.30)" title="ISO 27001 × PCI DSS 4.0 = 0.30">0.30</td><td class="hm" style="background:rgba(183,28,28,0.09)" title="ISO 27001 × CIS Azure = 0.09">0.09</td><td class="hm" style="background:rgba(183,28,28,0.09)" title="ISO 27001 × AWS FSBP = 0.09">0.09</td><td class="hm" style="background:rgba(183,28,28,0.12)" title="ISO 27001 × EU GDPR = 0.12">0.12</td><td class="hm" style="background:rgba(183,28,28,0.17)" title="ISO 27001 × HIPAA = 0.17">0.17</td><td class="hm" style="background:rgba(183,28,28,0.12)" title="ISO 27001 × Essential 8 = 0.12">0.12</td><td class="hm" style="background:rgba(183,28,28,0.25)" title="ISO 27001 × SOC 2 = 0.25">0.25</td></tr>
-          <tr><th class="hm-row" scope="row">PCI DSS 4.0</th><td class="hm" style="background:rgba(183,28,28,0.32)" title="PCI DSS 4.0 × NIST 800-53 = 0.32">0.32</td><td class="hm" style="background:rgba(183,28,28,0.25)" title="PCI DSS 4.0 × NIST 800-171 = 0.25">0.25</td><td class="hm" style="background:rgba(183,28,28,0.25)" title="PCI DSS 4.0 × CMMC L2 = 0.25">0.25</td><td class="hm" style="background:rgba(183,28,28,0.25)" title="PCI DSS 4.0 × NIST CSF = 0.25">0.25</td><td class="hm" style="background:rgba(183,28,28,0.30)" title="PCI DSS 4.0 × ISO 27001 = 0.30">0.30</td><td class="hm hi" style="background:rgba(183,28,28,1.00)" title="PCI DSS 4.0 × PCI DSS 4.0 = 1.00">1.00</td><td class="hm" style="background:rgba(183,28,28,0.14)" title="PCI DSS 4.0 × CIS Azure = 0.14">0.14</td><td class="hm" style="background:rgba(183,28,28,0.10)" title="PCI DSS 4.0 × AWS FSBP = 0.10">0.10</td><td class="hm" style="background:rgba(183,28,28,0.09)" title="PCI DSS 4.0 × EU GDPR = 0.09">0.09</td><td class="hm" style="background:rgba(183,28,28,0.18)" title="PCI DSS 4.0 × HIPAA = 0.18">0.18</td><td class="hm" style="background:rgba(183,28,28,0.11)" title="PCI DSS 4.0 × Essential 8 = 0.11">0.11</td><td class="hm" style="background:rgba(183,28,28,0.15)" title="PCI DSS 4.0 × SOC 2 = 0.15">0.15</td></tr>
-          <tr><th class="hm-row" scope="row">CIS Azure</th><td class="hm" style="background:rgba(183,28,28,0.15)" title="CIS Azure × NIST 800-53 = 0.15">0.15</td><td class="hm" style="background:rgba(183,28,28,0.15)" title="CIS Azure × NIST 800-171 = 0.15">0.15</td><td class="hm" style="background:rgba(183,28,28,0.16)" title="CIS Azure × CMMC L2 = 0.16">0.16</td><td class="hm" style="background:rgba(183,28,28,0.07)" title="CIS Azure × NIST CSF = 0.07">0.07</td><td class="hm" style="background:rgba(183,28,28,0.09)" title="CIS Azure × ISO 27001 = 0.09">0.09</td><td class="hm" style="background:rgba(183,28,28,0.14)" title="CIS Azure × PCI DSS 4.0 = 0.14">0.14</td><td class="hm hi" style="background:rgba(183,28,28,1.00)" title="CIS Azure × CIS Azure = 1.00">1.00</td><td class="hm" style="background:rgba(183,28,28,0.20)" title="CIS Azure × AWS FSBP = 0.20">0.20</td><td class="hm" style="background:rgba(183,28,28,0.06)" title="CIS Azure × EU GDPR = 0.06">0.06</td><td class="hm" style="background:rgba(183,28,28,0.05)" title="CIS Azure × HIPAA = 0.05">0.05</td><td class="hm" style="background:rgba(183,28,28,0.13)" title="CIS Azure × Essential 8 = 0.13">0.13</td><td class="hm" style="background:rgba(183,28,28,0.05)" title="CIS Azure × SOC 2 = 0.05">0.05</td></tr>
-          <tr><th class="hm-row" scope="row">AWS FSBP</th><td class="hm" style="background:rgba(183,28,28,0.13)" title="AWS FSBP × NIST 800-53 = 0.13">0.13</td><td class="hm" style="background:rgba(183,28,28,0.11)" title="AWS FSBP × NIST 800-171 = 0.11">0.11</td><td class="hm" style="background:rgba(183,28,28,0.12)" title="AWS FSBP × CMMC L2 = 0.12">0.12</td><td class="hm" style="background:rgba(183,28,28,0.05)" title="AWS FSBP × NIST CSF = 0.05">0.05</td><td class="hm" style="background:rgba(183,28,28,0.09)" title="AWS FSBP × ISO 27001 = 0.09">0.09</td><td class="hm" style="background:rgba(183,28,28,0.10)" title="AWS FSBP × PCI DSS 4.0 = 0.10">0.10</td><td class="hm" style="background:rgba(183,28,28,0.20)" title="AWS FSBP × CIS Azure = 0.20">0.20</td><td class="hm hi" style="background:rgba(183,28,28,1.00)" title="AWS FSBP × AWS FSBP = 1.00">1.00</td><td class="hm" style="background:rgba(183,28,28,0.05)" title="AWS FSBP × EU GDPR = 0.05">0.05</td><td class="hm" style="background:rgba(183,28,28,0.05)" title="AWS FSBP × HIPAA = 0.05">0.05</td><td class="hm" style="background:rgba(183,28,28,0.08)" title="AWS FSBP × Essential 8 = 0.08">0.08</td><td class="hm" style="background:rgba(183,28,28,0.05)" title="AWS FSBP × SOC 2 = 0.05">0.05</td></tr>
-          <tr><th class="hm-row" scope="row">EU GDPR</th><td class="hm" style="background:rgba(183,28,28,0.12)" title="EU GDPR × NIST 800-53 = 0.12">0.12</td><td class="hm" style="background:rgba(183,28,28,0.05)" title="EU GDPR × NIST 800-171 = 0.05">0.05</td><td class="hm" style="background:rgba(183,28,28,0.05)" title="EU GDPR × CMMC L2 = 0.05">0.05</td><td class="hm" style="background:rgba(183,28,28,0.09)" title="EU GDPR × NIST CSF = 0.09">0.09</td><td class="hm" style="background:rgba(183,28,28,0.12)" title="EU GDPR × ISO 27001 = 0.12">0.12</td><td class="hm" style="background:rgba(183,28,28,0.09)" title="EU GDPR × PCI DSS 4.0 = 0.09">0.09</td><td class="hm" style="background:rgba(183,28,28,0.06)" title="EU GDPR × CIS Azure = 0.06">0.06</td><td class="hm" style="background:rgba(183,28,28,0.05)" title="EU GDPR × AWS FSBP = 0.05">0.05</td><td class="hm hi" style="background:rgba(183,28,28,1.00)" title="EU GDPR × EU GDPR = 1.00">1.00</td><td class="hm" style="background:rgba(183,28,28,0.06)" title="EU GDPR × HIPAA = 0.06">0.06</td><td class="hm" style="background:rgba(183,28,28,0.04)" title="EU GDPR × Essential 8 = 0.04">0.04</td><td class="hm" style="background:rgba(183,28,28,0.21)" title="EU GDPR × SOC 2 = 0.21">0.21</td></tr>
-          <tr><th class="hm-row" scope="row">HIPAA</th><td class="hm" style="background:rgba(183,28,28,0.15)" title="HIPAA × NIST 800-53 = 0.15">0.15</td><td class="hm" style="background:rgba(183,28,28,0.12)" title="HIPAA × NIST 800-171 = 0.12">0.12</td><td class="hm" style="background:rgba(183,28,28,0.13)" title="HIPAA × CMMC L2 = 0.13">0.13</td><td class="hm" style="background:rgba(183,28,28,0.13)" title="HIPAA × NIST CSF = 0.13">0.13</td><td class="hm" style="background:rgba(183,28,28,0.17)" title="HIPAA × ISO 27001 = 0.17">0.17</td><td class="hm" style="background:rgba(183,28,28,0.18)" title="HIPAA × PCI DSS 4.0 = 0.18">0.18</td><td class="hm" style="background:rgba(183,28,28,0.05)" title="HIPAA × CIS Azure = 0.05">0.05</td><td class="hm" style="background:rgba(183,28,28,0.05)" title="HIPAA × AWS FSBP = 0.05">0.05</td><td class="hm" style="background:rgba(183,28,28,0.06)" title="HIPAA × EU GDPR = 0.06">0.06</td><td class="hm hi" style="background:rgba(183,28,28,1.00)" title="HIPAA × HIPAA = 1.00">1.00</td><td class="hm" style="background:rgba(183,28,28,0.04)" title="HIPAA × Essential 8 = 0.04">0.04</td><td class="hm" style="background:rgba(183,28,28,0.12)" title="HIPAA × SOC 2 = 0.12">0.12</td></tr>
-          <tr><th class="hm-row" scope="row">Essential 8</th><td class="hm" style="background:rgba(183,28,28,0.14)" title="Essential 8 × NIST 800-53 = 0.14">0.14</td><td class="hm" style="background:rgba(183,28,28,0.15)" title="Essential 8 × NIST 800-171 = 0.15">0.15</td><td class="hm" style="background:rgba(183,28,28,0.14)" title="Essential 8 × CMMC L2 = 0.14">0.14</td><td class="hm" style="background:rgba(183,28,28,0.08)" title="Essential 8 × NIST CSF = 0.08">0.08</td><td class="hm" style="background:rgba(183,28,28,0.12)" title="Essential 8 × ISO 27001 = 0.12">0.12</td><td class="hm" style="background:rgba(183,28,28,0.11)" title="Essential 8 × PCI DSS 4.0 = 0.11">0.11</td><td class="hm" style="background:rgba(183,28,28,0.13)" title="Essential 8 × CIS Azure = 0.13">0.13</td><td class="hm" style="background:rgba(183,28,28,0.08)" title="Essential 8 × AWS FSBP = 0.08">0.08</td><td class="hm" style="background:rgba(183,28,28,0.04)" title="Essential 8 × EU GDPR = 0.04">0.04</td><td class="hm" style="background:rgba(183,28,28,0.04)" title="Essential 8 × HIPAA = 0.04">0.04</td><td class="hm hi" style="background:rgba(183,28,28,1.00)" title="Essential 8 × Essential 8 = 1.00">1.00</td><td class="hm" style="background:rgba(183,28,28,0.07)" title="Essential 8 × SOC 2 = 0.07">0.07</td></tr>
-          <tr><th class="hm-row" scope="row">SOC 2</th><td class="hm" style="background:rgba(183,28,28,0.22)" title="SOC 2 × NIST 800-53 = 0.22">0.22</td><td class="hm" style="background:rgba(183,28,28,0.13)" title="SOC 2 × NIST 800-171 = 0.13">0.13</td><td class="hm" style="background:rgba(183,28,28,0.13)" title="SOC 2 × CMMC L2 = 0.13">0.13</td><td class="hm" style="background:rgba(183,28,28,0.21)" title="SOC 2 × NIST CSF = 0.21">0.21</td><td class="hm" style="background:rgba(183,28,28,0.25)" title="SOC 2 × ISO 27001 = 0.25">0.25</td><td class="hm" style="background:rgba(183,28,28,0.15)" title="SOC 2 × PCI DSS 4.0 = 0.15">0.15</td><td class="hm" style="background:rgba(183,28,28,0.05)" title="SOC 2 × CIS Azure = 0.05">0.05</td><td class="hm" style="background:rgba(183,28,28,0.05)" title="SOC 2 × AWS FSBP = 0.05">0.05</td><td class="hm" style="background:rgba(183,28,28,0.21)" title="SOC 2 × EU GDPR = 0.21">0.21</td><td class="hm" style="background:rgba(183,28,28,0.12)" title="SOC 2 × HIPAA = 0.12">0.12</td><td class="hm" style="background:rgba(183,28,28,0.07)" title="SOC 2 × Essential 8 = 0.07">0.07</td><td class="hm hi" style="background:rgba(183,28,28,1.00)" title="SOC 2 × SOC 2 = 1.00">1.00</td></tr>
+          <tr><th class="hm-row" scope="row">NIST 800-53</th><td class="hm hi" style="background:rgba(14,58,95,1.00)" title="NIST 800-53 × NIST 800-53 = 1.00">1.00</td><td class="hm hi" style="background:rgba(14,58,95,0.53)" title="NIST 800-53 × NIST 800-171 = 0.53">0.53</td><td class="hm hi" style="background:rgba(14,58,95,0.50)" title="NIST 800-53 × CMMC L2 = 0.50">0.50</td><td class="hm" style="background:rgba(14,58,95,0.29)" title="NIST 800-53 × NIST CSF = 0.29">0.29</td><td class="hm" style="background:rgba(14,58,95,0.37)" title="NIST 800-53 × ISO 27001 = 0.37">0.37</td><td class="hm" style="background:rgba(14,58,95,0.32)" title="NIST 800-53 × PCI DSS 4.0 = 0.32">0.32</td><td class="hm" style="background:rgba(14,58,95,0.15)" title="NIST 800-53 × CIS Azure = 0.15">0.15</td><td class="hm" style="background:rgba(14,58,95,0.13)" title="NIST 800-53 × AWS FSBP = 0.13">0.13</td><td class="hm" style="background:rgba(14,58,95,0.12)" title="NIST 800-53 × EU GDPR = 0.12">0.12</td><td class="hm" style="background:rgba(14,58,95,0.15)" title="NIST 800-53 × HIPAA = 0.15">0.15</td><td class="hm" style="background:rgba(14,58,95,0.14)" title="NIST 800-53 × Essential 8 = 0.14">0.14</td><td class="hm" style="background:rgba(14,58,95,0.22)" title="NIST 800-53 × SOC 2 = 0.22">0.22</td></tr>
+          <tr><th class="hm-row" scope="row">NIST 800-171</th><td class="hm hi" style="background:rgba(14,58,95,0.53)" title="NIST 800-171 × NIST 800-53 = 0.53">0.53</td><td class="hm hi" style="background:rgba(14,58,95,1.00)" title="NIST 800-171 × NIST 800-171 = 1.00">1.00</td><td class="hm hi" style="background:rgba(14,58,95,0.94)" title="NIST 800-171 × CMMC L2 = 0.94">0.94</td><td class="hm" style="background:rgba(14,58,95,0.22)" title="NIST 800-171 × NIST CSF = 0.22">0.22</td><td class="hm" style="background:rgba(14,58,95,0.28)" title="NIST 800-171 × ISO 27001 = 0.28">0.28</td><td class="hm" style="background:rgba(14,58,95,0.25)" title="NIST 800-171 × PCI DSS 4.0 = 0.25">0.25</td><td class="hm" style="background:rgba(14,58,95,0.15)" title="NIST 800-171 × CIS Azure = 0.15">0.15</td><td class="hm" style="background:rgba(14,58,95,0.11)" title="NIST 800-171 × AWS FSBP = 0.11">0.11</td><td class="hm" style="background:rgba(14,58,95,0.05)" title="NIST 800-171 × EU GDPR = 0.05">0.05</td><td class="hm" style="background:rgba(14,58,95,0.12)" title="NIST 800-171 × HIPAA = 0.12">0.12</td><td class="hm" style="background:rgba(14,58,95,0.15)" title="NIST 800-171 × Essential 8 = 0.15">0.15</td><td class="hm" style="background:rgba(14,58,95,0.13)" title="NIST 800-171 × SOC 2 = 0.13">0.13</td></tr>
+          <tr><th class="hm-row" scope="row">CMMC L2</th><td class="hm hi" style="background:rgba(14,58,95,0.50)" title="CMMC L2 × NIST 800-53 = 0.50">0.50</td><td class="hm hi" style="background:rgba(14,58,95,0.94)" title="CMMC L2 × NIST 800-171 = 0.94">0.94</td><td class="hm hi" style="background:rgba(14,58,95,1.00)" title="CMMC L2 × CMMC L2 = 1.00">1.00</td><td class="hm" style="background:rgba(14,58,95,0.21)" title="CMMC L2 × NIST CSF = 0.21">0.21</td><td class="hm" style="background:rgba(14,58,95,0.27)" title="CMMC L2 × ISO 27001 = 0.27">0.27</td><td class="hm" style="background:rgba(14,58,95,0.25)" title="CMMC L2 × PCI DSS 4.0 = 0.25">0.25</td><td class="hm" style="background:rgba(14,58,95,0.16)" title="CMMC L2 × CIS Azure = 0.16">0.16</td><td class="hm" style="background:rgba(14,58,95,0.12)" title="CMMC L2 × AWS FSBP = 0.12">0.12</td><td class="hm" style="background:rgba(14,58,95,0.05)" title="CMMC L2 × EU GDPR = 0.05">0.05</td><td class="hm" style="background:rgba(14,58,95,0.13)" title="CMMC L2 × HIPAA = 0.13">0.13</td><td class="hm" style="background:rgba(14,58,95,0.14)" title="CMMC L2 × Essential 8 = 0.14">0.14</td><td class="hm" style="background:rgba(14,58,95,0.13)" title="CMMC L2 × SOC 2 = 0.13">0.13</td></tr>
+          <tr><th class="hm-row" scope="row">NIST CSF</th><td class="hm" style="background:rgba(14,58,95,0.29)" title="NIST CSF × NIST 800-53 = 0.29">0.29</td><td class="hm" style="background:rgba(14,58,95,0.22)" title="NIST CSF × NIST 800-171 = 0.22">0.22</td><td class="hm" style="background:rgba(14,58,95,0.21)" title="NIST CSF × CMMC L2 = 0.21">0.21</td><td class="hm hi" style="background:rgba(14,58,95,1.00)" title="NIST CSF × NIST CSF = 1.00">1.00</td><td class="hm" style="background:rgba(14,58,95,0.35)" title="NIST CSF × ISO 27001 = 0.35">0.35</td><td class="hm" style="background:rgba(14,58,95,0.25)" title="NIST CSF × PCI DSS 4.0 = 0.25">0.25</td><td class="hm" style="background:rgba(14,58,95,0.07)" title="NIST CSF × CIS Azure = 0.07">0.07</td><td class="hm" style="background:rgba(14,58,95,0.05)" title="NIST CSF × AWS FSBP = 0.05">0.05</td><td class="hm" style="background:rgba(14,58,95,0.09)" title="NIST CSF × EU GDPR = 0.09">0.09</td><td class="hm" style="background:rgba(14,58,95,0.13)" title="NIST CSF × HIPAA = 0.13">0.13</td><td class="hm" style="background:rgba(14,58,95,0.08)" title="NIST CSF × Essential 8 = 0.08">0.08</td><td class="hm" style="background:rgba(14,58,95,0.21)" title="NIST CSF × SOC 2 = 0.21">0.21</td></tr>
+          <tr><th class="hm-row" scope="row">ISO 27001</th><td class="hm" style="background:rgba(14,58,95,0.37)" title="ISO 27001 × NIST 800-53 = 0.37">0.37</td><td class="hm" style="background:rgba(14,58,95,0.28)" title="ISO 27001 × NIST 800-171 = 0.28">0.28</td><td class="hm" style="background:rgba(14,58,95,0.27)" title="ISO 27001 × CMMC L2 = 0.27">0.27</td><td class="hm" style="background:rgba(14,58,95,0.35)" title="ISO 27001 × NIST CSF = 0.35">0.35</td><td class="hm hi" style="background:rgba(14,58,95,1.00)" title="ISO 27001 × ISO 27001 = 1.00">1.00</td><td class="hm" style="background:rgba(14,58,95,0.30)" title="ISO 27001 × PCI DSS 4.0 = 0.30">0.30</td><td class="hm" style="background:rgba(14,58,95,0.09)" title="ISO 27001 × CIS Azure = 0.09">0.09</td><td class="hm" style="background:rgba(14,58,95,0.09)" title="ISO 27001 × AWS FSBP = 0.09">0.09</td><td class="hm" style="background:rgba(14,58,95,0.12)" title="ISO 27001 × EU GDPR = 0.12">0.12</td><td class="hm" style="background:rgba(14,58,95,0.17)" title="ISO 27001 × HIPAA = 0.17">0.17</td><td class="hm" style="background:rgba(14,58,95,0.12)" title="ISO 27001 × Essential 8 = 0.12">0.12</td><td class="hm" style="background:rgba(14,58,95,0.25)" title="ISO 27001 × SOC 2 = 0.25">0.25</td></tr>
+          <tr><th class="hm-row" scope="row">PCI DSS 4.0</th><td class="hm" style="background:rgba(14,58,95,0.32)" title="PCI DSS 4.0 × NIST 800-53 = 0.32">0.32</td><td class="hm" style="background:rgba(14,58,95,0.25)" title="PCI DSS 4.0 × NIST 800-171 = 0.25">0.25</td><td class="hm" style="background:rgba(14,58,95,0.25)" title="PCI DSS 4.0 × CMMC L2 = 0.25">0.25</td><td class="hm" style="background:rgba(14,58,95,0.25)" title="PCI DSS 4.0 × NIST CSF = 0.25">0.25</td><td class="hm" style="background:rgba(14,58,95,0.30)" title="PCI DSS 4.0 × ISO 27001 = 0.30">0.30</td><td class="hm hi" style="background:rgba(14,58,95,1.00)" title="PCI DSS 4.0 × PCI DSS 4.0 = 1.00">1.00</td><td class="hm" style="background:rgba(14,58,95,0.14)" title="PCI DSS 4.0 × CIS Azure = 0.14">0.14</td><td class="hm" style="background:rgba(14,58,95,0.10)" title="PCI DSS 4.0 × AWS FSBP = 0.10">0.10</td><td class="hm" style="background:rgba(14,58,95,0.09)" title="PCI DSS 4.0 × EU GDPR = 0.09">0.09</td><td class="hm" style="background:rgba(14,58,95,0.18)" title="PCI DSS 4.0 × HIPAA = 0.18">0.18</td><td class="hm" style="background:rgba(14,58,95,0.11)" title="PCI DSS 4.0 × Essential 8 = 0.11">0.11</td><td class="hm" style="background:rgba(14,58,95,0.15)" title="PCI DSS 4.0 × SOC 2 = 0.15">0.15</td></tr>
+          <tr><th class="hm-row" scope="row">CIS Azure</th><td class="hm" style="background:rgba(14,58,95,0.15)" title="CIS Azure × NIST 800-53 = 0.15">0.15</td><td class="hm" style="background:rgba(14,58,95,0.15)" title="CIS Azure × NIST 800-171 = 0.15">0.15</td><td class="hm" style="background:rgba(14,58,95,0.16)" title="CIS Azure × CMMC L2 = 0.16">0.16</td><td class="hm" style="background:rgba(14,58,95,0.07)" title="CIS Azure × NIST CSF = 0.07">0.07</td><td class="hm" style="background:rgba(14,58,95,0.09)" title="CIS Azure × ISO 27001 = 0.09">0.09</td><td class="hm" style="background:rgba(14,58,95,0.14)" title="CIS Azure × PCI DSS 4.0 = 0.14">0.14</td><td class="hm hi" style="background:rgba(14,58,95,1.00)" title="CIS Azure × CIS Azure = 1.00">1.00</td><td class="hm" style="background:rgba(14,58,95,0.20)" title="CIS Azure × AWS FSBP = 0.20">0.20</td><td class="hm" style="background:rgba(14,58,95,0.06)" title="CIS Azure × EU GDPR = 0.06">0.06</td><td class="hm" style="background:rgba(14,58,95,0.05)" title="CIS Azure × HIPAA = 0.05">0.05</td><td class="hm" style="background:rgba(14,58,95,0.13)" title="CIS Azure × Essential 8 = 0.13">0.13</td><td class="hm" style="background:rgba(14,58,95,0.05)" title="CIS Azure × SOC 2 = 0.05">0.05</td></tr>
+          <tr><th class="hm-row" scope="row">AWS FSBP</th><td class="hm" style="background:rgba(14,58,95,0.13)" title="AWS FSBP × NIST 800-53 = 0.13">0.13</td><td class="hm" style="background:rgba(14,58,95,0.11)" title="AWS FSBP × NIST 800-171 = 0.11">0.11</td><td class="hm" style="background:rgba(14,58,95,0.12)" title="AWS FSBP × CMMC L2 = 0.12">0.12</td><td class="hm" style="background:rgba(14,58,95,0.05)" title="AWS FSBP × NIST CSF = 0.05">0.05</td><td class="hm" style="background:rgba(14,58,95,0.09)" title="AWS FSBP × ISO 27001 = 0.09">0.09</td><td class="hm" style="background:rgba(14,58,95,0.10)" title="AWS FSBP × PCI DSS 4.0 = 0.10">0.10</td><td class="hm" style="background:rgba(14,58,95,0.20)" title="AWS FSBP × CIS Azure = 0.20">0.20</td><td class="hm hi" style="background:rgba(14,58,95,1.00)" title="AWS FSBP × AWS FSBP = 1.00">1.00</td><td class="hm" style="background:rgba(14,58,95,0.05)" title="AWS FSBP × EU GDPR = 0.05">0.05</td><td class="hm" style="background:rgba(14,58,95,0.05)" title="AWS FSBP × HIPAA = 0.05">0.05</td><td class="hm" style="background:rgba(14,58,95,0.08)" title="AWS FSBP × Essential 8 = 0.08">0.08</td><td class="hm" style="background:rgba(14,58,95,0.05)" title="AWS FSBP × SOC 2 = 0.05">0.05</td></tr>
+          <tr><th class="hm-row" scope="row">EU GDPR</th><td class="hm" style="background:rgba(14,58,95,0.12)" title="EU GDPR × NIST 800-53 = 0.12">0.12</td><td class="hm" style="background:rgba(14,58,95,0.05)" title="EU GDPR × NIST 800-171 = 0.05">0.05</td><td class="hm" style="background:rgba(14,58,95,0.05)" title="EU GDPR × CMMC L2 = 0.05">0.05</td><td class="hm" style="background:rgba(14,58,95,0.09)" title="EU GDPR × NIST CSF = 0.09">0.09</td><td class="hm" style="background:rgba(14,58,95,0.12)" title="EU GDPR × ISO 27001 = 0.12">0.12</td><td class="hm" style="background:rgba(14,58,95,0.09)" title="EU GDPR × PCI DSS 4.0 = 0.09">0.09</td><td class="hm" style="background:rgba(14,58,95,0.06)" title="EU GDPR × CIS Azure = 0.06">0.06</td><td class="hm" style="background:rgba(14,58,95,0.05)" title="EU GDPR × AWS FSBP = 0.05">0.05</td><td class="hm hi" style="background:rgba(14,58,95,1.00)" title="EU GDPR × EU GDPR = 1.00">1.00</td><td class="hm" style="background:rgba(14,58,95,0.06)" title="EU GDPR × HIPAA = 0.06">0.06</td><td class="hm" style="background:rgba(14,58,95,0.04)" title="EU GDPR × Essential 8 = 0.04">0.04</td><td class="hm" style="background:rgba(14,58,95,0.21)" title="EU GDPR × SOC 2 = 0.21">0.21</td></tr>
+          <tr><th class="hm-row" scope="row">HIPAA</th><td class="hm" style="background:rgba(14,58,95,0.15)" title="HIPAA × NIST 800-53 = 0.15">0.15</td><td class="hm" style="background:rgba(14,58,95,0.12)" title="HIPAA × NIST 800-171 = 0.12">0.12</td><td class="hm" style="background:rgba(14,58,95,0.13)" title="HIPAA × CMMC L2 = 0.13">0.13</td><td class="hm" style="background:rgba(14,58,95,0.13)" title="HIPAA × NIST CSF = 0.13">0.13</td><td class="hm" style="background:rgba(14,58,95,0.17)" title="HIPAA × ISO 27001 = 0.17">0.17</td><td class="hm" style="background:rgba(14,58,95,0.18)" title="HIPAA × PCI DSS 4.0 = 0.18">0.18</td><td class="hm" style="background:rgba(14,58,95,0.05)" title="HIPAA × CIS Azure = 0.05">0.05</td><td class="hm" style="background:rgba(14,58,95,0.05)" title="HIPAA × AWS FSBP = 0.05">0.05</td><td class="hm" style="background:rgba(14,58,95,0.06)" title="HIPAA × EU GDPR = 0.06">0.06</td><td class="hm hi" style="background:rgba(14,58,95,1.00)" title="HIPAA × HIPAA = 1.00">1.00</td><td class="hm" style="background:rgba(14,58,95,0.04)" title="HIPAA × Essential 8 = 0.04">0.04</td><td class="hm" style="background:rgba(14,58,95,0.12)" title="HIPAA × SOC 2 = 0.12">0.12</td></tr>
+          <tr><th class="hm-row" scope="row">Essential 8</th><td class="hm" style="background:rgba(14,58,95,0.14)" title="Essential 8 × NIST 800-53 = 0.14">0.14</td><td class="hm" style="background:rgba(14,58,95,0.15)" title="Essential 8 × NIST 800-171 = 0.15">0.15</td><td class="hm" style="background:rgba(14,58,95,0.14)" title="Essential 8 × CMMC L2 = 0.14">0.14</td><td class="hm" style="background:rgba(14,58,95,0.08)" title="Essential 8 × NIST CSF = 0.08">0.08</td><td class="hm" style="background:rgba(14,58,95,0.12)" title="Essential 8 × ISO 27001 = 0.12">0.12</td><td class="hm" style="background:rgba(14,58,95,0.11)" title="Essential 8 × PCI DSS 4.0 = 0.11">0.11</td><td class="hm" style="background:rgba(14,58,95,0.13)" title="Essential 8 × CIS Azure = 0.13">0.13</td><td class="hm" style="background:rgba(14,58,95,0.08)" title="Essential 8 × AWS FSBP = 0.08">0.08</td><td class="hm" style="background:rgba(14,58,95,0.04)" title="Essential 8 × EU GDPR = 0.04">0.04</td><td class="hm" style="background:rgba(14,58,95,0.04)" title="Essential 8 × HIPAA = 0.04">0.04</td><td class="hm hi" style="background:rgba(14,58,95,1.00)" title="Essential 8 × Essential 8 = 1.00">1.00</td><td class="hm" style="background:rgba(14,58,95,0.07)" title="Essential 8 × SOC 2 = 0.07">0.07</td></tr>
+          <tr><th class="hm-row" scope="row">SOC 2</th><td class="hm" style="background:rgba(14,58,95,0.22)" title="SOC 2 × NIST 800-53 = 0.22">0.22</td><td class="hm" style="background:rgba(14,58,95,0.13)" title="SOC 2 × NIST 800-171 = 0.13">0.13</td><td class="hm" style="background:rgba(14,58,95,0.13)" title="SOC 2 × CMMC L2 = 0.13">0.13</td><td class="hm" style="background:rgba(14,58,95,0.21)" title="SOC 2 × NIST CSF = 0.21">0.21</td><td class="hm" style="background:rgba(14,58,95,0.25)" title="SOC 2 × ISO 27001 = 0.25">0.25</td><td class="hm" style="background:rgba(14,58,95,0.15)" title="SOC 2 × PCI DSS 4.0 = 0.15">0.15</td><td class="hm" style="background:rgba(14,58,95,0.05)" title="SOC 2 × CIS Azure = 0.05">0.05</td><td class="hm" style="background:rgba(14,58,95,0.05)" title="SOC 2 × AWS FSBP = 0.05">0.05</td><td class="hm" style="background:rgba(14,58,95,0.21)" title="SOC 2 × EU GDPR = 0.21">0.21</td><td class="hm" style="background:rgba(14,58,95,0.12)" title="SOC 2 × HIPAA = 0.12">0.12</td><td class="hm" style="background:rgba(14,58,95,0.07)" title="SOC 2 × Essential 8 = 0.07">0.07</td><td class="hm hi" style="background:rgba(14,58,95,1.00)" title="SOC 2 × SOC 2 = 1.00">1.00</td></tr>
                   </tbody>
                 </table>
               </div>

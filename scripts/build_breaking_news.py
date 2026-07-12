@@ -42,18 +42,28 @@ except Exception:  # pragma: no cover - fallback if tzdata unavailable
 # Paths
 # --------------------------------------------------------------------------- #
 ROOT = Path(__file__).resolve().parent.parent
-OUT_HTML = ROOT / "breaking-news" / "index.html"
-RSS_PATH = ROOT / "breaking-news" / "rss.xml"
-NEWS_SITEMAP_PATH = ROOT / "breaking-news" / "sitemap.xml"
-STATE_PATH = ROOT / "breaking-news" / "data" / "state.json"
+OUT_HTML = ROOT / "breaking" / "index.html"
+RSS_PATH = ROOT / "breaking" / "rss.xml"
+NEWS_SITEMAP_PATH = ROOT / "breaking" / "sitemap.xml"
+STATE_PATH = ROOT / "breaking" / "data" / "state.json"
+# The page moved from /breaking-news to /breaking; keep a redirect at the old path.
+REDIRECT_PATH = ROOT / "breaking-news" / "index.html"
 
 SITE = "https://www.manzill.com"
-PAGE_URL = SITE + "/breaking-news"
+PAGE_URL = SITE + "/breaking"
+NEWS_SITE = "https://news.manzill.com"
 
 # Bump whenever the rendered output (template/RSS/sitemap format) changes. A mismatch
 # with the value stored in state forces a one-time re-render even when the feed is
 # unchanged, so a redesign rolls out on the next scheduled run without a manual push.
-RENDER_VERSION = "2"
+RENDER_VERSION = "3"
+
+# strftime has no Hindi locale, so map weekday/month names for the date strip.
+HINDI_WEEKDAYS = ["सोमवार", "मंगलवार", "बुधवार", "गुरुवार", "शुक्रवार", "शनिवार", "रविवार"]
+HINDI_MONTHS = [
+    "जनवरी", "फ़रवरी", "मार्च", "अप्रैल", "मई", "जून",
+    "जुलाई", "अगस्त", "सितंबर", "अक्टूबर", "नवंबर", "दिसंबर",
+]
 
 # --------------------------------------------------------------------------- #
 # Feeds & scoring
@@ -336,32 +346,35 @@ def groq_analyze(api_key: str, cluster: dict, state: dict) -> dict | None:
 
     system = (
         "You are the duty news editor for a Jaipur (Rajasthan, India) local-news "
-        "website. Write clear, factual editorial copy in plain English. Use ONLY "
-        "the information in the supplied feed items. Attribute anything unconfirmed "
-        "('according to police', 'local reports say'). Never invent casualty "
-        "figures, names, or facts that are not in the sources. Respond with strict "
-        "JSON only."
+        "website that publishes in HINDI. Use ONLY the information in the supplied "
+        "feed items (their titles/snippets may be in English — translate the facts "
+        "into natural Hindi). Attribute anything unconfirmed ('पुलिस के अनुसार', "
+        "'स्थानीय रिपोर्टों के मुताबिक'). Never invent casualty figures, names, or "
+        "facts that are not in the sources. The 'lead_headline', 'analysis' and "
+        "'update_text' fields MUST be written in Hindi (Devanagari); the "
+        "'event_type' and 'severity' fields stay in the English enums below. "
+        "Respond with strict JSON only."
     )
     user = {
-        "task": "Select the single top breaking story for Jaipur today and cover it.",
+        "task": "Select the single top breaking story for Jaipur today and cover it in Hindi.",
         "candidate_stories": candidates,
         "currently_tracked_story": {
             "headline": current.get("headline", ""),
             "recent_updates": recent_timeline,
         },
         "output_schema": {
-            "lead_headline": "string - concise headline for the top story",
+            "lead_headline": "string (HINDI) - concise Hindi headline for the top story",
             "event_type": "one of: terror, fire, earthquake, flood, accident, "
                           "crime, investigation, protest, civic, weather, other",
             "severity": "one of: critical, high, medium, low",
-            "analysis": "2-4 short paragraphs of plain editorial synthesising the "
-                        "feeds; separate paragraphs with \\n\\n",
+            "analysis": "2-4 short paragraphs of plain Hindi editorial synthesising "
+                        "the feeds; separate paragraphs with \\n\\n",
             "is_same_story_as_current": "boolean - true if this is the same event "
                                         "as currently_tracked_story",
             "has_new_development": "boolean - true if there is a materially new "
                                    "development vs recent_updates",
-            "update_text": "one concise sentence describing the new development, "
-                           "else empty string",
+            "update_text": "one concise Hindi sentence describing the new "
+                           "development, else empty string",
         },
     }
     payload = json.dumps(
@@ -441,6 +454,9 @@ def build() -> None:
     elif not api_key:
         print("GROQ_API_KEY not set — running in feeds-only fallback mode.")
 
+    # Always keep the old /breaking-news URL redirecting to /breaking (idempotent).
+    write_redirect_stub()
+
     print("Fetching feeds...")
     items = gather_items()
     print(f"  {len(items)} unique items")
@@ -519,7 +535,7 @@ def build() -> None:
         # New/first lead of the day -> seed the timeline.
         append_entry = True
         entry_text = ai_update_text if (use_ai and ai_update_text) else (
-            f"Now tracking as Jaipur's top developing story: {headline}."
+            f"जयपुर की प्रमुख ताज़ा खबर के रूप में कवरेज शुरू: {headline}"
         )
     elif use_ai and ai_new_dev and ai_update_text:
         append_entry = True
@@ -528,7 +544,7 @@ def build() -> None:
             and minutes_since(_last_entry_time(timeline)) >= cadence:
         # High-impact event, feed moved, cadence window elapsed: log a check-in.
         append_entry = True
-        entry_text = (use_ai and ai_update_text) or f"New reporting on: {headline}."
+        entry_text = (use_ai and ai_update_text) or f"इस खबर पर नई रिपोर्टिंग: {headline}"
 
     if append_entry and entry_text:
         timeline.insert(
@@ -573,15 +589,16 @@ def _last_entry_time(timeline: list[dict]) -> str | None:
 
 
 def _fallback_analysis(top: dict, clusters: list[dict]) -> str:
+    """Hindi summary used when Groq is unavailable — sticks to what the feeds report."""
     n = len(top["items"])
     srcs = sorted({i["source"] for i in top["items"] if i["source"]})[:4]
-    src_line = (", ".join(srcs)) if srcs else "multiple local outlets"
+    src_line = (", ".join(srcs)) if srcs else "कई स्थानीय स्रोत"
     others = [c["headline"] for c in clusters[1:4]]
     para1 = (
-        f"{top['headline']} is the most widely reported story across Jaipur feeds "
-        f"right now, carried by {src_line} ({n} report(s) in the last day)."
+        f"{top['headline']} — इस समय जयपुर की खबरों में सबसे अधिक रिपोर्ट की जा रही खबर है, "
+        f"जिसे {src_line} ने कवर किया है (पिछले 24 घंटे में {n} रिपोर्ट)।"
     )
-    para2 = "Also being reported today: " + "; ".join(others) + "." if others else ""
+    para2 = "आज इनकी भी रिपोर्टिंग हो रही है: " + "; ".join(others) + "।" if others else ""
     return (para1 + "\n\n" + para2).strip()
 
 
@@ -589,7 +606,7 @@ def _fallback_analysis(top: dict, clusters: list[dict]) -> str:
 # Rendering
 # --------------------------------------------------------------------------- #
 SEV_LABEL = {
-    "critical": "CRITICAL", "high": "DEVELOPING", "medium": "UPDATING", "low": "MONITORING",
+    "critical": "गंभीर", "high": "विकसित हो रही", "medium": "अपडेट हो रही", "low": "निगरानी में",
 }
 SEV_COLOR = {
     "critical": "#b71c1c", "high": "#e65100", "medium": "#b26a00", "low": "#6b6b6b",
@@ -600,29 +617,44 @@ def esc(text: str) -> str:
     return html.escape(text or "", quote=True)
 
 
+def _hindi_datetime(dt: datetime) -> str:
+    d = to_ist(dt)
+    return f"{d.day} {HINDI_MONTHS[d.month - 1]} {d.year}, {d.strftime('%I:%M %p')} IST"
+
+
+def _hindi_date(dt: datetime) -> str:
+    d = to_ist(dt)
+    return f"{HINDI_WEEKDAYS[d.weekday()]}, {d.day} {HINDI_MONTHS[d.month - 1]} {d.year}"
+
+
 def _src_time(s: dict) -> str:
     try:
         dt = datetime.fromisoformat(s["published"])
     except Exception:
         return s.get("source", "")
-    return to_ist(dt).strftime("%d %b, %I:%M %p")
+    d = to_ist(dt)
+    return f"{d.day} {HINDI_MONTHS[d.month - 1]}, {d.strftime('%I:%M %p')}"
+
+
+BRAND_SUFFIX = "ब्रेकिंग जयपुर न्यूज़"
 
 
 def render(state: dict, clusters: list[dict], now: datetime) -> None:
     lead = state.get("lead")
-    updated_ist = fmt_ist(now)
-    today_ist = to_ist(now).strftime("%A, %d %B %Y")
+    updated_ist = _hindi_datetime(now)
+    today_ist = _hindi_date(now)
     timeline = state.get("timeline", [])
 
     if lead:
         sev = lead.get("severity", "low")
-        badge = SEV_LABEL.get(sev, "MONITORING")
+        badge = SEV_LABEL.get(sev, "निगरानी में")
         color = SEV_COLOR.get(sev, "#6b6b6b")
         headline_html = esc(lead["headline"])
+        title = f"{lead['headline']} | {BRAND_SUFFIX}"
         paras = [p.strip() for p in (lead.get("analysis") or "").split("\n\n") if p.strip()]
         analysis_html = "\n        ".join(
             f"<p>{esc(p)}</p>" for p in paras
-        ) or "<p>Coverage is developing.</p>"
+        ) or "<p>खबर विकसित हो रही है।</p>"
 
         source_items = "\n".join(
             f'<div class="card-text fade-in">'
@@ -632,7 +664,7 @@ def render(state: dict, clusters: list[dict], now: datetime) -> None:
             f'<span class="dot"></span><span>{esc(_src_time(s))}</span></div>'
             f'</a></div>'
             for s in lead.get("sources", [])
-        ) or '<div class="empty-note">Sources are being gathered.</div>'
+        ) or '<div class="empty-note">स्रोत जुटाए जा रहे हैं।</div>'
 
         if timeline:
             timeline_html = "\n".join(
@@ -642,42 +674,51 @@ def render(state: dict, clusters: list[dict], now: datetime) -> None:
                 for t in timeline
             )
         else:
-            timeline_html = '<li class="tl-item"><p>Live updates will appear here as the story develops.</p></li>'
+            timeline_html = '<li class="tl-item"><p>खबर के विकसित होते ही लाइव अपडेट यहाँ दिखेंगे।</p></li>'
     else:
-        sev, badge, color = "low", "MONITORING", "#6b6b6b"
-        headline_html = "No major breaking story in Jaipur right now"
-        analysis_html = "<p>There is no single dominant breaking story in Jaipur at the moment. This page updates automatically as events develop through the day.</p>"
-        source_items = '<div class="empty-note">Monitoring local Jaipur feeds &mdash; sources will appear here when a story breaks.</div>'
-        timeline_html = '<li class="tl-item"><p>Live updates will appear here as news breaks.</p></li>'
+        sev, badge, color = "low", "निगरानी में", "#6b6b6b"
+        headline_html = "अभी जयपुर में कोई बड़ी ब्रेकिंग खबर नहीं"
+        title = f"{BRAND_SUFFIX} — लाइव अपडेट | जयपुर न्यूज़"
+        analysis_html = "<p>इस समय जयपुर में कोई एक प्रमुख ब्रेकिंग खबर नहीं है। दिनभर घटनाओं के विकसित होने पर यह पेज अपने-आप अपडेट होता रहता है।</p>"
+        source_items = '<div class="empty-note">स्थानीय जयपुर फ़ीड की निगरानी जारी है &mdash; खबर आते ही स्रोत यहाँ दिखेंगे।</div>'
+        timeline_html = '<li class="tl-item"><p>खबर आते ही लाइव अपडेट यहाँ दिखेंगे।</p></li>'
 
-    update_count = f"{len(timeline)} update" + ("s" if len(timeline) != 1 else "")
+    update_count = f"{len(timeline)} अपडेट"
 
-    # LiveBlogPosting JSON-LD for SEO on live coverage.
-    ld_updates = [
-        {
-            "@type": "BlogPosting",
-            "headline": t["text"][:110],
-            "datePublished": t["time_utc"],
-            "articleBody": t["text"],
-        }
-        for t in timeline[:20]
-    ]
-    ld = {
-        "@context": "https://schema.org",
+    # JSON-LD: the site publisher (NewsMediaOrganization) + this live coverage
+    # (LiveBlogPosting), bundled in one @graph. Both in Hindi (hi-IN).
+    news_org = {
+        "@type": "NewsMediaOrganization",
+        "name": "जयपुर न्यूज़ | Jaipur News",
+        "url": NEWS_SITE + "/",
+        "inLanguage": "hi-IN",
+        "logo": {"@type": "ImageObject", "url": NEWS_SITE + "/icon-512.png",
+                 "width": 512, "height": 512},
+        "image": NEWS_SITE + "/og-image.png",
+        "description": "जयपुर, राजस्थान, भारत और दुनिया की ताज़ा खबरें हिंदी में | Jaipur News",
+    }
+    liveblog = {
         "@type": "LiveBlogPosting",
-        "headline": (lead["headline"] if lead else "Jaipur Breaking News"),
+        "headline": (lead["headline"] if lead else BRAND_SUFFIX),
         "url": PAGE_URL,
-        "inLanguage": "en-IN",
+        "inLanguage": "hi-IN",
         "datePublished": (timeline[-1]["time_utc"] if timeline else now.isoformat()),
         "dateModified": now.isoformat(),
         "coverageStartTime": (timeline[-1]["time_utc"] if timeline else now.isoformat()),
-        "about": {"@type": "Place", "name": "Jaipur, Rajasthan, India"},
-        "publisher": {"@type": "Organization", "name": "Manzill", "url": SITE + "/"},
-        "liveBlogUpdate": ld_updates,
+        "about": {"@type": "Place", "name": "जयपुर, राजस्थान, भारत"},
+        "publisher": {"@type": "NewsMediaOrganization",
+                      "name": "जयपुर न्यूज़ | Jaipur News", "url": NEWS_SITE + "/"},
+        "liveBlogUpdate": [
+            {"@type": "BlogPosting", "headline": t["text"][:110],
+             "datePublished": t["time_utc"], "articleBody": t["text"]}
+            for t in timeline[:20]
+        ],
     }
+    ld = {"@context": "https://schema.org", "@graph": [news_org, liveblog]}
     ld_json = json.dumps(ld, ensure_ascii=False, indent=2)
 
     replacements = {
+        "{{TITLE}}": esc(title),
         "{{BADGE}}": esc(badge),
         "{{BADGE_COLOR}}": color,
         "{{HEADLINE}}": headline_html,
@@ -742,12 +783,12 @@ def render_rss(state: dict, now: datetime) -> None:
         '<?xml version="1.0" encoding="UTF-8"?>\n'
         '<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">\n'
         "  <channel>\n"
-        "    <title>Manzill &#8212; Jaipur Breaking News</title>\n"
+        "    <title>जयपुर न्यूज़ &#8212; ब्रेकिंग</title>\n"
         f"    <link>{PAGE_URL}</link>\n"
         f'    <atom:link href="{PAGE_URL}/rss.xml" rel="self" type="application/rss+xml"/>\n'
-        "    <description>Live breaking news from Jaipur, Rajasthan &#8212; the top "
-        "developing story of the day with running updates.</description>\n"
-        "    <language>en-IN</language>\n"
+        "    <description>जयपुर, राजस्थान की ताज़ा ब्रेकिंग खबरें हिंदी में &#8212; दिन की "
+        "प्रमुख खबर और लगातार अपडेट।</description>\n"
+        "    <language>hi-IN</language>\n"
         f"    <lastBuildDate>{format_datetime(now)}</lastBuildDate>\n"
         "    <ttl>20</ttl>\n"
         + "\n".join(items) + "\n"
@@ -776,8 +817,27 @@ def render_news_sitemap(now: datetime) -> None:
     NEWS_SITEMAP_PATH.write_text(xml)
 
 
+def write_redirect_stub() -> None:
+    """Keep the old /breaking-news URL alive by redirecting it to /breaking.
+    Idempotent: identical content each run, so it only ever commits once."""
+    html_doc = (
+        "<!DOCTYPE html>\n"
+        '<html lang="hi">\n<head>\n<meta charset="UTF-8">\n'
+        '<meta name="robots" content="noindex, follow">\n'
+        f'<link rel="canonical" href="{PAGE_URL}">\n'
+        f'<meta http-equiv="refresh" content="0; url={PAGE_URL}">\n'
+        "<title>ब्रेकिंग जयपुर न्यूज़</title>\n"
+        f'<script>location.replace("{PAGE_URL}");</script>\n'
+        "</head>\n<body>\n"
+        f'<p>यह पेज अब <a href="{PAGE_URL}">{PAGE_URL}</a> पर चला गया है।</p>\n'
+        "</body>\n</html>\n"
+    )
+    REDIRECT_PATH.parent.mkdir(parents=True, exist_ok=True)
+    REDIRECT_PATH.write_text(html_doc)
+
+
 PAGE_TEMPLATE = """<!DOCTYPE html>
-<html lang="en">
+<html lang="hi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -786,29 +846,30 @@ PAGE_TEMPLATE = """<!DOCTYPE html>
     <!-- Page is regenerated on the server every ~20 min; refresh to pull the latest. -->
     <meta http-equiv="refresh" content="180">
 
-    <title>Jaipur Breaking News &mdash; Live Updates | Manzill</title>
-    <meta name="description" content="Live breaking news from Jaipur, Rajasthan. The top developing story of the day with a running timeline of updates, refreshed automatically through the day.">
-    <meta name="keywords" content="Jaipur Breaking News, Jaipur Live News, Rajasthan Breaking News, Jaipur Today, Pink City News, Jaipur Latest">
-    <meta name="news_keywords" content="Jaipur, Jaipur news, Rajasthan, breaking news, Jaipur breaking news, Pink City, Jaipur today">
-    <meta name="author" content="Manzill Surolia">
+    <title>{{TITLE}}</title>
+    <meta name="description" content="जयपुर, राजस्थान की ताज़ा ब्रेकिंग खबरें हिंदी में। दिन की प्रमुख खबर और लगातार लाइव अपडेट।">
+    <meta name="keywords" content="जयपुर न्यूज़, ब्रेकिंग न्यूज़, जयपुर ब्रेकिंग न्यूज़, राजस्थान न्यूज़, जयपुर आज, हिंदी न्यूज़">
+    <meta name="news_keywords" content="जयपुर, जयपुर न्यूज़, राजस्थान, ब्रेकिंग न्यूज़, जयपुर ब्रेकिंग न्यूज़, हिंदी न्यूज़">
+    <meta name="author" content="जयपुर न्यूज़">
 
-    <link rel="canonical" href="https://www.manzill.com/breaking-news">
-    <link rel="icon" href="/breaking-news/favicon.svg" type="image/svg+xml">
-    <link rel="apple-touch-icon" href="/breaking-news/favicon.svg">
-    <link rel="alternate" type="application/rss+xml" title="Jaipur Breaking News &mdash; Manzill" href="/breaking-news/rss.xml">
+    <link rel="canonical" href="https://www.manzill.com/breaking">
+    <link rel="icon" href="/breaking/favicon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/breaking/favicon.svg">
+    <link rel="alternate" type="application/rss+xml" title="जयपुर न्यूज़ — ब्रेकिंग" href="/breaking/rss.xml">
 
     <meta property="og:type" content="website">
-    <meta property="og:site_name" content="Manzill">
-    <meta property="og:title" content="Jaipur Breaking News &mdash; Live Updates">
-    <meta property="og:description" content="The top developing story in Jaipur today, with a live timeline of updates.">
-    <meta property="og:url" content="https://www.manzill.com/breaking-news">
-    <meta property="og:image" content="https://www.manzill.com/manzill-og.png">
+    <meta property="og:site_name" content="जयपुर न्यूज़">
+    <meta property="og:locale" content="hi_IN">
+    <meta property="og:title" content="{{TITLE}}">
+    <meta property="og:description" content="जयपुर की ताज़ा ब्रेकिंग खबरें हिंदी में — दिन की प्रमुख खबर और लाइव अपडेट।">
+    <meta property="og:url" content="https://www.manzill.com/breaking">
+    <meta property="og:image" content="https://news.manzill.com/og-image.png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Jaipur Breaking News &mdash; Live Updates">
-    <meta name="twitter:description" content="The top developing story in Jaipur today, with a live timeline of updates.">
-    <meta name="twitter:image" content="https://www.manzill.com/manzill-og.png">
+    <meta name="twitter:title" content="{{TITLE}}">
+    <meta name="twitter:description" content="जयपुर की ताज़ा ब्रेकिंग खबरें हिंदी में — लाइव अपडेट।">
+    <meta name="twitter:image" content="https://news.manzill.com/og-image.png">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -898,29 +959,22 @@ header.site {
   border-radius: 999px;
 }
 .date-strip .archive-link:hover { background: rgba(255,255,255,.25); }
-.date-strip .live-pill {
-  display: inline-flex; align-items: center; gap: 6px;
-  background: rgba(255,255,255,.16); border: 1px solid rgba(255,255,255,.30);
-  padding: 5px 11px; border-radius: 999px; font-weight: 800;
-  letter-spacing: .05em; font-size: .72rem;
-}
-.date-strip .live-pill .dot {
-  width: 7px; height: 7px; border-radius: 50%; background: var(--accent);
-  animation: pulse 1.4s infinite;
-}
 .refresh-btn {
   background: var(--surface);
   border: 1px solid var(--border);
   color: var(--brand);
-  padding: 4px 12px;
+  padding: 3px 10px;
   border-radius: 999px;
   font-size: .76rem;
   cursor: pointer;
   font-family: inherit;
-  font-weight: 700;
 }
 .refresh-btn:hover { background: rgba(183,28,28,.08); border-color: var(--brand); }
-@keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: .3; } }
+.refresh-btn[aria-busy="true"] { opacity: .6; pointer-events: none; }
+#status { align-items: center; }
+
+.hero { margin: 8px 0 4px; }
+.hero h1 { font-size: 1.5rem; margin: 0; font-weight: 800; }
 
 main {
   max-width: var(--maxw);
@@ -928,23 +982,7 @@ main {
   padding: 20px 16px 60px;
 }
 
-.livebar { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin: 6px 0 8px; }
-.sev-badge {
-  display: inline-flex; align-items: center; gap: 7px; color: #fff; font-weight: 800;
-  font-size: .72rem; letter-spacing: .06em; padding: 5px 12px; border-radius: 999px;
-  background: {{BADGE_COLOR}};
-}
-.sev-badge .dot { width: 8px; height: 8px; border-radius: 50%; background: #fff; animation: pulse 1.6s infinite; }
-.updated { font-size: .82rem; color: var(--muted); }
-
-.hero { margin: 8px 0 4px; }
-.hero h1 { font-size: 2rem; line-height: 1.18; margin: 6px 0 16px; font-weight: 800; }
-@media (max-width: 560px) {
-  .hero h1 { font-size: 1.55rem; }
-  .date-strip > span:not(.live-pill) { display: none; }
-}
-
-section.feed { margin-bottom: 32px; }
+section.feed { margin-bottom: 36px; }
 .section-head {
   display: flex;
   align-items: baseline;
@@ -958,47 +996,72 @@ section.feed { margin-bottom: 32px; }
   border-left: 4px solid var(--brand);
   font-weight: 800;
 }
-.section-head .count { color: var(--muted); font-size: .82rem; }
+.section-head .count {
+  color: var(--muted);
+  font-size: .82rem;
+}
 
-.editorial-card {
+.tabs {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
   background: var(--surface);
   border: 1px solid var(--border);
-  border-left: 4px solid var(--accent);
-  border-radius: var(--radius);
-  padding: 18px 20px;
-  margin-bottom: 26px;
+  border-radius: 999px;
+  padding: 6px;
+  margin: 4px 0 22px;
+  position: sticky;
+  top: 8px;
+  z-index: 10;
   box-shadow: var(--shadow);
 }
-.editorial-card h2 {
-  margin: 0 0 10px;
-  font-size: 1.1rem;
-  font-weight: 800;
-  color: var(--brand);
+.tabs::-webkit-scrollbar { height: 4px; }
+.tab {
+  flex: 0 0 auto;
+  background: transparent;
+  border: 0;
+  color: var(--text);
+  text-decoration: none;
+  padding: 8px 14px;
+  border-radius: 999px;
+  font-family: inherit;
+  font-size: .92rem;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: background .15s ease, color .15s ease;
 }
-.editorial-card p { margin: 0 0 12px; font-size: .98rem; line-height: 1.7; }
-.editorial-card p:last-of-type { margin-bottom: 0; }
-.editorial-card .byline {
-  margin-top: 14px;
-  padding-top: 12px;
-  border-top: 1px solid var(--border);
-  font-size: .82rem;
-  color: var(--muted);
+.tab:hover { background: rgba(183,28,28,.08); }
+.tab[aria-selected="true"] {
+  background: var(--brand);
+  color: #fff;
+}
+.tab .badge {
+  background: rgba(0,0,0,.08);
+  font-size: .72rem;
+  padding: 1px 7px;
+  border-radius: 999px;
+  font-weight: 700;
+}
+.tab[aria-selected="true"] .badge { background: rgba(255,255,255,.22); }
+.tab--cta { color: var(--brand); font-weight: 700; }
+.tab--cta:hover { background: rgba(183,28,28,.12); }
+.tab-ext { font-size: .78em; opacity: .85; }
+@media (prefers-color-scheme: dark) {
+  .tab:hover { background: rgba(255,255,255,.06); }
+  .tab .badge { background: rgba(255,255,255,.10); }
 }
 
-ul.timeline { list-style: none; margin: 0; padding: 0; max-width: 760px; }
-.tl-item { position: relative; padding: 0 0 18px 22px; border-left: 2px solid var(--border); }
-.tl-item:last-child { padding-bottom: 0; }
-.tl-item::before {
-  content: ""; position: absolute; left: -7px; top: 3px;
-  width: 12px; height: 12px; border-radius: 50%;
-  background: var(--accent); border: 2px solid var(--surface);
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 18px;
 }
-.tl-item.sev-critical::before { background: var(--brand); }
-.tl-item.sev-high::before { background: #e65100; }
-.tl-item time { display: block; font-size: .74rem; font-weight: 800; color: var(--brand); letter-spacing: .03em; }
-.tl-item p { margin: 3px 0 0; }
-.note { font-size: .8rem; color: var(--muted); margin-top: 14px; }
-
 .grid-text {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
@@ -1015,13 +1078,108 @@ ul.timeline { list-style: none; margin: 0; padding: 0; max-width: 760px; }
 }
 .card-text:hover { transform: translateY(-1px); box-shadow: 0 6px 18px rgba(0,0,0,.10); }
 .card-text a { display: block; }
-.card-text h3 { font-size: 1rem; margin: 0 0 6px; line-height: 1.45; font-weight: 700; }
+.card-text h3 {
+  font-size: 1rem;
+  margin: 0 0 6px;
+  line-height: 1.45;
+  font-weight: 700;
+}
+.card-text .desc {
+  font-size: .88rem;
+  color: var(--muted);
+  margin: 0 0 8px;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
 .card-text .info {
-  display: flex; gap: 8px; align-items: center;
-  font-size: .76rem; color: var(--muted); flex-wrap: wrap;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  font-size: .76rem;
+  color: var(--muted);
+  flex-wrap: wrap;
 }
 .card-text .info .src { font-weight: 700; color: var(--brand); }
 .card-text .info .dot { width: 3px; height: 3px; background: currentColor; border-radius: 50%; opacity: .5; }
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+  transition: transform .15s ease, box-shadow .15s ease;
+}
+.card:hover { transform: translateY(-2px); box-shadow: 0 6px 18px rgba(0,0,0,.10); }
+.card .thumb {
+  aspect-ratio: 16/9;
+  background: linear-gradient(135deg, #2a2a2a, #555);
+  overflow: hidden;
+}
+.card .thumb img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+}
+.card .body {
+  padding: 14px 16px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: 1;
+}
+.card h3 {
+  font-size: 1.04rem;
+  margin: 0;
+  line-height: 1.4;
+  font-weight: 700;
+}
+.card .desc {
+  font-size: .9rem;
+  color: var(--muted);
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.card .info {
+  margin-top: auto;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  font-size: .78rem;
+  color: var(--muted);
+  flex-wrap: wrap;
+}
+.card .info .src { font-weight: 700; color: var(--brand); }
+.card .info .dot { width: 3px; height: 3px; background: currentColor; border-radius: 50%; opacity: .5; }
+
+.skeleton .card {
+  background: var(--surface);
+  pointer-events: none;
+}
+.skeleton .thumb {
+  background: linear-gradient(90deg, var(--border) 25%, rgba(0,0,0,.04) 50%, var(--border) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.2s infinite;
+}
+.skeleton .body > * {
+  background: var(--border);
+  border-radius: 4px;
+  height: 12px;
+  animation: shimmer 1.2s infinite;
+  background-size: 200% 100%;
+}
+.skeleton .body h3 { height: 18px; width: 90%; }
+.skeleton .body .desc { height: 12px; width: 75%; }
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
 
 .empty-note {
   padding: 16px;
@@ -1033,14 +1191,102 @@ ul.timeline { list-style: none; margin: 0; padding: 0; max-width: 760px; }
   grid-column: 1/-1;
 }
 
+.editorial-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--accent);
+  border-radius: var(--radius);
+  padding: 18px 20px;
+  margin-bottom: 18px;
+  box-shadow: var(--shadow);
+}
+.editorial-card h2 {
+  margin: 0 0 10px;
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--brand);
+}
+.editorial-card p {
+  margin: 0 0 12px;
+  font-size: .95rem;
+  line-height: 1.7;
+}
+.editorial-card .byline {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid var(--border);
+  font-size: .85rem;
+  color: var(--muted);
+}
+.editorial-card .byline strong { color: var(--text); }
+
+.error-box {
+  padding: 24px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  text-align: center;
+  color: var(--muted);
+}
+.error-box button {
+  margin-top: 12px;
+  background: var(--brand);
+  color: #fff;
+  border: 0;
+  padding: 8px 18px;
+  border-radius: 999px;
+  cursor: pointer;
+  font-family: inherit;
+}
+
 .fade-in { animation: fade .35s ease-out both; }
-@keyframes fade { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fade {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
 }
 
+/* --- breaking page additions: live badge, editorial byline, timeline, footer --- */
+@keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: .3; } }
+.date-strip .live-pill {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: rgba(255,255,255,.16); border: 1px solid rgba(255,255,255,.30);
+  padding: 5px 11px; border-radius: 999px; font-weight: 800;
+  letter-spacing: .05em; font-size: .72rem;
+}
+.date-strip .live-pill .dot {
+  width: 7px; height: 7px; border-radius: 50%; background: var(--accent);
+  animation: pulse 1.4s infinite;
+}
+.livebar { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin: 6px 0 8px; }
+.sev-badge {
+  display: inline-flex; align-items: center; gap: 7px; color: #fff; font-weight: 800;
+  font-size: .72rem; letter-spacing: .04em; padding: 5px 12px; border-radius: 999px;
+  background: {{BADGE_COLOR}};
+}
+.sev-badge .dot { width: 8px; height: 8px; border-radius: 50%; background: #fff; animation: pulse 1.6s infinite; }
+.updated { font-size: .82rem; color: var(--muted); }
+.editorial-card.fade-in { margin-bottom: 26px; }
+ul.timeline { list-style: none; margin: 0; padding: 0; max-width: 760px; }
+.tl-item { position: relative; padding: 0 0 18px 22px; border-left: 2px solid var(--border); }
+.tl-item:last-child { padding-bottom: 0; }
+.tl-item::before {
+  content: ""; position: absolute; left: -7px; top: 3px;
+  width: 12px; height: 12px; border-radius: 50%;
+  background: var(--accent); border: 2px solid var(--surface);
+}
+.tl-item.sev-critical::before { background: var(--brand); }
+.tl-item.sev-high::before { background: #e65100; }
+.tl-item time { display: block; font-size: .74rem; font-weight: 800; color: var(--brand); letter-spacing: .03em; }
+.tl-item p { margin: 3px 0 0; }
+.note { font-size: .8rem; color: var(--muted); margin-top: 14px; }
 footer { max-width: var(--maxw); margin: 0 auto; padding: 0 16px 48px; font-size: .82rem; color: var(--muted); }
 footer a { color: var(--brand); font-weight: 600; }
+@media (max-width: 560px) {
+  .date-strip > span:not(.live-pill) { display: none; }
+}
 </style>
 
     <script type="application/ld+json">
@@ -1050,11 +1296,11 @@ footer a { color: var(--brand); font-weight: 600; }
 <body>
     <header class="site">
       <div class="bar">
-        <div class="brand"><span class="logo">M</span>Manzill</div>
+        <a class="brand" href="https://news.manzill.com"><span class="logo">ज</span>जयपुर न्यूज़</a>
         <div class="date-strip">
-          <span class="live-pill"><span class="dot"></span>LIVE</span>
+          <span class="live-pill"><span class="dot"></span>लाइव</span>
           <span>{{TODAY}}</span>
-          <a class="archive-link" href="https://news.manzill.com">All news</a>
+          <a class="archive-link" href="https://news.manzill.com">सभी खबरें</a>
         </div>
       </div>
     </header>
@@ -1062,8 +1308,8 @@ footer a { color: var(--brand); font-weight: 600; }
     <main>
       <div class="livebar">
         <span class="sev-badge"><span class="dot"></span>{{BADGE}}</span>
-        <span class="updated">Updated {{UPDATED_IST}}</span>
-        <button class="refresh-btn" type="button" onclick="location.reload()" aria-label="Refresh">&#8635; Refresh</button>
+        <span class="updated">अंतिम अपडेट {{UPDATED_IST}}</span>
+        <button class="refresh-btn" type="button" onclick="location.reload()" aria-label="रिफ्रेश">&#8635; रिफ्रेश</button>
       </div>
 
       <section class="hero">
@@ -1071,25 +1317,25 @@ footer a { color: var(--brand); font-weight: 600; }
       </section>
 
       <div class="editorial-card fade-in">
-        <h2>The story</h2>
+        <h2>पूरी खबर</h2>
         {{ANALYSIS}}
-        <div class="byline">Compiled from public Jaipur news feeds &middot; times shown in IST.</div>
+        <div class="byline">सार्वजनिक जयपुर न्यूज़ फ़ीड से संकलित &middot; समय IST में।</div>
       </div>
 
       <section class="feed">
         <div class="section-head">
-          <h2>Live updates</h2>
+          <h2>लाइव अपडेट</h2>
           <span class="count">{{UPDATE_COUNT}}</span>
         </div>
         <ul class="timeline">
           {{TIMELINE}}
         </ul>
-        <p class="note">This page refreshes automatically as the story develops.</p>
+        <p class="note">खबर के विकसित होते ही यह पेज अपने-आप रिफ्रेश होता रहता है।</p>
       </section>
 
       <section class="feed">
         <div class="section-head">
-          <h2>Sources</h2>
+          <h2>स्रोत</h2>
         </div>
         <div class="grid-text">
           {{SOURCES}}
@@ -1098,14 +1344,13 @@ footer a { color: var(--brand); font-weight: 600; }
     </main>
 
     <footer>
-      <p>Jaipur breaking-news coverage compiled from public news feeds. Reports may be preliminary &mdash; verify critical details with official sources.</p>
-      <p><a href="/breaking-news/rss.xml">RSS feed</a> &middot; <a href="https://news.manzill.com">news.manzill.com</a> &middot; <a href="/">manzill.com</a></p>
-      <p>&copy; 2026 Manzill Surolia. All rights reserved.</p>
+      <p>जयपुर की ब्रेकिंग खबरें सार्वजनिक न्यूज़ फ़ीड से संकलित। रिपोर्टें प्रारंभिक हो सकती हैं &mdash; महत्वपूर्ण जानकारी की पुष्टि आधिकारिक स्रोतों से करें।</p>
+      <p><a href="/breaking/rss.xml">RSS फ़ीड</a> &middot; <a href="https://news.manzill.com">news.manzill.com</a></p>
+      <p>&copy; 2026 जयपुर न्यूज़</p>
     </footer>
 </body>
 </html>
 """
-
 
 if __name__ == "__main__":
     build()

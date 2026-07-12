@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>जयपुर न्यूज़ &#8212; ब्रेकिंग</title>
+    <link>https://www.manzill.com/breaking</link>
+    <atom:link href="https://www.manzill.com/breaking/rss.xml" rel="self" type="application/rss+xml"/>
+    <description>जयपुर, राजस्थान की ताज़ा ब्रेकिंग खबरें हिंदी में &#8212; दिन की प्रमुख खबर और लगातार अपडेट।</description>
+    <language>hi-IN</language>
+    <lastBuildDate>Sun, 12 Jul 2026 15:05:06 +0000</lastBuildDate>
+    <ttl>20</ttl>
+    <item>
+      <title>Monitoring Jaipur for breaking news</title>
+      <link>https://www.manzill.com/breaking</link>
+      <guid isPermaLink="false">bn-idle-20260712</guid>
+      <pubDate>Sun, 12 Jul 2026 15:05:06 +0000</pubDate>
+      <description>No major breaking story in Jaipur right now. This feed updates as events develop.</description>
+    </item>
+  </channel>
+</rss>

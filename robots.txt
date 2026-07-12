@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 
 Sitemap: https://www.manzill.com/sitemap.xml
-Sitemap: https://www.manzill.com/breaking-news/sitemap.xml
+Sitemap: https://www.manzill.com/breaking/sitemap.xml

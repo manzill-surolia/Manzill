@@ -27,7 +27,7 @@ import sys
 import urllib.error
 import urllib.request
 from datetime import datetime, timezone
-from email.utils import parsedate_to_datetime
+from email.utils import format_datetime, parsedate_to_datetime
 from pathlib import Path
 from xml.etree import ElementTree as ET
 
@@ -43,7 +43,17 @@ except Exception:  # pragma: no cover - fallback if tzdata unavailable
 # --------------------------------------------------------------------------- #
 ROOT = Path(__file__).resolve().parent.parent
 OUT_HTML = ROOT / "breaking-news" / "index.html"
+RSS_PATH = ROOT / "breaking-news" / "rss.xml"
+NEWS_SITEMAP_PATH = ROOT / "breaking-news" / "sitemap.xml"
 STATE_PATH = ROOT / "breaking-news" / "data" / "state.json"
+
+SITE = "https://www.manzill.com"
+PAGE_URL = SITE + "/breaking-news"
+
+# Bump whenever the rendered output (template/RSS/sitemap format) changes. A mismatch
+# with the value stored in state forces a one-time re-render even when the feed is
+# unchanged, so a redesign rolls out on the next scheduled run without a manual push.
+RENDER_VERSION = "2"
 
 # --------------------------------------------------------------------------- #
 # Feeds & scoring
@@ -443,11 +453,15 @@ def build() -> None:
         state = {"ist_day": ist_day, "timeline": [], "lead": None, "last_feed_hash": None}
 
     if not items:
-        # Nothing to work with: keep existing state, refresh timestamp only.
-        state["last_updated"] = now.isoformat()
-        render(state, [], now)
-        save_state(state)
-        print("No feed items; page timestamp refreshed.")
+        # Feeds unreachable/empty: keep the last good page untouched (no commit).
+        # Only write once, to create the initial placeholder.
+        if not OUT_HTML.exists():
+            render(state, [], now)
+            save_state({**state, "last_updated": now.isoformat(),
+                        "render_version": RENDER_VERSION})
+            print("No feed items; wrote initial placeholder.")
+        else:
+            print("No feed items; keeping existing page (no commit).")
         return
 
     clusters = cluster_items(items)
@@ -456,6 +470,16 @@ def build() -> None:
     feed_hash = hashlib.sha1(
         "|".join(normalize(i["title"]) for i in top["items"]).encode()
     ).hexdigest()[:16]
+
+    # If the top story's feed is unchanged AND the page was already rendered by this
+    # output version, there is nothing new to say: skip the whole update (no Groq call,
+    # no re-render) so quiet periods produce no commit. A RENDER_VERSION mismatch (a
+    # redesign) forces a one-time re-render even when the feed is unchanged.
+    feed_changed = feed_hash != state.get("last_feed_hash")
+    up_to_date = state.get("render_version") == RENDER_VERSION
+    if OUT_HTML.exists() and state.get("lead") and not feed_changed and up_to_date:
+        print("No change in top-story feed; skipping update (no commit).")
+        return
 
     prev_lead = state.get("lead") or {}
     prev_kw = keywords(prev_lead.get("headline", ""))
@@ -485,7 +509,6 @@ def build() -> None:
 
     is_same_story = ai_same if use_ai else same_by_kw
     cadence = CADENCE_MINUTES.get(severity, 120)
-    feed_changed = feed_hash != state.get("last_feed_hash")
 
     timeline = state.get("timeline", []) if is_same_story else []
 
@@ -527,6 +550,7 @@ def build() -> None:
             "ist_day": ist_day,
             "last_updated": now.isoformat(),
             "last_feed_hash": feed_hash,
+            "render_version": RENDER_VERSION,
             "lead": {
                 "id": cluster_id(top),
                 "headline": headline,
@@ -568,7 +592,7 @@ SEV_LABEL = {
     "critical": "CRITICAL", "high": "DEVELOPING", "medium": "UPDATING", "low": "MONITORING",
 }
 SEV_COLOR = {
-    "critical": "#c62828", "high": "#e65100", "medium": "#0d5d92", "low": "#546e7a",
+    "critical": "#b71c1c", "high": "#e65100", "medium": "#b26a00", "low": "#6b6b6b",
 }
 
 
@@ -576,24 +600,39 @@ def esc(text: str) -> str:
     return html.escape(text or "", quote=True)
 
 
+def _src_time(s: dict) -> str:
+    try:
+        dt = datetime.fromisoformat(s["published"])
+    except Exception:
+        return s.get("source", "")
+    return to_ist(dt).strftime("%d %b, %I:%M %p")
+
+
 def render(state: dict, clusters: list[dict], now: datetime) -> None:
     lead = state.get("lead")
     updated_ist = fmt_ist(now)
+    today_ist = to_ist(now).strftime("%A, %d %B %Y")
     timeline = state.get("timeline", [])
 
     if lead:
         sev = lead.get("severity", "low")
         badge = SEV_LABEL.get(sev, "MONITORING")
-        color = SEV_COLOR.get(sev, "#546e7a")
+        color = SEV_COLOR.get(sev, "#6b6b6b")
         headline_html = esc(lead["headline"])
         paras = [p.strip() for p in (lead.get("analysis") or "").split("\n\n") if p.strip()]
-        analysis_html = "\n".join(f"<p>{esc(p)}</p>" for p in paras) or "<p>Coverage is developing.</p>"
+        analysis_html = "\n        ".join(
+            f"<p>{esc(p)}</p>" for p in paras
+        ) or "<p>Coverage is developing.</p>"
 
         source_items = "\n".join(
-            f'<li><a href="{esc(s["url"])}" target="_blank" rel="noopener nofollow">'
-            f'{esc(s["title"])}</a> <span class="src">— {esc(s["source"])}</span></li>'
+            f'<div class="card-text fade-in">'
+            f'<a href="{esc(s["url"])}" target="_blank" rel="noopener nofollow">'
+            f'<h3>{esc(s["title"])}</h3>'
+            f'<div class="info"><span class="src">{esc(s["source"])}</span>'
+            f'<span class="dot"></span><span>{esc(_src_time(s))}</span></div>'
+            f'</a></div>'
             for s in lead.get("sources", [])
-        ) or "<li>Sources being gathered.</li>"
+        ) or '<div class="empty-note">Sources are being gathered.</div>'
 
         if timeline:
             timeline_html = "\n".join(
@@ -604,14 +643,14 @@ def render(state: dict, clusters: list[dict], now: datetime) -> None:
             )
         else:
             timeline_html = '<li class="tl-item"><p>Live updates will appear here as the story develops.</p></li>'
-        lead_id = esc(lead.get("id", ""))
     else:
-        sev, badge, color = "low", "MONITORING", "#546e7a"
+        sev, badge, color = "low", "MONITORING", "#6b6b6b"
         headline_html = "No major breaking story in Jaipur right now"
-        analysis_html = "<p>There is no single dominant breaking story in Jaipur at the moment. This page will update automatically as events develop through the day.</p>"
-        source_items = "<li>Monitoring local feeds.</li>"
+        analysis_html = "<p>There is no single dominant breaking story in Jaipur at the moment. This page updates automatically as events develop through the day.</p>"
+        source_items = '<div class="empty-note">Monitoring local Jaipur feeds &mdash; sources will appear here when a story breaks.</div>'
         timeline_html = '<li class="tl-item"><p>Live updates will appear here as news breaks.</p></li>'
-        lead_id = ""
+
+    update_count = f"{len(timeline)} update" + ("s" if len(timeline) != 1 else "")
 
     # LiveBlogPosting JSON-LD for SEO on live coverage.
     ld_updates = [
@@ -627,13 +666,13 @@ def render(state: dict, clusters: list[dict], now: datetime) -> None:
         "@context": "https://schema.org",
         "@type": "LiveBlogPosting",
         "headline": (lead["headline"] if lead else "Jaipur Breaking News"),
-        "url": "https://www.manzill.com/breaking-news",
+        "url": PAGE_URL,
+        "inLanguage": "en-IN",
         "datePublished": (timeline[-1]["time_utc"] if timeline else now.isoformat()),
         "dateModified": now.isoformat(),
         "coverageStartTime": (timeline[-1]["time_utc"] if timeline else now.isoformat()),
         "about": {"@type": "Place", "name": "Jaipur, Rajasthan, India"},
-        "publisher": {"@type": "Organization", "name": "Manzill",
-                      "url": "https://www.manzill.com/"},
+        "publisher": {"@type": "Organization", "name": "Manzill", "url": SITE + "/"},
         "liveBlogUpdate": ld_updates,
     }
     ld_json = json.dumps(ld, ensure_ascii=False, indent=2)
@@ -646,7 +685,8 @@ def render(state: dict, clusters: list[dict], now: datetime) -> None:
         "{{SOURCES}}": source_items,
         "{{TIMELINE}}": timeline_html,
         "{{UPDATED_IST}}": esc(updated_ist),
-        "{{LEAD_ID}}": lead_id,
+        "{{TODAY}}": esc(today_ist),
+        "{{UPDATE_COUNT}}": esc(update_count),
         "{{LDJSON}}": ld_json,
     }
     page = PAGE_TEMPLATE
@@ -655,6 +695,85 @@ def render(state: dict, clusters: list[dict], now: datetime) -> None:
 
     OUT_HTML.parent.mkdir(parents=True, exist_ok=True)
     OUT_HTML.write_text(page)
+    render_rss(state, now)
+    render_news_sitemap(now)
+
+
+def _xml_esc(text: str) -> str:
+    return html.escape(text or "", quote=True)
+
+
+def _rss_item(title: str, desc: str, guid: str, pub: datetime) -> str:
+    return (
+        "    <item>\n"
+        f"      <title>{_xml_esc(title)}</title>\n"
+        f"      <link>{PAGE_URL}</link>\n"
+        f'      <guid isPermaLink="false">{_xml_esc(guid)}</guid>\n'
+        f"      <pubDate>{format_datetime(pub)}</pubDate>\n"
+        f"      <description>{_xml_esc(desc)}</description>\n"
+        "    </item>"
+    )
+
+
+def render_rss(state: dict, now: datetime) -> None:
+    """Emit breaking-news/rss.xml: one item per timeline development."""
+    lead = state.get("lead")
+    timeline = state.get("timeline", [])
+    items = []
+    if lead:
+        for t in timeline:
+            try:
+                dt = datetime.fromisoformat(t["time_utc"])
+            except Exception:
+                dt = now
+            items.append(_rss_item(t["text"], t["text"],
+                                   f'{lead.get("id", "bn")}-{t["time_utc"]}', dt))
+        if not timeline:
+            analysis = (lead.get("analysis") or "").replace("\n\n", " ")
+            items.append(_rss_item(lead["headline"], analysis,
+                                   f'{lead.get("id", "bn")}-{now.isoformat()}', now))
+    if not items:
+        items.append(_rss_item(
+            "Monitoring Jaipur for breaking news",
+            "No major breaking story in Jaipur right now. This feed updates as events develop.",
+            f"bn-idle-{to_ist(now).strftime('%Y%m%d')}", now))
+
+    feed = (
+        '<?xml version="1.0" encoding="UTF-8"?>\n'
+        '<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">\n'
+        "  <channel>\n"
+        "    <title>Manzill &#8212; Jaipur Breaking News</title>\n"
+        f"    <link>{PAGE_URL}</link>\n"
+        f'    <atom:link href="{PAGE_URL}/rss.xml" rel="self" type="application/rss+xml"/>\n'
+        "    <description>Live breaking news from Jaipur, Rajasthan &#8212; the top "
+        "developing story of the day with running updates.</description>\n"
+        "    <language>en-IN</language>\n"
+        f"    <lastBuildDate>{format_datetime(now)}</lastBuildDate>\n"
+        "    <ttl>20</ttl>\n"
+        + "\n".join(items) + "\n"
+        "  </channel>\n"
+        "</rss>\n"
+    )
+    RSS_PATH.parent.mkdir(parents=True, exist_ok=True)
+    RSS_PATH.write_text(feed)
+
+
+def render_news_sitemap(now: datetime) -> None:
+    """Emit breaking-news/sitemap.xml with a fresh lastmod each run."""
+    lastmod = to_ist(now).strftime("%Y-%m-%dT%H:%M:%S+05:30")
+    xml = (
+        '<?xml version="1.0" encoding="UTF-8"?>\n'
+        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+        "  <url>\n"
+        f"    <loc>{PAGE_URL}</loc>\n"
+        f"    <lastmod>{lastmod}</lastmod>\n"
+        "    <changefreq>hourly</changefreq>\n"
+        "    <priority>0.9</priority>\n"
+        "  </url>\n"
+        "</urlset>\n"
+    )
+    NEWS_SITEMAP_PATH.parent.mkdir(parents=True, exist_ok=True)
+    NEWS_SITEMAP_PATH.write_text(xml)
 
 
 PAGE_TEMPLATE = """<!DOCTYPE html>
@@ -663,19 +782,20 @@ PAGE_TEMPLATE = """<!DOCTYPE html>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="robots" content="index, follow">
-    <meta name="theme-color" content="#0e3a5f">
+    <meta name="theme-color" content="#b71c1c">
     <!-- Page is regenerated on the server every ~20 min; refresh to pull the latest. -->
     <meta http-equiv="refresh" content="180">
 
     <title>Jaipur Breaking News &mdash; Live Updates | Manzill</title>
     <meta name="description" content="Live breaking news from Jaipur, Rajasthan. The top developing story of the day with a running timeline of updates, refreshed automatically through the day.">
     <meta name="keywords" content="Jaipur Breaking News, Jaipur Live News, Rajasthan Breaking News, Jaipur Today, Pink City News, Jaipur Latest">
+    <meta name="news_keywords" content="Jaipur, Jaipur news, Rajasthan, breaking news, Jaipur breaking news, Pink City, Jaipur today">
     <meta name="author" content="Manzill Surolia">
 
     <link rel="canonical" href="https://www.manzill.com/breaking-news">
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-    <link rel="icon" type="image/png" sizes="512x512" href="/icon.png">
-    <link rel="apple-touch-icon" href="/icon.png">
+    <link rel="icon" href="/breaking-news/favicon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/breaking-news/favicon.svg">
+    <link rel="alternate" type="application/rss+xml" title="Jaipur Breaking News &mdash; Manzill" href="/breaking-news/rss.xml">
 
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Manzill">
@@ -692,77 +812,235 @@ PAGE_TEMPLATE = """<!DOCTYPE html>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;600;700;800;900&display=swap">
 
     <style>
 :root {
-  --brand: #0e3a5f; --brand-dark: #082438; --link: #0d5d92; --accent: #12a5b8;
-  --bg: #f6f8fa; --surface: #ffffff; --text: #0f1a24; --muted: #55636e;
-  --border: #dde4ea; --shadow: 0 1px 3px rgba(0,0,0,.06), 0 4px 12px rgba(0,0,0,.04);
-  --radius: 12px; --maxw: 820px;
+  --brand: #b71c1c;
+  --brand-dark: #7f0000;
+  --accent: #f5b400;
+  --bg: #fafafa;
+  --surface: #ffffff;
+  --text: #1a1a1a;
+  --muted: #6b6b6b;
+  --border: #e5e5e5;
+  --shadow: 0 1px 3px rgba(0,0,0,.06), 0 4px 12px rgba(0,0,0,.04);
+  --radius: 12px;
+  --maxw: 1100px;
 }
 @media (prefers-color-scheme: dark) {
   :root {
-    --link: #5cb3e0; --bg: #0d1117; --surface: #161b22; --text: #e6edf3;
-    --muted: #8b98a5; --border: #26303b;
+    --bg: #0f0f10;
+    --surface: #18181b;
+    --text: #f1f1f1;
+    --muted: #a1a1aa;
+    --border: #2a2a2e;
     --shadow: 0 1px 3px rgba(0,0,0,.4), 0 4px 12px rgba(0,0,0,.3);
   }
 }
 * { box-sizing: border-box; }
 html { -webkit-text-size-adjust: 100%; }
 body {
-  margin: 0; background: var(--bg); color: var(--text); line-height: 1.6;
-  font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  margin: 0;
+  font-family: 'Noto Sans Devanagari', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.55;
   -webkit-font-smoothing: antialiased;
 }
-a { color: var(--link); text-decoration: none; }
-a:hover { text-decoration: underline; }
+a { color: inherit; text-decoration: none; }
+img { display: block; max-width: 100%; height: auto; }
 
-header.site { background: var(--brand); color: #fff; border-bottom: 3px solid var(--accent); box-shadow: var(--shadow); }
-.bar { max-width: var(--maxw); margin: 0 auto; padding: 12px 16px; display: flex; align-items: center; gap: 12px; }
-.brand { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 1.25rem; color: #fff; }
-.brand .logo { width: 32px; height: 32px; background: #fff; color: var(--brand); border-radius: 8px; display: grid; place-items: center; font-weight: 900; }
-.brand a { color: #fff; }
+header.site {
+  background: var(--brand);
+  color: #fff;
+  border-bottom: 3px solid var(--accent);
+  box-shadow: var(--shadow);
+}
+.bar {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 800;
+  font-size: 1.4rem;
+}
+.brand .logo {
+  width: 34px; height: 34px;
+  background: #fff;
+  color: var(--brand);
+  border-radius: 8px;
+  display: grid;
+  place-items: center;
+  font-weight: 900;
+  font-size: 1.15rem;
+}
+.date-strip {
+  margin-left: auto;
+  font-size: .82rem;
+  opacity: .92;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.date-strip .archive-link {
+  background: rgba(255,255,255,.15);
+  border: 1px solid rgba(255,255,255,.28);
+  color: #fff;
+  padding: 6px 12px;
+  border-radius: 999px;
+}
+.date-strip .archive-link:hover { background: rgba(255,255,255,.25); }
+.date-strip .live-pill {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: rgba(255,255,255,.16); border: 1px solid rgba(255,255,255,.30);
+  padding: 5px 11px; border-radius: 999px; font-weight: 800;
+  letter-spacing: .05em; font-size: .72rem;
+}
+.date-strip .live-pill .dot {
+  width: 7px; height: 7px; border-radius: 50%; background: var(--accent);
+  animation: pulse 1.4s infinite;
+}
+.refresh-btn {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--brand);
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: .76rem;
+  cursor: pointer;
+  font-family: inherit;
+  font-weight: 700;
+}
+.refresh-btn:hover { background: rgba(183,28,28,.08); border-color: var(--brand); }
+@keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: .3; } }
 
-main { max-width: var(--maxw); margin: 0 auto; padding: 20px 16px 64px; }
-nav.crumb { font-size: .85rem; color: var(--muted); margin: 14px 0 4px; }
-nav.crumb a { color: var(--link); }
+main {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 20px 16px 60px;
+}
 
-.livebar { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin: 14px 0 6px; }
-.badge {
+.livebar { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin: 6px 0 8px; }
+.sev-badge {
   display: inline-flex; align-items: center; gap: 7px; color: #fff; font-weight: 800;
-  font-size: .72rem; letter-spacing: .06em; padding: 5px 11px; border-radius: 999px;
+  font-size: .72rem; letter-spacing: .06em; padding: 5px 12px; border-radius: 999px;
   background: {{BADGE_COLOR}};
 }
-.badge .dot { width: 8px; height: 8px; border-radius: 50%; background: #fff; animation: pulse 1.6s infinite; }
-@keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: .35; } }
+.sev-badge .dot { width: 8px; height: 8px; border-radius: 50%; background: #fff; animation: pulse 1.6s infinite; }
 .updated { font-size: .82rem; color: var(--muted); }
 
-h1.lead { font-size: 1.9rem; line-height: 1.2; font-weight: 800; margin: 6px 0 14px; }
-@media (max-width: 560px) { h1.lead { font-size: 1.5rem; } }
+.hero { margin: 8px 0 4px; }
+.hero h1 { font-size: 2rem; line-height: 1.18; margin: 6px 0 16px; font-weight: 800; }
+@media (max-width: 560px) {
+  .hero h1 { font-size: 1.55rem; }
+  .date-strip > span:not(.live-pill) { display: none; }
+}
 
-.card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow); padding: 18px 18px; margin: 18px 0; }
-.card h2 { font-size: 1.1rem; font-weight: 800; margin: 0 0 10px; padding-left: 11px; border-left: 4px solid var(--brand); }
-.analysis p { margin: 0 0 12px; }
-.analysis p:last-child { margin-bottom: 0; }
+section.feed { margin-bottom: 32px; }
+.section-head {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin: 8px 0 14px;
+}
+.section-head h2 {
+  font-size: 1.25rem;
+  margin: 0;
+  padding-left: 12px;
+  border-left: 4px solid var(--brand);
+  font-weight: 800;
+}
+.section-head .count { color: var(--muted); font-size: .82rem; }
 
-ul.timeline { list-style: none; margin: 0; padding: 0; }
-.tl-item { position: relative; padding: 0 0 16px 20px; border-left: 2px solid var(--border); }
+.editorial-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--accent);
+  border-radius: var(--radius);
+  padding: 18px 20px;
+  margin-bottom: 26px;
+  box-shadow: var(--shadow);
+}
+.editorial-card h2 {
+  margin: 0 0 10px;
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--brand);
+}
+.editorial-card p { margin: 0 0 12px; font-size: .98rem; line-height: 1.7; }
+.editorial-card p:last-of-type { margin-bottom: 0; }
+.editorial-card .byline {
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid var(--border);
+  font-size: .82rem;
+  color: var(--muted);
+}
+
+ul.timeline { list-style: none; margin: 0; padding: 0; max-width: 760px; }
+.tl-item { position: relative; padding: 0 0 18px 22px; border-left: 2px solid var(--border); }
 .tl-item:last-child { padding-bottom: 0; }
-.tl-item::before { content: ""; position: absolute; left: -7px; top: 4px; width: 12px; height: 12px; border-radius: 50%; background: var(--accent); border: 2px solid var(--surface); }
-.tl-item.sev-critical::before { background: #c62828; }
+.tl-item::before {
+  content: ""; position: absolute; left: -7px; top: 3px;
+  width: 12px; height: 12px; border-radius: 50%;
+  background: var(--accent); border: 2px solid var(--surface);
+}
+.tl-item.sev-critical::before { background: var(--brand); }
 .tl-item.sev-high::before { background: #e65100; }
-.tl-item time { display: block; font-size: .74rem; font-weight: 700; color: var(--muted); letter-spacing: .03em; }
-.tl-item p { margin: 2px 0 0; }
+.tl-item time { display: block; font-size: .74rem; font-weight: 800; color: var(--brand); letter-spacing: .03em; }
+.tl-item p { margin: 3px 0 0; }
+.note { font-size: .8rem; color: var(--muted); margin-top: 14px; }
 
-ul.sources { list-style: none; margin: 0; padding: 0; }
-ul.sources li { padding: 7px 0; border-bottom: 1px solid var(--border); font-size: .93rem; }
-ul.sources li:last-child { border-bottom: 0; }
-ul.sources .src { color: var(--muted); font-size: .82rem; }
+.grid-text {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 12px;
+}
+.card-text {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--brand);
+  border-radius: 10px;
+  padding: 14px 16px;
+  box-shadow: var(--shadow);
+  transition: transform .15s ease, box-shadow .15s ease;
+}
+.card-text:hover { transform: translateY(-1px); box-shadow: 0 6px 18px rgba(0,0,0,.10); }
+.card-text a { display: block; }
+.card-text h3 { font-size: 1rem; margin: 0 0 6px; line-height: 1.45; font-weight: 700; }
+.card-text .info {
+  display: flex; gap: 8px; align-items: center;
+  font-size: .76rem; color: var(--muted); flex-wrap: wrap;
+}
+.card-text .info .src { font-weight: 700; color: var(--brand); }
+.card-text .info .dot { width: 3px; height: 3px; background: currentColor; border-radius: 50%; opacity: .5; }
 
-.note { font-size: .8rem; color: var(--muted); margin-top: 6px; }
+.empty-note {
+  padding: 16px;
+  background: var(--surface);
+  border: 1px dashed var(--border);
+  border-radius: var(--radius);
+  color: var(--muted);
+  font-size: .9rem;
+  grid-column: 1/-1;
+}
+
+.fade-in { animation: fade .35s ease-out both; }
+@keyframes fade { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+
 footer { max-width: var(--maxw); margin: 0 auto; padding: 0 16px 48px; font-size: .82rem; color: var(--muted); }
-footer a { color: var(--link); }
+footer a { color: var(--brand); font-weight: 600; }
 </style>
 
     <script type="application/ld+json">
@@ -772,46 +1050,56 @@ footer a { color: var(--link); }
 <body>
     <header class="site">
       <div class="bar">
-        <div class="brand"><span class="logo">M</span><a href="/">Manzill</a></div>
+        <div class="brand"><span class="logo">M</span>Manzill</div>
+        <div class="date-strip">
+          <span class="live-pill"><span class="dot"></span>LIVE</span>
+          <span>{{TODAY}}</span>
+          <a class="archive-link" href="https://news.manzill.com">All news</a>
+        </div>
       </div>
     </header>
 
     <main>
-      <nav class="crumb" aria-label="Breadcrumb">
-        <a href="/">Home</a> &rsaquo; <a href="/jaipur-news">Jaipur News</a> &rsaquo; <span>Breaking</span>
-      </nav>
-
       <div class="livebar">
-        <span class="badge"><span class="dot"></span>{{BADGE}}</span>
+        <span class="sev-badge"><span class="dot"></span>{{BADGE}}</span>
         <span class="updated">Updated {{UPDATED_IST}}</span>
+        <button class="refresh-btn" type="button" onclick="location.reload()" aria-label="Refresh">&#8635; Refresh</button>
       </div>
 
-      <h1 class="lead">{{HEADLINE}}</h1>
-
-      <section class="card analysis">
-        <h2>The story</h2>
-        {{ANALYSIS}}
+      <section class="hero">
+        <h1>{{HEADLINE}}</h1>
       </section>
 
-      <section class="card">
-        <h2>Live updates</h2>
+      <div class="editorial-card fade-in">
+        <h2>The story</h2>
+        {{ANALYSIS}}
+        <div class="byline">Compiled from public Jaipur news feeds &middot; times shown in IST.</div>
+      </div>
+
+      <section class="feed">
+        <div class="section-head">
+          <h2>Live updates</h2>
+          <span class="count">{{UPDATE_COUNT}}</span>
+        </div>
         <ul class="timeline">
           {{TIMELINE}}
         </ul>
-        <p class="note">This page refreshes automatically as the story develops. Times shown in IST.</p>
+        <p class="note">This page refreshes automatically as the story develops.</p>
       </section>
 
-      <section class="card">
-        <h2>Sources</h2>
-        <ul class="sources">
+      <section class="feed">
+        <div class="section-head">
+          <h2>Sources</h2>
+        </div>
+        <div class="grid-text">
           {{SOURCES}}
-        </ul>
+        </div>
       </section>
     </main>
 
     <footer>
       <p>Jaipur breaking-news coverage compiled from public news feeds. Reports may be preliminary &mdash; verify critical details with official sources.</p>
-      <p><a href="/jaipur-news">&larr; All Jaipur news</a> &middot; <a href="/">manzill.com</a></p>
+      <p><a href="/breaking-news/rss.xml">RSS feed</a> &middot; <a href="https://news.manzill.com">news.manzill.com</a> &middot; <a href="/">manzill.com</a></p>
       <p>&copy; 2026 Manzill Surolia. All rights reserved.</p>
     </footer>
 </body>

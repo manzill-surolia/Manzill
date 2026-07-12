@@ -2,27 +2,45 @@
   "ist_day": "2026-07-12",
   "timeline": [
     {
-      "time_utc": "2026-07-12T11:52:45.894776+00:00",
-      "time_ist": "05:22 PM",
-      "text": "Now tracking as Jaipur's top developing story: Rajasthan: Police arrest accused in Alwar petrol pump shooting case; probe reveals planned attack.",
-      "severity": "critical"
+      "time_utc": "2026-07-12T14:24:25.886763+00:00",
+      "time_ist": "07:54 PM",
+      "text": "Now tracking as Jaipur's top developing story: Jaipur woman accused of mother's murder now faces probe into father's 2025 death.",
+      "severity": "high"
     }
   ],
   "lead": {
-    "id": "f158aaafbd4b",
-    "headline": "Rajasthan: Police arrest accused in Alwar petrol pump shooting case; probe reveals planned attack",
+    "id": "1a1de36e2644",
+    "headline": "Jaipur woman accused of mother's murder now faces probe into father's 2025 death",
     "event_type": "other",
-    "severity": "critical",
-    "analysis": "Rajasthan: Police arrest accused in Alwar petrol pump shooting case; probe reveals planned attack is the most widely reported story across Jaipur feeds right now, carried by ANI News (1 report(s) in the last day).\n\nAlso being reported today: Jaipur murder case: Did Ayushi Sharma kill her father too? Uncle’s claim now under police probe; Surat Latest News Today on July 11th, 2026: Flood Toll Rises, Relief Efforts & New Projects; Under-Construction Shop Collapses in Noida, No Casualties Reported.",
+    "severity": "high",
+    "analysis": "Jaipur woman accused of mother's murder now faces probe into father's 2025 death is the most widely reported story across Jaipur feeds right now, carried by Hindustan Times, MSN (4 report(s) in the last day).\n\nAlso being reported today: Rajasthan: Police arrest accused in Alwar petrol pump shooting case; probe reveals planned attack; Jaipur murder case: Did Ayushi Sharma kill her father too? Uncle’s claim now under police probe; Surat Latest News Today on July 11th, 2026: Flood Toll Rises, Relief Efforts & New Projects.",
     "sources": [
       {
-        "title": "Rajasthan: Police arrest accused in Alwar petrol pump shooting case; probe reveals planned attack",
-        "url": "https://news.google.com/rss/articles/CBMi8AFBVV95cUxQdmhYOTM4dHpZN056MVRTcEhmbG5qVEpCNUNqOEZ5YXhVYkRlMm9hNjJoZXMzT21JTEkxTEVZaUFfUUNwT0hnZkdrZWN5YVRhNHBKY2dkbXJiQlNQeGJreDlhZXlJTG5GUGg2ejZDaU9FZmc2amV1YUxXSGVIME0yWnM0anpIN0pXU2ViWXlqOV9FbTBfcmN5Zm51SkF6VUVqTXZuNmIzMTBTVVg0Ul9yX0lRM2ZPVnRrTi11cmpVM20tRlFTaHkwLUNKeWY1Qm5DSDU0czBueWd5SEdMVVI1UTNNOHNVZTVxSUhRZ2pLb3c?oc=5",
-        "source": "ANI News",
-        "published": "2026-07-12T07:01:00+00:00"
+        "title": "Jaipur woman accused of mother's murder now faces probe into father's 2025 death",
+        "url": "https://news.google.com/rss/articles/CBMi_wJBVV95cUxQdU5PXzY5ZXVwVW40Wi0yVkQ2REVteVNDOVhLdENEQ0dkOG5XUnZaM1RFWVpMa2RpeWJ4cG13NFA1MXdzU3ByLWY4V2N1dWM1emRRNjlWVUl2NHcweWU1MVI4MHpTYTlDUHlkV2ZNODlaMEFzV2RmbWdOdmdnYjgxUEVGYUlaVm80bk5hOFBITGhXdmxKY0RfQkR5SkhrbEY4Z1F6N1lKcXU2enBVZ0JsQ3VyOFU1MHVDQ2FySWhWT01HM20wQkJjdGhYZFpFR2lJcE4wM2RmQloxYXRLWVFtUnhxRU9BaW8wc0V3dktIY0VhbUFnaWVoOTNnbFVEcmRkRTVHX1NjYy05aC1CaFZoMG80OW12TjU4SXIxMzhRdFN4Z0Fwd1BkVWE0MmNza2pUSzVmbkJMamFRZ09lSVprak1McEVlbzY2NVoyQzgyTkJIQ0xPclBJdnhtbGJpTW40UTFzd0FhbC1fYlNaQnpqZTlERmQwRktBVXpHaHRTOA?oc=5",
+        "source": "MSN",
+        "published": "2026-07-12T11:35:57+00:00"
+      },
+      {
+        "title": "Jaipur murder probe widens to examine father's 2025 death",
+        "url": "https://news.google.com/rss/articles/CBMi8AFBVV95cUxPdjk2cS1IQkJGcUFYSzJzNE50VF94S0FjelhnVk5WY2FSMl9aNVVwZ0FBUkM5aHZyeXEzSThtbGVvYjBuVF8wVEJUcE41NnhUZTlnNjB5UFdQazBXT3FQWm9xSmhseWRiU3pCWGJKc3Fxa3ZhVmZueGpEamgyR18zVWxuMnMxN1dhREp0clVpOVJmYXZ4azZGaHJCWVExbFJwdGJGWHRKaXJ3MDVkbjJUcXNPU0dCT1lZU082b0NaQTItNnBwTWtJdFN6M3JaUWNoWEd5ZUdsSExnQ2dsdWJ0S05xTXdwd0VYczBXZWhULTI?oc=5",
+        "source": "MSN",
+        "published": "2026-07-12T02:33:14+00:00"
+      },
+      {
+        "title": "Jaipur murder probe widens to include father’s death claims",
+        "url": "https://news.google.com/rss/articles/CBMi8wFBVV95cUxPd2hhOFpCaEpTTnd2VVJjaEdubWVFSzk3VTFYZ3JRdVJSbUZOQ1RzejVOcW1WVlJkU1lsRjgzUVJCZ1dENkRkb25LRlRhN1pxcXJNVm5GU2pJUzZHRjZZTVA0VlFTMjMyMjE4Z0tlLWNIdzYwQlczU21tdzBYdlk2Ui1CNk1KZ3ZRQ0h1UWFwamJsQW5nVUpQOGx0UmY0YVVUekZYWFRhQ0xMRFBOOEY1WXBjUEk4ZnJGN2NNRV9BbE12R2NIZWlKQVFGOWl4R0FlVi11MzZ5VDMtMkFCUUJHQU1weXB3bmo2MGxpS1BjdXFQMUU?oc=5",
+        "source": "MSN",
+        "published": "2026-07-12T02:33:14+00:00"
+      },
+      {
+        "title": "Jaipur woman accused of plotting mother’s murder now under scanner over father’s death | India News",
+        "url": "https://news.google.com/rss/articles/CBMi4wFBVV95cUxOeHpWQUptc1ZjZHZERFdKZ0xqdHBXQkF5X2kwLWJDUkQ3QUg4azc2dlNHN1RncEthbjdsVlFjdi0tOHVROV9lYzdJdnN2MzhxZmF4U0NfN0czNVgzQjRkTDE1VHRIQTM3bE5oTEJFa2c5U2pROFdlbFpxQVNJVDZlUTJFblJOME5fTlJtNDh1a3kwRXpPNm5WbjlsRXVsV0pwRGwwemNTVVNaSXc2TGlZcV9mdGViMjBLbzBNNU9HZ2p4b05tQ3hFTW1ua2hJamVYLS1sbGFlRTRVaW10SXY3ZktCc9IB6AFBVV95cUxQS1pBUklvSE0yVklBOHZRZFVLYmVvZVY3TzhWdGFoa3FzZllobURXcFNkMlFNOEpzNDRnbHpydTN1bXVRN3pOTHFPWHRsa0RiZlgzVnpFR1pxeHlXZlFiaVVpeld0eXpGUGNPMzFPNy04OVhob2hLMGpFNEREN1I4a1o0enI5UW5USGJsSlJOTFFnVkVqYmxDa2hsWGpIbm0wU1NFc19PelBsWXFkeHFOYXlZb2Jsci1PTWdLVUxkQ1FiYVBZQVEwa0Y0MlFISWlaZHQtY2lqdGdkVTVaMFdJSmhSS0tnMXhz?oc=5",
+        "source": "Hindustan Times",
+        "published": "2026-07-12T01:20:31+00:00"
       }
     ]
   },
-  "last_feed_hash": "8f355ac4c6344b75",
-  "last_updated": "2026-07-12T12:56:30.164363+00:00"
+  "last_feed_hash": "776ffd496ea1a39c",
+  "last_updated": "2026-07-12T14:24:25.886763+00:00"
 }

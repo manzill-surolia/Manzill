@@ -23,6 +23,7 @@ import html
 import json
 import os
 import re
+import shutil
 import sys
 import urllib.error
 import urllib.request
@@ -46,8 +47,8 @@ OUT_HTML = ROOT / "breaking" / "index.html"
 RSS_PATH = ROOT / "breaking" / "rss.xml"
 NEWS_SITEMAP_PATH = ROOT / "breaking" / "sitemap.xml"
 STATE_PATH = ROOT / "breaking" / "data" / "state.json"
-# The page moved from /breaking-news to /breaking; keep a redirect at the old path.
-REDIRECT_PATH = ROOT / "breaking-news" / "index.html"
+# The page moved to /breaking; the retired /breaking-news folder is deleted each run.
+OLD_DIR = ROOT / "breaking-news"
 
 SITE = "https://www.manzill.com"
 PAGE_URL = SITE + "/breaking"
@@ -56,7 +57,7 @@ NEWS_SITE = "https://news.manzill.com"
 # Bump whenever the rendered output (template/RSS/sitemap format) changes. A mismatch
 # with the value stored in state forces a one-time re-render even when the feed is
 # unchanged, so a redesign rolls out on the next scheduled run without a manual push.
-RENDER_VERSION = "3"
+RENDER_VERSION = "5"
 
 # strftime has no Hindi locale, so map weekday/month names for the date strip.
 HINDI_WEEKDAYS = ["सोमवार", "मंगलवार", "बुधवार", "गुरुवार", "शुक्रवार", "शनिवार", "रविवार"]
@@ -64,6 +65,28 @@ HINDI_MONTHS = [
     "जनवरी", "फ़रवरी", "मार्च", "अप्रैल", "मई", "जून",
     "जुलाई", "अगस्त", "सितंबर", "अक्टूबर", "नवंबर", "दिसंबर",
 ]
+
+# Outlet brand names come from the feeds in English; transliterate the common ones to
+# Devanagari so the page stays fully Hindi. Unknown outlets are dropped (no English label).
+HINDI_SOURCE = {
+    "times of india": "टाइम्स ऑफ इंडिया", "the times of india": "टाइम्स ऑफ इंडिया",
+    "hindustan times": "हिंदुस्तान टाइम्स", "ndtv": "एनडीटीवी", "ndtv profit": "एनडीटीवी",
+    "india today": "इंडिया टुडे", "the hindu": "द हिंदू", "news18": "न्यूज़18",
+    "cnn-news18": "न्यूज़18", "zee news": "ज़ी न्यूज़", "abp news": "एबीपी न्यूज़",
+    "abp live": "एबीपी लाइव", "amar ujala": "अमर उजाला", "dainik bhaskar": "दैनिक भास्कर",
+    "dainik jagran": "दैनिक जागरण", "jagran": "जागरण", "patrika": "पत्रिका",
+    "rajasthan patrika": "राजस्थान पत्रिका", "msn": "एमएसएन", "aaj tak": "आज तक",
+    "the indian express": "द इंडियन एक्सप्रेस", "indian express": "इंडियन एक्सप्रेस",
+    "economic times": "इकोनॉमिक टाइम्स", "the economic times": "इकोनॉमिक टाइम्स",
+    "business standard": "बिज़नेस स्टैंडर्ड", "livemint": "लाइवमिंट", "mint": "मिंट",
+    "deccan herald": "डेक्कन हेराल्ड", "firstpost": "फर्स्टपोस्ट", "oneindia": "वनइंडिया",
+    "oneindia hindi": "वनइंडिया हिंदी", "jansatta": "जनसत्ता", "navbharat times": "नवभारत टाइम्स",
+    "tv9": "टीवी9", "tv9 bharatvarsh": "टीवी9 भारतवर्ष", "the print": "द प्रिंट",
+    "theprint": "द प्रिंट", "the wire": "द वायर", "news nation": "न्यूज़ नेशन",
+    "free press journal": "फ्री प्रेस जर्नल", "the free press journal": "फ्री प्रेस जर्नल",
+    "et now": "ईटी नाउ", "zee business": "ज़ी बिज़नेस", "outlook": "आउटलुक",
+    "outlook india": "आउटलुक", "lokmat": "लोकमत", "lokmat times": "लोकमत",
+}
 
 # --------------------------------------------------------------------------- #
 # Feeds & scoring
@@ -111,6 +134,10 @@ USER_AGENT = (
 )
 
 GROQ_BASE = "https://api.groq.com/openai/v1"
+# Groq sits behind Cloudflare, which returns 403 "error code 1010" (banned browser
+# signature) to requests that spoof a browser UA. Send Groq a plain client UA instead;
+# the feeds keep using the browser-like USER_AGENT that Google News prefers.
+GROQ_UA = "Manzill-BreakingNews/1.0 (+https://www.manzill.com)"
 MODEL_PREFERENCE = [
     "openai/gpt-oss-120b",
     "llama-3.3-70b-versatile",
@@ -316,7 +343,7 @@ def groq_pick_model(api_key: str) -> str:
     try:
         raw = http_get(
             f"{GROQ_BASE}/models",
-            headers={"Authorization": f"Bearer {api_key}"},
+            headers={"Authorization": f"Bearer {api_key}", "User-Agent": GROQ_UA},
         )
         ids = {m.get("id") for m in json.loads(raw).get("data", [])}
     except Exception as exc:
@@ -334,47 +361,41 @@ def groq_pick_model(api_key: str) -> str:
     return env_model or MODEL_PREFERENCE[0]
 
 
-def groq_analyze(api_key: str, cluster: dict, state: dict) -> dict | None:
+def groq_analyze(api_key: str, clusters: list[dict]) -> dict | None:
+    """Ask Groq for a full HINDI package: headline, detailed analysis, a past→present
+    developments chain, Hindi source titles, and Hindi secondary stories."""
     model = groq_pick_model(api_key)
-    candidates = [
-        {"headline": c["headline"], "severity": c["severity"],
-         "snippets": [i["summary"] for i in c["items"][:3] if i["summary"]][:3]}
-        for c in cluster["_top_clusters"]
-    ]
-    current = state.get("lead") or {}
-    recent_timeline = [t["text"] for t in state.get("timeline", [])[:4]]
+    lead = clusters[0]
+    others = clusters[1:6]
+    lead_sources = [s["title"] for s in cluster_sources(lead, limit=6)]
+    lead_snippets = [i["summary"] for i in lead["items"][:4] if i["summary"]][:4]
 
     system = (
-        "You are the duty news editor for a Jaipur (Rajasthan, India) local-news "
-        "website that publishes in HINDI. Use ONLY the information in the supplied "
-        "feed items (their titles/snippets may be in English — translate the facts "
-        "into natural Hindi). Attribute anything unconfirmed ('पुलिस के अनुसार', "
-        "'स्थानीय रिपोर्टों के मुताबिक'). Never invent casualty figures, names, or "
-        "facts that are not in the sources. The 'lead_headline', 'analysis' and "
-        "'update_text' fields MUST be written in Hindi (Devanagari); the "
-        "'event_type' and 'severity' fields stay in the English enums below. "
-        "Respond with strict JSON only."
+        "आप जयपुर (राजस्थान, भारत) की एक हिंदी न्यूज़ वेबसाइट के समाचार संपादक हैं। "
+        "दिए गए फ़ीड आइटम (शीर्षक/स्निपेट अंग्रेज़ी में हो सकते हैं) की जानकारी का ही उपयोग करें "
+        "और तथ्यों को स्वाभाविक, शुद्ध हिंदी में लिखें। अपुष्ट बातों का श्रेय दें "
+        "('पुलिस के अनुसार', 'स्थानीय रिपोर्टों के मुताबिक')। स्रोतों में मौजूद न होने वाले आँकड़े, "
+        "नाम या तथ्य कभी न गढ़ें। सभी टेक्स्ट फ़ील्ड (lead_headline, analysis, developments, "
+        "sources_hi, other_stories) पूरी तरह देवनागरी हिंदी में हों — कोई अंग्रेज़ी वाक्य नहीं; "
+        "केवल event_type और severity अंग्रेज़ी enum में रहें। सिर्फ़ मान्य JSON लौटाएँ।"
     )
     user = {
-        "task": "Select the single top breaking story for Jaipur today and cover it in Hindi.",
-        "candidate_stories": candidates,
-        "currently_tracked_story": {
-            "headline": current.get("headline", ""),
-            "recent_updates": recent_timeline,
-        },
+        "task": "जयपुर की आज की सबसे बड़ी ब्रेकिंग खबर की विस्तृत हिंदी कवरेज तैयार करें।",
+        "lead_story": {"headline": lead["headline"], "snippets": lead_snippets},
+        "lead_sources_en": lead_sources,
+        "other_stories_en": [c["headline"] for c in others],
         "output_schema": {
-            "lead_headline": "string (HINDI) - concise Hindi headline for the top story",
+            "lead_headline": "संक्षिप्त हिंदी शीर्षक",
             "event_type": "one of: terror, fire, earthquake, flood, accident, "
                           "crime, investigation, protest, civic, weather, other",
             "severity": "one of: critical, high, medium, low",
-            "analysis": "2-4 short paragraphs of plain Hindi editorial synthesising "
-                        "the feeds; separate paragraphs with \\n\\n",
-            "is_same_story_as_current": "boolean - true if this is the same event "
-                                        "as currently_tracked_story",
-            "has_new_development": "boolean - true if there is a materially new "
-                                   "development vs recent_updates",
-            "update_text": "one concise Hindi sentence describing the new "
-                           "development, else empty string",
+            "analysis": "3-5 पैराग्राफ की विस्तृत हिंदी रिपोर्ट; पैराग्राफ \\n\\n से अलग करें",
+            "developments": "4-8 objects की array [{label, text}] — घटनाक्रम पुराने से नए क्रम "
+                            "में (oldest first); label = छोटा हिंदी समय/चरण संकेत (जैसे "
+                            "'शुरुआती रिपोर्ट', 'जाँच आगे बढ़ी', 'ताज़ा अपडेट'); text = एक हिंदी वाक्य",
+            "sources_hi": "हिंदी एक-पंक्ति शीर्षकों की array — lead_sources_en के समान क्रम व संख्या में",
+            "other_stories": "objects {headline, summary} की array हिंदी में — "
+                             "other_stories_en के समान क्रम व संख्या में",
         },
     }
     payload = json.dumps(
@@ -384,8 +405,8 @@ def groq_analyze(api_key: str, cluster: dict, state: dict) -> dict | None:
                 {"role": "system", "content": system},
                 {"role": "user", "content": json.dumps(user, ensure_ascii=False)},
             ],
-            "temperature": 0.3,
-            "max_tokens": 1200,
+            "temperature": 0.35,
+            "max_tokens": 2400,
             "response_format": {"type": "json_object"},
         }
     ).encode()
@@ -396,11 +417,12 @@ def groq_analyze(api_key: str, cluster: dict, state: dict) -> dict | None:
         headers={
             "Authorization": f"Bearer {api_key}",
             "Content-Type": "application/json",
+            "User-Agent": GROQ_UA,
         },
         method="POST",
     )
     try:
-        with urllib.request.urlopen(req, timeout=60) as resp:
+        with urllib.request.urlopen(req, timeout=90) as resp:
             body = json.loads(resp.read())
         content = body["choices"][0]["message"]["content"]
         data = json.loads(content)
@@ -454,8 +476,8 @@ def build() -> None:
     elif not api_key:
         print("GROQ_API_KEY not set — running in feeds-only fallback mode.")
 
-    # Always keep the old /breaking-news URL redirecting to /breaking (idempotent).
-    write_redirect_stub()
+    # The page moved to /breaking; delete the retired /breaking-news folder.
+    cleanup_old_dir()
 
     print("Fetching feeds...")
     items = gather_items()
@@ -464,15 +486,13 @@ def build() -> None:
     ist_day = to_ist(now).strftime("%Y-%m-%d")
 
     state = load_state()
-    # Daily rollover: a new IST day starts a fresh story of the day.
     if state.get("ist_day") != ist_day:
-        state = {"ist_day": ist_day, "timeline": [], "lead": None, "last_feed_hash": None}
+        state = {"ist_day": ist_day, "lead": None, "other_stories": [], "last_feed_hash": None}
 
     if not items:
         # Feeds unreachable/empty: keep the last good page untouched (no commit).
-        # Only write once, to create the initial placeholder.
         if not OUT_HTML.exists():
-            render(state, [], now)
+            render(state, now)
             save_state({**state, "last_updated": now.isoformat(),
                         "render_version": RENDER_VERSION})
             print("No feed items; wrote initial placeholder.")
@@ -482,84 +502,30 @@ def build() -> None:
 
     clusters = cluster_items(items)
     top = clusters[0]
-    top["_top_clusters"] = clusters[:3]
     feed_hash = hashlib.sha1(
         "|".join(normalize(i["title"]) for i in top["items"]).encode()
     ).hexdigest()[:16]
 
-    # If the top story's feed is unchanged AND the page was already rendered by this
-    # output version, there is nothing new to say: skip the whole update (no Groq call,
-    # no re-render) so quiet periods produce no commit. A RENDER_VERSION mismatch (a
-    # redesign) forces a one-time re-render even when the feed is unchanged.
+    # Skip when the top-story feed is unchanged AND already rendered by this output
+    # version (no Groq call, no commit). A RENDER_VERSION bump forces a one-time re-render.
     feed_changed = feed_hash != state.get("last_feed_hash")
     up_to_date = state.get("render_version") == RENDER_VERSION
     if OUT_HTML.exists() and state.get("lead") and not feed_changed and up_to_date:
         print("No change in top-story feed; skipping update (no commit).")
         return
 
-    prev_lead = state.get("lead") or {}
-    prev_kw = keywords(prev_lead.get("headline", ""))
-    same_by_kw = jaccard(prev_kw, top["keywords"]) >= 0.25 if prev_lead else False
-
-    severity = top["severity"]
-    headline = top["headline"]
-    event_type = "other"
-    analysis = None
-    ai_new_dev = False
-    ai_update_text = ""
-    ai_same = same_by_kw
-
+    lead = None
+    other_stories: list[dict] = []
     if use_ai:
         print("Asking Groq for analysis...")
-        ai = groq_analyze(api_key, top, state)
+        ai = groq_analyze(api_key, clusters)
         if ai:
-            headline = (ai.get("lead_headline") or headline).strip()
-            severity = (ai.get("severity") or severity).strip().lower()
-            if severity not in CADENCE_MINUTES:
-                severity = top["severity"]
-            event_type = (ai.get("event_type") or "other").strip().lower()
-            analysis = (ai.get("analysis") or "").strip() or None
-            ai_new_dev = bool(ai.get("has_new_development"))
-            ai_update_text = (ai.get("update_text") or "").strip()
-            ai_same = bool(ai.get("is_same_story_as_current")) if prev_lead else False
+            lead, other_stories = _lead_from_ai(ai, clusters)
 
-    is_same_story = ai_same if use_ai else same_by_kw
-    cadence = CADENCE_MINUTES.get(severity, 120)
-
-    timeline = state.get("timeline", []) if is_same_story else []
-
-    # Decide whether to append a timeline entry.
-    append_entry = False
-    entry_text = ""
-    if not is_same_story or not timeline:
-        # New/first lead of the day -> seed the timeline.
-        append_entry = True
-        entry_text = ai_update_text if (use_ai and ai_update_text) else (
-            f"जयपुर की प्रमुख ताज़ा खबर के रूप में कवरेज शुरू: {headline}"
-        )
-    elif use_ai and ai_new_dev and ai_update_text:
-        append_entry = True
-        entry_text = ai_update_text
-    elif feed_changed and severity_rank(severity) >= severity_rank("high") \
-            and minutes_since(_last_entry_time(timeline)) >= cadence:
-        # High-impact event, feed moved, cadence window elapsed: log a check-in.
-        append_entry = True
-        entry_text = (use_ai and ai_update_text) or f"इस खबर पर नई रिपोर्टिंग: {headline}"
-
-    if append_entry and entry_text:
-        timeline.insert(
-            0,
-            {
-                "time_utc": now.isoformat(),
-                "time_ist": to_ist(now).strftime("%I:%M %p"),
-                "text": entry_text,
-                "severity": severity,
-            },
-        )
-        timeline = timeline[:40]
-
-    if not use_ai and not analysis:
-        analysis = _fallback_analysis(top, clusters)
+    if lead is None:
+        # No AI / Groq failed: a clean Hindi holding page — never English feed text.
+        print("Groq unavailable — rendering Hindi holding page.")
+        lead, other_stories = _holding_lead(), []
 
     state.update(
         {
@@ -567,39 +533,90 @@ def build() -> None:
             "last_updated": now.isoformat(),
             "last_feed_hash": feed_hash,
             "render_version": RENDER_VERSION,
-            "lead": {
-                "id": cluster_id(top),
-                "headline": headline,
-                "event_type": event_type,
-                "severity": severity,
-                "analysis": analysis or _fallback_analysis(top, clusters),
-                "sources": cluster_sources(top),
-            },
-            "timeline": timeline,
+            "lead": lead,
+            "other_stories": other_stories,
         }
     )
-
-    render(state, clusters, now)
+    render(state, now)
     save_state(state)
-    print(f"Done. Lead: {headline!r} [{severity}] — {len(timeline)} update(s).")
+    print(f"Done. Lead: {lead.get('headline','')!r} [{lead.get('severity','')}] "
+          f"— {len(lead.get('developments', []))} development(s), "
+          f"{len(other_stories)} other stor(y/ies).")
 
 
-def _last_entry_time(timeline: list[dict]) -> str | None:
-    return timeline[0]["time_utc"] if timeline else None
+def _lead_from_ai(ai: dict, clusters: list[dict]) -> tuple[dict | None, list[dict]]:
+    """Map the Groq Hindi JSON onto the render model. Returns (lead, other_stories)."""
+    top = clusters[0]
+    headline = (ai.get("lead_headline") or "").strip()
+    if not headline:
+        return None, []
+    severity = (ai.get("severity") or top["severity"]).strip().lower()
+    if severity not in CADENCE_MINUTES:
+        severity = top["severity"]
+    event_type = (ai.get("event_type") or "other").strip().lower()
+    analysis = (ai.get("analysis") or "").strip()
+
+    developments = []
+    for d in (ai.get("developments") or [])[:8]:
+        if isinstance(d, dict):
+            text = (d.get("text") or "").strip()
+            label = (d.get("label") or "").strip()
+        else:
+            text, label = str(d).strip(), ""
+        if text:
+            developments.append({"label": label, "text": text})
+
+    src_objs = cluster_sources(top, limit=6)
+    sources_hi = ai.get("sources_hi") or []
+    sources = []
+    for i, s in enumerate(src_objs):
+        hi = None
+        if i < len(sources_hi) and isinstance(sources_hi[i], str) and sources_hi[i].strip():
+            hi = sources_hi[i].strip()
+        sources.append({"title_hi": hi, "url": s["url"],
+                        "source": s["source"], "published": s["published"]})
+
+    lead = {
+        "id": cluster_id(top),
+        "headline": headline,
+        "event_type": event_type,
+        "severity": severity,
+        "analysis": analysis,
+        "developments": developments,
+        "sources": sources,
+    }
+
+    others = clusters[1:6]
+    os_ai = ai.get("other_stories") or []
+    other_stories = []
+    for i, c in enumerate(others):
+        if i >= len(os_ai) or not isinstance(os_ai[i], dict):
+            continue
+        hl = (os_ai[i].get("headline") or "").strip()
+        if not hl:
+            continue
+        src = cluster_sources(c, limit=1)
+        other_stories.append({
+            "headline": hl,
+            "summary": (os_ai[i].get("summary") or "").strip(),
+            "url": src[0]["url"] if src else PAGE_URL,
+            "source": src[0]["source"] if src else "",
+        })
+    return lead, other_stories
 
 
-def _fallback_analysis(top: dict, clusters: list[dict]) -> str:
-    """Hindi summary used when Groq is unavailable — sticks to what the feeds report."""
-    n = len(top["items"])
-    srcs = sorted({i["source"] for i in top["items"] if i["source"]})[:4]
-    src_line = (", ".join(srcs)) if srcs else "कई स्थानीय स्रोत"
-    others = [c["headline"] for c in clusters[1:4]]
-    para1 = (
-        f"{top['headline']} — इस समय जयपुर की खबरों में सबसे अधिक रिपोर्ट की जा रही खबर है, "
-        f"जिसे {src_line} ने कवर किया है (पिछले 24 घंटे में {n} रिपोर्ट)।"
-    )
-    para2 = "आज इनकी भी रिपोर्टिंग हो रही है: " + "; ".join(others) + "।" if others else ""
-    return (para1 + "\n\n" + para2).strip()
+def _holding_lead() -> dict:
+    """A fully-Hindi holding lead used only when Groq is unreachable (no English)."""
+    return {
+        "id": "holding",
+        "headline": "जयपुर: ताज़ा खबरें अपडेट हो रही हैं",
+        "event_type": "other",
+        "severity": "low",
+        "analysis": "विस्तृत हिंदी कवरेज तैयार हो रहा है। कृपया कुछ ही देर में दोबारा देखें — "
+                    "यह पेज दिनभर अपने-आप अपडेट होता रहता है।",
+        "developments": [],
+        "sources": [],
+    }
 
 
 # --------------------------------------------------------------------------- #
@@ -617,9 +634,17 @@ def esc(text: str) -> str:
     return html.escape(text or "", quote=True)
 
 
+def _hindi_clock(d: datetime) -> str:
+    """Fully-Hindi clock, e.g. 'शाम 5:22 बजे' (no AM/PM/IST)."""
+    h = d.hour
+    period = ("रात" if (h < 4 or h >= 19) else "सुबह" if h < 12
+              else "दोपहर" if h < 16 else "शाम")
+    return f"{period} {h % 12 or 12}:{d.minute:02d} बजे"
+
+
 def _hindi_datetime(dt: datetime) -> str:
     d = to_ist(dt)
-    return f"{d.day} {HINDI_MONTHS[d.month - 1]} {d.year}, {d.strftime('%I:%M %p')} IST"
+    return f"{d.day} {HINDI_MONTHS[d.month - 1]} {d.year}, {_hindi_clock(d)}"
 
 
 def _hindi_date(dt: datetime) -> str:
@@ -627,66 +652,101 @@ def _hindi_date(dt: datetime) -> str:
     return f"{HINDI_WEEKDAYS[d.weekday()]}, {d.day} {HINDI_MONTHS[d.month - 1]} {d.year}"
 
 
+def hindi_source(name: str) -> str:
+    """Devanagari outlet name for the common outlets; empty for unknown ones so no
+    English brand text leaks onto the page."""
+    return HINDI_SOURCE.get((name or "").strip().lower(), "")
+
+
 def _src_time(s: dict) -> str:
     try:
         dt = datetime.fromisoformat(s["published"])
     except Exception:
-        return s.get("source", "")
+        return ""
     d = to_ist(dt)
-    return f"{d.day} {HINDI_MONTHS[d.month - 1]}, {d.strftime('%I:%M %p')}"
+    return f"{d.day} {HINDI_MONTHS[d.month - 1]}, {_hindi_clock(d)}"
+
+
+def _src_meta(name_hi: str, time_hi: str) -> str:
+    """Build the '.info' row from a Hindi source name + Hindi time, omitting blanks."""
+    parts = []
+    if name_hi:
+        parts.append(f'<span class="src">{esc(name_hi)}</span>')
+    if time_hi:
+        parts.append(f'<span>{esc(time_hi)}</span>')
+    return '<span class="dot"></span>'.join(parts)
 
 
 BRAND_SUFFIX = "ब्रेकिंग जयपुर न्यूज़"
 
 
-def render(state: dict, clusters: list[dict], now: datetime) -> None:
-    lead = state.get("lead")
+def render(state: dict, now: datetime) -> None:
+    lead = state.get("lead") or {}
+    other_stories = state.get("other_stories") or []
     updated_ist = _hindi_datetime(now)
     today_ist = _hindi_date(now)
-    timeline = state.get("timeline", [])
 
-    if lead:
-        sev = lead.get("severity", "low")
-        badge = SEV_LABEL.get(sev, "निगरानी में")
-        color = SEV_COLOR.get(sev, "#6b6b6b")
-        headline_html = esc(lead["headline"])
-        title = f"{lead['headline']} | {BRAND_SUFFIX}"
-        paras = [p.strip() for p in (lead.get("analysis") or "").split("\n\n") if p.strip()]
-        analysis_html = "\n        ".join(
-            f"<p>{esc(p)}</p>" for p in paras
-        ) or "<p>खबर विकसित हो रही है।</p>"
+    sev = lead.get("severity", "low")
+    badge = SEV_LABEL.get(sev, "निगरानी में")
+    color = SEV_COLOR.get(sev, "#6b6b6b")
+    headline = lead.get("headline") or "जयपुर: ताज़ा खबरें अपडेट हो रही हैं"
+    headline_html = esc(headline)
+    title = (f"{headline} | {BRAND_SUFFIX}" if lead.get("headline")
+             else f"{BRAND_SUFFIX} — लाइव अपडेट | जयपुर न्यूज़")
 
+    paras = [p.strip() for p in (lead.get("analysis") or "").split("\n\n") if p.strip()]
+    analysis_html = "\n        ".join(
+        f"<p>{esc(p)}</p>" for p in paras
+    ) or "<p>खबर विकसित हो रही है।</p>"
+
+    # Sources — Hindi titles; links open in the SAME tab.
+    sources = lead.get("sources", [])
+    if sources:
         source_items = "\n".join(
             f'<div class="card-text fade-in">'
-            f'<a href="{esc(s["url"])}" target="_blank" rel="noopener nofollow">'
-            f'<h3>{esc(s["title"])}</h3>'
-            f'<div class="info"><span class="src">{esc(s["source"])}</span>'
-            f'<span class="dot"></span><span>{esc(_src_time(s))}</span></div>'
+            f'<a href="{esc(s["url"])}" rel="nofollow">'
+            f'<h3>{esc(s.get("title_hi") or hindi_source(s.get("source", "")) or "ताज़ा रिपोर्ट")}</h3>'
+            f'<div class="info">{_src_meta(hindi_source(s.get("source", "")), _src_time(s))}</div>'
             f'</a></div>'
-            for s in lead.get("sources", [])
-        ) or '<div class="empty-note">स्रोत जुटाए जा रहे हैं।</div>'
-
-        if timeline:
-            timeline_html = "\n".join(
-                f'<li class="tl-item sev-{esc(t.get("severity","low"))}">'
-                f'<time>{esc(t["time_ist"])} IST</time>'
-                f'<p>{esc(t["text"])}</p></li>'
-                for t in timeline
-            )
-        else:
-            timeline_html = '<li class="tl-item"><p>खबर के विकसित होते ही लाइव अपडेट यहाँ दिखेंगे।</p></li>'
+            for s in sources
+        )
     else:
-        sev, badge, color = "low", "निगरानी में", "#6b6b6b"
-        headline_html = "अभी जयपुर में कोई बड़ी ब्रेकिंग खबर नहीं"
-        title = f"{BRAND_SUFFIX} — लाइव अपडेट | जयपुर न्यूज़"
-        analysis_html = "<p>इस समय जयपुर में कोई एक प्रमुख ब्रेकिंग खबर नहीं है। दिनभर घटनाओं के विकसित होने पर यह पेज अपने-आप अपडेट होता रहता है।</p>"
-        source_items = '<div class="empty-note">स्थानीय जयपुर फ़ीड की निगरानी जारी है &mdash; खबर आते ही स्रोत यहाँ दिखेंगे।</div>'
-        timeline_html = '<li class="tl-item"><p>खबर आते ही लाइव अपडेट यहाँ दिखेंगे।</p></li>'
+        source_items = '<div class="empty-note">स्रोत जुटाए जा रहे हैं।</div>'
 
-    update_count = f"{len(timeline)} अपडेट"
+    # Developments — a past→present chain (oldest at top, newest at bottom).
+    developments = lead.get("developments", [])
+    if developments:
+        timeline_html = "\n".join(
+            f'<li class="tl-item sev-{esc(sev)}">'
+            + (f'<time>{esc(d.get("label"))}</time>' if d.get("label") else "")
+            + f'<p>{esc(d.get("text"))}</p></li>'
+            for d in developments
+        )
+    else:
+        timeline_html = '<li class="tl-item"><p>घटनाक्रम अपडेट हो रहा है।</p></li>'
+    update_count = f"{len(developments)} घटनाक्रम" if developments else "अपडेट हो रहा है"
 
-    # JSON-LD: the site publisher (NewsMediaOrganization) + this live coverage
-    # (LiveBlogPosting), bundled in one @graph. Both in Hindi (hi-IN).
+    # Secondary "अन्य ताज़ा खबरें" — Hindi, links in the same tab.
+    if other_stories:
+        cards = "\n".join(
+            f'<div class="card-text fade-in">'
+            f'<a href="{esc(o["url"])}" rel="nofollow">'
+            f'<h3>{esc(o["headline"])}</h3>'
+            + (f'<p class="desc">{esc(o["summary"])}</p>' if o.get("summary") else "")
+            + f'<div class="info">{_src_meta(hindi_source(o.get("source", "")), "")}</div>'
+            f'</a></div>'
+            for o in other_stories
+        )
+        other_section = (
+            '<section class="feed">\n'
+            '        <div class="section-head"><h2>अन्य ताज़ा खबरें</h2></div>\n'
+            f'        <div class="grid-text">\n{cards}\n        </div>\n'
+            '      </section>'
+        )
+    else:
+        other_section = ""
+
+    # JSON-LD: publisher (NewsMediaOrganization) + this live coverage (LiveBlogPosting), hi-IN.
     news_org = {
         "@type": "NewsMediaOrganization",
         "name": "जयपुर न्यूज़ | Jaipur News",
@@ -699,19 +759,19 @@ def render(state: dict, clusters: list[dict], now: datetime) -> None:
     }
     liveblog = {
         "@type": "LiveBlogPosting",
-        "headline": (lead["headline"] if lead else BRAND_SUFFIX),
+        "headline": headline,
         "url": PAGE_URL,
         "inLanguage": "hi-IN",
-        "datePublished": (timeline[-1]["time_utc"] if timeline else now.isoformat()),
+        "datePublished": now.isoformat(),
         "dateModified": now.isoformat(),
-        "coverageStartTime": (timeline[-1]["time_utc"] if timeline else now.isoformat()),
+        "coverageStartTime": now.isoformat(),
         "about": {"@type": "Place", "name": "जयपुर, राजस्थान, भारत"},
         "publisher": {"@type": "NewsMediaOrganization",
                       "name": "जयपुर न्यूज़ | Jaipur News", "url": NEWS_SITE + "/"},
         "liveBlogUpdate": [
-            {"@type": "BlogPosting", "headline": t["text"][:110],
-             "datePublished": t["time_utc"], "articleBody": t["text"]}
-            for t in timeline[:20]
+            {"@type": "BlogPosting", "headline": d.get("text", "")[:110],
+             "datePublished": now.isoformat(), "articleBody": d.get("text", "")}
+            for d in developments[:20]
         ],
     }
     ld = {"@context": "https://schema.org", "@graph": [news_org, liveblog]}
@@ -725,6 +785,7 @@ def render(state: dict, clusters: list[dict], now: datetime) -> None:
         "{{ANALYSIS}}": analysis_html,
         "{{SOURCES}}": source_items,
         "{{TIMELINE}}": timeline_html,
+        "{{OTHER_STORIES}}": other_section,
         "{{UPDATED_IST}}": esc(updated_ist),
         "{{TODAY}}": esc(today_ist),
         "{{UPDATE_COUNT}}": esc(update_count),
@@ -757,26 +818,22 @@ def _rss_item(title: str, desc: str, guid: str, pub: datetime) -> str:
 
 
 def render_rss(state: dict, now: datetime) -> None:
-    """Emit breaking-news/rss.xml: one item per timeline development."""
-    lead = state.get("lead")
-    timeline = state.get("timeline", [])
+    """Emit breaking/rss.xml (Hindi): the lead plus one item per development."""
+    lead = state.get("lead") or {}
+    lead_id = lead.get("id", "bn")
     items = []
-    if lead:
-        for t in timeline:
-            try:
-                dt = datetime.fromisoformat(t["time_utc"])
-            except Exception:
-                dt = now
-            items.append(_rss_item(t["text"], t["text"],
-                                   f'{lead.get("id", "bn")}-{t["time_utc"]}', dt))
-        if not timeline:
-            analysis = (lead.get("analysis") or "").replace("\n\n", " ")
-            items.append(_rss_item(lead["headline"], analysis,
-                                   f'{lead.get("id", "bn")}-{now.isoformat()}', now))
+    if lead.get("headline"):
+        analysis = (lead.get("analysis") or "").replace("\n\n", " ")
+        items.append(_rss_item(lead["headline"], analysis or lead["headline"],
+                               f"{lead_id}-lead", now))
+        for i, d in enumerate(lead.get("developments", [])):
+            text = d.get("text", "")
+            if text:
+                items.append(_rss_item(text, text, f"{lead_id}-dev-{i}", now))
     if not items:
         items.append(_rss_item(
-            "Monitoring Jaipur for breaking news",
-            "No major breaking story in Jaipur right now. This feed updates as events develop.",
+            "जयपुर की ताज़ा खबरें अपडेट हो रही हैं",
+            "विस्तृत हिंदी कवरेज तैयार हो रहा है। यह फ़ीड घटनाओं के विकसित होने पर अपडेट होता रहता है।",
             f"bn-idle-{to_ist(now).strftime('%Y%m%d')}", now))
 
     feed = (
@@ -817,23 +874,11 @@ def render_news_sitemap(now: datetime) -> None:
     NEWS_SITEMAP_PATH.write_text(xml)
 
 
-def write_redirect_stub() -> None:
-    """Keep the old /breaking-news URL alive by redirecting it to /breaking.
-    Idempotent: identical content each run, so it only ever commits once."""
-    html_doc = (
-        "<!DOCTYPE html>\n"
-        '<html lang="hi">\n<head>\n<meta charset="UTF-8">\n'
-        '<meta name="robots" content="noindex, follow">\n'
-        f'<link rel="canonical" href="{PAGE_URL}">\n'
-        f'<meta http-equiv="refresh" content="0; url={PAGE_URL}">\n'
-        "<title>ब्रेकिंग जयपुर न्यूज़</title>\n"
-        f'<script>location.replace("{PAGE_URL}");</script>\n'
-        "</head>\n<body>\n"
-        f'<p>यह पेज अब <a href="{PAGE_URL}">{PAGE_URL}</a> पर चला गया है।</p>\n'
-        "</body>\n</html>\n"
-    )
-    REDIRECT_PATH.parent.mkdir(parents=True, exist_ok=True)
-    REDIRECT_PATH.write_text(html_doc)
+def cleanup_old_dir() -> None:
+    """Delete the retired /breaking-news folder. Idempotent — the workflow stages the
+    removal with `git add -A`, so the first post-merge run drops it from the repo."""
+    if OLD_DIR.exists():
+        shutil.rmtree(OLD_DIR, ignore_errors=True)
 
 
 PAGE_TEMPLATE = """<!DOCTYPE html>
@@ -1319,18 +1364,18 @@ footer a { color: var(--brand); font-weight: 600; }
       <div class="editorial-card fade-in">
         <h2>पूरी खबर</h2>
         {{ANALYSIS}}
-        <div class="byline">सार्वजनिक जयपुर न्यूज़ फ़ीड से संकलित &middot; समय IST में।</div>
+        <div class="byline">सार्वजनिक जयपुर न्यूज़ फ़ीड से संकलित &middot; समय भारतीय मानक समयानुसार।</div>
       </div>
 
       <section class="feed">
         <div class="section-head">
-          <h2>लाइव अपडेट</h2>
+          <h2>घटनाक्रम &mdash; शुरुआत से अब तक</h2>
           <span class="count">{{UPDATE_COUNT}}</span>
         </div>
         <ul class="timeline">
           {{TIMELINE}}
         </ul>
-        <p class="note">खबर के विकसित होते ही यह पेज अपने-आप रिफ्रेश होता रहता है।</p>
+        <p class="note">ऊपर से नीचे: पुराने से नए घटनाक्रम। खबर के विकसित होते ही यह पेज अपने-आप रिफ्रेश होता रहता है।</p>
       </section>
 
       <section class="feed">
@@ -1341,11 +1386,13 @@ footer a { color: var(--brand); font-weight: 600; }
           {{SOURCES}}
         </div>
       </section>
+
+      {{OTHER_STORIES}}
     </main>
 
     <footer>
       <p>जयपुर की ब्रेकिंग खबरें सार्वजनिक न्यूज़ फ़ीड से संकलित। रिपोर्टें प्रारंभिक हो सकती हैं &mdash; महत्वपूर्ण जानकारी की पुष्टि आधिकारिक स्रोतों से करें।</p>
-      <p><a href="/breaking/rss.xml">RSS फ़ीड</a> &middot; <a href="https://news.manzill.com">news.manzill.com</a></p>
+      <p><a href="/breaking/rss.xml">आरएसएस फ़ीड</a> &middot; <a href="https://news.manzill.com">जयपुर न्यूज़ हिंदी में</a></p>
       <p>&copy; 2026 जयपुर न्यूज़</p>
     </footer>
 </body>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Manzill &#8212; Jaipur Breaking News</title>
+    <link>https://www.manzill.com/breaking-news</link>
+    <atom:link href="https://www.manzill.com/breaking-news/rss.xml" rel="self" type="application/rss+xml"/>
+    <description>Live breaking news from Jaipur, Rajasthan &#8212; the top developing story of the day with running updates.</description>
+    <language>en-IN</language>
+    <lastBuildDate>Sun, 12 Jul 2026 14:16:51 +0000</lastBuildDate>
+    <ttl>20</ttl>
+    <item>
+      <title>Now tracking as Jaipur&#x27;s top developing story: Rajasthan: Police arrest accused in Alwar petrol pump shooting case; probe reveals planned attack.</title>
+      <link>https://www.manzill.com/breaking-news</link>
+      <guid isPermaLink="false">f158aaafbd4b-2026-07-12T11:52:45.894776+00:00</guid>
+      <pubDate>Sun, 12 Jul 2026 11:52:45 +0000</pubDate>
+      <description>Now tracking as Jaipur&#x27;s top developing story: Rajasthan: Police arrest accused in Alwar petrol pump shooting case; probe reveals planned attack.</description>
+    </item>
+  </channel>
+</rss>

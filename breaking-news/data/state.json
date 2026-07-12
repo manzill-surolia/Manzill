@@ -1,7 +1,28 @@
 {
   "ist_day": "2026-07-12",
-  "timeline": [],
-  "lead": null,
-  "last_feed_hash": null,
-  "last_updated": "2026-07-12T10:21:56.899802+00:00"
+  "timeline": [
+    {
+      "time_utc": "2026-07-12T11:52:45.894776+00:00",
+      "time_ist": "05:22 PM",
+      "text": "Now tracking as Jaipur's top developing story: Rajasthan: Police arrest accused in Alwar petrol pump shooting case; probe reveals planned attack.",
+      "severity": "critical"
+    }
+  ],
+  "lead": {
+    "id": "f158aaafbd4b",
+    "headline": "Rajasthan: Police arrest accused in Alwar petrol pump shooting case; probe reveals planned attack",
+    "event_type": "other",
+    "severity": "critical",
+    "analysis": "Rajasthan: Police arrest accused in Alwar petrol pump shooting case; probe reveals planned attack is the most widely reported story across Jaipur feeds right now, carried by ANI News (1 report(s) in the last day).\n\nAlso being reported today: Jaipur murder case: Did Ayushi Sharma kill her father too? Uncle’s claim now under police probe; Surat Latest News Today on July 11th, 2026: Flood Toll Rises, Relief Efforts & New Projects; Bikaner: Protest Against Proposed UGC Bill #Gallery.",
+    "sources": [
+      {
+        "title": "Rajasthan: Police arrest accused in Alwar petrol pump shooting case; probe reveals planned attack",
+        "url": "https://news.google.com/rss/articles/CBMi8AFBVV95cUxQdmhYOTM4dHpZN056MVRTcEhmbG5qVEpCNUNqOEZ5YXhVYkRlMm9hNjJoZXMzT21JTEkxTEVZaUFfUUNwT0hnZkdrZWN5YVRhNHBKY2dkbXJiQlNQeGJreDlhZXlJTG5GUGg2ejZDaU9FZmc2amV1YUxXSGVIME0yWnM0anpIN0pXU2ViWXlqOV9FbTBfcmN5Zm51SkF6VUVqTXZuNmIzMTBTVVg0Ul9yX0lRM2ZPVnRrTi11cmpVM20tRlFTaHkwLUNKeWY1Qm5DSDU0czBueWd5SEdMVVI1UTNNOHNVZTVxSUhRZ2pLb3c?oc=5",
+        "source": "ANI News",
+        "published": "2026-07-12T07:01:00+00:00"
+      }
+    ]
+  },
+  "last_feed_hash": "8f355ac4c6344b75",
+  "last_updated": "2026-07-12T11:52:45.894776+00:00"
 }

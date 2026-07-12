@@ -1,8 +1,65 @@
 {
   "ist_day": "2026-07-12",
-  "timeline": [],
-  "lead": null,
-  "last_feed_hash": null,
-  "last_updated": "2026-07-12T15:05:06.166354+00:00",
+  "timeline": [
+    {
+      "time_utc": "2026-07-12T15:37:55.291317+00:00",
+      "time_ist": "09:07 PM",
+      "text": "जयपुर की प्रमुख ताज़ा खबर के रूप में कवरेज शुरू: Jaipur woman accused of mother's murder now faces probe into father's 2025 death",
+      "severity": "high"
+    }
+  ],
+  "lead": {
+    "id": "1bee31386651",
+    "headline": "Jaipur woman accused of mother's murder now faces probe into father's 2025 death",
+    "event_type": "other",
+    "severity": "high",
+    "analysis": "Jaipur woman accused of mother's murder now faces probe into father's 2025 death — इस समय जयपुर की खबरों में सबसे अधिक रिपोर्ट की जा रही खबर है, जिसे MSN ने कवर किया है (पिछले 24 घंटे में 7 रिपोर्ट)।\n\nआज इनकी भी रिपोर्टिंग हो रही है: Rajasthan: Police arrest accused in Alwar petrol pump shooting case; probe reveals planned attack; Jaipur Latest News Today on July 12th, 2026: Mother Murder Case, Maternal Deaths & Transporters' Strike; Jaipur murder case: Did Ayushi Sharma kill her father too? Uncle’s claim now under police probe।",
+    "sources": [
+      {
+        "title": "Jaipur woman accused of mother's murder now faces probe into father's 2025 death",
+        "url": "https://news.google.com/rss/articles/CBMi_wJBVV95cUxQdU5PXzY5ZXVwVW40Wi0yVkQ2REVteVNDOVhLdENEQ0dkOG5XUnZaM1RFWVpMa2RpeWJ4cG13NFA1MXdzU3ByLWY4V2N1dWM1emRRNjlWVUl2NHcweWU1MVI4MHpTYTlDUHlkV2ZNODlaMEFzV2RmbWdOdmdnYjgxUEVGYUlaVm80bk5hOFBITGhXdmxKY0RfQkR5SkhrbEY4Z1F6N1lKcXU2enBVZ0JsQ3VyOFU1MHVDQ2FySWhWT01HM20wQkJjdGhYZFpFR2lJcE4wM2RmQloxYXRLWVFtUnhxRU9BaW8wc0V3dktIY0VhbUFnaWVoOTNnbFVEcmRkRTVHX1NjYy05aC1CaFZoMG80OW12TjU4SXIxMzhRdFN4Z0Fwd1BkVWE0MmNza2pUSzVmbkJMamFRZ09lSVprak1McEVlbzY2NVoyQzgyTkJIQ0xPclBJdnhtbGJpTW40UTFzd0FhbC1fYlNaQnpqZTlERmQwRktBVXpHaHRTOA?oc=5",
+        "source": "MSN",
+        "published": "2026-07-12T11:35:57+00:00"
+      },
+      {
+        "title": "Jaipur murder probe widens to examine father's 2025 death",
+        "url": "https://news.google.com/rss/articles/CBMi8AFBVV95cUxPdjk2cS1IQkJGcUFYSzJzNE50VF94S0FjelhnVk5WY2FSMl9aNVVwZ0FBUkM5aHZyeXEzSThtbGVvYjBuVF8wVEJUcE41NnhUZTlnNjB5UFdQazBXT3FQWm9xSmhseWRiU3pCWGJKc3Fxa3ZhVmZueGpEamgyR18zVWxuMnMxN1dhREp0clVpOVJmYXZ4azZGaHJCWVExbFJwdGJGWHRKaXJ3MDVkbjJUcXNPU0dCT1lZU082b0NaQTItNnBwTWtJdFN6M3JaUWNoWEd5ZUdsSExnQ2dsdWJ0S05xTXdwd0VYczBXZWhULTI?oc=5",
+        "source": "MSN",
+        "published": "2026-07-12T02:33:14+00:00"
+      },
+      {
+        "title": "Jaipur murder probe widens to include father’s death claims",
+        "url": "https://news.google.com/rss/articles/CBMi8wFBVV95cUxPd2hhOFpCaEpTTnd2VVJjaEdubWVFSzk3VTFYZ3JRdVJSbUZOQ1RzejVOcW1WVlJkU1lsRjgzUVJCZ1dENkRkb25LRlRhN1pxcXJNVm5GU2pJUzZHRjZZTVA0VlFTMjMyMjE4Z0tlLWNIdzYwQlczU21tdzBYdlk2Ui1CNk1KZ3ZRQ0h1UWFwamJsQW5nVUpQOGx0UmY0YVVUekZYWFRhQ0xMRFBOOEY1WXBjUEk4ZnJGN2NNRV9BbE12R2NIZWlKQVFGOWl4R0FlVi11MzZ5VDMtMkFCUUJHQU1weXB3bmo2MGxpS1BjdXFQMUU?oc=5",
+        "source": "MSN",
+        "published": "2026-07-12T02:33:14+00:00"
+      },
+      {
+        "title": "Jaipur murder probe expands to examine father’s suspicious death",
+        "url": "https://news.google.com/rss/articles/CBMi-wFBVV95cUxNTjBaMGlhazRXLTNNYmNFN29ZTkpJY1UyV2VySFRsbkN6MFUzcjhZLTNlcE96aXJzRnpmWmQwamh1dzJFbEUzT3JicTY3YXNyRzloOEJWMHpiV1ZJWWRLSi11NWNxbjcyTi1VWVVxeDJqTGpBdXk0bncyTXRTOHZLN0daSlFpYV9od0gtZXBnMTJYWjduUDN0UjVxOTR6NDdGbXU5c3pneUp1QmZqVk5ua3VoMHczd0tmRmVMbEZhWF81Q0laWWoyN2NsWTl6RlFIN2M5M3F4VUJaY1RxM2FoLUJmUzE4Yjd0TjdWWkl4V2hvaGVGZEE2M1AySQ?oc=5",
+        "source": "MSN",
+        "published": "2026-07-12T02:33:14+00:00"
+      },
+      {
+        "title": "Jaipur murder accused now probed over father's suspicious death",
+        "url": "https://news.google.com/rss/articles/CBMi-gFBVV95cUxOTENpTEJqTGJ4cTJ6VWgxMmx2dkJJOHBDYzlEMGw1YlNqbDNQTzNycGpaOEdOVV9ia203cXVjMzhHMGtucXlDeXdJMkYyLWp0akxSR3VjaUFwbGE1REZsdXJGdWNYRjdPcnZBLTVtTG9qZGdGMG1pSU1aZTlGVGt0SmNFQWlFbjdfTkg1aTB5MFZEekJ5ak81RDRNXzVZTk02MnhZN09SMklyRzZCT0ZkVjNSekhZam4wZkx6aWxwS3lWVUFuMjB5dDkyb251bHJCanV3a2dnQnBtTkgtbVpQOGxXc2lJcWxpcm5KajRpMXhjc2M4VWNRVWFn?oc=5",
+        "source": "MSN",
+        "published": "2026-07-12T02:33:14+00:00"
+      },
+      {
+        "title": "Police expand Jaipur murder probe to include father's 2025 death",
+        "url": "https://news.google.com/rss/articles/CBMi-gFBVV95cUxNMFZ6SDBCMUxGVXNkNTlvZmxqendneDJZX29NOWFTRUt5N2xMRVIyZGpLLXVraHdqV1IxVnhSX3pnMUwweG5VdUsyVlUtalBzQmtGMm9xcHNxUjdiQTRKaFBHQWkyOUFxa3dITmQzY0ZzNWpGdVA4NXRpUERjVmJtM2l5UkhnQnhRdVcxTDlEV1pyQlFTLXo2ODQzLVZSZzgwTExSLXlVb2hVOWhLSzJUTUxtalU0TEJWYVFTa2V1a3ZSd2VMdlVJYnkwSnkzV0dNOWt4TUY3M19wdVlHSTFzRnhCQ3Bscnp0WmRZRmRFNGpvaWFQQ0F6MHpR?oc=5",
+        "source": "MSN",
+        "published": "2026-07-12T02:33:14+00:00"
+      },
+      {
+        "title": "Jaipur murder case widens as police probe father's death link",
+        "url": "https://news.google.com/rss/articles/CBMi9gFBVV95cUxPZURmeUFBUmp6WWxpSHdHV280SVB6Rm5mTkZYb0JRbTVDTDRKMzd4aWJHbEE5SURSbGVfNDFBWkNtVWxyeG14NkZxTlBnTU83VlphUjIzcEtVcWQtX0IyRHlsb1FkazRTZVRCSU9TeGt4R3ZyVE5qNXZQQjg0c3pDZ1M3ZXptZG5mT1VQQlAyazZMOUFfTWFLQ1ViREtpTFBuU0UybG5fZWd3S3BVSDZ3WUtWdjhQVWxLak1ndERUcVA4MjZfVzYxTVhuN2I0cEF2MXNCMThzRUc5LVJ6M3BNdWRkaF9FS0ZzY0VmeVg2THltdHFsMXc?oc=5",
+        "source": "MSN",
+        "published": "2026-07-12T02:33:14+00:00"
+      }
+    ]
+  },
+  "last_feed_hash": "981491aecc7bf164",
+  "last_updated": "2026-07-12T15:37:55.291317+00:00",
   "render_version": "3"
 }

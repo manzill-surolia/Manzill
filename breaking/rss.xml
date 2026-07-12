@@ -6,14 +6,49 @@
     <atom:link href="https://www.manzill.com/breaking/rss.xml" rel="self" type="application/rss+xml"/>
     <description>जयपुर, राजस्थान की ताज़ा ब्रेकिंग खबरें हिंदी में &#8212; दिन की प्रमुख खबर और लगातार अपडेट।</description>
     <language>hi-IN</language>
-    <lastBuildDate>Sun, 12 Jul 2026 15:37:55 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 12 Jul 2026 17:38:20 +0000</lastBuildDate>
     <ttl>20</ttl>
     <item>
-      <title>जयपुर की प्रमुख ताज़ा खबर के रूप में कवरेज शुरू: Jaipur woman accused of mother&#x27;s murder now faces probe into father&#x27;s 2025 death</title>
+      <title>जयपुर में हत्या जांच में पिता की संदिग्ध मृत्यु को भी शामिल किया गया</title>
       <link>https://www.manzill.com/breaking</link>
-      <guid isPermaLink="false">1bee31386651-2026-07-12T15:37:55.291317+00:00</guid>
-      <pubDate>Sun, 12 Jul 2026 15:37:55 +0000</pubDate>
-      <description>जयपुर की प्रमुख ताज़ा खबर के रूप में कवरेज शुरू: Jaipur woman accused of mother&#x27;s murder now faces probe into father&#x27;s 2025 death</description>
+      <guid isPermaLink="false">cc016c232ac7-lead</guid>
+      <pubDate>Sun, 12 Jul 2026 17:38:20 +0000</pubDate>
+      <description>पुलिस ने हाल ही में एक हत्या मामले की जांच शुरू की थी, जिसमें मुख्य संदिग्ध को गिरफ्तार किया गया था। स्थानीय रिपोर्टों के मुताबिक, इस मामले में नई जानकारी मिली कि पीड़ित के पिता की 2025 में एक संदिग्ध मृत्यु हुई थी, जिससे जांच का दायरा विस्तृत हो गया। पुलिस ने बताया कि अब वे पिता की मृत्यु को भी जांच के तहत ले रहे हैं और इसे हत्या के साथ संभावित जुड़ाव की जांच कर रहे हैं। इस कदम को पुलिस ने &quot;संदेहास्पद परिस्थितियों&quot; को स्पष्ट करने के लिए आवश्यक बताया है। जांचकर्ता वर्तमान में परिवार के सदस्यों, पड़ोसियों और संभावित गवाहों से पूछताछ कर रहे हैं, साथ ही फोरेंसिक रिपोर्ट की प्रतीक्षा में हैं। पुलिस ने कहा कि यदि कोई नया सबूत मिलता है तो आगे की कार्रवाई की जाएगी।</description>
+    </item>
+    <item>
+      <title>पुलिस ने एक हत्या मामले की जांच शुरू की।</title>
+      <link>https://www.manzill.com/breaking</link>
+      <guid isPermaLink="false">cc016c232ac7-dev-0</guid>
+      <pubDate>Sun, 12 Jul 2026 17:38:20 +0000</pubDate>
+      <description>पुलिस ने एक हत्या मामले की जांच शुरू की।</description>
+    </item>
+    <item>
+      <title>स्थानीय रिपोर्टों के मुताबिक, पीड़ित के पिता की 2025 में संदिग्ध मृत्यु हुई थी।</title>
+      <link>https://www.manzill.com/breaking</link>
+      <guid isPermaLink="false">cc016c232ac7-dev-1</guid>
+      <pubDate>Sun, 12 Jul 2026 17:38:20 +0000</pubDate>
+      <description>स्थानीय रिपोर्टों के मुताबिक, पीड़ित के पिता की 2025 में संदिग्ध मृत्यु हुई थी।</description>
+    </item>
+    <item>
+      <title>पुलिस ने बताया कि अब वे पिता की मृत्यु को भी जांच के दायरे में ले रहे हैं।</title>
+      <link>https://www.manzill.com/breaking</link>
+      <guid isPermaLink="false">cc016c232ac7-dev-2</guid>
+      <pubDate>Sun, 12 Jul 2026 17:38:20 +0000</pubDate>
+      <description>पुलिस ने बताया कि अब वे पिता की मृत्यु को भी जांच के दायरे में ले रहे हैं।</description>
+    </item>
+    <item>
+      <title>जांचकर्ताओं ने परिवार के सदस्यों और साक्षियों से पूछताछ शुरू की।</title>
+      <link>https://www.manzill.com/breaking</link>
+      <guid isPermaLink="false">cc016c232ac7-dev-3</guid>
+      <pubDate>Sun, 12 Jul 2026 17:38:20 +0000</pubDate>
+      <description>जांचकर्ताओं ने परिवार के सदस्यों और साक्षियों से पूछताछ शुरू की।</description>
+    </item>
+    <item>
+      <title>पुलिस ने कहा कि फोरेंसिक रिपोर्ट आने की प्रतीक्षा में है।</title>
+      <link>https://www.manzill.com/breaking</link>
+      <guid isPermaLink="false">cc016c232ac7-dev-4</guid>
+      <pubDate>Sun, 12 Jul 2026 17:38:20 +0000</pubDate>
+      <description>पुलिस ने कहा कि फोरेंसिक रिपोर्ट आने की प्रतीक्षा में है।</description>
     </item>
   </channel>
 </rss>

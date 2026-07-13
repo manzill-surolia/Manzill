@@ -28,10 +28,14 @@ an operator guide.
 - Clock and dates are Hindi (e.g. `शाम 5:22 बजे`, `रविवार, 12 जुलाई 2026`). `<html lang="hi">`.
 
 ### Content depth (target ≥ 2 pages on a developed story)
-Section order on the page:
-1. **red "लाइव ब्रेकिंग न्यूज़" banner** (blinking लाइव chip, red gradient).
-2. **पूरी खबर** — detailed analysis, **6–10 paragraphs**: background → full chronology
-   from first report to now → current status.
+The page **header is the red "लाइव ब्रेकिंग न्यूज़" banner itself** — a full-width, sticky
+red bar with a blinking `● लाइव` chip and the wordmark **जयपुर न्यूज़** (→ news.manzill.com).
+There is no separate brand bar / date-strip above it; the story body follows directly. Section
+order below the header:
+1. **livebar** — severity badge · अंतिम अपडेट (Hindi date/time) · रिफ्रेश.
+2. **पूरी खबर** — detailed analysis written as **flowing prose: 3–5 cohesive, multi-sentence
+   paragraphs** (background → full chronology from first report to now → current status).
+   Not many short one-line fragments.
 3. **मुख्य तथ्य** — 4–8 key-fact bullets.
 4. **पुलिस की जवाबदेही** — **mandatory** highlight of any **sourced** Jaipur/Rajasthan
    police incompetence, negligence, delay or lapse in an investigation. Shown only when
@@ -40,7 +44,15 @@ Section order on the page:
    chain, **oldest at top → newest at bottom** (past → present).
 6. **आगे क्या** — short outlook.
 7. **स्रोत** — source cards (Hindi titles, same-tab links).
-8. **अन्य ताज़ा खबरें** — other current Jaipur stories.
+8. **यह भी ब्रेकिंग** ("is also breaking") — other current Jaipur stories, drawn from the feeds
+   and the 30-day archive. **Police-incompetence/misconduct stories are given high priority
+   here** — they are pulled from the whole story list and placed first, so a sourced police
+   lapse always surfaces in this section even when other stories outrank it on newsworthiness.
+   Detection is precise: an ordinary crime story that merely quotes the police is **not** flagged;
+   only strong police-context misconduct (lathicharge, custodial, negligence, misconduct,
+   suspension, dereliction, brutality…) or a force verb with the police as the subject/agent
+   ("police beat…", "…beaten by police") counts. The **lead** story is still chosen purely on
+   newsworthiness; a police story leads the page only when it genuinely is the top story.
 
 ### Multi-day tracking
 - A rolling **30-day archive** (`breaking/data/archive.json`) accumulates each ongoing
@@ -49,7 +61,8 @@ Section order on the page:
   Google News RSS alone only exposes ~24–48h, which is why the archive exists.
 
 ### Branding
-- Header brand **जयपुर न्यूज़** (ज logo tile) links to **news.manzill.com**.
+- The red live banner **is** the header; it carries a small **जयपुर न्यूज़** wordmark linking
+  to **news.manzill.com** (no separate brand bar).
 - Footer links only to news.manzill.com (anchor text **"जयपुर न्यूज़ हिंदी में"**) and the RSS feed.
 - **No links** to the manzill.com homepage or the `jaipur-news` / `jaipur-properties`
   stub pages — this page is independent of them.

@@ -61,10 +61,9 @@ NEWS_SITE = "https://news.manzill.com"
 # Bump whenever the rendered output (template/RSS/sitemap format) changes. A mismatch
 # with the value stored in state forces a one-time re-render even when the feed is
 # unchanged, so a redesign rolls out on the next scheduled run without a manual push.
-RENDER_VERSION = "6"
+RENDER_VERSION = "7"
 
-# strftime has no Hindi locale, so map weekday/month names for the date strip.
-HINDI_WEEKDAYS = ["सोमवार", "मंगलवार", "बुधवार", "गुरुवार", "शुक्रवार", "शनिवार", "रविवार"]
+# strftime has no Hindi locale, so map month names for the Hindi date/time strings.
 HINDI_MONTHS = [
     "जनवरी", "फ़रवरी", "मार्च", "अप्रैल", "मई", "जून",
     "जुलाई", "अगस्त", "सितंबर", "अक्टूबर", "नवंबर", "दिसंबर",
@@ -103,7 +102,36 @@ FEED_QUERIES = [
     "Jaipur fire OR accident OR blast when:1d",
     "Jaipur protest OR clash OR crime when:1d",
     "Jaipur weather OR IMD OR rain warning when:1d",
+    # Police accountability / misconduct — surfaced with high priority in "यह भी ब्रेकिंग".
+    "Jaipur OR Rajasthan police lathicharge OR beaten OR custodial OR negligence "
+    "OR misconduct OR suspended when:2d",
 ]
+
+# Facts about police incompetence/misconduct are a standing priority: flagged clusters are
+# pulled to the front of the "यह भी ब्रेकिंग" section (see order_secondary). Precision matters —
+# ordinary crime reporting always names the police (as investigator), so we don't flag on a
+# bare "police" mention. Two tiers, both gated on a police reference:
+#   STRONG  — police-context misconduct words (substring match); flag on their own.
+#   FORCE   — physical-force verbs that only count as misconduct when the police are the
+#             grammatical subject/agent ("police beat …", "… beaten by police"), matched
+#             by POLICE_FORCE_RE so a civilian "man beaten to death, police said" is ignored.
+POLICE_TERMS = ("police", "cop", "cops", "policemen", "policeman", "constable",
+                "constables", "sho", "thana", "sub-inspector", "jawan", "jawans")
+POLICE_MISCONDUCT_STRONG = [
+    "lathicharge", "lathi charge", "lathi-charge", "baton charge", "custod",
+    "negligen", "misconduct", "dereliction", "cover up", "coverup", "cover-up",
+    "inaction", "botch", "mishandl", "brutal", "excessive force", "manhandl",
+    "high-handed", "highhanded", "third degree", "custodial torture", "suspend",
+]
+_POLICE_WORD = (r"(?:police|cops?|policemen|policeman|constables?|sho|"
+                r"sub-?inspectors?|jawans?)")
+_FORCE_ACT = (r"(?:beat|beaten|beating|thrash(?:ed|ing)?|assault(?:ed|ing)?|"
+              r"manhandl(?:ed|ing)?|lathi\s*charg\w*|baton\s*charg\w*|lathi|baton|cane[d]?)")
+POLICE_FORCE_RE = re.compile(
+    rf"\b{_POLICE_WORD}\b\W+(?:\w+\W+){{0,2}}{_FORCE_ACT}\b"        # police (brutally) beat …
+    rf"|\b{_FORCE_ACT}\b\W+(?:\w+\W+){{0,2}}by\W+{_POLICE_WORD}\b",  # … beaten (up) by police
+    re.IGNORECASE,
+)
 
 # Words that mark a high-impact, fast-moving event. Order = descending severity.
 SEVERITY_KEYWORDS = {
@@ -305,6 +333,9 @@ def cluster_items(items: list[dict], threshold: float = 0.28) -> list[dict]:
         newest = max(i["published"] for i in cl["items"])
         age_h = max((now_utc() - newest).total_seconds() / 3600, 0.0)
         recency = max(0.0, 24.0 - age_h) / 24.0  # 1.0 = brand new, 0 = ~24h old
+        cl["police_flag"] = is_police_misconduct(cl)
+        # The lead is chosen purely on newsworthiness; police-misconduct stories get their
+        # high priority inside "यह भी ब्रेकिंग" (see order_secondary), not by hijacking the lead.
         cl["score"] = (
             severity_rank(cl["severity"]) * 3.0
             + min(len(cl["items"]), 6) * 1.0
@@ -312,6 +343,34 @@ def cluster_items(items: list[dict], threshold: float = 0.28) -> list[dict]:
         )
     clusters.sort(key=lambda c: c["score"], reverse=True)
     return clusters
+
+
+def is_police_misconduct(cluster: dict) -> bool:
+    """True if the cluster reports Jaipur/Rajasthan police incompetence/misconduct.
+
+    Needs a police reference AND either a strong police-context misconduct word or a
+    force verb with the police as its subject/agent — so an ordinary crime story that
+    merely quotes the police ("man beaten to death, police said") is never flagged.
+    """
+    text = " ".join(normalize(i["title"] + " " + i.get("summary", "")) for i in cluster["items"])
+    words = set(text.split())
+    if not any(t in words for t in POLICE_TERMS):
+        return False
+    if any(kw in text for kw in POLICE_MISCONDUCT_STRONG):
+        return True
+    return bool(POLICE_FORCE_RE.search(text))
+
+
+def order_secondary(clusters: list[dict]) -> list[dict]:
+    """The 'यह भी ब्रेकिंग' pool (max 5), excluding the lead. Police-misconduct stories
+    are pulled from the whole list and placed first (standing high priority), so they are
+    guaranteed a slot even when many other stories outrank them on newsworthiness; the
+    remaining slots go to the next most newsworthy stories. `clusters` is already sorted by
+    score, so each group keeps its score order."""
+    pool = clusters[1:]
+    police = [c for c in pool if c.get("police_flag")]
+    rest = [c for c in pool if not c.get("police_flag")]
+    return (police + rest)[:5]
 
 
 def cluster_id(cluster: dict) -> str:
@@ -371,7 +430,7 @@ def groq_analyze(api_key: str, clusters: list[dict], story: dict) -> dict | None
     Hindi source titles and Hindi secondary stories."""
     model = groq_pick_model(api_key)
     lead = clusters[0]
-    others = clusters[1:6]
+    others = order_secondary(clusters)  # police-misconduct stories first
     lead_sources = [s["title"] for s in cluster_sources(lead, limit=6)]
     lead_snippets = [i["summary"] for i in lead["items"][:5] if i["summary"]][:5]
     # The archived arc: every dated development point we have gathered for this story.
@@ -404,8 +463,9 @@ def groq_analyze(api_key: str, clusters: list[dict], story: dict) -> dict | None
             "event_type": "one of: terror, fire, earthquake, flood, accident, "
                           "crime, investigation, protest, civic, weather, other",
             "severity": "one of: critical, high, medium, low",
-            "analysis": "6-10 पैराग्राफ की विस्तृत हिंदी रिपोर्ट — पृष्ठभूमि, शुरुआत से अब तक का "
-                        "पूरा घटनाक्रम, मौजूदा स्थिति; पैराग्राफ \\n\\n से अलग करें",
+            "analysis": "3-5 सुसंगत, बहु-वाक्य पैराग्राफ की विस्तृत हिंदी रिपोर्ट (प्रवाहमय गद्य, "
+                        "टुकड़ों में नहीं) — पृष्ठभूमि, शुरुआत से अब तक का पूरा घटनाक्रम, मौजूदा स्थिति; "
+                        "हर पैराग्राफ में कई वाक्य हों; पैराग्राफ \\n\\n से अलग करें",
             "key_facts": "4-8 हिंदी बिंदुओं की array (छोटे तथ्य)",
             "developments": "objects की array [{date_label, text}] — घटनाक्रम पुराने से नए क्रम में "
                             "(oldest first), story_history के अनुसार; date_label = हिंदी तिथि/चरण "
@@ -703,7 +763,7 @@ def _lead_from_ai(ai: dict, clusters: list[dict]) -> tuple[dict | None, list[dic
         "sources": sources,
     }
 
-    others = clusters[1:6]
+    others = order_secondary(clusters)  # police-misconduct stories first
     os_ai = ai.get("other_stories") or []
     other_stories = []
     for i, c in enumerate(others):
@@ -764,11 +824,6 @@ def _hindi_datetime(dt: datetime) -> str:
     return f"{d.day} {HINDI_MONTHS[d.month - 1]} {d.year}, {_hindi_clock(d)}"
 
 
-def _hindi_date(dt: datetime) -> str:
-    d = to_ist(dt)
-    return f"{HINDI_WEEKDAYS[d.weekday()]}, {d.day} {HINDI_MONTHS[d.month - 1]} {d.year}"
-
-
 def hindi_source(name: str) -> str:
     """Devanagari outlet name for the common outlets; empty for unknown ones so no
     English brand text leaks onto the page."""
@@ -801,7 +856,6 @@ def render(state: dict, now: datetime) -> None:
     lead = state.get("lead") or {}
     other_stories = state.get("other_stories") or []
     updated_ist = _hindi_datetime(now)
-    today_ist = _hindi_date(now)
 
     sev = lead.get("severity", "low")
     badge = SEV_LABEL.get(sev, "निगरानी में")
@@ -893,7 +947,7 @@ def render(state: dict, now: datetime) -> None:
         )
         other_section = (
             '<section class="feed">\n'
-            '        <div class="section-head"><h2>अन्य ताज़ा खबरें</h2></div>\n'
+            '        <div class="section-head"><h2>यह भी ब्रेकिंग</h2></div>\n'
             f'        <div class="grid-text">\n{cards}\n        </div>\n'
             '      </section>'
         )
@@ -944,7 +998,6 @@ def render(state: dict, now: datetime) -> None:
         "{{TIMELINE}}": timeline_html,
         "{{OTHER_STORIES}}": other_section,
         "{{UPDATED_IST}}": esc(updated_ist),
-        "{{TODAY}}": esc(today_ist),
         "{{UPDATE_COUNT}}": esc(update_count),
         "{{LDJSON}}": ld_json,
     }
@@ -1490,12 +1543,16 @@ footer a { color: var(--brand); font-weight: 600; }
   .date-strip > span:not(.live-pill) { display: none; }
 }
 
-/* Red LIVE breaking banner at the top of the story */
+/* Red LIVE breaking banner — this is the page header (full-width, sticky) */
 .breaking-banner {
-  display: flex; align-items: center; gap: 12px;
+  position: sticky; top: 0; z-index: 50;
   background: linear-gradient(90deg, #e0112b, #b71c1c);
-  color: #fff; padding: 11px 16px; border-radius: 10px;
-  margin: 4px 0 18px; box-shadow: var(--shadow);
+  color: #fff; box-shadow: var(--shadow);
+  border-bottom: 3px solid var(--accent);
+}
+.breaking-banner .bn-inner {
+  max-width: var(--maxw); margin: 0 auto; padding: 12px 16px;
+  display: flex; align-items: center; gap: 12px;
   font-weight: 800; letter-spacing: .03em;
 }
 .breaking-banner .live-chip {
@@ -1504,10 +1561,17 @@ footer a { color: var(--brand); font-weight: 600; }
   font-size: .72rem; font-weight: 900; text-transform: uppercase;
   animation: blink 1s steps(1) infinite; flex: 0 0 auto;
 }
-.breaking-banner .live-chip .ping { width: 8px; height: 8px; border-radius: 50%; background: #b71c1c; }
+.breaking-banner .live-chip .ping {
+  width: 8px; height: 8px; border-radius: 50%; background: #b71c1c;
+  animation: pulse 1.2s infinite;
+}
 .breaking-banner .bn-label {
-  font-size: .95rem; text-transform: uppercase; overflow: hidden;
+  font-size: .98rem; text-transform: uppercase; overflow: hidden;
   text-overflow: ellipsis; white-space: nowrap;
+}
+.breaking-banner .bn-brand {
+  margin-left: auto; flex: 0 0 auto; color: #fff; opacity: .95;
+  font-size: .95rem; font-weight: 800;
 }
 @keyframes blink { 50% { opacity: .4; } }
 
@@ -1532,23 +1596,15 @@ ul.facts li { margin: 0 0 8px; line-height: 1.6; }
     </script>
 </head>
 <body>
-    <header class="site">
-      <div class="bar">
-        <a class="brand" href="https://news.manzill.com"><span class="logo">ज</span>जयपुर न्यूज़</a>
-        <div class="date-strip">
-          <span class="live-pill"><span class="dot"></span>लाइव</span>
-          <span>{{TODAY}}</span>
-          <a class="archive-link" href="https://news.manzill.com">सभी खबरें</a>
-        </div>
+    <header class="breaking-banner">
+      <div class="bn-inner">
+        <span class="live-chip"><span class="ping"></span>लाइव</span>
+        <span class="bn-label">लाइव ब्रेकिंग न्यूज़ &mdash; पल-पल के अपडेट</span>
+        <a class="bn-brand" href="https://news.manzill.com">जयपुर न्यूज़</a>
       </div>
     </header>
 
     <main>
-      <div class="breaking-banner">
-        <span class="live-chip"><span class="ping"></span>लाइव</span>
-        <span class="bn-label">लाइव ब्रेकिंग न्यूज़ &mdash; पल-पल के अपडेट</span>
-      </div>
-
       <div class="livebar">
         <span class="sev-badge"><span class="dot"></span>{{BADGE}}</span>
         <span class="updated">अंतिम अपडेट {{UPDATED_IST}}</span>

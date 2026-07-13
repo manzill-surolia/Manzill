@@ -61,7 +61,7 @@ NEWS_SITE = "https://news.manzill.com"
 # Bump whenever the rendered output (template/RSS/sitemap format) changes. A mismatch
 # with the value stored in state forces a one-time re-render even when the feed is
 # unchanged, so a redesign rolls out on the next scheduled run without a manual push.
-RENDER_VERSION = "7"
+RENDER_VERSION = "8"
 
 # strftime has no Hindi locale, so map month names for the Hindi date/time strings.
 HINDI_MONTHS = [
@@ -924,11 +924,12 @@ def render(state: dict, now: datetime) -> None:
     # Developments — a past→present chain (oldest at top, newest at bottom).
     developments = lead.get("developments", [])
     if developments:
+        # --i carries the item's index so the CSS can stagger each item's reveal animation.
         timeline_html = "\n".join(
-            f'<li class="tl-item sev-{esc(sev)}">'
+            f'<li class="tl-item sev-{esc(sev)}" style="--i:{i}">'
             + (f'<time>{esc(d.get("label"))}</time>' if d.get("label") else "")
             + f'<p>{esc(d.get("text"))}</p></li>'
-            for d in developments
+            for i, d in enumerate(developments)
         )
     else:
         timeline_html = '<li class="tl-item"><p>घटनाक्रम अपडेट हो रहा है।</p></li>'
@@ -1501,6 +1502,8 @@ section.feed { margin-bottom: 36px; }
 }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
+  /* animations are off here, so make sure the reveal-animated timeline stays visible */
+  .tl-item { opacity: 1 !important; transform: none !important; }
 }
 
 /* --- breaking page additions: live badge, editorial byline, timeline, footer --- */
@@ -1525,7 +1528,11 @@ section.feed { margin-bottom: 36px; }
 .updated { font-size: .82rem; color: var(--muted); }
 .editorial-card.fade-in { margin-bottom: 26px; }
 ul.timeline { list-style: none; margin: 0; padding: 0; max-width: 760px; }
-.tl-item { position: relative; padding: 0 0 18px 22px; border-left: 2px solid var(--border); }
+.tl-item {
+  position: relative; padding: 0 0 18px 22px; border-left: 2px solid var(--border);
+  /* each item reveals with a staggered fade-in-up (delay from the inline --i) */
+  opacity: 0; animation: tl-reveal .5s ease both; animation-delay: calc(var(--i, 0) * 0.12s);
+}
 .tl-item:last-child { padding-bottom: 0; }
 .tl-item::before {
   content: ""; position: absolute; left: -7px; top: 3px;
@@ -1534,6 +1541,15 @@ ul.timeline { list-style: none; margin: 0; padding: 0; max-width: 760px; }
 }
 .tl-item.sev-critical::before { background: var(--brand); }
 .tl-item.sev-high::before { background: #e65100; }
+/* newest development (bottom of the chain) = the "live/developing" step — glowing pulse */
+.tl-item:last-child::before {
+  background: var(--brand); animation: tl-glow 1.3s ease-in-out infinite;
+}
+@keyframes tl-reveal { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+@keyframes tl-glow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(183,28,28,.55), 0 0 4px var(--brand); }
+  50%      { box-shadow: 0 0 0 5px rgba(183,28,28,0), 0 0 16px var(--brand); }
+}
 .tl-item time { display: block; font-size: .74rem; font-weight: 800; color: var(--brand); letter-spacing: .03em; }
 .tl-item p { margin: 3px 0 0; }
 .note { font-size: .8rem; color: var(--muted); margin-top: 14px; }

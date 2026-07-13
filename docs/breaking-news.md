@@ -41,7 +41,9 @@ order below the header:
    police incompetence, negligence, delay or lapse in an investigation. Shown only when
    the sources report it; **never fabricated**. Accent-styled card.
 5. **घटनाक्रम — शुरुआत से अब तक** — dated developments as a top-to-bottom **dot-line-dot**
-   chain, **oldest at top → newest at bottom** (past → present).
+   chain, **oldest at top → newest at bottom** (past → present). The chain is animated: each
+   entry fades in with a staggered reveal, and the newest (bottom) dot pulses as the
+   "live/developing" point. Motion is disabled under `prefers-reduced-motion` (items stay visible).
 6. **आगे क्या** — short outlook.
 7. **स्रोत** — source cards (Hindi titles, same-tab links).
 8. **यह भी ब्रेकिंग** ("is also breaking") — other current Jaipur stories, drawn from the feeds

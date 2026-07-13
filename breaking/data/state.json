@@ -1,56 +1,54 @@
 {
-  "ist_day": "2026-07-13",
+  "ist_day": "2026-07-14",
   "lead": {
     "id": "38bf5fc51d32",
-    "headline": "राजस्थान उच्च न्यायालय को नई बम धमकी, जयपुर‑जोधपुर में सुरक्षा कड़ी",
+    "headline": "राजस्थान हाई कोर्ट को नई बम धमकी, जयपुर‑जोधपुर में सुरक्षा कड़ी",
     "event_type": "terror",
     "severity": "high",
-    "analysis": "राजस्थान उच्च न्यायालय को आज सुबह एक ई‑मेल के माध्यम से नई बम धमकी प्राप्त हुई, जिसमें अदालत के जयपुर और जोधपुर दोनों बेंचों को लक्षित किया गया था। इस सूचना के मिलने के बाद न्यायालय के प्रशासन ने तुरंत सुरक्षा एजेंसियों को त्वरित कार्रवाई के लिए निर्देशित किया और परिसर में व्यापक सुरक्षा जाँच शुरू कर दी।\n\nसुरक्षा बलों ने हाई कोर्ट के मुख्य द्वार, न्यायालय के हॉल और संबंधित कार्यालयों में एक्स‑रे स्कैनर, धातु डिटेक्टर और कुत्ते टीमों को तैनात किया, साथ ही सभी प्रवेश द्वारों पर सख्त जांच लागू की गई। इस दौरान न्यायालय के कार्यकाल में कोई व्यवधान नहीं आया, लेकिन सभी वकीलों और कर्मचारियों को अतिरिक्त सुरक्षा उपायों का पालन करने की सलाह दी गई।\n\nस्थानीय रिपोर्टों के अनुसार, इस धमकी के पीछे के स्रोत की अभी तक पहचान नहीं हो पाई है, परन्तु पुलिस ने ई‑मेल के हेडर और तकनीकी विवरणों की जाँच शुरू कर दी है। हाई कोर्ट ने इस घटना को गंभीरता से लेते हुए, भविष्य में ऐसी किसी भी धमकी को रोकने के लिए अतिरिक्त साइबर सुरक्षा उपायों को लागू करने का आश्वासन दिया है।\n\nवर्तमान में सुरक्षा बलों ने परिसर की पूरी तरह से सफाई और जाँच पूरी कर ली है, और कोर्ट के कार्य सामान्य रूप से चल रहे हैं। अधिकारियों ने जनता को आश्वस्त किया है कि सभी आवश्यक कदम उठाए जा रहे हैं और किसी भी संभावित जोखिम को न्यूनतम करने के लिए सतर्कता बरती जा रही है।",
+    "analysis": "राजस्थान हाई कोर्ट को कई बार बम धमकी मिल चुकी है, पर 13 जुलाई को प्राप्त ई‑मेल में नई और स्पष्ट धमकी का उल्लेख था, जिससे न्यायालय की सुरक्षा व्यवस्था को पुनः समीक्षा करने की आवश्यकता पड़ी। इस ई‑मेल में हाई कोर्ट के जयपुर और जोधपुर बेंचों को लक्षित करने का इरादा स्पष्ट किया गया, जिससे न्यायिक कार्यवाही में व्यवधान की संभावना बनी।\n\nजिला प्रशासन ने तुरंत सूचना प्राप्त कर कोर्ट के सभी प्रवेश द्वारों पर अतिरिक्त सुरक्षा कर्मियों की तैनाती की, एंटी‑बॉम्ब स्कैनर और कड़ी जाँच लागू की। हाई कोर्ट के मुख्य न्यायाधीश ने सुरक्षा बलों को सतर्क रहने और किसी भी संदिग्ध वस्तु या गतिविधि की तुरंत रिपोर्ट करने का निर्देश दिया।\n\nसुरक्षा दल ने कोर्ट परिसर के भीतर और बाहर दोनों जगह विस्तृत तलाशी अभियान चलाया, सभी इलेक्ट्रॉनिक उपकरणों और दस्तावेज़ों की जांच की गई। इस दौरान कोई विस्फोटक पदार्थ नहीं मिला, पर सतर्कता के कारण कोर्ट के कार्यकाल में हल्की देरी हुई।\n\nस्थानीय जनता और वकीलों ने इस कदम की सराहना की, साथ ही सुरक्षा में किसी भी चूक से बचने की मांग भी की। पुलिस ने कहा कि वह ई‑मेल के स्रोत का पता लगाने के लिए फोरेंसिक जांच शुरू कर चुकी है और संभावित दुष्प्रेरित समूहों की निगरानी को बढ़ा रही है।\n\nवर्तमान में कोर्ट ने सामान्य कार्यवाही फिर से शुरू कर दी है, पर सुरक्षा उपायों को अगले कुछ दिनों तक बरकरार रखा जाएगा, ताकि किसी भी अप्रत्याशित स्थिति से निपटा जा सके।",
     "key_facts": [
-      "राजस्थान उच्च न्यायालय को बम धमकी वाला ई‑मेल प्राप्त हुआ।",
-      "सुरक्षा बलों ने जयपुर और जोधपुर दोनों बेंचों में कड़ी सुरक्षा उपाय लागू किए।",
-      "एक्स‑रे, धातु डिटेक्टर और कुत्ते टीमों से व्यापक जाँच की गई।",
-      "कोई बम या विस्फोटक पदार्थ नहीं मिला, लेकिन जांच जारी है।",
-      "न्यायालय के कार्यकाल में कोई व्यवधान नहीं आया।",
-      "पुलिस ने ई‑मेल के तकनीकी विश्लेषण की शुरुआत की है।",
-      "हाई कोर्ट ने भविष्य में साइबर सुरक्षा को सुदृढ़ करने का वचन दिया।",
-      "जनता को सतर्क रहने और सुरक्षा निर्देशों का पालन करने की सलाह दी गई।"
+      "राजस्थान हाई कोर्ट को 13 जुलाई को नई बम धमकी वाला ई‑मेल प्राप्त हुआ",
+      "जयपुर और जोधपुर बेंचों को विशेष लक्ष्य बनाया गया",
+      "सुरक्षा दल ने कोर्ट परिसर में व्यापक तलाशी अभियान चलाया",
+      "तलाशी में कोई विस्फोटक पदार्थ नहीं मिला",
+      "न्यायालय ने कार्यवाही में हल्की देरी के साथ सुरक्षा को प्राथमिकता दी",
+      "फोरेंसिक जांच के माध्यम से ई‑मेल के स्रोत की पहचान की जा रही है"
     ],
     "police_accountability": "",
-    "what_next": "पुलिस और न्यायालय की सुरक्षा टीम आगे भी ई‑मेल के स्रोत की पहचान के लिए तकनीकी जांच जारी रखेंगी और सुरक्षा उपायों को और सुदृढ़ करेंगे।",
+    "what_next": "पुलिस फोरेंसिक जांच जारी रखेगी और ई‑मेल के स्रोत की पहचान के बाद आवश्यक कानूनी कार्रवाई करेगी। सुरक्षा उपायों को अगले कुछ दिनों तक बरकरार रखा जाएगा।",
     "developments": [
       {
         "label": "13 जुलाई",
-        "text": "राजस्थान उच्च न्यायालय को बम धमकी वाला ई‑मेल प्राप्त हुआ, जिससे तुरंत सुरक्षा बलों को तैनात किया गया।"
+        "text": "लोकमत टाइम्स ने रिपोर्ट किया कि राजस्थान हाई कोर्ट को नई बम धमकी वाला ई‑मेल मिला, जिससे सुरक्षा को कड़ा किया गया।"
       },
       {
         "label": "13 जुलाई",
-        "text": "लोकमैटाइम्स के अनुसार, सुरक्षा को कड़ा करने के लिए हाई कोर्ट के मुख्य द्वार पर एक्स‑रे स्कैनर स्थापित किए गए।"
+        "text": "मुनसिफ़ न्यूज़ 24x7 ने बताया कि हाई कोर्ट में सुरक्षा को बढ़ाया गया और सभी प्रवेश द्वारों पर अतिरिक्त गार्ड तैनात किए गए।"
       },
       {
         "label": "13 जुलाई",
-        "text": "मुनसिफ़ न्यूज़ 24x7 ने बताया कि जयपुर और जोधपुर दोनों बेंचों में अतिरिक्त पुलिस गश्त शुरू की गई।"
+        "text": "द हिन्दू ने सुरक्षा दल द्वारा कोर्ट परिसर में विस्तृत तलाशी अभियान चलाने की सूचना दी।"
       },
       {
         "label": "13 जुलाई",
-        "text": "द हिन्दू ने रिपोर्ट किया कि सुरक्षा जाँच के दौरान कोई विस्फोटक पदार्थ नहीं मिला, परन्तु ई‑मेल की जाँच जारी है।"
+        "text": "गुजरातसमाचार ने बताया कि जयपुर और जोधपुर बेंचों पर सुरक्षा सुदृढ़ की गई, जबकि जांच जारी है।"
       }
     ],
     "sources": [
       {
-        "title_hi": "राजस्थान उच्च न्यायालय को नई बम धमकी वाला ई‑मेल मिला; जयपुर‑जोधपुर में सुरक्षा कड़ी",
+        "title_hi": "राजस्थान हाई कोर्ट को नई बम धमकी वाला ईमेल मिला; जयपुर‑जोधपुर में सुरक्षा कड़ी",
         "url": "https://news.google.com/rss/articles/CBMivgFBVV95cUxNLTVUUE1QcmY4dUt5TEgxOVVRMGp2dURWcklxbUtrbWF6enJfa2x3eDhMSkhqSkhvaHYzaDA5M3Y0cTR1Z0dPNlNhOEs3R0REcXdWZ055OE5MM25Oa0FieHpOMHd6cS1qTzRRa1hZNnBuLXllMW01X3dOcXlJNmw3amcwVUJtcTZoZmFySnhqakdFZWRoaF9nLUtvdXFsWlMzRUN5UlMwTEhMN1BvQ0JJSERCZTZ1amo5OFN0NVpR0gG-AUFVX3lxTE0tNVRQTVByZjh1S3lMSDE5VVEwanZ1RFZySXFtS2ttYXp6cl9rbHd4OExKSGpKSG9odjNoMDkzdjRxNHVnR082U2E4SzdHRERxd1ZnTnk4Tkwzbk5rQWJ4ek4wd3pxLWpPNFFrWFk2cG4teWUxbTVfd05xeUk2bDdqZzBVQm1xNmhmYXJKeGpqR0VlZGhoX2ctS291cWxaUzNFQ3lSUzBMSEw3UG9DQklIREJlNnVqajk4U3Q1WlE?oc=5",
         "source": "Social News XYZ",
         "published": "2026-07-13T16:12:59+00:00"
       },
       {
-        "title_hi": "राजस्थान हाई कोर्ट को बम धमकी, जयपुर‑जोधपुर में सुरक्षा बढ़ी",
+        "title_hi": "राजस्थान हाई कोर्ट को नई बम धमकी मिली, जयपुर‑जोधपुर में सुरक्षा बढ़ाई गई",
         "url": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxPbmEwU3JINVU5RWJ4Vmd0R3I3aE9qRl8wUk43NWMzTVVrN0JQZnVHWkpxTUlsTFFCZFdhaW1DTHd6LWtxV2wtaEt5QUdGd1JHbEF3Yjhfd3k3YW0temlpN3B6NTEzMjBXUkJSbTR6d0R3NWQwT2xNanB1NEhlUUF6R2pTeG5QOUhwMmcwb0FEeFhKRTQycDl5Y1hSY2RDTTFGN2xLX2lYaG1pZTRVaW5iVnZVc1FEcWhSbWtWcjdKaFRtQdIBwgFBVV95cUxPbmEwU3JINVU5RWJ4Vmd0R3I3aE9qRl8wUk43NWMzTVVrN0JQZnVHWkpxTUlsTFFCZFdhaW1DTHd6LWtxV2wtaEt5QUdGd1JHbEF3Yjhfd3k3YW0temlpN3B6NTEzMjBXUkJSbTR6d0R3NWQwT2xNanB1NEhlUUF6R2pTeG5QOUhwMmcwb0FEeFhKRTQycDl5Y1hSY2RDTTFGN2xLX2lYaG1pZTRVaW5iVnZVc1FEcWhSbWtWcjdKaFRtQQ?oc=5",
         "source": "Social News XYZ",
         "published": "2026-07-13T15:33:10+00:00"
       },
       {
-        "title_hi": "राजस्थान हाई कोर्ट को बम धमकी, जयपुर‑जोधपुर बेंचों में सुरक्षा तीव्र",
+        "title_hi": "राजस्थान हाई कोर्ट को नई बम धमकी मिली, जयपुर और जोधपुर बेंचों पर सुरक्षा सुदृढ़",
         "url": "https://news.google.com/rss/articles/CBMi8gFBVV95cUxPSm9vZ19CeDRIOVpSUFFybm1XREo0bWxGeExGb3ROUGJsX0hWc0dua29rejZzZVRHSEk2aDJ0eU5XTkM3MjZVX3lXN0lIZHctZ1c2ZDZMelhaTWE0UmJuajExSVB3WWxmbFN5YXZ5R1p2V0dtVWVsMVBuNmV5eGI2cTJsWm0wNExKdlRDb0RFSjBmZUp1UFdjbGwyM0t4Vk5Uc1ljOGZuTnBuUHROLWdsNVdiOG56V0tOZDMxXzhERVd1SW5xWmV6WWtrOTBNWHZZZnhGclByMXZHSzFkdTk5ZWVUdTV6N0hSMjJLQk85UkdmZw?oc=5",
         "source": "GujaratSamachar English",
         "published": "2026-07-13T10:58:31+00:00"
@@ -59,37 +57,37 @@
   },
   "other_stories": [
     {
-      "headline": "जयपुर में हत्या की जांच में पिता की मृत्यु की जांच का विस्तार",
-      "summary": "स्थानीय पुलिस ने हत्या के मामले में पिता की असामान्य मृत्यु को भी जांच के दायरे में शामिल कर लिया है, जिससे मामले की जटिलता बढ़ गई है।",
+      "headline": "हिमाचल पुलिस ऑर्केस्ट्रा इंचार्ज को सोशल मीडिया से आय के लिए निलंबित किया गया",
+      "summary": "हिमाचल पुलिस ने ऑर्केस्ट्रा इंचार्ज को सोशल मीडिया प्लेटफ़ॉर्म से आय करने के कारण निलंबित कर दिया, जिससे विभागीय अनुशासन पर सवाल उठे।",
+      "url": "https://news.google.com/rss/articles/CBMi5wFBVV95cUxPdFJqTGFYVGRra21IQVhFVFdNRHpHQWtaTDJkSDBxVWpZLURPZlAyOGZqQjVGTFhmcWY1MHFGVTRJNDhqeXFJMDhZdlBQRW1rNkxxRWNMZHBKRTFVbFloTUdaOUFGQ0RPTEFFSjlWdWQ2WkxfNWVVaFpwRHdabTAycWV2ZTE5UUJNRlAwcGhQUi1OTmxCVmhyaDFjREI2b0QtV25uUFNVQnBTYnJha0J0Y3BOSFF1LXgtVkNOdjU4d3pCXzlENXN1TWs1LWdiUGtjQzFIckZxdS1tWGhtUndtTjZkQmd0WEHSAecBQVVfeXFMT3RSakxhWFRka2ttSEFYRVRXTUR6R0FrWkwyZEgwcVVqWS1ET2ZQMjhmakI1RkxYZnFmNTBxRlU0STQ4anlxSTA4WXZQUEVtazZMcUVjTGRwSkUxVWxZaE1HWjlBRkNET0xBRUo5VnVkNlpMXzVlVWhacER3Wm0wMnFldmUxOVFCTUZQMHBoUFItTk5sQlZocmgxY0RCNm9ELVdublBTVUJwU2JyYWtCdGNwTkhRdS14LVZDTnY1OHd6Ql85RDVzdU1rNS1nYlBrY0MxSHJGcXUtbVhobVJ3bU42ZEJndFhB?oc=5",
+      "source": "The Tribune"
+    },
+    {
+      "headline": "बम धमकी के बाद राजस्थान हाई कोर्ट में सुरक्षा जांच",
+      "summary": "बम धमकी मिलने के बाद कोर्ट परिसर में विस्तृत सुरक्षा जांच की गई, सभी प्रवेश द्वारों पर अतिरिक्त जाँच और स्कैनर लगाए गए।",
       "url": "https://news.google.com/rss/articles/CBMiygFBVV95cUxPV3dHbTNWVl9hUlVxcnZ4djRaQU52NXVxRjh0eTQ1RFJ3NWFtZXRKNVZhMm5YdHNiNGdrbllNblhKSVlIY0Z0aTJhUGpQVUE4b21kYlpZLTJXajYzcnFkcl9hcldfOVFkZW4zSEhXS3pKMnhxRkExMnZMSVBoQy1ETnNDbFcxX3pfa0JuUUQwS1laclN6T0JYQmdLNzRiUi11ZkRvMVRTdkdmYWtrcm1mZ2J6M21FZFdzMUlrWU1OVGw2NzZzVFp4TDd30gHKAUFVX3lxTE9Xd0dtM1ZWX2FSVXFydnh2NFpBTnY1dXFGOHR5NDVEUnc1YW1ldEo1VmEyblh0c2I0Z2tuWU1uWEpJWUhjRnRpMmFQalBVQThvbWRiWlktMldqNjNycWRyX2FyV185UWRlbjNISFdLekoyeHFGQTEydkxJUGhDLUROc0NsVzFfel9rQm5RRDBLWVpyU3pPQlhCZ0s3NGJSLXVmRG8xVFN2R2Zha2tybWZnYnozbUVkV3MxSWtZTU5UbDY3NnNUWnhMN3c?oc=5",
       "source": "The Hindu"
     },
     {
-      "headline": "जन्मदिन पार्टी के बाद मित्र की हत्या, 3 फरार अपराधियों ने लड़की को थप्पड़ मारने के विवाद में हमला किया",
-      "summary": "एक जन्मदिन समारोह के बाद मित्र की हत्या हुई, जिसमें तीन फरार अपराधियों ने लड़की को थप्पड़ मारने के झगड़े को लेकर हमला किया, पुलिस अब सभी संदिग्धों की तलाश में है।",
-      "url": "https://news.google.com/rss/articles/CBMi6gFBVV95cUxPbTBnb21fUmJLUFMwaVBmd1hhZWhGUmJoWUhBLTJLYTVqaU8wcW1PX3pOLWJjZ0NLNG5KWHdzZWtjZTF4MTBPTXFuMTF0eDJFZlgyb2Vac1hIMjVCNlFJS3BHS1RkMVE2SXgwdUlrMWpBR0dqZXFidVltWFNxYjJXU3Z0WHptYk95cVJoWHY4ekJhelU2c3Q3S3ZjNDlPVXVFeE1pMGZQSVFseW5JaWtkRmRBbS1xSG9qWUxjSENhc2hQNUpOeU4zWi1CR1pFYVN5R3RzUmJzR2ZkWU9obHlTR1BPY1QzUV9xcVE?oc=5",
-      "source": "MSN"
-    },
-    {
-      "headline": "अलवर में प्रेम प्रतिद्वंद्विता के कारण पेट्रोल पंप पर गोलीबारी, पुलिस ने संदिग्ध को गिरफ्तार किया",
-      "summary": "अलवर में एक पेट्रोल पंप पर प्रेम प्रतिद्वंद्विता के चलते गोलीबारी हुई, जिसमें एक संदिग्ध को पुलिस ने हिरासत में ले लिया है।",
+      "headline": "जन्मदिन पार्टी के झगड़े में दोस्त की हत्या, लड़की को थप्पड़ मारने के विवाद में 3 फरार अपराधियों ने हमला किया",
+      "summary": "जन्मदिन समारोह के दौरान हुए विवाद में एक दोस्त की हत्या हुई, और तीन फरार अपराधियों ने लड़की को थप्पड़ मारने के मुद्दे को लेकर हमला किया।",
       "url": "https://news.google.com/rss/articles/CBMivgFBVV95cUxNLWFJdG1tejRYeHhjQ013MVM4a20zenY1d0lCMlZwdXlHaDRYMzVYZmpWOGhLVU1YaTZzS0l6XzBqY2VjTUxpWE1BNXNhc2pQczFXSlNGdnZYM1BvUkxzbHVuelJnMkF0TVhkYjJpVS1oQU5Gb0xoa1ZrQlpIcHFWRlFNU0xDS1FEWXBvdHVCd2NaLVpFS184V2xhMWJBb0V1a1J5ZHFtX1RKZXkxc2c2UV9haU5WVTJIRmpnMHRR0gHDAUFVX3lxTE5PUkFlYUpGUUZnTmNqdElhTDZKRDQ3STZJYzdCWjR1WUljNXE1Y054NzJVamoxTS1ONllZQU43Ty1wbDdyVGZMdkxja0xmeDVIaWJTS2JPa1J4czRHS3B5ekx6cUZBOGtpVHRJZ3ppbXFnTnhYRmZWQlhlWHd5eElsN0NZaUJ4RTBvenRQSzdVM3lRUkxGWXZLQkJxMWlIcF9WanViTHZGNXl3WTlkRVdrNHZEem5oekc2bXBCOEJwMGhIMA?oc=5",
       "source": "Bhaskar English"
     },
     {
-      "headline": "माँ की हत्या में बेटी गिरफ्तार, पिता की मृत्यु भी जांच के दायरे में",
-      "summary": "एक मामले में बेटी को माँ की हत्या के आरोप में गिरफ्तार किया गया, साथ ही पिता की मृत्यु को भी जांच के तहत रखा गया है।",
-      "url": "https://news.google.com/rss/articles/CBMisgFBVV95cUxNS2VsQjZFQkJ4QjU5QVVOdldlMVFxQUNBLWFFcFVOSlYyc3BLOGZWZ1hmVDY2UVI4dDEtaWxUd09LQTZwVERJY2V6dDRlanBrOG1Hak82T19vdnFYMkxfWjNPazNNX0N2eS1HYmRHNUlDel9sMW5rNGhQc1M5UlBnWGdLSmZ4b3FMeUdaU0JFRTVrSDUxOTI3VFVTZHRNWlZmdnVLSkhUdm5FbnNlUkZLWVh3?oc=5",
-      "source": "The News Mill"
+      "headline": "श्रीगंगानगर पुलिस ने छोटे बलात्कार मामले में शीघ्र चार्जशीट की तैयारी",
+      "summary": "श्रीगंगानगर पुलिस ने एक छोटे बलात्कार मामले में जल्दी से चार्जशीट तैयार करने की योजना बनाई है, ताकि न्याय प्रक्रिया तेज़ी से आगे बढ़े।",
+      "url": "https://news.google.com/rss/articles/CBMi0AFBVV95cUxOWTFsQVJLTzZIclpJU3RtUHZOcXlBS2tXYk9RQ2JTMDRoSTlhUzBSS1o0VFdqZ290LUpYUnBVaGNFNHV6dElyMmxCWWxDcUEzSzI2RVE4YkVjdDkyeFFycENRdkJyTHVwZXE5RlZkbzlEOV8yWnRBeUx6QWd6YnZFNTBrcWdBNWZ1bkRzZm1uUWpyMGdMVzhsdDJuQnh6UjNmRG14ZC1KZjdRVEprbGtROUlTeXJlUTctdDY5eHo4WnNTOHM1UGlXNDBaaWtQbDA50gHWAUFVX3lxTE5qY3lvNVZTa01UeE83eTFSYndkWHJrenlTb1FwU19Ea0FMYkFnOWhpa09oaG1kREJWOHNtZWF6SXN2UGExNGltV1VidGlWWnIwOVF6QjRObFE3SXAyMWY5b0NLZmNQYjRmSnh3ektOb0huNl95VGNhS3Uyb0VyRm5VRWI2VlIyYVR5V0xNWlN1dGhuWm01QWM2eE9xZVlxczRPUElBdG5lM0ZlOXQ5cWcxZzMwaWh5RGcyZ2xqWmNGelNRbUFINnRFUlZuRmVDOXp4VjhLdmc?oc=5",
+      "source": "The Times of India"
     },
     {
-      "headline": "सुरक्षा जाँच के बाद राजस्थान हाई कोर्ट में कोई बम नहीं मिला",
-      "summary": "हाई कोर्ट में की गई व्यापक सुरक्षा जाँच के बाद यह पुष्टि हुई कि परिसर में कोई बम या विस्फोटक पदार्थ नहीं मिला, लेकिन जांच जारी है।",
-      "url": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxNbnF2YXBITy16Q1ljRVJwUi1ObFRPcHZ4MU1fVVZic2NJcGE1Mkh2dXlyOWFuNVBRazZHeFk5eHV5bDg5am5pVUlsTXQwQjUxRVJ2cW5iaGpBeGpLOFJ2QmE0M2xhMWp2WkREMVhxZ2JJWC1nbnR2SllyOTZDbEljNHZjenpGZGtlOVFkWHh3Q1VqMFBrWGhURXdKSDdVbTduYkQ0Y0pXZzVXUFNjVHdWNWlZZFJaZXo3VmxB0gG7AUFVX3lxTE1ucXZhcEhPLXpDWWNFUnBSLU5sVE9wdngxTV9VVmJzY0lwYTUySHZ1eXI5YW41UFFrNkd4WTl4dXlsODlqbmlVSWxNdDBCNTFFUnZxbmJoakF4aks4UnZCYTQzbGExanZaREQxWHFnYklYLWdudHZKWXI5NkNsSWM0dmN6ekZka2U5UWRYeHdDVWowUGtYaFRFd0pIN1VtN25iRDRjSldnNVdQU2NUd1Y1aVlkUlplejdWbEE?oc=5",
-      "source": "Kanak News Odisha"
+      "headline": "जेल में रहने वाले कैदियों की जन्मदिन पार्टी में हत्या, आठ गिरफ्तार",
+      "summary": "जेल में कैदियों की जन्मदिन पार्टी के दौरान एक हत्या हुई, जिसके बाद पुलिस ने आठ लोगों को गिरफ्तार कर लिया।",
+      "url": "https://news.google.com/rss/articles/CBMiwAFBVV95cUxNUnBnUXFWWDRzc204RkJZWTZ1SmthU0RRTkJZdlo5UHgycmFCLWE1RDdaVVJRUzBoVm9EbV9TNGh0YnVISGJaQUFfeHJ5c0gxeHlOT3JTTEZwUHNPZHE0bks3akE5Wjg0aXpZaXZlVGFiNzBuVFVHWko0VTVDRVRmZm5fWG9kMU1ieUlSeGtxV24zZU9KbjMya3lMS3lBYUh0MnFWWC1WWHVlNHpYYkFEY2YzTFVMZl82X0xvSVQwc0fSAcYBQVVfeXFMUHNIYjlTV01uV05BSnd3OWc3aERnTGVWVl9iN1d3NkNWZEM2TktCeDRWMTgyWkN1LUY2TlNXTmtEVEpoOFpJNC05YTNkazFWQXF6dmlwSThCVGhzOVlSRVpYNjdkWmRNalg5b0VwZ1dOWGdUaTF4Rk5SN1lDamFDalhkUmhfTXZObnVFSGF6YXBmOFRkemZuQWs3YXpid0NFSzBsUnFoR0lQM3J5NDVMY2N1U2t0YU11Q09DV2NqX25yR2d3aHhB?oc=5",
+      "source": "The Times of India"
     }
   ],
   "last_feed_hash": "cb9ac0776d568c07",
-  "last_updated": "2026-07-13T18:09:39.333096+00:00",
+  "last_updated": "2026-07-13T19:50:26.855509+00:00",
   "render_version": "8"
 }

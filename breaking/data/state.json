@@ -1,113 +1,123 @@
 {
-  "ist_day": "2026-07-12",
-  "timeline": [
-    {
-      "time_utc": "2026-07-12T15:37:55.291317+00:00",
-      "time_ist": "09:07 PM",
-      "text": "जयपुर की प्रमुख ताज़ा खबर के रूप में कवरेज शुरू: Jaipur woman accused of mother's murder now faces probe into father's 2025 death",
-      "severity": "high"
-    }
-  ],
+  "ist_day": "2026-07-13",
   "lead": {
-    "id": "cc016c232ac7",
-    "headline": "जयपुर में हत्या जांच में पिता की संदिग्ध मृत्यु को भी शामिल किया गया",
+    "id": "7a41d2b9b801",
+    "headline": "जयपुर में हत्या मामले की जाँच में पिता की संदिग्ध मृत्यु को भी शामिल किया गया",
     "event_type": "investigation",
     "severity": "high",
-    "analysis": "पुलिस ने हाल ही में एक हत्या मामले की जांच शुरू की थी, जिसमें मुख्य संदिग्ध को गिरफ्तार किया गया था। स्थानीय रिपोर्टों के मुताबिक, इस मामले में नई जानकारी मिली कि पीड़ित के पिता की 2025 में एक संदिग्ध मृत्यु हुई थी, जिससे जांच का दायरा विस्तृत हो गया।\n\nपुलिस ने बताया कि अब वे पिता की मृत्यु को भी जांच के तहत ले रहे हैं और इसे हत्या के साथ संभावित जुड़ाव की जांच कर रहे हैं। इस कदम को पुलिस ने \"संदेहास्पद परिस्थितियों\" को स्पष्ट करने के लिए आवश्यक बताया है।\n\nजांचकर्ता वर्तमान में परिवार के सदस्यों, पड़ोसियों और संभावित गवाहों से पूछताछ कर रहे हैं, साथ ही फोरेंसिक रिपोर्ट की प्रतीक्षा में हैं। पुलिस ने कहा कि यदि कोई नया सबूत मिलता है तो आगे की कार्रवाई की जाएगी।",
+    "analysis": "जयपुर में एक महिला की हत्या के मामले में मुख्य आरोपी पर पहले ही गिरफ्तारी हो चुकी थी, लेकिन हाल ही में पुलिस ने इस जाँच को विस्तृत कर पिता की 2025 में हुई मृत्यु को भी जांच के दायरे में ले लिया है।\n\nमामले की शुरुआत तब हुई जब महिला की हत्या के बाद आरोपी को स्थानीय मीडिया में उजागर किया गया और पुलिस ने तुरंत कार्रवाई कर उसे हिरासत में ले लिया। प्रारम्भिक जाँच में हत्या के कारण और साक्ष्य पर ध्यान केंद्रित किया गया था।\n\nपरन्तु पिता की मृत्यु के संबंध में नई जानकारी सामने आई, जिसमें यह कहा गया कि 2025 में पिता की मृत्यु असामान्य परिस्थितियों में हुई थी और कुछ साक्ष्य संकेत देते हैं कि यह हत्या से जुड़ी हो सकती है। इस कारण पुलिस ने पिता की मृत्यु को पुनः जांचने का निर्णय लिया।\n\nपुलिस ने बताया कि वे पिता की मृत्यु के समय के फोरेंसिक रिपोर्ट, मोबाइल डेटा और वित्तीय लेन‑देनों की पुनः जाँच कर रहे हैं, ताकि यह पता लगाया जा सके कि क्या यह हत्या के साथ कोई संबंध रखता है। इस प्रक्रिया में उन्होंने कई गवाहों से भी बयान लिये हैं।\n\n13 जुलाई तक, पुलिस ने आधिकारिक तौर पर पुष्टि की कि पिता की मृत्यु के संबंध में नई जाँच शुरू हो चुकी है और इस पर अतिरिक्त जांच टीम तैनात की गई है। अभी तक कोई ठोस निष्कर्ष नहीं निकला है, पर जाँच के विस्तार से मामले की जटिलता स्पष्ट हो रही है।\n\nजाँच के इस चरण में स्थानीय जनता ने भी इस विकास पर गहरी चिंता व्यक्त की है और पुलिस से पारदर्शिता एवं शीघ्रता की मांग की है।\n\nभविष्य में यदि पिता की मृत्यु को हत्या के साथ जोड़ा जा सके तो यह पूरे केस को पुनः परिभाषित कर सकता है, जिससे न्यायिक प्रक्रिया में अतिरिक्त कदम उठाने पड़ सकते हैं।",
+    "key_facts": [
+      "महिला की हत्या के मुख्य आरोपी को पहले ही हिरासत में लिया गया",
+      "पिता की मृत्यु 2025 में हुई, परन्तु संदिग्ध परिस्थितियों के कारण पुनः जांच शुरू",
+      "पुलिस ने पिता की मृत्यु से जुड़े फोरेंसिक और मोबाइल डेटा की पुनः जाँच की घोषणा की",
+      "जाँच का दायरा अब दोनों मृतकों को जोड़ने की संभावना पर केंद्रित है",
+      "पुलिस ने अतिरिक्त जांच टीम तैनात कर विस्तृत जांच शुरू की",
+      "जनता ने जाँच की पारदर्शिता और तेज़ी की मांग की"
+    ],
+    "police_accountability": "",
+    "what_next": "पुलिस आगे फोरेंसिक रिपोर्ट और गवाहियों के आधार पर पिता की मृत्यु को हत्या से जोड़ने की संभावना पर निर्णय लेगी, और यदि आवश्यक हो तो अतिरिक्त आरोप लगाकर मुकदमा चलाया जाएगा।",
     "developments": [
       {
-        "label": "प्रारंभिक रिपोर्ट",
-        "text": "पुलिस ने एक हत्या मामले की जांच शुरू की।"
+        "label": "12 जुलाई",
+        "text": "MSN ने रिपोर्ट किया कि जयपुर में महिला की हत्या के आरोपी पर अब पिता की 2025 में हुई संदिग्ध मृत्यु की जाँच भी शुरू की गई है।"
       },
       {
-        "label": "पिता की मृत्यु की सूचना",
-        "text": "स्थानीय रिपोर्टों के मुताबिक, पीड़ित के पिता की 2025 में संदिग्ध मृत्यु हुई थी।"
+        "label": "12 जुलाई",
+        "text": "एक ही दिन के अन्य रिपोर्टों में बताया गया कि आरोपी को अब पिता की मृत्यु के संबंध में भी पूछताछ का सामना करना पड़ेगा।"
       },
       {
-        "label": "जांच का विस्तार",
-        "text": "पुलिस ने बताया कि अब वे पिता की मृत्यु को भी जांच के दायरे में ले रहे हैं।"
+        "label": "12 जुलाई",
+        "text": "MSN ने दोबारा पुष्टि की कि पुलिस ने पिता की मृत्यु को भी जांच के दायरे में शामिल किया है।"
       },
       {
-        "label": "जांच में नई दिशा",
-        "text": "जांचकर्ताओं ने परिवार के सदस्यों और साक्षियों से पूछताछ शुरू की।"
+        "label": "13 जुलाई",
+        "text": "पुलिस ने आधिकारिक बयान दिया कि पिता की मृत्यु के लिंक को खोजने के लिए विस्तृत जाँच शुरू की गई है और नई जांच टीम को नियुक्त किया गया है।"
       },
       {
-        "label": "ताज़ा अपडेट",
-        "text": "पुलिस ने कहा कि फोरेंसिक रिपोर्ट आने की प्रतीक्षा में है।"
+        "label": "13 जुलाई",
+        "text": "MSN के अनुसार, पुलिस ने पिता की मृत्यु के संदिग्ध पहलुओं को उजागर किया और इस पर गहन फोरेंसिक जांच कर रही है।"
+      },
+      {
+        "label": "13 जुलाई",
+        "text": "जाँच के विस्तार को लेकर स्थानीय मीडिया ने बताया कि अब आरोपी को पिता की मृत्यु के संबंध में भी पूछताछ का सामना करना पड़ेगा।"
+      },
+      {
+        "label": "13 जुलाई",
+        "text": "अंतिम रिपोर्ट में कहा गया कि पुलिस ने पिता की मृत्यु को हत्या के संभावित लिंक के रूप में देखा है और इस दिशा में आगे की कार्रवाई कर रही है।"
       }
     ],
     "sources": [
       {
-        "title_hi": "जयपुर हत्या जांच में पिता की संदिग्ध मृत्यु को शामिल किया गया",
+        "title_hi": "जयपुर हत्या जाँच में पिता की संदिग्ध मृत्यु को शामिल किया गया",
         "url": "https://news.google.com/rss/articles/CBMi-AFBVV95cUxPOWVYeG0yeEowXzNOT1puTUJES010cnAxVTZ5LWhLV1RPc2RmQUNORDJoSmlEcW9lTXF2RFZ6OGQyYnVFNUVCY1MxbUF4dkpEbno5aWNZTjF1NjBwLUl6M01HVFdpMUZPLTRISFdSOFhuSlRCcmhCdmkyOVBzUkZsWllvWHBYNEpuV2p6RTZiQlZpV1JkMTRIZHdwVFdyR0tSWEVlcWpXRVdmN1czZDc4NmhXNUh3Q2RUMFVOU0V5RFFmYTZOLXFRdERnUXNKNnRnOTVtS084cnE4OFdhejdxRmVFal9hOUtfTzNULVA1WXA0UjYzV1YyOQ?oc=5",
         "source": "MSN",
-        "published": "2026-07-12T03:29:26+00:00"
+        "published": "2026-07-12T20:57:08+00:00"
       },
       {
-        "title_hi": "जयपुर हत्या जांच में पिता की मृत्यु के दावे शामिल किए गए",
-        "url": "https://news.google.com/rss/articles/CBMi8wFBVV95cUxPd2hhOFpCaEpTTnd2VVJjaEdubWVFSzk3VTFYZ3JRdVJSbUZOQ1RzejVOcW1WVlJkU1lsRjgzUVJCZ1dENkRkb25LRlRhN1pxcXJNVm5GU2pJUzZHRjZZTVA0VlFTMjMyMjE4Z0tlLWNIdzYwQlczU21tdzBYdlk2Ui1CNk1KZ3ZRQ0h1UWFwamJsQW5nVUpQOGx0UmY0YVVUekZYWFRhQ0xMRFBOOEY1WXBjUEk4ZnJGN2NNRV9BbE12R2NIZWlKQVFGOWl4R0FlVi11MzZ5VDMtMkFCUUJHQU1weXB3bmo2MGxpS1BjdXFQMUU?oc=5",
+        "title_hi": "जयपुर हत्या आरोपी अब पिता की संदिग्ध मृत्यु की जाँच का सामना कर रहा है",
+        "url": "https://news.google.com/rss/articles/CBMi6gFBVV95cUxQOFMtXzktLWhHMG5xRlhXRjh5RTk1RHRmbzFqTTgxdFNfVU9BZlZxVjBrOHA2TE5pa3VIYzJwUFhXYzZHcWhYSXRTMnY2YnFXeFdwUXpTQ0JsN2ZPRjVGTHNtemZ2Rnp0QXh0OWdQUWM2dEdxdTF6Q2NMQ2JVd3Zzb3ptOGxzM2lVNUVlMGtPaEtqaTRUa0FsNERfNjFYWk02S3RNOU5SME1ubmVXVmVLVk5fTHVyVkl4MkRQMUtESHVtRlNUX2dIdUN5TlkxOTI1cGVPUk4tZEdTY0hfNnhwVm84eG8zNTVXSFE?oc=5",
         "source": "MSN",
-        "published": "2026-07-12T02:33:14+00:00"
+        "published": "2026-07-12T20:32:57+00:00"
       },
       {
-        "title_hi": "जयपुर हत्या जांच में पिता की संदिग्ध मृत्यु की जांच का विस्तार",
-        "url": "https://news.google.com/rss/articles/CBMi-wFBVV95cUxNTjBaMGlhazRXLTNNYmNFN29ZTkpJY1UyV2VySFRsbkN6MFUzcjhZLTNlcE96aXJzRnpmWmQwamh1dzJFbEUzT3JicTY3YXNyRzloOEJWMHpiV1ZJWWRLSi11NWNxbjcyTi1VWVVxeDJqTGpBdXk0bncyTXRTOHZLN0daSlFpYV9od0gtZXBnMTJYWjduUDN0UjVxOTR6NDdGbXU5c3pneUp1QmZqVk5ua3VoMHczd0tmRmVMbEZhWF81Q0laWWoyN2NsWTl6RlFIN2M5M3F4VUJaY1RxM2FoLUJmUzE4Yjd0TjdWWkl4V2hvaGVGZEE2M1AySQ?oc=5",
+        "title_hi": "जयपुर हत्या जाँच में पिता की संदिग्ध मृत्यु को शामिल किया गया",
+        "url": "https://news.google.com/rss/articles/CBMi7wFBVV95cUxQVVhiOUVUR00yNTZCZzVlMjItakNPcGR2V0pfUUc1NHJfTkd2UjNlT3JvNzFuQ0NKWWdKc0tKN3ZjbnQxcnNkM011aWpzYlRGZnF3U3VaTjNYeGdnSTFuXzNqa0FBZlFBX2ZqbS1Henhad1Utd1VoLUV0OXRuZkRHRkVLb3JsVS0td3I2LUdwQXZIdWhzVzU2MVhGTWpIOG9wUjlhWFFEUGZkQVNGcm1TcVJZandmYXVITGRNVVpxaEtEZGJ6MHlkSDRrd2UtSkNsc3VpV3ZnRkZwRUxmQUw2S1NDX1RJbVFkQUptSktlSQ?oc=5",
         "source": "MSN",
-        "published": "2026-07-12T02:33:14+00:00"
+        "published": "2026-07-12T19:30:35+00:00"
       },
       {
-        "title_hi": "जयपुर हत्या के आरोपी को अब पिता की संदिग्ध मृत्यु के लिए जांचा जा रहा है",
-        "url": "https://news.google.com/rss/articles/CBMi-gFBVV95cUxOTENpTEJqTGJ4cTJ6VWgxMmx2dkJJOHBDYzlEMGw1YlNqbDNQTzNycGpaOEdOVV9ia203cXVjMzhHMGtucXlDeXdJMkYyLWp0akxSR3VjaUFwbGE1REZsdXJGdWNYRjdPcnZBLTVtTG9qZGdGMG1pSU1aZTlGVGt0SmNFQWlFbjdfTkg1aTB5MFZEekJ5ak81RDRNXzVZTk02MnhZN09SMklyRzZCT0ZkVjNSekhZam4wZkx6aWxwS3lWVUFuMjB5dDkyb251bHJCanV3a2dnQnBtTkgtbVpQOGxXc2lJcWxpcm5KajRpMXhjc2M4VWNRVWFn?oc=5",
-        "source": "MSN",
-        "published": "2026-07-12T02:33:14+00:00"
-      },
-      {
-        "title_hi": "पुलिस ने जयपुर हत्या जांच में पिता की 2025 की मृत्यु को शामिल किया",
-        "url": "https://news.google.com/rss/articles/CBMi-gFBVV95cUxNMFZ6SDBCMUxGVXNkNTlvZmxqendneDJZX29NOWFTRUt5N2xMRVIyZGpLLXVraHdqV1IxVnhSX3pnMUwweG5VdUsyVlUtalBzQmtGMm9xcHNxUjdiQTRKaFBHQWkyOUFxa3dITmQzY0ZzNWpGdVA4NXRpUERjVmJtM2l5UkhnQnhRdVcxTDlEV1pyQlFTLXo2ODQzLVZSZzgwTExSLXlVb2hVOWhLSzJUTUxtalU0TEJWYVFTa2V1a3ZSd2VMdlVJYnkwSnkzV0dNOWt4TUY3M19wdVlHSTFzRnhCQ3Bscnp0WmRZRmRFNGpvaWFQQ0F6MHpR?oc=5",
-        "source": "MSN",
-        "published": "2026-07-12T02:33:14+00:00"
-      },
-      {
-        "title_hi": "जयपुर हत्या मामला विस्तृत, पुलिस पिता की मृत्यु के लिंक की जांच",
+        "title_hi": "जयपुर हत्या मामला विस्तृत, पुलिस पिता की मृत्यु के लिंक की जाँच कर रही है",
         "url": "https://news.google.com/rss/articles/CBMi9gFBVV95cUxPZURmeUFBUmp6WWxpSHdHV280SVB6Rm5mTkZYb0JRbTVDTDRKMzd4aWJHbEE5SURSbGVfNDFBWkNtVWxyeG14NkZxTlBnTU83VlphUjIzcEtVcWQtX0IyRHlsb1FkazRTZVRCSU9TeGt4R3ZyVE5qNXZQQjg0c3pDZ1M3ZXptZG5mT1VQQlAyazZMOUFfTWFLQ1ViREtpTFBuU0UybG5fZWd3S3BVSDZ3WUtWdjhQVWxLak1ndERUcVA4MjZfVzYxTVhuN2I0cEF2MXNCMThzRUc5LVJ6M3BNdWRkaF9FS0ZzY0VmeVg2THltdHFsMXc?oc=5",
         "source": "MSN",
-        "published": "2026-07-12T02:33:14+00:00"
+        "published": "2026-07-12T19:21:38+00:00"
+      },
+      {
+        "title_hi": "जयपुर हत्या जाँच में पिता की मृत्यु के दावे शामिल",
+        "url": "https://news.google.com/rss/articles/CBMi8wFBVV95cUxPd2hhOFpCaEpTTnd2VVJjaEdubWVFSzk3VTFYZ3JRdVJSbUZOQ1RzejVOcW1WVlJkU1lsRjgzUVJCZ1dENkRkb25LRlRhN1pxcXJNVm5GU2pJUzZHRjZZTVA0VlFTMjMyMjE4Z0tlLWNIdzYwQlczU21tdzBYdlk2Ui1CNk1KZ3ZRQ0h1UWFwamJsQW5nVUpQOGx0UmY0YVVUekZYWFRhQ0xMRFBOOEY1WXBjUEk4ZnJGN2NNRV9BbE12R2NIZWlKQVFGOWl4R0FlVi11MzZ5VDMtMkFCUUJHQU1weXB3bmo2MGxpS1BjdXFQMUU?oc=5",
+        "source": "MSN",
+        "published": "2026-07-12T16:09:11+00:00"
+      },
+      {
+        "title_hi": "जयपुर महिला के पिता की 2025 की मृत्यु पर नई जाँच शुरू",
+        "url": "https://news.google.com/rss/articles/CBMi_wJBVV95cUxQdU5PXzY5ZXVwVW40Wi0yVkQ2REVteVNDOVhLdENEQ0dkOG5XUnZaM1RFWVpMa2RpeWJ4cG13NFA1MXdzU3ByLWY4V2N1dWM1emRRNjlWVUl2NHcweWU1MVI4MHpTYTlDUHlkV2ZNODlaMEFzV2RmbWdOdmdnYjgxUEVGYUlaVm80bk5hOFBITGhXdmxKY0RfQkR5SkhrbEY4Z1F6N1lKcXU2enBVZ0JsQ3VyOFU1MHVDQ2FySWhWT01HM20wQkJjdGhYZFpFR2lJcE4wM2RmQloxYXRLWVFtUnhxRU9BaW8wc0V3dktIY0VhbUFnaWVoOTNnbFVEcmRkRTVHX1NjYy05aC1CaFZoMG80OW12TjU4SXIxMzhRdFN4Z0Fwd1BkVWE0MmNza2pUSzVmbkJMamFRZ09lSVprak1McEVlbzY2NVoyQzgyTkJIQ0xPclBJdnhtbGJpTW40UTFzd0FhbC1fYlNaQnpqZTlERmQwRktBVXpHaHRTOA?oc=5",
+        "source": "MSN",
+        "published": "2026-07-12T11:35:57+00:00"
       }
     ]
   },
-  "last_feed_hash": "826afd484967d0d6",
-  "last_updated": "2026-07-12T17:38:20.483864+00:00",
-  "render_version": "5",
   "other_stories": [
     {
-      "headline": "जयपुर हत्या मामला विस्तृत, पुलिस पिता की 2025 की मृत्यु की जांच",
-      "summary": "पुलिस ने बताया कि पिता की 2025 में हुई संदिग्ध मृत्यु को भी हत्या जांच में शामिल किया गया है।",
-      "url": "https://news.google.com/rss/articles/CBMi8AFBVV95cUxPdjk2cS1IQkJGcUFYSzJzNE50VF94S0FjelhnVk5WY2FSMl9aNVVwZ0FBUkM5aHZyeXEzSThtbGVvYjBuVF8wVEJUcE41NnhUZTlnNjB5UFdQazBXT3FQWm9xSmhseWRiU3pCWGJKc3Fxa3ZhVmZueGpEamgyR18zVWxuMnMxN1dhREp0clVpOVJmYXZ4azZGaHJCWVExbFJwdGJGWHRKaXJ3MDVkbjJUcXNPU0dCT1lZU082b0NaQTItNnBwTWtJdFN6M3JaUWNoWEd5ZUdsSExnQ2dsdWJ0S05xTXdwd0VYczBXZWhULTI?oc=5",
-      "source": "MSN"
+      "headline": "राजस्थान उच्च न्यायालय को नया बम धमकी ईमेल मिला; जयपुर‑जोधपुर में सुरक्षा बढ़ी",
+      "summary": "राजस्थान उच्च न्यायालय को एक नया बम धमकी ईमेल प्राप्त हुआ, जिसके बाद जयपुर और जोधपुर में सुरक्षा उपाय कड़े कर दिए गए।",
+      "url": "https://news.google.com/rss/articles/CBMivAFBVV95cUxQTkdRSDlQVm14al9MaWJSXzNZRXBLTkgtSFZjb2FkSC04N3lQMEFZTzBZY0xkc28xTjVaMExNVEU5enNzV0NEeEtQZ2cxOUNrUG4tTURRVVFJWEVjLVJaUlRxWkNJX29zMzduQV9NSEt5aVQyU1UyYWVLR01yYlU0Y3h2Q1hRYWhUaS1wZGo5NkctaGJ5Sy0wTFpGZ3RMakl0ajlLQTl6NWZOZEptNlFRaXZMMzliWElZUWdNNNIBwgFBVV95cUxPSzJmR2pPdFhobXZVbWc2Rk1ybDJKU1l1Mk5BNUVYbGhCbGlTNXU4X2RLYXQ3UFVmWXhDZFdLWUoyZHFkZ1FrRUlqUTdUcXdrdmVOOWZYU1pQZ2UwVlMwLUtHTG96Ymg0QmdSeWdPOXFIaGpwZVF1Z0ptZDVpak5iRWFzbnIyd185b05NN0pUcklJY1B1SGJhRVNacjVwVmh0THdZOGZCZHFWdkZ6WDcxTGpwUklUdVpzV3c5RzAyUFhQdw?oc=5",
+      "source": "lokmattimes.com"
     },
     {
-      "headline": "राजस्थान: अलवर पेट्रोल पंप गोलीबारी में आरोपी को पुलिस ने गिरफ्तार किया, जांच में योजना का खुलासा",
-      "summary": "अलवर में पेट्रोल पंप पर हुई गोलीबारी में आरोपी को गिरफ्तार किया गया और जांच से पता चला कि यह एक योजनाबद्ध हमला था।",
-      "url": "https://news.google.com/rss/articles/CBMi8AFBVV95cUxQdmhYOTM4dHpZN056MVRTcEhmbG5qVEpCNUNqOEZ5YXhVYkRlMm9hNjJoZXMzT21JTEkxTEVZaUFfUUNwT0hnZkdrZWN5YVRhNHBKY2dkbXJiQlNQeGJreDlhZXlJTG5GUGg2ejZDaU9FZmc2amV1YUxXSGVIME0yWnM0anpIN0pXU2ViWXlqOV9FbTBfcmN5Zm51SkF6VUVqTXZuNmIzMTBTVVg0Ul9yX0lRM2ZPVnRrTi11cmpVM20tRlFTaHkwLUNKeWY1Qm5DSDU0czBueWd5SEdMVVI1UTNNOHNVZTVxSUhRZ2pLb3c?oc=5",
-      "source": "ANI News"
+      "headline": "अलवर में प्रेम‑प्रतिद्वंद्विता के कारण पेट्रोल पंप पर गोलीबारी में पुलिस ने संदिग्ध को गिरफ्तार किया",
+      "summary": "अलवर में प्रेम‑प्रतिद्वंद्विता के चलते पेट्रोल पंप पर गोलीबारी हुई, जिसमें पुलिस ने संदिग्ध को पकड़ लिया।",
+      "url": "https://news.google.com/rss/articles/CBMisgFBVV95cUxNS2VsQjZFQkJ4QjU5QVVOdldlMVFxQUNBLWFFcFVOSlYyc3BLOGZWZ1hmVDY2UVI4dDEtaWxUd09LQTZwVERJY2V6dDRlanBrOG1Hak82T19vdnFYMkxfWjNPazNNX0N2eS1HYmRHNUlDel9sMW5rNGhQc1M5UlBnWGdLSmZ4b3FMeUdaU0JFRTVrSDUxOTI3VFVTZHRNWlZmdnVLSkhUdm5FbnNlUkZLWVh3?oc=5",
+      "source": "The News Mill"
     },
     {
-      "headline": "मुंबई क्राइम ब्रांच ने 28 साल तक डॉक्टर का रूप धारण करने वाले व्यक्ति को गिरफ्तार किया",
-      "summary": "मुंबई में अपराध शाखा ने एक व्यक्ति को गिरफ्तार किया जो 28 वर्षों तक डॉक्टर का नाटक करके लोगों को धोखा देता रहा।",
-      "url": "https://news.google.com/rss/articles/CBMi2wFBVV95cUxPczBNMnNHcEhIamNQdll1MzUzX1p4b3B4MkRsNUdsX00wQ3kzb2RiVGcxei0zMHRhZjN2SzN3dUM1X2duUFpvVUl4dHhaOGtNSjZySl9tdmlDa25jMjdHWnlqMWplWldvWjhadlJmc2lZcDF2WFhINmVtTlR1ODhOQTB4VUZmd1hHTWRPN2FfbnhqRTRkcWlUVE9TQW9fb0VZeWlCQ2xBNFFWMzdNa1Zqa21qUlo4SjBPNm9FdzZQYkRKeDhvVmkxdkNCTGo0TEtScHFJZ215NUdsQ1nSAeABQVVfeXFMTjUwaXFnWHR6WXEtWmt0RUhuRnI3TGJ5TXVRZkN5ZF9uME9kYlZCUWl5RDcwY0JOTlJZVTZaelNIYi1rNWVvNHVER3B1YnNtVzZGNUpsU01KN3ZmQWJkYzVLM1NsODdwalFBR0k4endOb25aMlF5Y21ZYkV0X0RXOHMyN1plTEVQdEJIc1M1SXdyREx4UkdsTW14akNuSkg3VmNBd0FaUF80bnRZQXZBU2xxNGIyenByeGtGdWVQakZOa0ZqcUItRjU3ZWlTdmVWUEo5SGh5dW1zS1AzdmsxaEY?oc=5",
+      "headline": "बारमेर‑जोधपुर हाईवे पर एसयूवी ने ट्रेलर से टकराकर 5 लोगों की मौत, 3 घायल",
+      "summary": "बारमेर‑जोधपुर हाईवे पर एक एसयूवी ने ट्रेलर से टकराव किया, जिससे पाँच लोग मारे गए और तीन घायल हुए।",
+      "url": "https://news.google.com/rss/articles/CBMi3wFBVV95cUxOMm9xN0tMSkt3Q0JnNzBCNXZKWkc5eTdzXzIxOHVuWlJxRkNuYU90ZXJuMUN6ai1JczV3dmV0anJVWDFaWlhzNWQyVXptMHhhYTU2Nmg5Q3ZkX2tMei1vZ1hJUnVFUWN3R2xmVVdhSnFyYmNGeHVDSWtJcVVFRnBXbEsxbjFzS194NDNaaUx0RV84YnR1MmVBOFl0dUFIVnQ3cmNyREM4WENRVFRsQUY0RnJXcDNnWVd2WGZxcGktX2RBTFBNX0hwamttWTViWlFMS3pZOFJBM1BpUjVwTk1J0gHkAUFVX3lxTE9Wd1JLMHZzMnpJbTh1TVlMR1EtV0RmYW9kUW9JRGkwQUV0QUxDWENsSnBzVGFQWDVQby1WeW9DQXg4ajBiR0NCSDJhRmFMcnJVTEpBdkpVZHBmZnEwR2pJRjZLN1BHR1NBNzJQZld4UjFnRXZUWjYwdU4yZUZ4T1FGaEpsOVljSEJHMTJmaGlPbTBaUDhHZzhwNFRTT1YyRTBWdHJmaVpSVFh0ZTgza3BSWGg1S2JYdzNDcVVCTURHUGZ0NlhTNjJJZ3YxTkRSZWZpOUJYVjNRYmd4RnM4X3ZFenR6RQ?oc=5",
       "source": "The Times of India"
     },
     {
-      "headline": "राज्य में मातृ मृत्यु की जांच में दवाओं की गुणवत्ता जांच को शामिल किया गया",
-      "summary": "मातृ मृत्यु के मामलों की जांच में अब दवाओं की गुणवत्ता की जाँच भी की जा रही है।",
-      "url": "https://news.google.com/rss/articles/CBMi1AFBVV95cUxQX2hxa2VyaG1yTmxBRVdvT1p0MmJzNU1KaThnTGVjWHhUdnhUVjc0NFFaRXYxb0ZSWTNSWkNYUEtSaGNJMzMzTXBuRHYxUC1MYUF4VEJPRENGV2t2NTg5LS1wMjNQWlJvSGJpazFEUnFjMThDZ0lQWkdTSXpwTXpDNm9SbFZoeURLcy1DQkx3N2ZOQXkyNjlOQkJVMlVzbmN2UHpxUG9iTDI3dEM5dU16cVJWTEJSc2x1U3pMclMzZ0lULU1td1Zpd21qRUNlOG56akJIcNIB2gFBVV95cUxQVURiT2VTdDNoWnNMWkVrTXZXUVZwNzBRQjlKcmZ4OG1FY3RMeFVVcGIzamhYSjhLWDBLSXdBSXBZd0loTGI4eHlBWXBXODRmQWhodG5oczZOTFpvWWxsTUd6c1BuempGOFQxQkFHeHgzS0hFSlV1blR5Rkg2SDJhODVxcHJvSHV5b0tGbDNtUXc3aDYwNW5zSjVjeEp4Q2pWX3VtTmRJeEM3VXYxUkRDMXg3YjN2NGpiZTVJNkVOc2QwZ2p0T0VfUGJFU3BDUmVNQWZtR3FmRXRDUQ?oc=5",
-      "source": "The Times of India"
+      "headline": "जयपुर‑अमेरिका हाईवे के 10 किमी हिस्से में 40 से अधिक अवैध स्टॉप्स के कारण सुरक्षा में गंभीर चूक पाई गई",
+      "summary": "जयपुर‑अमेरिका हाईवे के 10 किमी हिस्से में 40 से अधिक अवैध स्टॉप्स पाए गए, जिससे पाँच मौतों की प्रमुख सुरक्षा चूक सामने आई।",
+      "url": "https://news.google.com/rss/articles/CBMivgFBVV95cUxOYjNwU1RKSjFlYlNLamFVaVhIWUstQXNCWkZ0NXFTTTVaVnI0X0hvM3l1WVFNUGdHNE0xMWkwUVFhQkdBLVc4dnk4c1JzTFJXRENFRWNlNlhDWlZScG9pYlQxUTRqdTdTNW1iT2tpTHpMajBlaFdqdmgxVDFzSXhucTdKZUxoMk9pbFFqUW1tdUlXSEpaRnBmT3dncmcxcUhXZ0JkS0czRGdMN0FSdFhxTlNSalluWDJYZzhNSU1n0gHDAUFVX3lxTE9RbExBVmtlMUxGcl9ZVlV3bFdYdlhkcko4Y2Riakh3WFBheEVsODNpV3FWeEdpcXEtdW1tOW9aV1FCY21fNVdqTTlZNkdaUVJPa2V6a1ZqU2ZkMlczMGdmazg4RF9qZXo4QWdNTGE3bjUwOElTc0hpb1hvUnozYzQ5bGxRRUtkT1NtSGNaaEJnSWF5Z24tN3lwUDM5MS1sTV95OGMtX1l2NExVelFDTWk4dlZzMk5VV3NTaTdNajF6bHhFQQ?oc=5",
+      "source": "Bhaskar English"
     },
     {
-      "headline": "जयपुर आज की प्रमुख खबरें 12 जुलाई 2026: माँ की हत्या मामला, मातृ मृत्यु और परिवहनकारों का हड़ताल",
-      "summary": "आज जयपुर में माँ की हत्या, मातृ मृत्यु और परिवहनकारों की हड़ताल से जुड़ी प्रमुख खबरें सामने आईं।",
-      "url": "https://news.google.com/rss/articles/CBMi3wFBVV95cUxOSkRLLXAyNXJJYzk3RHFiRk1vcFE1c09KYmJwbGg4YzRzVHE1UGZLci13QllWYUw5THlaU1pGUkVlVWtLTnI1RGhzRkh1Skx6QXpNZjNpTlA0MEhQOWFmSld5Wl9JMGk5c1VMUGR0cldKNk0zX05IeEFhSlhMQUw1cjhHOGU5a01Tb09mWDhzSTlpejVfLUFyeTY3bXFqUXVNdE9jMFNpY05Wdkk4eDZ3X3lHVUMxeEtJNC1UcEkyN3dXbWk2ODdfOXVFOUYwMjlhNmV1MlpBNmJpTjQ1ZjM40gHkAUFVX3lxTE5MaWx1ckd0OEhqSkFZa1BLeUVteFl6YXRpaGh2eXl0cHBXVDR6NVIxZWlMU0hXMG1JU3dkRVFwM3NsTHdEcWtTb0RrYjhXMXVkR0Vna0JKZ1YtSzFFM1JFd2FBZ1E4N290MVg5dHl6U3FYcVF0N3JEVDR1V1UtZGlxcVVEeU80Qk53NDdGNXpOcE9uTDByRXVoRnNfMkRPQmc2Y1JNUmxyUmMyOElzT0VSYlp5NHptLWItUjUyVG1lRzJ5ckNpMFhycmtlMXZKNDlVcDl1ZnVyR21ZMEluRE5rb0d6Wg?oc=5",
-      "source": "LatestLY"
+      "headline": "दुबई में व्यापारी का अपहरण, 10 दिन बाद रैनसम के रूप में 40 लाख रुपये की माँग पर रिहा हुआ",
+      "summary": "दुबई में एक व्यापारी का अपहरण हुआ, 10 दिनों बाद उसकी पत्नी ने 40 लाख रुपये की फिरौती देकर उसे मुक्त कराया।",
+      "url": "https://news.google.com/rss/articles/CBMiyAFBVV95cUxPLUxuNmJ0MHNqNDVGMG02a2FtU1FiLUM0R3NONG1OOGRfazNEYUJBck9wSVpERVpiYjlCbTVBeUFhVFlXc21sY1NBbUxCYVUxaVpYTzFqNnU3eTJwaG9VRzFJM1l2Z3g4SHJsQW5UbUpDWTlaNS1UQkwtalB0TEM5MlNrTG1tZkVFWlp4SzNHWm5jemx1bTBIUEZyc0FDdTNGVk1NMjIyX3M0RlhDX0NCQVpxVC1NeEhiN1BEWkhiUVhLcm5GRjZpc9IByAFBVV95cUxPLUxuNmJ0MHNqNDVGMG02a2FtU1FiLUM0R3NONG1OOGRfazNEYUJBck9wSVpERVpiYjlCbTVBeUFhVFlXc21sY1NBbUxCYVUxaVpYTzFqNnU3eTJwaG9VRzFJM1l2Z3g4SHJsQW5UbUpDWTlaNS1UQkwtalB0TEM5MlNrTG1tZkVFWlp4SzNHWm5jemx1bTBIUEZyc0FDdTNGVk1NMjIyX3M0RlhDX0NCQVpxVC1NeEhiN1BEWkhiUVhLcm5GRjZpcw?oc=5",
+      "source": "Bhaskar English"
     }
-  ]
+  ],
+  "last_feed_hash": "e8dc4bc74f29d39c",
+  "last_updated": "2026-07-13T08:05:47.831742+00:00",
+  "render_version": "6"
 }

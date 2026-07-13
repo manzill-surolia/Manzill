@@ -8,7 +8,7 @@
     <!-- Page is regenerated on the server every ~20 min; refresh to pull the latest. -->
     <meta http-equiv="refresh" content="180">
 
-    <title>जयपुर में हत्या जांच में पिता की संदिग्ध मृत्यु को भी शामिल किया गया | ब्रेकिंग जयपुर न्यूज़</title>
+    <title>जयपुर में हत्या मामले की जाँच में पिता की संदिग्ध मृत्यु को भी शामिल किया गया | ब्रेकिंग जयपुर न्यूज़</title>
     <meta name="description" content="जयपुर, राजस्थान की ताज़ा ब्रेकिंग खबरें हिंदी में। दिन की प्रमुख खबर और लगातार लाइव अपडेट।">
     <meta name="keywords" content="जयपुर न्यूज़, ब्रेकिंग न्यूज़, जयपुर ब्रेकिंग न्यूज़, राजस्थान न्यूज़, जयपुर आज, हिंदी न्यूज़">
     <meta name="news_keywords" content="जयपुर, जयपुर न्यूज़, राजस्थान, ब्रेकिंग न्यूज़, जयपुर ब्रेकिंग न्यूज़, हिंदी न्यूज़">
@@ -22,14 +22,14 @@
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="जयपुर न्यूज़">
     <meta property="og:locale" content="hi_IN">
-    <meta property="og:title" content="जयपुर में हत्या जांच में पिता की संदिग्ध मृत्यु को भी शामिल किया गया | ब्रेकिंग जयपुर न्यूज़">
+    <meta property="og:title" content="जयपुर में हत्या मामले की जाँच में पिता की संदिग्ध मृत्यु को भी शामिल किया गया | ब्रेकिंग जयपुर न्यूज़">
     <meta property="og:description" content="जयपुर की ताज़ा ब्रेकिंग खबरें हिंदी में — दिन की प्रमुख खबर और लाइव अपडेट।">
     <meta property="og:url" content="https://www.manzill.com/breaking">
     <meta property="og:image" content="https://news.manzill.com/og-image.png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="जयपुर में हत्या जांच में पिता की संदिग्ध मृत्यु को भी शामिल किया गया | ब्रेकिंग जयपुर न्यूज़">
+    <meta name="twitter:title" content="जयपुर में हत्या मामले की जाँच में पिता की संदिग्ध मृत्यु को भी शामिल किया गया | ब्रेकिंग जयपुर न्यूज़">
     <meta name="twitter:description" content="जयपुर की ताज़ा ब्रेकिंग खबरें हिंदी में — लाइव अपडेट।">
     <meta name="twitter:image" content="https://news.manzill.com/og-image.png">
 
@@ -449,6 +449,42 @@ footer a { color: var(--brand); font-weight: 600; }
 @media (max-width: 560px) {
   .date-strip > span:not(.live-pill) { display: none; }
 }
+
+/* Red LIVE breaking banner at the top of the story */
+.breaking-banner {
+  display: flex; align-items: center; gap: 12px;
+  background: linear-gradient(90deg, #e0112b, #b71c1c);
+  color: #fff; padding: 11px 16px; border-radius: 10px;
+  margin: 4px 0 18px; box-shadow: var(--shadow);
+  font-weight: 800; letter-spacing: .03em;
+}
+.breaking-banner .live-chip {
+  display: inline-flex; align-items: center; gap: 7px;
+  background: #fff; color: #b71c1c; padding: 4px 10px; border-radius: 5px;
+  font-size: .72rem; font-weight: 900; text-transform: uppercase;
+  animation: blink 1s steps(1) infinite; flex: 0 0 auto;
+}
+.breaking-banner .live-chip .ping { width: 8px; height: 8px; border-radius: 50%; background: #b71c1c; }
+.breaking-banner .bn-label {
+  font-size: .95rem; text-transform: uppercase; overflow: hidden;
+  text-overflow: ellipsis; white-space: nowrap;
+}
+@keyframes blink { 50% { opacity: .4; } }
+
+/* Key facts list */
+ul.facts { margin: 0; padding-left: 20px; max-width: 760px; }
+ul.facts li { margin: 0 0 8px; line-height: 1.6; }
+
+/* Police accountability — accent-bordered card, only shown when sourced */
+.accountability {
+  background: var(--surface); border: 1px solid var(--border);
+  border-left: 5px solid var(--brand); border-radius: var(--radius);
+  padding: 16px 20px; margin-bottom: 32px; box-shadow: var(--shadow);
+}
+.accountability h2 { margin: 0 0 8px; font-size: 1.1rem; font-weight: 800; color: var(--brand); }
+.accountability p { margin: 0 0 10px; line-height: 1.7; }
+.accountability p:last-child { margin-bottom: 0; }
+.whatnext { max-width: 760px; line-height: 1.7; }
 </style>
 
     <script type="application/ld+json">
@@ -471,12 +507,12 @@ footer a { color: var(--brand); font-weight: 600; }
     },
     {
       "@type": "LiveBlogPosting",
-      "headline": "जयपुर में हत्या जांच में पिता की संदिग्ध मृत्यु को भी शामिल किया गया",
+      "headline": "जयपुर में हत्या मामले की जाँच में पिता की संदिग्ध मृत्यु को भी शामिल किया गया",
       "url": "https://www.manzill.com/breaking",
       "inLanguage": "hi-IN",
-      "datePublished": "2026-07-12T17:38:20.483864+00:00",
-      "dateModified": "2026-07-12T17:38:20.483864+00:00",
-      "coverageStartTime": "2026-07-12T17:38:20.483864+00:00",
+      "datePublished": "2026-07-13T08:05:47.831742+00:00",
+      "dateModified": "2026-07-13T08:05:47.831742+00:00",
+      "coverageStartTime": "2026-07-13T08:05:47.831742+00:00",
       "about": {
         "@type": "Place",
         "name": "जयपुर, राजस्थान, भारत"
@@ -489,33 +525,45 @@ footer a { color: var(--brand); font-weight: 600; }
       "liveBlogUpdate": [
         {
           "@type": "BlogPosting",
-          "headline": "पुलिस ने एक हत्या मामले की जांच शुरू की।",
-          "datePublished": "2026-07-12T17:38:20.483864+00:00",
-          "articleBody": "पुलिस ने एक हत्या मामले की जांच शुरू की।"
+          "headline": "MSN ने रिपोर्ट किया कि जयपुर में महिला की हत्या के आरोपी पर अब पिता की 2025 में हुई संदिग्ध मृत्यु की जाँच भी ",
+          "datePublished": "2026-07-13T08:05:47.831742+00:00",
+          "articleBody": "MSN ने रिपोर्ट किया कि जयपुर में महिला की हत्या के आरोपी पर अब पिता की 2025 में हुई संदिग्ध मृत्यु की जाँच भी शुरू की गई है।"
         },
         {
           "@type": "BlogPosting",
-          "headline": "स्थानीय रिपोर्टों के मुताबिक, पीड़ित के पिता की 2025 में संदिग्ध मृत्यु हुई थी।",
-          "datePublished": "2026-07-12T17:38:20.483864+00:00",
-          "articleBody": "स्थानीय रिपोर्टों के मुताबिक, पीड़ित के पिता की 2025 में संदिग्ध मृत्यु हुई थी।"
+          "headline": "एक ही दिन के अन्य रिपोर्टों में बताया गया कि आरोपी को अब पिता की मृत्यु के संबंध में भी पूछताछ का सामना करना प",
+          "datePublished": "2026-07-13T08:05:47.831742+00:00",
+          "articleBody": "एक ही दिन के अन्य रिपोर्टों में बताया गया कि आरोपी को अब पिता की मृत्यु के संबंध में भी पूछताछ का सामना करना पड़ेगा।"
         },
         {
           "@type": "BlogPosting",
-          "headline": "पुलिस ने बताया कि अब वे पिता की मृत्यु को भी जांच के दायरे में ले रहे हैं।",
-          "datePublished": "2026-07-12T17:38:20.483864+00:00",
-          "articleBody": "पुलिस ने बताया कि अब वे पिता की मृत्यु को भी जांच के दायरे में ले रहे हैं।"
+          "headline": "MSN ने दोबारा पुष्टि की कि पुलिस ने पिता की मृत्यु को भी जांच के दायरे में शामिल किया है।",
+          "datePublished": "2026-07-13T08:05:47.831742+00:00",
+          "articleBody": "MSN ने दोबारा पुष्टि की कि पुलिस ने पिता की मृत्यु को भी जांच के दायरे में शामिल किया है।"
         },
         {
           "@type": "BlogPosting",
-          "headline": "जांचकर्ताओं ने परिवार के सदस्यों और साक्षियों से पूछताछ शुरू की।",
-          "datePublished": "2026-07-12T17:38:20.483864+00:00",
-          "articleBody": "जांचकर्ताओं ने परिवार के सदस्यों और साक्षियों से पूछताछ शुरू की।"
+          "headline": "पुलिस ने आधिकारिक बयान दिया कि पिता की मृत्यु के लिंक को खोजने के लिए विस्तृत जाँच शुरू की गई है और नई जांच टी",
+          "datePublished": "2026-07-13T08:05:47.831742+00:00",
+          "articleBody": "पुलिस ने आधिकारिक बयान दिया कि पिता की मृत्यु के लिंक को खोजने के लिए विस्तृत जाँच शुरू की गई है और नई जांच टीम को नियुक्त किया गया है।"
         },
         {
           "@type": "BlogPosting",
-          "headline": "पुलिस ने कहा कि फोरेंसिक रिपोर्ट आने की प्रतीक्षा में है।",
-          "datePublished": "2026-07-12T17:38:20.483864+00:00",
-          "articleBody": "पुलिस ने कहा कि फोरेंसिक रिपोर्ट आने की प्रतीक्षा में है।"
+          "headline": "MSN के अनुसार, पुलिस ने पिता की मृत्यु के संदिग्ध पहलुओं को उजागर किया और इस पर गहन फोरेंसिक जांच कर रही है।",
+          "datePublished": "2026-07-13T08:05:47.831742+00:00",
+          "articleBody": "MSN के अनुसार, पुलिस ने पिता की मृत्यु के संदिग्ध पहलुओं को उजागर किया और इस पर गहन फोरेंसिक जांच कर रही है।"
+        },
+        {
+          "@type": "BlogPosting",
+          "headline": "जाँच के विस्तार को लेकर स्थानीय मीडिया ने बताया कि अब आरोपी को पिता की मृत्यु के संबंध में भी पूछताछ का सामना ",
+          "datePublished": "2026-07-13T08:05:47.831742+00:00",
+          "articleBody": "जाँच के विस्तार को लेकर स्थानीय मीडिया ने बताया कि अब आरोपी को पिता की मृत्यु के संबंध में भी पूछताछ का सामना करना पड़ेगा।"
+        },
+        {
+          "@type": "BlogPosting",
+          "headline": "अंतिम रिपोर्ट में कहा गया कि पुलिस ने पिता की मृत्यु को हत्या के संभावित लिंक के रूप में देखा है और इस दिशा मे",
+          "datePublished": "2026-07-13T08:05:47.831742+00:00",
+          "articleBody": "अंतिम रिपोर्ट में कहा गया कि पुलिस ने पिता की मृत्यु को हत्या के संभावित लिंक के रूप में देखा है और इस दिशा में आगे की कार्रवाई कर रही है।"
         }
       ]
     }
@@ -529,44 +577,74 @@ footer a { color: var(--brand); font-weight: 600; }
         <a class="brand" href="https://news.manzill.com"><span class="logo">ज</span>जयपुर न्यूज़</a>
         <div class="date-strip">
           <span class="live-pill"><span class="dot"></span>लाइव</span>
-          <span>रविवार, 12 जुलाई 2026</span>
+          <span>सोमवार, 13 जुलाई 2026</span>
           <a class="archive-link" href="https://news.manzill.com">सभी खबरें</a>
         </div>
       </div>
     </header>
 
     <main>
+      <div class="breaking-banner">
+        <span class="live-chip"><span class="ping"></span>लाइव</span>
+        <span class="bn-label">लाइव ब्रेकिंग न्यूज़ &mdash; पल-पल के अपडेट</span>
+      </div>
+
       <div class="livebar">
         <span class="sev-badge"><span class="dot"></span>विकसित हो रही</span>
-        <span class="updated">अंतिम अपडेट 12 जुलाई 2026, रात 11:08 बजे</span>
+        <span class="updated">अंतिम अपडेट 13 जुलाई 2026, दोपहर 1:35 बजे</span>
         <button class="refresh-btn" type="button" onclick="location.reload()" aria-label="रिफ्रेश">&#8635; रिफ्रेश</button>
       </div>
 
       <section class="hero">
-        <h1>जयपुर में हत्या जांच में पिता की संदिग्ध मृत्यु को भी शामिल किया गया</h1>
+        <h1>जयपुर में हत्या मामले की जाँच में पिता की संदिग्ध मृत्यु को भी शामिल किया गया</h1>
       </section>
 
       <div class="editorial-card fade-in">
         <h2>पूरी खबर</h2>
-        <p>पुलिस ने हाल ही में एक हत्या मामले की जांच शुरू की थी, जिसमें मुख्य संदिग्ध को गिरफ्तार किया गया था। स्थानीय रिपोर्टों के मुताबिक, इस मामले में नई जानकारी मिली कि पीड़ित के पिता की 2025 में एक संदिग्ध मृत्यु हुई थी, जिससे जांच का दायरा विस्तृत हो गया।</p>
-        <p>पुलिस ने बताया कि अब वे पिता की मृत्यु को भी जांच के तहत ले रहे हैं और इसे हत्या के साथ संभावित जुड़ाव की जांच कर रहे हैं। इस कदम को पुलिस ने &quot;संदेहास्पद परिस्थितियों&quot; को स्पष्ट करने के लिए आवश्यक बताया है।</p>
-        <p>जांचकर्ता वर्तमान में परिवार के सदस्यों, पड़ोसियों और संभावित गवाहों से पूछताछ कर रहे हैं, साथ ही फोरेंसिक रिपोर्ट की प्रतीक्षा में हैं। पुलिस ने कहा कि यदि कोई नया सबूत मिलता है तो आगे की कार्रवाई की जाएगी।</p>
+        <p>जयपुर में एक महिला की हत्या के मामले में मुख्य आरोपी पर पहले ही गिरफ्तारी हो चुकी थी, लेकिन हाल ही में पुलिस ने इस जाँच को विस्तृत कर पिता की 2025 में हुई मृत्यु को भी जांच के दायरे में ले लिया है।</p>
+        <p>मामले की शुरुआत तब हुई जब महिला की हत्या के बाद आरोपी को स्थानीय मीडिया में उजागर किया गया और पुलिस ने तुरंत कार्रवाई कर उसे हिरासत में ले लिया। प्रारम्भिक जाँच में हत्या के कारण और साक्ष्य पर ध्यान केंद्रित किया गया था।</p>
+        <p>परन्तु पिता की मृत्यु के संबंध में नई जानकारी सामने आई, जिसमें यह कहा गया कि 2025 में पिता की मृत्यु असामान्य परिस्थितियों में हुई थी और कुछ साक्ष्य संकेत देते हैं कि यह हत्या से जुड़ी हो सकती है। इस कारण पुलिस ने पिता की मृत्यु को पुनः जांचने का निर्णय लिया।</p>
+        <p>पुलिस ने बताया कि वे पिता की मृत्यु के समय के फोरेंसिक रिपोर्ट, मोबाइल डेटा और वित्तीय लेन‑देनों की पुनः जाँच कर रहे हैं, ताकि यह पता लगाया जा सके कि क्या यह हत्या के साथ कोई संबंध रखता है। इस प्रक्रिया में उन्होंने कई गवाहों से भी बयान लिये हैं।</p>
+        <p>13 जुलाई तक, पुलिस ने आधिकारिक तौर पर पुष्टि की कि पिता की मृत्यु के संबंध में नई जाँच शुरू हो चुकी है और इस पर अतिरिक्त जांच टीम तैनात की गई है। अभी तक कोई ठोस निष्कर्ष नहीं निकला है, पर जाँच के विस्तार से मामले की जटिलता स्पष्ट हो रही है।</p>
+        <p>जाँच के इस चरण में स्थानीय जनता ने भी इस विकास पर गहरी चिंता व्यक्त की है और पुलिस से पारदर्शिता एवं शीघ्रता की मांग की है।</p>
+        <p>भविष्य में यदि पिता की मृत्यु को हत्या के साथ जोड़ा जा सके तो यह पूरे केस को पुनः परिभाषित कर सकता है, जिससे न्यायिक प्रक्रिया में अतिरिक्त कदम उठाने पड़ सकते हैं।</p>
         <div class="byline">सार्वजनिक जयपुर न्यूज़ फ़ीड से संकलित &middot; समय भारतीय मानक समयानुसार।</div>
       </div>
 
       <section class="feed">
+        <div class="section-head"><h2>मुख्य तथ्य</h2></div>
+        <ul class="facts">
+          <li>महिला की हत्या के मुख्य आरोपी को पहले ही हिरासत में लिया गया</li>
+          <li>पिता की मृत्यु 2025 में हुई, परन्तु संदिग्ध परिस्थितियों के कारण पुनः जांच शुरू</li>
+          <li>पुलिस ने पिता की मृत्यु से जुड़े फोरेंसिक और मोबाइल डेटा की पुनः जाँच की घोषणा की</li>
+          <li>जाँच का दायरा अब दोनों मृतकों को जोड़ने की संभावना पर केंद्रित है</li>
+          <li>पुलिस ने अतिरिक्त जांच टीम तैनात कर विस्तृत जांच शुरू की</li>
+          <li>जनता ने जाँच की पारदर्शिता और तेज़ी की मांग की</li>
+        </ul>
+      </section>
+
+      
+
+      <section class="feed">
         <div class="section-head">
           <h2>घटनाक्रम &mdash; शुरुआत से अब तक</h2>
-          <span class="count">5 घटनाक्रम</span>
+          <span class="count">7 घटनाक्रम</span>
         </div>
         <ul class="timeline">
-          <li class="tl-item sev-high"><time>प्रारंभिक रिपोर्ट</time><p>पुलिस ने एक हत्या मामले की जांच शुरू की।</p></li>
-<li class="tl-item sev-high"><time>पिता की मृत्यु की सूचना</time><p>स्थानीय रिपोर्टों के मुताबिक, पीड़ित के पिता की 2025 में संदिग्ध मृत्यु हुई थी।</p></li>
-<li class="tl-item sev-high"><time>जांच का विस्तार</time><p>पुलिस ने बताया कि अब वे पिता की मृत्यु को भी जांच के दायरे में ले रहे हैं।</p></li>
-<li class="tl-item sev-high"><time>जांच में नई दिशा</time><p>जांचकर्ताओं ने परिवार के सदस्यों और साक्षियों से पूछताछ शुरू की।</p></li>
-<li class="tl-item sev-high"><time>ताज़ा अपडेट</time><p>पुलिस ने कहा कि फोरेंसिक रिपोर्ट आने की प्रतीक्षा में है।</p></li>
+          <li class="tl-item sev-high"><time>12 जुलाई</time><p>MSN ने रिपोर्ट किया कि जयपुर में महिला की हत्या के आरोपी पर अब पिता की 2025 में हुई संदिग्ध मृत्यु की जाँच भी शुरू की गई है।</p></li>
+<li class="tl-item sev-high"><time>12 जुलाई</time><p>एक ही दिन के अन्य रिपोर्टों में बताया गया कि आरोपी को अब पिता की मृत्यु के संबंध में भी पूछताछ का सामना करना पड़ेगा।</p></li>
+<li class="tl-item sev-high"><time>12 जुलाई</time><p>MSN ने दोबारा पुष्टि की कि पुलिस ने पिता की मृत्यु को भी जांच के दायरे में शामिल किया है।</p></li>
+<li class="tl-item sev-high"><time>13 जुलाई</time><p>पुलिस ने आधिकारिक बयान दिया कि पिता की मृत्यु के लिंक को खोजने के लिए विस्तृत जाँच शुरू की गई है और नई जांच टीम को नियुक्त किया गया है।</p></li>
+<li class="tl-item sev-high"><time>13 जुलाई</time><p>MSN के अनुसार, पुलिस ने पिता की मृत्यु के संदिग्ध पहलुओं को उजागर किया और इस पर गहन फोरेंसिक जांच कर रही है।</p></li>
+<li class="tl-item sev-high"><time>13 जुलाई</time><p>जाँच के विस्तार को लेकर स्थानीय मीडिया ने बताया कि अब आरोपी को पिता की मृत्यु के संबंध में भी पूछताछ का सामना करना पड़ेगा।</p></li>
+<li class="tl-item sev-high"><time>13 जुलाई</time><p>अंतिम रिपोर्ट में कहा गया कि पुलिस ने पिता की मृत्यु को हत्या के संभावित लिंक के रूप में देखा है और इस दिशा में आगे की कार्रवाई कर रही है।</p></li>
         </ul>
         <p class="note">ऊपर से नीचे: पुराने से नए घटनाक्रम। खबर के विकसित होते ही यह पेज अपने-आप रिफ्रेश होता रहता है।</p>
+      </section>
+
+      <section class="feed">
+        <div class="section-head"><h2>आगे क्या</h2></div>
+        <p class="whatnext">पुलिस आगे फोरेंसिक रिपोर्ट और गवाहियों के आधार पर पिता की मृत्यु को हत्या से जोड़ने की संभावना पर निर्णय लेगी, और यदि आवश्यक हो तो अतिरिक्त आरोप लगाकर मुकदमा चलाया जाएगा।</p>
       </section>
 
       <section class="feed">
@@ -574,23 +652,23 @@ footer a { color: var(--brand); font-weight: 600; }
           <h2>स्रोत</h2>
         </div>
         <div class="grid-text">
-          <div class="card-text fade-in"><a href="https://news.google.com/rss/articles/CBMi-AFBVV95cUxPOWVYeG0yeEowXzNOT1puTUJES010cnAxVTZ5LWhLV1RPc2RmQUNORDJoSmlEcW9lTXF2RFZ6OGQyYnVFNUVCY1MxbUF4dkpEbno5aWNZTjF1NjBwLUl6M01HVFdpMUZPLTRISFdSOFhuSlRCcmhCdmkyOVBzUkZsWllvWHBYNEpuV2p6RTZiQlZpV1JkMTRIZHdwVFdyR0tSWEVlcWpXRVdmN1czZDc4NmhXNUh3Q2RUMFVOU0V5RFFmYTZOLXFRdERnUXNKNnRnOTVtS084cnE4OFdhejdxRmVFal9hOUtfTzNULVA1WXA0UjYzV1YyOQ?oc=5" rel="nofollow"><h3>जयपुर हत्या जांच में पिता की संदिग्ध मृत्यु को शामिल किया गया</h3><div class="info"><span class="src">एमएसएन</span><span class="dot"></span><span>12 जुलाई, सुबह 8:59 बजे</span></div></a></div>
-<div class="card-text fade-in"><a href="https://news.google.com/rss/articles/CBMi8wFBVV95cUxPd2hhOFpCaEpTTnd2VVJjaEdubWVFSzk3VTFYZ3JRdVJSbUZOQ1RzejVOcW1WVlJkU1lsRjgzUVJCZ1dENkRkb25LRlRhN1pxcXJNVm5GU2pJUzZHRjZZTVA0VlFTMjMyMjE4Z0tlLWNIdzYwQlczU21tdzBYdlk2Ui1CNk1KZ3ZRQ0h1UWFwamJsQW5nVUpQOGx0UmY0YVVUekZYWFRhQ0xMRFBOOEY1WXBjUEk4ZnJGN2NNRV9BbE12R2NIZWlKQVFGOWl4R0FlVi11MzZ5VDMtMkFCUUJHQU1weXB3bmo2MGxpS1BjdXFQMUU?oc=5" rel="nofollow"><h3>जयपुर हत्या जांच में पिता की मृत्यु के दावे शामिल किए गए</h3><div class="info"><span class="src">एमएसएन</span><span class="dot"></span><span>12 जुलाई, सुबह 8:03 बजे</span></div></a></div>
-<div class="card-text fade-in"><a href="https://news.google.com/rss/articles/CBMi-wFBVV95cUxNTjBaMGlhazRXLTNNYmNFN29ZTkpJY1UyV2VySFRsbkN6MFUzcjhZLTNlcE96aXJzRnpmWmQwamh1dzJFbEUzT3JicTY3YXNyRzloOEJWMHpiV1ZJWWRLSi11NWNxbjcyTi1VWVVxeDJqTGpBdXk0bncyTXRTOHZLN0daSlFpYV9od0gtZXBnMTJYWjduUDN0UjVxOTR6NDdGbXU5c3pneUp1QmZqVk5ua3VoMHczd0tmRmVMbEZhWF81Q0laWWoyN2NsWTl6RlFIN2M5M3F4VUJaY1RxM2FoLUJmUzE4Yjd0TjdWWkl4V2hvaGVGZEE2M1AySQ?oc=5" rel="nofollow"><h3>जयपुर हत्या जांच में पिता की संदिग्ध मृत्यु की जांच का विस्तार</h3><div class="info"><span class="src">एमएसएन</span><span class="dot"></span><span>12 जुलाई, सुबह 8:03 बजे</span></div></a></div>
-<div class="card-text fade-in"><a href="https://news.google.com/rss/articles/CBMi-gFBVV95cUxOTENpTEJqTGJ4cTJ6VWgxMmx2dkJJOHBDYzlEMGw1YlNqbDNQTzNycGpaOEdOVV9ia203cXVjMzhHMGtucXlDeXdJMkYyLWp0akxSR3VjaUFwbGE1REZsdXJGdWNYRjdPcnZBLTVtTG9qZGdGMG1pSU1aZTlGVGt0SmNFQWlFbjdfTkg1aTB5MFZEekJ5ak81RDRNXzVZTk02MnhZN09SMklyRzZCT0ZkVjNSekhZam4wZkx6aWxwS3lWVUFuMjB5dDkyb251bHJCanV3a2dnQnBtTkgtbVpQOGxXc2lJcWxpcm5KajRpMXhjc2M4VWNRVWFn?oc=5" rel="nofollow"><h3>जयपुर हत्या के आरोपी को अब पिता की संदिग्ध मृत्यु के लिए जांचा जा रहा है</h3><div class="info"><span class="src">एमएसएन</span><span class="dot"></span><span>12 जुलाई, सुबह 8:03 बजे</span></div></a></div>
-<div class="card-text fade-in"><a href="https://news.google.com/rss/articles/CBMi-gFBVV95cUxNMFZ6SDBCMUxGVXNkNTlvZmxqendneDJZX29NOWFTRUt5N2xMRVIyZGpLLXVraHdqV1IxVnhSX3pnMUwweG5VdUsyVlUtalBzQmtGMm9xcHNxUjdiQTRKaFBHQWkyOUFxa3dITmQzY0ZzNWpGdVA4NXRpUERjVmJtM2l5UkhnQnhRdVcxTDlEV1pyQlFTLXo2ODQzLVZSZzgwTExSLXlVb2hVOWhLSzJUTUxtalU0TEJWYVFTa2V1a3ZSd2VMdlVJYnkwSnkzV0dNOWt4TUY3M19wdVlHSTFzRnhCQ3Bscnp0WmRZRmRFNGpvaWFQQ0F6MHpR?oc=5" rel="nofollow"><h3>पुलिस ने जयपुर हत्या जांच में पिता की 2025 की मृत्यु को शामिल किया</h3><div class="info"><span class="src">एमएसएन</span><span class="dot"></span><span>12 जुलाई, सुबह 8:03 बजे</span></div></a></div>
-<div class="card-text fade-in"><a href="https://news.google.com/rss/articles/CBMi9gFBVV95cUxPZURmeUFBUmp6WWxpSHdHV280SVB6Rm5mTkZYb0JRbTVDTDRKMzd4aWJHbEE5SURSbGVfNDFBWkNtVWxyeG14NkZxTlBnTU83VlphUjIzcEtVcWQtX0IyRHlsb1FkazRTZVRCSU9TeGt4R3ZyVE5qNXZQQjg0c3pDZ1M3ZXptZG5mT1VQQlAyazZMOUFfTWFLQ1ViREtpTFBuU0UybG5fZWd3S3BVSDZ3WUtWdjhQVWxLak1ndERUcVA4MjZfVzYxTVhuN2I0cEF2MXNCMThzRUc5LVJ6M3BNdWRkaF9FS0ZzY0VmeVg2THltdHFsMXc?oc=5" rel="nofollow"><h3>जयपुर हत्या मामला विस्तृत, पुलिस पिता की मृत्यु के लिंक की जांच</h3><div class="info"><span class="src">एमएसएन</span><span class="dot"></span><span>12 जुलाई, सुबह 8:03 बजे</span></div></a></div>
+          <div class="card-text fade-in"><a href="https://news.google.com/rss/articles/CBMi-AFBVV95cUxPOWVYeG0yeEowXzNOT1puTUJES010cnAxVTZ5LWhLV1RPc2RmQUNORDJoSmlEcW9lTXF2RFZ6OGQyYnVFNUVCY1MxbUF4dkpEbno5aWNZTjF1NjBwLUl6M01HVFdpMUZPLTRISFdSOFhuSlRCcmhCdmkyOVBzUkZsWllvWHBYNEpuV2p6RTZiQlZpV1JkMTRIZHdwVFdyR0tSWEVlcWpXRVdmN1czZDc4NmhXNUh3Q2RUMFVOU0V5RFFmYTZOLXFRdERnUXNKNnRnOTVtS084cnE4OFdhejdxRmVFal9hOUtfTzNULVA1WXA0UjYzV1YyOQ?oc=5" rel="nofollow"><h3>जयपुर हत्या जाँच में पिता की संदिग्ध मृत्यु को शामिल किया गया</h3><div class="info"><span class="src">एमएसएन</span><span class="dot"></span><span>13 जुलाई, रात 2:27 बजे</span></div></a></div>
+<div class="card-text fade-in"><a href="https://news.google.com/rss/articles/CBMi6gFBVV95cUxQOFMtXzktLWhHMG5xRlhXRjh5RTk1RHRmbzFqTTgxdFNfVU9BZlZxVjBrOHA2TE5pa3VIYzJwUFhXYzZHcWhYSXRTMnY2YnFXeFdwUXpTQ0JsN2ZPRjVGTHNtemZ2Rnp0QXh0OWdQUWM2dEdxdTF6Q2NMQ2JVd3Zzb3ptOGxzM2lVNUVlMGtPaEtqaTRUa0FsNERfNjFYWk02S3RNOU5SME1ubmVXVmVLVk5fTHVyVkl4MkRQMUtESHVtRlNUX2dIdUN5TlkxOTI1cGVPUk4tZEdTY0hfNnhwVm84eG8zNTVXSFE?oc=5" rel="nofollow"><h3>जयपुर हत्या आरोपी अब पिता की संदिग्ध मृत्यु की जाँच का सामना कर रहा है</h3><div class="info"><span class="src">एमएसएन</span><span class="dot"></span><span>13 जुलाई, रात 2:02 बजे</span></div></a></div>
+<div class="card-text fade-in"><a href="https://news.google.com/rss/articles/CBMi7wFBVV95cUxQVVhiOUVUR00yNTZCZzVlMjItakNPcGR2V0pfUUc1NHJfTkd2UjNlT3JvNzFuQ0NKWWdKc0tKN3ZjbnQxcnNkM011aWpzYlRGZnF3U3VaTjNYeGdnSTFuXzNqa0FBZlFBX2ZqbS1Henhad1Utd1VoLUV0OXRuZkRHRkVLb3JsVS0td3I2LUdwQXZIdWhzVzU2MVhGTWpIOG9wUjlhWFFEUGZkQVNGcm1TcVJZandmYXVITGRNVVpxaEtEZGJ6MHlkSDRrd2UtSkNsc3VpV3ZnRkZwRUxmQUw2S1NDX1RJbVFkQUptSktlSQ?oc=5" rel="nofollow"><h3>जयपुर हत्या जाँच में पिता की संदिग्ध मृत्यु को शामिल किया गया</h3><div class="info"><span class="src">एमएसएन</span><span class="dot"></span><span>13 जुलाई, रात 1:00 बजे</span></div></a></div>
+<div class="card-text fade-in"><a href="https://news.google.com/rss/articles/CBMi9gFBVV95cUxPZURmeUFBUmp6WWxpSHdHV280SVB6Rm5mTkZYb0JRbTVDTDRKMzd4aWJHbEE5SURSbGVfNDFBWkNtVWxyeG14NkZxTlBnTU83VlphUjIzcEtVcWQtX0IyRHlsb1FkazRTZVRCSU9TeGt4R3ZyVE5qNXZQQjg0c3pDZ1M3ZXptZG5mT1VQQlAyazZMOUFfTWFLQ1ViREtpTFBuU0UybG5fZWd3S3BVSDZ3WUtWdjhQVWxLak1ndERUcVA4MjZfVzYxTVhuN2I0cEF2MXNCMThzRUc5LVJ6M3BNdWRkaF9FS0ZzY0VmeVg2THltdHFsMXc?oc=5" rel="nofollow"><h3>जयपुर हत्या मामला विस्तृत, पुलिस पिता की मृत्यु के लिंक की जाँच कर रही है</h3><div class="info"><span class="src">एमएसएन</span><span class="dot"></span><span>13 जुलाई, रात 12:51 बजे</span></div></a></div>
+<div class="card-text fade-in"><a href="https://news.google.com/rss/articles/CBMi8wFBVV95cUxPd2hhOFpCaEpTTnd2VVJjaEdubWVFSzk3VTFYZ3JRdVJSbUZOQ1RzejVOcW1WVlJkU1lsRjgzUVJCZ1dENkRkb25LRlRhN1pxcXJNVm5GU2pJUzZHRjZZTVA0VlFTMjMyMjE4Z0tlLWNIdzYwQlczU21tdzBYdlk2Ui1CNk1KZ3ZRQ0h1UWFwamJsQW5nVUpQOGx0UmY0YVVUekZYWFRhQ0xMRFBOOEY1WXBjUEk4ZnJGN2NNRV9BbE12R2NIZWlKQVFGOWl4R0FlVi11MzZ5VDMtMkFCUUJHQU1weXB3bmo2MGxpS1BjdXFQMUU?oc=5" rel="nofollow"><h3>जयपुर हत्या जाँच में पिता की मृत्यु के दावे शामिल</h3><div class="info"><span class="src">एमएसएन</span><span class="dot"></span><span>12 जुलाई, रात 9:39 बजे</span></div></a></div>
+<div class="card-text fade-in"><a href="https://news.google.com/rss/articles/CBMi_wJBVV95cUxQdU5PXzY5ZXVwVW40Wi0yVkQ2REVteVNDOVhLdENEQ0dkOG5XUnZaM1RFWVpMa2RpeWJ4cG13NFA1MXdzU3ByLWY4V2N1dWM1emRRNjlWVUl2NHcweWU1MVI4MHpTYTlDUHlkV2ZNODlaMEFzV2RmbWdOdmdnYjgxUEVGYUlaVm80bk5hOFBITGhXdmxKY0RfQkR5SkhrbEY4Z1F6N1lKcXU2enBVZ0JsQ3VyOFU1MHVDQ2FySWhWT01HM20wQkJjdGhYZFpFR2lJcE4wM2RmQloxYXRLWVFtUnhxRU9BaW8wc0V3dktIY0VhbUFnaWVoOTNnbFVEcmRkRTVHX1NjYy05aC1CaFZoMG80OW12TjU4SXIxMzhRdFN4Z0Fwd1BkVWE0MmNza2pUSzVmbkJMamFRZ09lSVprak1McEVlbzY2NVoyQzgyTkJIQ0xPclBJdnhtbGJpTW40UTFzd0FhbC1fYlNaQnpqZTlERmQwRktBVXpHaHRTOA?oc=5" rel="nofollow"><h3>जयपुर महिला के पिता की 2025 की मृत्यु पर नई जाँच शुरू</h3><div class="info"><span class="src">एमएसएन</span><span class="dot"></span><span>12 जुलाई, शाम 5:05 बजे</span></div></a></div>
         </div>
       </section>
 
       <section class="feed">
         <div class="section-head"><h2>अन्य ताज़ा खबरें</h2></div>
         <div class="grid-text">
-<div class="card-text fade-in"><a href="https://news.google.com/rss/articles/CBMi8AFBVV95cUxPdjk2cS1IQkJGcUFYSzJzNE50VF94S0FjelhnVk5WY2FSMl9aNVVwZ0FBUkM5aHZyeXEzSThtbGVvYjBuVF8wVEJUcE41NnhUZTlnNjB5UFdQazBXT3FQWm9xSmhseWRiU3pCWGJKc3Fxa3ZhVmZueGpEamgyR18zVWxuMnMxN1dhREp0clVpOVJmYXZ4azZGaHJCWVExbFJwdGJGWHRKaXJ3MDVkbjJUcXNPU0dCT1lZU082b0NaQTItNnBwTWtJdFN6M3JaUWNoWEd5ZUdsSExnQ2dsdWJ0S05xTXdwd0VYczBXZWhULTI?oc=5" rel="nofollow"><h3>जयपुर हत्या मामला विस्तृत, पुलिस पिता की 2025 की मृत्यु की जांच</h3><p class="desc">पुलिस ने बताया कि पिता की 2025 में हुई संदिग्ध मृत्यु को भी हत्या जांच में शामिल किया गया है।</p><div class="info"><span class="src">एमएसएन</span></div></a></div>
-<div class="card-text fade-in"><a href="https://news.google.com/rss/articles/CBMi8AFBVV95cUxQdmhYOTM4dHpZN056MVRTcEhmbG5qVEpCNUNqOEZ5YXhVYkRlMm9hNjJoZXMzT21JTEkxTEVZaUFfUUNwT0hnZkdrZWN5YVRhNHBKY2dkbXJiQlNQeGJreDlhZXlJTG5GUGg2ejZDaU9FZmc2amV1YUxXSGVIME0yWnM0anpIN0pXU2ViWXlqOV9FbTBfcmN5Zm51SkF6VUVqTXZuNmIzMTBTVVg0Ul9yX0lRM2ZPVnRrTi11cmpVM20tRlFTaHkwLUNKeWY1Qm5DSDU0czBueWd5SEdMVVI1UTNNOHNVZTVxSUhRZ2pLb3c?oc=5" rel="nofollow"><h3>राजस्थान: अलवर पेट्रोल पंप गोलीबारी में आरोपी को पुलिस ने गिरफ्तार किया, जांच में योजना का खुलासा</h3><p class="desc">अलवर में पेट्रोल पंप पर हुई गोलीबारी में आरोपी को गिरफ्तार किया गया और जांच से पता चला कि यह एक योजनाबद्ध हमला था।</p><div class="info"></div></a></div>
-<div class="card-text fade-in"><a href="https://news.google.com/rss/articles/CBMi2wFBVV95cUxPczBNMnNHcEhIamNQdll1MzUzX1p4b3B4MkRsNUdsX00wQ3kzb2RiVGcxei0zMHRhZjN2SzN3dUM1X2duUFpvVUl4dHhaOGtNSjZySl9tdmlDa25jMjdHWnlqMWplWldvWjhadlJmc2lZcDF2WFhINmVtTlR1ODhOQTB4VUZmd1hHTWRPN2FfbnhqRTRkcWlUVE9TQW9fb0VZeWlCQ2xBNFFWMzdNa1Zqa21qUlo4SjBPNm9FdzZQYkRKeDhvVmkxdkNCTGo0TEtScHFJZ215NUdsQ1nSAeABQVVfeXFMTjUwaXFnWHR6WXEtWmt0RUhuRnI3TGJ5TXVRZkN5ZF9uME9kYlZCUWl5RDcwY0JOTlJZVTZaelNIYi1rNWVvNHVER3B1YnNtVzZGNUpsU01KN3ZmQWJkYzVLM1NsODdwalFBR0k4endOb25aMlF5Y21ZYkV0X0RXOHMyN1plTEVQdEJIc1M1SXdyREx4UkdsTW14akNuSkg3VmNBd0FaUF80bnRZQXZBU2xxNGIyenByeGtGdWVQakZOa0ZqcUItRjU3ZWlTdmVWUEo5SGh5dW1zS1AzdmsxaEY?oc=5" rel="nofollow"><h3>मुंबई क्राइम ब्रांच ने 28 साल तक डॉक्टर का रूप धारण करने वाले व्यक्ति को गिरफ्तार किया</h3><p class="desc">मुंबई में अपराध शाखा ने एक व्यक्ति को गिरफ्तार किया जो 28 वर्षों तक डॉक्टर का नाटक करके लोगों को धोखा देता रहा।</p><div class="info"><span class="src">टाइम्स ऑफ इंडिया</span></div></a></div>
-<div class="card-text fade-in"><a href="https://news.google.com/rss/articles/CBMi1AFBVV95cUxQX2hxa2VyaG1yTmxBRVdvT1p0MmJzNU1KaThnTGVjWHhUdnhUVjc0NFFaRXYxb0ZSWTNSWkNYUEtSaGNJMzMzTXBuRHYxUC1MYUF4VEJPRENGV2t2NTg5LS1wMjNQWlJvSGJpazFEUnFjMThDZ0lQWkdTSXpwTXpDNm9SbFZoeURLcy1DQkx3N2ZOQXkyNjlOQkJVMlVzbmN2UHpxUG9iTDI3dEM5dU16cVJWTEJSc2x1U3pMclMzZ0lULU1td1Zpd21qRUNlOG56akJIcNIB2gFBVV95cUxQVURiT2VTdDNoWnNMWkVrTXZXUVZwNzBRQjlKcmZ4OG1FY3RMeFVVcGIzamhYSjhLWDBLSXdBSXBZd0loTGI4eHlBWXBXODRmQWhodG5oczZOTFpvWWxsTUd6c1BuempGOFQxQkFHeHgzS0hFSlV1blR5Rkg2SDJhODVxcHJvSHV5b0tGbDNtUXc3aDYwNW5zSjVjeEp4Q2pWX3VtTmRJeEM3VXYxUkRDMXg3YjN2NGpiZTVJNkVOc2QwZ2p0T0VfUGJFU3BDUmVNQWZtR3FmRXRDUQ?oc=5" rel="nofollow"><h3>राज्य में मातृ मृत्यु की जांच में दवाओं की गुणवत्ता जांच को शामिल किया गया</h3><p class="desc">मातृ मृत्यु के मामलों की जांच में अब दवाओं की गुणवत्ता की जाँच भी की जा रही है।</p><div class="info"><span class="src">टाइम्स ऑफ इंडिया</span></div></a></div>
-<div class="card-text fade-in"><a href="https://news.google.com/rss/articles/CBMi3wFBVV95cUxOSkRLLXAyNXJJYzk3RHFiRk1vcFE1c09KYmJwbGg4YzRzVHE1UGZLci13QllWYUw5THlaU1pGUkVlVWtLTnI1RGhzRkh1Skx6QXpNZjNpTlA0MEhQOWFmSld5Wl9JMGk5c1VMUGR0cldKNk0zX05IeEFhSlhMQUw1cjhHOGU5a01Tb09mWDhzSTlpejVfLUFyeTY3bXFqUXVNdE9jMFNpY05Wdkk4eDZ3X3lHVUMxeEtJNC1UcEkyN3dXbWk2ODdfOXVFOUYwMjlhNmV1MlpBNmJpTjQ1ZjM40gHkAUFVX3lxTE5MaWx1ckd0OEhqSkFZa1BLeUVteFl6YXRpaGh2eXl0cHBXVDR6NVIxZWlMU0hXMG1JU3dkRVFwM3NsTHdEcWtTb0RrYjhXMXVkR0Vna0JKZ1YtSzFFM1JFd2FBZ1E4N290MVg5dHl6U3FYcVF0N3JEVDR1V1UtZGlxcVVEeU80Qk53NDdGNXpOcE9uTDByRXVoRnNfMkRPQmc2Y1JNUmxyUmMyOElzT0VSYlp5NHptLWItUjUyVG1lRzJ5ckNpMFhycmtlMXZKNDlVcDl1ZnVyR21ZMEluRE5rb0d6Wg?oc=5" rel="nofollow"><h3>जयपुर आज की प्रमुख खबरें 12 जुलाई 2026: माँ की हत्या मामला, मातृ मृत्यु और परिवहनकारों का हड़ताल</h3><p class="desc">आज जयपुर में माँ की हत्या, मातृ मृत्यु और परिवहनकारों की हड़ताल से जुड़ी प्रमुख खबरें सामने आईं।</p><div class="info"></div></a></div>
+<div class="card-text fade-in"><a href="https://news.google.com/rss/articles/CBMivAFBVV95cUxQTkdRSDlQVm14al9MaWJSXzNZRXBLTkgtSFZjb2FkSC04N3lQMEFZTzBZY0xkc28xTjVaMExNVEU5enNzV0NEeEtQZ2cxOUNrUG4tTURRVVFJWEVjLVJaUlRxWkNJX29zMzduQV9NSEt5aVQyU1UyYWVLR01yYlU0Y3h2Q1hRYWhUaS1wZGo5NkctaGJ5Sy0wTFpGZ3RMakl0ajlLQTl6NWZOZEptNlFRaXZMMzliWElZUWdNNNIBwgFBVV95cUxPSzJmR2pPdFhobXZVbWc2Rk1ybDJKU1l1Mk5BNUVYbGhCbGlTNXU4X2RLYXQ3UFVmWXhDZFdLWUoyZHFkZ1FrRUlqUTdUcXdrdmVOOWZYU1pQZ2UwVlMwLUtHTG96Ymg0QmdSeWdPOXFIaGpwZVF1Z0ptZDVpak5iRWFzbnIyd185b05NN0pUcklJY1B1SGJhRVNacjVwVmh0THdZOGZCZHFWdkZ6WDcxTGpwUklUdVpzV3c5RzAyUFhQdw?oc=5" rel="nofollow"><h3>राजस्थान उच्च न्यायालय को नया बम धमकी ईमेल मिला; जयपुर‑जोधपुर में सुरक्षा बढ़ी</h3><p class="desc">राजस्थान उच्च न्यायालय को एक नया बम धमकी ईमेल प्राप्त हुआ, जिसके बाद जयपुर और जोधपुर में सुरक्षा उपाय कड़े कर दिए गए।</p><div class="info"></div></a></div>
+<div class="card-text fade-in"><a href="https://news.google.com/rss/articles/CBMisgFBVV95cUxNS2VsQjZFQkJ4QjU5QVVOdldlMVFxQUNBLWFFcFVOSlYyc3BLOGZWZ1hmVDY2UVI4dDEtaWxUd09LQTZwVERJY2V6dDRlanBrOG1Hak82T19vdnFYMkxfWjNPazNNX0N2eS1HYmRHNUlDel9sMW5rNGhQc1M5UlBnWGdLSmZ4b3FMeUdaU0JFRTVrSDUxOTI3VFVTZHRNWlZmdnVLSkhUdm5FbnNlUkZLWVh3?oc=5" rel="nofollow"><h3>अलवर में प्रेम‑प्रतिद्वंद्विता के कारण पेट्रोल पंप पर गोलीबारी में पुलिस ने संदिग्ध को गिरफ्तार किया</h3><p class="desc">अलवर में प्रेम‑प्रतिद्वंद्विता के चलते पेट्रोल पंप पर गोलीबारी हुई, जिसमें पुलिस ने संदिग्ध को पकड़ लिया।</p><div class="info"></div></a></div>
+<div class="card-text fade-in"><a href="https://news.google.com/rss/articles/CBMi3wFBVV95cUxOMm9xN0tMSkt3Q0JnNzBCNXZKWkc5eTdzXzIxOHVuWlJxRkNuYU90ZXJuMUN6ai1JczV3dmV0anJVWDFaWlhzNWQyVXptMHhhYTU2Nmg5Q3ZkX2tMei1vZ1hJUnVFUWN3R2xmVVdhSnFyYmNGeHVDSWtJcVVFRnBXbEsxbjFzS194NDNaaUx0RV84YnR1MmVBOFl0dUFIVnQ3cmNyREM4WENRVFRsQUY0RnJXcDNnWVd2WGZxcGktX2RBTFBNX0hwamttWTViWlFMS3pZOFJBM1BpUjVwTk1J0gHkAUFVX3lxTE9Wd1JLMHZzMnpJbTh1TVlMR1EtV0RmYW9kUW9JRGkwQUV0QUxDWENsSnBzVGFQWDVQby1WeW9DQXg4ajBiR0NCSDJhRmFMcnJVTEpBdkpVZHBmZnEwR2pJRjZLN1BHR1NBNzJQZld4UjFnRXZUWjYwdU4yZUZ4T1FGaEpsOVljSEJHMTJmaGlPbTBaUDhHZzhwNFRTT1YyRTBWdHJmaVpSVFh0ZTgza3BSWGg1S2JYdzNDcVVCTURHUGZ0NlhTNjJJZ3YxTkRSZWZpOUJYVjNRYmd4RnM4X3ZFenR6RQ?oc=5" rel="nofollow"><h3>बारमेर‑जोधपुर हाईवे पर एसयूवी ने ट्रेलर से टकराकर 5 लोगों की मौत, 3 घायल</h3><p class="desc">बारमेर‑जोधपुर हाईवे पर एक एसयूवी ने ट्रेलर से टकराव किया, जिससे पाँच लोग मारे गए और तीन घायल हुए।</p><div class="info"><span class="src">टाइम्स ऑफ इंडिया</span></div></a></div>
+<div class="card-text fade-in"><a href="https://news.google.com/rss/articles/CBMivgFBVV95cUxOYjNwU1RKSjFlYlNLamFVaVhIWUstQXNCWkZ0NXFTTTVaVnI0X0hvM3l1WVFNUGdHNE0xMWkwUVFhQkdBLVc4dnk4c1JzTFJXRENFRWNlNlhDWlZScG9pYlQxUTRqdTdTNW1iT2tpTHpMajBlaFdqdmgxVDFzSXhucTdKZUxoMk9pbFFqUW1tdUlXSEpaRnBmT3dncmcxcUhXZ0JkS0czRGdMN0FSdFhxTlNSalluWDJYZzhNSU1n0gHDAUFVX3lxTE9RbExBVmtlMUxGcl9ZVlV3bFdYdlhkcko4Y2Riakh3WFBheEVsODNpV3FWeEdpcXEtdW1tOW9aV1FCY21fNVdqTTlZNkdaUVJPa2V6a1ZqU2ZkMlczMGdmazg4RF9qZXo4QWdNTGE3bjUwOElTc0hpb1hvUnozYzQ5bGxRRUtkT1NtSGNaaEJnSWF5Z24tN3lwUDM5MS1sTV95OGMtX1l2NExVelFDTWk4dlZzMk5VV3NTaTdNajF6bHhFQQ?oc=5" rel="nofollow"><h3>जयपुर‑अमेरिका हाईवे के 10 किमी हिस्से में 40 से अधिक अवैध स्टॉप्स के कारण सुरक्षा में गंभीर चूक पाई गई</h3><p class="desc">जयपुर‑अमेरिका हाईवे के 10 किमी हिस्से में 40 से अधिक अवैध स्टॉप्स पाए गए, जिससे पाँच मौतों की प्रमुख सुरक्षा चूक सामने आई।</p><div class="info"></div></a></div>
+<div class="card-text fade-in"><a href="https://news.google.com/rss/articles/CBMiyAFBVV95cUxPLUxuNmJ0MHNqNDVGMG02a2FtU1FiLUM0R3NONG1OOGRfazNEYUJBck9wSVpERVpiYjlCbTVBeUFhVFlXc21sY1NBbUxCYVUxaVpYTzFqNnU3eTJwaG9VRzFJM1l2Z3g4SHJsQW5UbUpDWTlaNS1UQkwtalB0TEM5MlNrTG1tZkVFWlp4SzNHWm5jemx1bTBIUEZyc0FDdTNGVk1NMjIyX3M0RlhDX0NCQVpxVC1NeEhiN1BEWkhiUVhLcm5GRjZpc9IByAFBVV95cUxPLUxuNmJ0MHNqNDVGMG02a2FtU1FiLUM0R3NONG1OOGRfazNEYUJBck9wSVpERVpiYjlCbTVBeUFhVFlXc21sY1NBbUxCYVUxaVpYTzFqNnU3eTJwaG9VRzFJM1l2Z3g4SHJsQW5UbUpDWTlaNS1UQkwtalB0TEM5MlNrTG1tZkVFWlp4SzNHWm5jemx1bTBIUEZyc0FDdTNGVk1NMjIyX3M0RlhDX0NCQVpxVC1NeEhiN1BEWkhiUVhLcm5GRjZpcw?oc=5" rel="nofollow"><h3>दुबई में व्यापारी का अपहरण, 10 दिन बाद रैनसम के रूप में 40 लाख रुपये की माँग पर रिहा हुआ</h3><p class="desc">दुबई में एक व्यापारी का अपहरण हुआ, 10 दिनों बाद उसकी पत्नी ने 40 लाख रुपये की फिरौती देकर उसे मुक्त कराया।</p><div class="info"></div></a></div>
         </div>
       </section>
     </main>

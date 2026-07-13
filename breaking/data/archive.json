@@ -98,6 +98,7 @@
         "fresh",
         "gujaratsamachar",
         "high",
+        "hindu",
         "intensified",
         "jodhpur",
         "lokmattimes",
@@ -106,6 +107,7 @@
         "security",
         "social",
         "stepped",
+        "sweep",
         "threat",
         "tightened",
         "xyz"
@@ -129,6 +131,14 @@
         },
         {
           "date": "2026-07-13",
+          "time_ist": "16:24",
+          "iso": "2026-07-13T10:54:44+00:00",
+          "text_en": "Security sweep at Rajasthan High Court after bomb threat",
+          "source": "The Hindu",
+          "url": "https://news.google.com/rss/articles/CBMiygFBVV95cUxPV3dHbTNWVl9hUlVxcnZ4djRaQU52NXVxRjh0eTQ1RFJ3NWFtZXRKNVZhMm5YdHNiNGdrbllNblhKSVlIY0Z0aTJhUGpQVUE4b21kYlpZLTJXajYzcnFkcl9hcldfOVFkZW4zSEhXS3pKMnhxRkExMnZMSVBoQy1ETnNDbFcxX3pfa0JuUUQwS1laclN6T0JYQmdLNzRiUi11ZkRvMVRTdkdmYWtrcm1mZ2J6M21FZFdzMUlrWU1OVGw2NzZzVFp4TDd30gHKAUFVX3lxTE9Xd0dtM1ZWX2FSVXFydnh2NFpBTnY1dXFGOHR5NDVEUnc1YW1ldEo1VmEyblh0c2I0Z2tuWU1uWEpJWUhjRnRpMmFQalBVQThvbWRiWlktMldqNjNycWRyX2FyV185UWRlbjNISFdLekoyeHFGQTEydkxJUGhDLUROc0NsVzFfel9rQm5RRDBLWVpyU3pPQlhCZ0s3NGJSLXVmRG8xVFN2R2Zha2tybWZnYnozbUVkV3MxSWtZTU5UbDY3NnNUWnhMN3c?oc=5"
+        },
+        {
+          "date": "2026-07-13",
           "time_ist": "16:28",
           "iso": "2026-07-13T10:58:31+00:00",
           "text_en": "Rajasthan High Court Receives Fresh Bomb Threat, Security Intensified at Jaipur and Jodhpur Benches",
@@ -136,7 +146,7 @@
           "url": "https://news.google.com/rss/articles/CBMi8gFBVV95cUxPSm9vZ19CeDRIOVpSUFFybm1XREo0bWxGeExGb3ROUGJsX0hWc0dua29rejZzZVRHSEk2aDJ0eU5XTkM3MjZVX3lXN0lIZHctZ1c2ZDZMelhaTWE0UmJuajExSVB3WWxmbFN5YXZ5R1p2V0dtVWVsMVBuNmV5eGI2cTJsWm0wNExKdlRDb0RFSjBmZUp1UFdjbGwyM0t4Vk5Uc1ljOGZuTnBuUHROLWdsNVdiOG56V0tOZDMxXzhERVd1SW5xWmV6WWtrOTBNWHZZZnhGclByMXZHSzFkdTk5ZWVUdTV6N0hSMjJLQk85UkdmZw?oc=5"
         }
       ],
-      "last_seen": "2026-07-13T11:29:53.459868+00:00"
+      "last_seen": "2026-07-13T13:40:05.546667+00:00"
     }
   ]
 }

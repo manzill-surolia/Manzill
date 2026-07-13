@@ -47,6 +47,10 @@ OUT_HTML = ROOT / "breaking" / "index.html"
 RSS_PATH = ROOT / "breaking" / "rss.xml"
 NEWS_SITEMAP_PATH = ROOT / "breaking" / "sitemap.xml"
 STATE_PATH = ROOT / "breaking" / "data" / "state.json"
+# Rolling ~30-day archive of each ongoing story's development points, so the AI can
+# narrate the full multi-day arc (Google News RSS only exposes ~24-48h).
+ARCHIVE_PATH = ROOT / "breaking" / "data" / "archive.json"
+ARCHIVE_DAYS = 30
 # The page moved to /breaking; the retired /breaking-news folder is deleted each run.
 OLD_DIR = ROOT / "breaking-news"
 
@@ -57,7 +61,7 @@ NEWS_SITE = "https://news.manzill.com"
 # Bump whenever the rendered output (template/RSS/sitemap format) changes. A mismatch
 # with the value stored in state forces a one-time re-render even when the feed is
 # unchanged, so a redesign rolls out on the next scheduled run without a manual push.
-RENDER_VERSION = "5"
+RENDER_VERSION = "6"
 
 # strftime has no Hindi locale, so map weekday/month names for the date strip.
 HINDI_WEEKDAYS = ["सोमवार", "मंगलवार", "बुधवार", "गुरुवार", "शुक्रवार", "शनिवार", "रविवार"]
@@ -361,38 +365,54 @@ def groq_pick_model(api_key: str) -> str:
     return env_model or MODEL_PREFERENCE[0]
 
 
-def groq_analyze(api_key: str, clusters: list[dict]) -> dict | None:
-    """Ask Groq for a full HINDI package: headline, detailed analysis, a past→present
-    developments chain, Hindi source titles, and Hindi secondary stories."""
+def groq_analyze(api_key: str, clusters: list[dict], story: dict) -> dict | None:
+    """Ask Groq for a deep HINDI package covering the story's full multi-day arc:
+    long analysis, key facts, dated developments, police accountability, what-next,
+    Hindi source titles and Hindi secondary stories."""
     model = groq_pick_model(api_key)
     lead = clusters[0]
     others = clusters[1:6]
     lead_sources = [s["title"] for s in cluster_sources(lead, limit=6)]
-    lead_snippets = [i["summary"] for i in lead["items"][:4] if i["summary"]][:4]
+    lead_snippets = [i["summary"] for i in lead["items"][:5] if i["summary"]][:5]
+    # The archived arc: every dated development point we have gathered for this story.
+    history = [
+        {"date": p.get("date", ""), "report": p.get("text_en", ""), "source": p.get("source", "")}
+        for p in story.get("points", [])
+    ][-40:]
 
     system = (
-        "आप जयपुर (राजस्थान, भारत) की एक हिंदी न्यूज़ वेबसाइट के समाचार संपादक हैं। "
-        "दिए गए फ़ीड आइटम (शीर्षक/स्निपेट अंग्रेज़ी में हो सकते हैं) की जानकारी का ही उपयोग करें "
-        "और तथ्यों को स्वाभाविक, शुद्ध हिंदी में लिखें। अपुष्ट बातों का श्रेय दें "
-        "('पुलिस के अनुसार', 'स्थानीय रिपोर्टों के मुताबिक')। स्रोतों में मौजूद न होने वाले आँकड़े, "
-        "नाम या तथ्य कभी न गढ़ें। सभी टेक्स्ट फ़ील्ड (lead_headline, analysis, developments, "
-        "sources_hi, other_stories) पूरी तरह देवनागरी हिंदी में हों — कोई अंग्रेज़ी वाक्य नहीं; "
-        "केवल event_type और severity अंग्रेज़ी enum में रहें। सिर्फ़ मान्य JSON लौटाएँ।"
+        "आप जयपुर (राजस्थान, भारत) की एक हिंदी न्यूज़ वेबसाइट के वरिष्ठ समाचार संपादक हैं। "
+        "दिए गए फ़ीड आइटम और घटनाक्रम इतिहास (story_history — शीर्षक अंग्रेज़ी में हो सकते हैं) की "
+        "जानकारी का ही उपयोग करें और तथ्यों को स्वाभाविक, शुद्ध, विस्तृत हिंदी में लिखें। "
+        "story_history कई दिनों में फैला हो सकता है — पूरी कहानी शुरुआत से अब तक क्रमवार समझाएँ ताकि "
+        "पाठक को end-to-end समझ मिले। अपुष्ट बातों का श्रेय दें ('पुलिस के अनुसार', "
+        "'स्थानीय रिपोर्टों के मुताबिक')। स्रोतों में मौजूद न होने वाले आँकड़े, नाम या तथ्य कभी न गढ़ें। "
+        "अनिवार्य संपादकीय नियम: यदि स्रोतों में जयपुर/राजस्थान पुलिस की जाँच में किसी भी तरह की "
+        "लापरवाही, देरी, चूक, नाकामी या आलोचना का ज़िक्र हो, तो उसे 'police_accountability' में "
+        "स्पष्ट व प्रमुखता से, तथ्यों के साथ उजागर करें — लेकिन कभी मनगढ़ंत आरोप न लगाएँ। "
+        "सभी टेक्स्ट फ़ील्ड पूरी तरह देवनागरी हिंदी में हों — कोई अंग्रेज़ी वाक्य नहीं; केवल event_type "
+        "और severity अंग्रेज़ी enum में रहें। सिर्फ़ मान्य JSON लौटाएँ।"
     )
     user = {
-        "task": "जयपुर की आज की सबसे बड़ी ब्रेकिंग खबर की विस्तृत हिंदी कवरेज तैयार करें।",
+        "task": "जयपुर की प्रमुख ब्रेकिंग खबर की गहराई से, बहु-दिवसीय, end-to-end हिंदी कवरेज तैयार करें।",
         "lead_story": {"headline": lead["headline"], "snippets": lead_snippets},
+        "story_history": history,
         "lead_sources_en": lead_sources,
         "other_stories_en": [c["headline"] for c in others],
         "output_schema": {
-            "lead_headline": "संक्षिप्त हिंदी शीर्षक",
+            "lead_headline": "संक्षिप्त, सटीक हिंदी शीर्षक",
             "event_type": "one of: terror, fire, earthquake, flood, accident, "
                           "crime, investigation, protest, civic, weather, other",
             "severity": "one of: critical, high, medium, low",
-            "analysis": "3-5 पैराग्राफ की विस्तृत हिंदी रिपोर्ट; पैराग्राफ \\n\\n से अलग करें",
-            "developments": "4-8 objects की array [{label, text}] — घटनाक्रम पुराने से नए क्रम "
-                            "में (oldest first); label = छोटा हिंदी समय/चरण संकेत (जैसे "
-                            "'शुरुआती रिपोर्ट', 'जाँच आगे बढ़ी', 'ताज़ा अपडेट'); text = एक हिंदी वाक्य",
+            "analysis": "6-10 पैराग्राफ की विस्तृत हिंदी रिपोर्ट — पृष्ठभूमि, शुरुआत से अब तक का "
+                        "पूरा घटनाक्रम, मौजूदा स्थिति; पैराग्राफ \\n\\n से अलग करें",
+            "key_facts": "4-8 हिंदी बिंदुओं की array (छोटे तथ्य)",
+            "developments": "objects की array [{date_label, text}] — घटनाक्रम पुराने से नए क्रम में "
+                            "(oldest first), story_history के अनुसार; date_label = हिंदी तिथि/चरण "
+                            "(जैसे '6 जुलाई', 'एक हफ्ते पहले', 'ताज़ा'); text = विस्तृत हिंदी वाक्य",
+            "police_accountability": "हिंदी पैराग्राफ — जयपुर/राजस्थान पुलिस की लापरवाही/देरी/चूक/"
+                                     "आलोचना के प्रमाणित तथ्य; यदि स्रोतों में कुछ नहीं तो खाली स्ट्रिंग",
+            "what_next": "1-2 हिंदी वाक्य — आगे क्या संभावित/अपेक्षित है",
             "sources_hi": "हिंदी एक-पंक्ति शीर्षकों की array — lead_sources_en के समान क्रम व संख्या में",
             "other_stories": "objects {headline, summary} की array हिंदी में — "
                              "other_stories_en के समान क्रम व संख्या में",
@@ -406,7 +426,7 @@ def groq_analyze(api_key: str, clusters: list[dict]) -> dict | None:
                 {"role": "user", "content": json.dumps(user, ensure_ascii=False)},
             ],
             "temperature": 0.35,
-            "max_tokens": 2400,
+            "max_tokens": 4500,
             "response_format": {"type": "json_object"},
         }
     ).encode()
@@ -450,6 +470,89 @@ def load_state() -> dict:
 def save_state(state: dict) -> None:
     STATE_PATH.parent.mkdir(parents=True, exist_ok=True)
     STATE_PATH.write_text(json.dumps(state, indent=2, ensure_ascii=False) + "\n")
+
+
+# --------------------------------------------------------------------------- #
+# Story archive — a rolling ~30-day memory of how each story developed
+# --------------------------------------------------------------------------- #
+def load_archive() -> dict:
+    if ARCHIVE_PATH.exists():
+        try:
+            data = json.loads(ARCHIVE_PATH.read_text())
+            if isinstance(data, dict) and "stories" in data:
+                return data
+        except Exception:
+            pass
+    return {"stories": []}
+
+
+def save_archive(archive: dict) -> None:
+    ARCHIVE_PATH.parent.mkdir(parents=True, exist_ok=True)
+    ARCHIVE_PATH.write_text(json.dumps(archive, indent=2, ensure_ascii=False) + "\n")
+
+
+def _days_ago(iso: str, now: datetime) -> float:
+    try:
+        dt = datetime.fromisoformat(iso)
+    except Exception:
+        return 1e9
+    if dt.tzinfo is None:
+        dt = dt.replace(tzinfo=timezone.utc)
+    return (now - dt).total_seconds() / 86400.0
+
+
+def update_archive(archive: dict, cluster: dict, now: datetime) -> dict:
+    """Match the lead cluster to an existing archived story (or start one), append
+    any new source items as dated development points, prune >30-day data, and return
+    the matched story (with its full multi-day history)."""
+    kw = set(cluster["keywords"])
+    best, best_sim = None, 0.0
+    for story in archive["stories"]:
+        sim = jaccard(kw, set(story.get("keywords", [])))
+        if sim > best_sim:
+            best, best_sim = story, sim
+    if best is None or best_sim < 0.30:
+        best = {
+            "id": cluster_id(cluster),
+            "first_seen": now.isoformat(),
+            "keywords": sorted(kw)[:24],
+            "points": [],
+        }
+        archive["stories"].append(best)
+    else:
+        # keep the keyword set fresh as the story evolves
+        best["keywords"] = sorted(set(best.get("keywords", [])) | kw)[:24]
+
+    best["last_seen"] = now.isoformat()
+    seen_urls = {p.get("url") for p in best["points"]}
+    seen_titles = {normalize(p.get("text_en", ""))[:80] for p in best["points"]}
+    for it in cluster["items"]:
+        key = normalize(it["title"])[:80]
+        if it["link"] in seen_urls or key in seen_titles:
+            continue
+        best["points"].append({
+            "date": to_ist(it["published"]).strftime("%Y-%m-%d"),
+            "time_ist": to_ist(it["published"]).strftime("%H:%M"),
+            "iso": it["published"].isoformat(),
+            "text_en": it["title"],
+            "source": it["source"],
+            "url": it["link"],
+        })
+        seen_urls.add(it["link"])
+        seen_titles.add(key)
+
+    # Prune old points, then old stories.
+    for story in archive["stories"]:
+        story["points"] = [p for p in story.get("points", [])
+                           if _days_ago(p.get("iso", ""), now) <= ARCHIVE_DAYS]
+    archive["stories"] = [s for s in archive["stories"]
+                          if _days_ago(s.get("last_seen", ""), now) <= ARCHIVE_DAYS
+                          and s.get("points")]
+    if best not in archive["stories"]:
+        archive["stories"].append(best)
+    # Chronological history, oldest first.
+    best["points"].sort(key=lambda p: p.get("iso", ""))
+    return best
 
 
 def minutes_since(iso: str | None) -> float:
@@ -514,11 +617,17 @@ def build() -> None:
         print("No change in top-story feed; skipping update (no commit).")
         return
 
+    # Accumulate the story's multi-day history so the AI can narrate the full arc.
+    archive = load_archive()
+    story = update_archive(archive, top, now)
+    print(f"  archive: lead story carries {len(story['points'])} dated point(s) "
+          f"(≤{ARCHIVE_DAYS}d)")
+
     lead = None
     other_stories: list[dict] = []
     if use_ai:
         print("Asking Groq for analysis...")
-        ai = groq_analyze(api_key, clusters)
+        ai = groq_analyze(api_key, clusters, story)
         if ai:
             lead, other_stories = _lead_from_ai(ai, clusters)
 
@@ -539,6 +648,7 @@ def build() -> None:
     )
     render(state, now)
     save_state(state)
+    save_archive(archive)
     print(f"Done. Lead: {lead.get('headline','')!r} [{lead.get('severity','')}] "
           f"— {len(lead.get('developments', []))} development(s), "
           f"{len(other_stories)} other stor(y/ies).")
@@ -556,11 +666,15 @@ def _lead_from_ai(ai: dict, clusters: list[dict]) -> tuple[dict | None, list[dic
     event_type = (ai.get("event_type") or "other").strip().lower()
     analysis = (ai.get("analysis") or "").strip()
 
+    key_facts = [str(f).strip() for f in (ai.get("key_facts") or []) if str(f).strip()][:8]
+    police = (ai.get("police_accountability") or "").strip()
+    what_next = (ai.get("what_next") or "").strip()
+
     developments = []
-    for d in (ai.get("developments") or [])[:8]:
+    for d in (ai.get("developments") or [])[:14]:
         if isinstance(d, dict):
             text = (d.get("text") or "").strip()
-            label = (d.get("label") or "").strip()
+            label = (d.get("date_label") or d.get("label") or "").strip()
         else:
             text, label = str(d).strip(), ""
         if text:
@@ -582,6 +696,9 @@ def _lead_from_ai(ai: dict, clusters: list[dict]) -> tuple[dict | None, list[dic
         "event_type": event_type,
         "severity": severity,
         "analysis": analysis,
+        "key_facts": key_facts,
+        "police_accountability": police,
+        "what_next": what_next,
         "developments": developments,
         "sources": sources,
     }
@@ -699,6 +816,43 @@ def render(state: dict, now: datetime) -> None:
         f"<p>{esc(p)}</p>" for p in paras
     ) or "<p>खबर विकसित हो रही है।</p>"
 
+    # मुख्य तथ्य (key facts)
+    key_facts = lead.get("key_facts", [])
+    if key_facts:
+        kf = "\n          ".join(f"<li>{esc(f)}</li>" for f in key_facts)
+        key_facts_html = (
+            '<section class="feed">\n'
+            '        <div class="section-head"><h2>मुख्य तथ्य</h2></div>\n'
+            f'        <ul class="facts">\n          {kf}\n        </ul>\n'
+            '      </section>'
+        )
+    else:
+        key_facts_html = ""
+
+    # पुलिस की जवाबदेही (police accountability) — accent-styled, shown only when sourced.
+    police = (lead.get("police_accountability") or "").strip()
+    if police:
+        pp = "\n        ".join(
+            f"<p>{esc(p)}</p>" for p in police.split("\n\n") if p.strip()
+        )
+        police_html = (
+            '<section class="accountability fade-in">\n'
+            '        <h2>पुलिस की जवाबदेही</h2>\n'
+            f'        {pp}\n'
+            '      </section>'
+        )
+    else:
+        police_html = ""
+
+    # आगे क्या (what next)
+    what_next = (lead.get("what_next") or "").strip()
+    what_next_html = (
+        '<section class="feed">\n'
+        '        <div class="section-head"><h2>आगे क्या</h2></div>\n'
+        f'        <p class="whatnext">{esc(what_next)}</p>\n'
+        '      </section>'
+    ) if what_next else ""
+
     # Sources — Hindi titles; links open in the SAME tab.
     sources = lead.get("sources", [])
     if sources:
@@ -783,6 +937,9 @@ def render(state: dict, now: datetime) -> None:
         "{{BADGE_COLOR}}": color,
         "{{HEADLINE}}": headline_html,
         "{{ANALYSIS}}": analysis_html,
+        "{{KEY_FACTS}}": key_facts_html,
+        "{{POLICE}}": police_html,
+        "{{WHAT_NEXT}}": what_next_html,
         "{{SOURCES}}": source_items,
         "{{TIMELINE}}": timeline_html,
         "{{OTHER_STORIES}}": other_section,
@@ -1332,6 +1489,42 @@ footer a { color: var(--brand); font-weight: 600; }
 @media (max-width: 560px) {
   .date-strip > span:not(.live-pill) { display: none; }
 }
+
+/* Red LIVE breaking banner at the top of the story */
+.breaking-banner {
+  display: flex; align-items: center; gap: 12px;
+  background: linear-gradient(90deg, #e0112b, #b71c1c);
+  color: #fff; padding: 11px 16px; border-radius: 10px;
+  margin: 4px 0 18px; box-shadow: var(--shadow);
+  font-weight: 800; letter-spacing: .03em;
+}
+.breaking-banner .live-chip {
+  display: inline-flex; align-items: center; gap: 7px;
+  background: #fff; color: #b71c1c; padding: 4px 10px; border-radius: 5px;
+  font-size: .72rem; font-weight: 900; text-transform: uppercase;
+  animation: blink 1s steps(1) infinite; flex: 0 0 auto;
+}
+.breaking-banner .live-chip .ping { width: 8px; height: 8px; border-radius: 50%; background: #b71c1c; }
+.breaking-banner .bn-label {
+  font-size: .95rem; text-transform: uppercase; overflow: hidden;
+  text-overflow: ellipsis; white-space: nowrap;
+}
+@keyframes blink { 50% { opacity: .4; } }
+
+/* Key facts list */
+ul.facts { margin: 0; padding-left: 20px; max-width: 760px; }
+ul.facts li { margin: 0 0 8px; line-height: 1.6; }
+
+/* Police accountability — accent-bordered card, only shown when sourced */
+.accountability {
+  background: var(--surface); border: 1px solid var(--border);
+  border-left: 5px solid var(--brand); border-radius: var(--radius);
+  padding: 16px 20px; margin-bottom: 32px; box-shadow: var(--shadow);
+}
+.accountability h2 { margin: 0 0 8px; font-size: 1.1rem; font-weight: 800; color: var(--brand); }
+.accountability p { margin: 0 0 10px; line-height: 1.7; }
+.accountability p:last-child { margin-bottom: 0; }
+.whatnext { max-width: 760px; line-height: 1.7; }
 </style>
 
     <script type="application/ld+json">
@@ -1351,6 +1544,11 @@ footer a { color: var(--brand); font-weight: 600; }
     </header>
 
     <main>
+      <div class="breaking-banner">
+        <span class="live-chip"><span class="ping"></span>लाइव</span>
+        <span class="bn-label">लाइव ब्रेकिंग न्यूज़ &mdash; पल-पल के अपडेट</span>
+      </div>
+
       <div class="livebar">
         <span class="sev-badge"><span class="dot"></span>{{BADGE}}</span>
         <span class="updated">अंतिम अपडेट {{UPDATED_IST}}</span>
@@ -1367,6 +1565,10 @@ footer a { color: var(--brand); font-weight: 600; }
         <div class="byline">सार्वजनिक जयपुर न्यूज़ फ़ीड से संकलित &middot; समय भारतीय मानक समयानुसार।</div>
       </div>
 
+      {{KEY_FACTS}}
+
+      {{POLICE}}
+
       <section class="feed">
         <div class="section-head">
           <h2>घटनाक्रम &mdash; शुरुआत से अब तक</h2>
@@ -1377,6 +1579,8 @@ footer a { color: var(--brand); font-weight: 600; }
         </ul>
         <p class="note">ऊपर से नीचे: पुराने से नए घटनाक्रम। खबर के विकसित होते ही यह पेज अपने-आप रिफ्रेश होता रहता है।</p>
       </section>
+
+      {{WHAT_NEXT}}
 
       <section class="feed">
         <div class="section-head">

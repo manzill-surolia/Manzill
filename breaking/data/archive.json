@@ -83,6 +83,33 @@
         }
       ],
       "last_seen": "2026-07-13T08:05:47.831742+00:00"
+    },
+    {
+      "id": "00f4bb777548",
+      "first_seen": "2026-07-13T08:09:58.346089+00:00",
+      "keywords": [
+        "bomb",
+        "com",
+        "email",
+        "fresh",
+        "jodhpur",
+        "lokmattimes",
+        "receives",
+        "security",
+        "threat",
+        "tightened"
+      ],
+      "points": [
+        {
+          "date": "2026-07-13",
+          "time_ist": "10:40",
+          "iso": "2026-07-13T05:10:51+00:00",
+          "text_en": "Rajasthan HC receives fresh bomb threat email; security tightened in Jaipur, Jodhpur",
+          "source": "lokmattimes.com",
+          "url": "https://news.google.com/rss/articles/CBMivAFBVV95cUxQTkdRSDlQVm14al9MaWJSXzNZRXBLTkgtSFZjb2FkSC04N3lQMEFZTzBZY0xkc28xTjVaMExNVEU5enNzV0NEeEtQZ2cxOUNrUG4tTURRVVFJWEVjLVJaUlRxWkNJX29zMzduQV9NSEt5aVQyU1UyYWVLR01yYlU0Y3h2Q1hRYWhUaS1wZGo5NkctaGJ5Sy0wTFpGZ3RMakl0ajlLQTl6NWZOZEptNlFRaXZMMzliWElZUWdNNNIBwgFBVV95cUxPSzJmR2pPdFhobXZVbWc2Rk1ybDJKU1l1Mk5BNUVYbGhCbGlTNXU4X2RLYXQ3UFVmWXhDZFdLWUoyZHFkZ1FrRUlqUTdUcXdrdmVOOWZYU1pQZ2UwVlMwLUtHTG96Ymg0QmdSeWdPOXFIaGpwZVF1Z0ptZDVpak5iRWFzbnIyd185b05NN0pUcklJY1B1SGJhRVNacjVwVmh0THdZOGZCZHFWdkZ6WDcxTGpwUklUdVpzV3c5RzAyUFhQdw?oc=5"
+        }
+      ],
+      "last_seen": "2026-07-13T08:09:58.346089+00:00"
     }
   ]
 }

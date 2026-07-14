@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#0e3a5f">
+
+    <title>Choosing a Security Framework: 10 Frameworks, One Decision | Manzill Surolia</title>
+    <meta name="description" content="NIST CSF, ISO 27001, SOC 2, PCI DSS, HIPAA, HITRUST, CIS, CSA CCM, NIST 800-53 and ISO 27701 mostly ask for the same controls. Choosing between them is about the proof your customers and regulators demand, not the security work. A decision guide by Manzill Surolia.">
+    <meta name="keywords" content="security framework, NIST CSF, ISO 27001, SOC 2, PCI DSS, HIPAA, HITRUST, CIS Controls, CSA CCM, NIST 800-53, ISO 27701, compliance, certification vs attestation, GRC">
+    <meta name="author" content="Manzill Surolia">
+
+    <link rel="canonical" href="https://www.manzill.com/choosing-a-security-framework">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="icon" type="image/png" sizes="512x512" href="/icon.png">
+    <link rel="apple-touch-icon" href="/icon.png">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Manzill Surolia">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:title" content="Choosing a Security Framework: 10 Frameworks, One Decision">
+    <meta property="og:description" content="The ten major frameworks mostly ask for the same controls. Which one you adopt is a question about proof &mdash; certified, attested or self-assessed &mdash; not security.">
+    <meta property="og:url" content="https://www.manzill.com/choosing-a-security-framework">
+    <meta property="og:image" content="https://www.manzill.com/manzill-og.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:alt" content="Manzill Surolia &mdash; choosing a security framework">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Choosing a Security Framework: 10 Frameworks, One Decision">
+    <meta name="twitter:description" content="Ten frameworks, one decision. It&rsquo;s about the proof customers demand, not the controls. By Manzill Surolia.">
+    <meta name="twitter:image" content="https://www.manzill.com/manzill-og.png">
+    <meta name="twitter:image:alt" content="Manzill Surolia &mdash; choosing a security framework">
+
+    <!-- Fonts: Inter (modern UI) with system fallback -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap">
+
+    <script>document.documentElement.classList.add('js');</script>
+
+    <style>
+:root {
+  --brand: #0e3a5f;
+  --brand-dark: #082438;
+  --link: #0d5d92;
+  --accent: #12a5b8;
+  --bg: #f6f8fa;
+  --surface: #ffffff;
+  --text: #0f1a24;
+  --muted: #55636e;
+  --border: #dde4ea;
+  --shadow: 0 1px 3px rgba(0,0,0,.06), 0 4px 12px rgba(0,0,0,.04);
+  --radius: 12px;
+  --maxw: 1100px;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --link: #5cb3e0;
+    --bg: #0d1117;
+    --surface: #161b22;
+    --text: #e6edf3;
+    --muted: #8b98a5;
+    --border: #26303b;
+    --shadow: 0 1px 3px rgba(0,0,0,.4), 0 4px 12px rgba(0,0,0,.3);
+  }
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: inherit; text-decoration: none; }
+img { display: block; max-width: 100%; height: auto; }
+
+header.site { background: var(--brand); color: #fff; border-bottom: 3px solid var(--accent); box-shadow: var(--shadow); }
+.bar { max-width: var(--maxw); margin: 0 auto; padding: 12px 16px; display: flex; align-items: center; gap: 12px; }
+.brand { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 1.4rem; }
+.brand .logo { width: 34px; height: 34px; background: #fff; color: var(--brand); border-radius: 8px; display: grid; place-items: center; font-weight: 900; font-size: 1.15rem; font-family: system-ui, sans-serif; }
+
+main { max-width: var(--maxw); margin: 0 auto; padding: 20px 16px 60px; }
+
+.section-head { display: flex; align-items: baseline; gap: 12px; margin: 8px 0 14px; }
+.section-head h2 { font-size: 1.25rem; margin: 0; padding-left: 12px; border-left: 4px solid var(--brand); font-weight: 800; }
+
+.tabs { display: flex; gap: 6px; overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: thin; background: var(--surface); border: 1px solid var(--border); border-radius: 999px; padding: 6px; margin: 4px 0 22px; position: sticky; top: 8px; z-index: 10; box-shadow: var(--shadow); }
+.tabs::-webkit-scrollbar { height: 4px; }
+.tab { flex: 0 0 auto; background: transparent; border: 0; color: var(--text); text-decoration: none; padding: 8px 14px; border-radius: 999px; font-family: inherit; font-size: .92rem; font-weight: 600; cursor: pointer; white-space: nowrap; display: inline-flex; align-items: center; gap: 6px; transition: background .15s ease, color .15s ease; }
+.tab:hover { background: rgba(14,58,95,.08); }
+.tab[aria-selected="true"] { background: var(--brand); color: #fff; }
+@media (prefers-color-scheme: dark) { .tab:hover { background: rgba(255,255,255,.06); } }
+
+.editorial-card { background: var(--surface); border: 1px solid var(--border); border-left: 4px solid var(--accent); border-radius: var(--radius); padding: 18px 20px; margin-bottom: 18px; box-shadow: var(--shadow); }
+.editorial-card h2 { margin: 0 0 10px; font-size: 1.1rem; font-weight: 800; color: var(--link); }
+.editorial-card p { margin: 0 0 12px; font-size: .95rem; line-height: 1.7; }
+.editorial-card .byline { margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--border); font-size: .85rem; color: var(--muted); }
+.editorial-card .byline strong { color: var(--text); }
+
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
+
+.hero { margin: 26px 0 6px; }
+.hero .eyebrow { margin: 0 0 6px; font-size: .8rem; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; color: var(--link); }
+.hero h1 { font-size: clamp(1.5rem, 3.2vw, 2.05rem); line-height: 1.12; letter-spacing: -.015em; margin: 0; font-weight: 800; }
+.hero .sub { margin: .5rem 0 0; color: var(--muted); font-size: clamp(1rem, 2.2vw, 1.18rem); max-width: 62ch; }
+
+.layout { display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: 30px; align-items: start; }
+article.content, aside.sidebar { min-width: 0; }
+article.content > section { margin-bottom: 40px; scroll-margin-top: 64px; }
+article.content > section:first-child { margin-top: 6px; }
+article.content p { margin: 0 0 14px; }
+.lede { font-size: 1.06rem; line-height: 1.72; }
+.note { font-size: .88rem; color: var(--muted); margin: 6px 0 0; }
+.reading { color: var(--muted); }
+
+.stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin: 18px 0 22px; }
+.stat { background: linear-gradient(135deg, var(--brand), var(--brand-dark)); color: #fff; border-radius: var(--radius); padding: 16px 16px 14px; box-shadow: var(--shadow); display: flex; flex-direction: column; gap: 4px; border-top: 3px solid var(--accent); }
+.stat .num { font-size: 2rem; font-weight: 900; line-height: 1; letter-spacing: -.02em; }
+.stat .lbl { font-size: .82rem; opacity: .95; line-height: 1.35; }
+
+.meter { display: flex; align-items: center; gap: 10px; }
+.meter .track { flex: 1 1 auto; min-width: 60px; height: 9px; background: var(--border); border-radius: 999px; overflow: hidden; }
+.meter .fill { display: block; height: 100%; background: linear-gradient(90deg, var(--brand), var(--brand-dark)); border-radius: 999px; }
+.meter b { font-variant-numeric: tabular-nums; min-width: 3.4ch; text-align: right; font-weight: 700; }
+
+.chart-card { margin: 22px 0 0; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px 18px 18px; box-shadow: var(--shadow); }
+.chart-card figcaption { font-weight: 700; font-size: .95rem; margin-bottom: 12px; padding-left: 10px; border-left: 3px solid var(--accent); }
+.thr-row { display: flex; align-items: center; gap: 14px; margin: 10px 0; }
+.thr-lab { flex: 0 0 172px; font-size: .86rem; font-weight: 600; }
+.thr-sub { display: block; color: var(--muted); font-weight: 400; font-size: .78rem; }
+.chart-card .meter { flex: 1; }
+
+.table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow); background: var(--surface); }
+table.data-table { border-collapse: collapse; width: 100%; font-size: .92rem; }
+table.data-table th, table.data-table td { text-align: left; padding: 11px 14px; vertical-align: top; border-bottom: 1px solid var(--border); }
+table.data-table thead th { background: var(--brand); color: #fff; font-weight: 700; font-size: .82rem; letter-spacing: .01em; white-space: nowrap; }
+table.data-table tbody tr:nth-child(even) { background: rgba(14,58,95,.035); }
+table.data-table tbody tr:last-child td { border-bottom: 0; }
+table.data-table tbody tr:hover { background: rgba(14,58,95,.07); }
+td.ref { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-weight: 700; color: var(--link); white-space: nowrap; }
+.tag { display: inline-block; font-size: .72rem; font-weight: 700; padding: 2px 8px; border-radius: 999px; white-space: nowrap; }
+.tag.cert { background: rgba(18,165,184,.16); color: var(--link); }
+.tag.attest { background: rgba(14,58,95,.12); color: var(--link); }
+.tag.self { background: rgba(85,99,110,.14); color: var(--muted); }
+.tag.law { background: rgba(183,28,28,.12); color: #b71c1c; }
+@media (prefers-color-scheme: dark) {
+  table.data-table tbody tr:nth-child(even) { background: rgba(255,255,255,.03); }
+  table.data-table tbody tr:hover { background: rgba(14,58,95,.16); }
+  .tag.law { background: rgba(255,120,120,.16); color: #ff9b9b; }
+}
+
+.callout { background: rgba(18,165,184,.10); border: 1px solid var(--border); border-left: 4px solid var(--accent); border-radius: var(--radius); padding: 14px 18px; margin: 16px 0 0; }
+.callout p { margin: 0; font-weight: 600; color: var(--text); }
+
+ul.takeaways { margin: 6px 0 0; padding-left: 0; list-style: none; }
+ul.takeaways li { position: relative; padding: 10px 0 10px 30px; border-bottom: 1px solid var(--border); font-size: .98rem; }
+ul.takeaways li:last-child { border-bottom: 0; }
+ul.takeaways li::before { content: "\25B8"; color: var(--link); position: absolute; left: 6px; top: 10px; font-weight: 900; }
+.method { margin-top: 22px; font-size: .86rem; color: var(--muted); background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px 16px; }
+.method strong { color: var(--text); }
+
+.steps { margin: 6px 0 0; padding: 0; list-style: none; counter-reset: step; }
+.steps li { position: relative; padding: 12px 0 12px 46px; border-bottom: 1px solid var(--border); font-size: .98rem; }
+.steps li:last-child { border-bottom: 0; }
+.steps li::before { counter-increment: step; content: counter(step); position: absolute; left: 0; top: 10px; width: 30px; height: 30px; background: linear-gradient(135deg, var(--brand), var(--brand-dark)); color: #fff; border-radius: 8px; display: grid; place-items: center; font-weight: 800; font-size: .92rem; border-top: 2px solid var(--accent); }
+
+aside.sidebar { position: sticky; top: 64px; }
+.author-card p.name { font-size: 1.15rem; font-weight: 800; color: var(--text); margin-bottom: 10px; }
+.author-card .socials { font-size: .9rem; }
+.author-card .socials a { color: var(--link); font-weight: 700; }
+.author-card .socials a:hover { text-decoration: underline; }
+.author-card .tag-hash { color: var(--muted); }
+
+.more-card h2 { color: var(--link); }
+ul.more-list { margin: 4px 0 0; padding: 0; list-style: none; }
+ul.more-list li { padding: 9px 0; border-bottom: 1px solid var(--border); }
+ul.more-list li:last-child { border-bottom: 0; }
+ul.more-list a { font-weight: 700; color: var(--link); }
+ul.more-list a:hover { text-decoration: underline; }
+ul.more-list .m-desc { display: block; font-size: .82rem; color: var(--muted); font-weight: 400; margin-top: 2px; }
+
+footer.site-foot { border-top: 1px solid var(--border); background: var(--surface); color: var(--muted); font-size: .86rem; }
+footer.site-foot .foot-in { max-width: var(--maxw); margin: 0 auto; padding: 20px 16px; display: flex; flex-wrap: wrap; gap: 8px 18px; align-items: center; }
+footer.site-foot a { color: var(--link); font-weight: 700; }
+footer.site-foot a:hover { text-decoration: underline; }
+footer.site-foot .sep { opacity: .5; }
+
+@media (max-width: 860px) { .layout { grid-template-columns: minmax(0, 1fr); gap: 8px; } aside.sidebar { position: static; margin-top: 8px; } }
+
+.js .meter .fill { transform: scaleX(0); transform-origin: left; transition: transform .9s cubic-bezier(.22,1,.36,1); }
+.js .animate.in-view .meter .fill { transform: scaleX(1); }
+.js .animate.stat-grid .stat { opacity: 0; transform: translateY(12px); transition: opacity .5s ease, transform .5s ease; }
+.js .animate.stat-grid.in-view .stat { opacity: 1; transform: none; }
+.js .animate.stat-grid.in-view .stat:nth-child(2){ transition-delay: .07s; }
+.js .animate.stat-grid.in-view .stat:nth-child(3){ transition-delay: .14s; }
+.js .animate.stat-grid.in-view .stat:nth-child(4){ transition-delay: .21s; }
+.js .animate.stat-grid.in-view .stat:nth-child(5){ transition-delay: .28s; }
+.js .animate table.data-table tbody tr { opacity: 0; transform: translateY(6px); transition: opacity .45s ease, transform .45s ease; }
+.js .animate.in-view table.data-table tbody tr { opacity: 1; transform: none; }
+.js .animate.in-view table.data-table tbody tr:nth-child(2){ transition-delay: .04s; }
+.js .animate.in-view table.data-table tbody tr:nth-child(3){ transition-delay: .08s; }
+.js .animate.in-view table.data-table tbody tr:nth-child(4){ transition-delay: .12s; }
+.js .animate.in-view table.data-table tbody tr:nth-child(5){ transition-delay: .16s; }
+.js .animate.in-view table.data-table tbody tr:nth-child(6){ transition-delay: .20s; }
+.js .animate.in-view table.data-table tbody tr:nth-child(7){ transition-delay: .24s; }
+.js .animate.in-view table.data-table tbody tr:nth-child(8){ transition-delay: .28s; }
+.js .animate.in-view table.data-table tbody tr:nth-child(9){ transition-delay: .32s; }
+.js .animate.in-view table.data-table tbody tr:nth-child(10){ transition-delay: .36s; }
+.js .animate.chart-card { opacity: 0; transform: translateY(10px); transition: opacity .5s ease, transform .5s ease; }
+.js .animate.chart-card.in-view { opacity: 1; transform: none; }
+    </style>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Manzill Surolia",
+      "url": "https://www.manzill.com/",
+      "image": "https://www.manzill.com/manzill-og.png",
+      "jobTitle": "Cyber Security & GRC Professional",
+      "knowsAbout": ["Cyber Security", "GRC", "Compliance", "ISO 27001", "SOC 2", "PCI DSS", "HIPAA", "HITRUST", "NIST CSF", "NIST 800-53", "ISO 27701"],
+      "sameAs": ["https://in.linkedin.com/in/manzill", "https://x.com/manzill", "https://www.facebook.com/manzill"]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": ["Article", "TechArticle"],
+      "headline": "Choosing a Security Framework: 10 Frameworks, One Decision",
+      "description": "A decision guide across NIST CSF, ISO 27001, SOC 2, PCI DSS, HIPAA, HITRUST, CIS Controls, CSA CCM, NIST 800-53 and ISO 27701 — framed around the proof each produces rather than the controls they share.",
+      "author": { "@type": "Person", "name": "Manzill Surolia", "url": "https://www.manzill.com/" },
+      "publisher": { "@type": "Person", "name": "Manzill Surolia" },
+      "datePublished": "2026-07-14",
+      "dateModified": "2026-07-14",
+      "articleSection": "Cyber Security",
+      "keywords": "security framework, NIST CSF, ISO 27001, SOC 2, PCI DSS, HIPAA, HITRUST, CIS Controls, CSA CCM, NIST 800-53, ISO 27701, certification, attestation, GRC",
+      "image": "https://www.manzill.com/manzill-og.png",
+      "mainEntityOfPage": "https://www.manzill.com/choosing-a-security-framework",
+      "about": ["ISO 27001", "SOC 2", "PCI DSS", "HIPAA", "HITRUST", "NIST CSF", "NIST 800-53", "CIS Controls", "CSA CCM", "ISO 27701"]
+    }
+    </script>
+</head>
+<body>
+    <header class="site">
+      <div class="bar">
+        <a class="brand" href="/">
+          <span class="logo">M</span>
+          <span>Manzill Surolia</span>
+        </a>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <p class="eyebrow">Analysis &middot; 14 Jul 2026</p>
+        <h1>Choosing a Security Framework</h1>
+        <p class="sub">Ten major frameworks mostly ask for the same controls. So the real decision isn&rsquo;t <em>which security</em> &mdash; it&rsquo;s which <em>proof</em> your customers and regulators will accept.</p>
+      </section>
+
+      <nav class="tabs" aria-label="Sections">
+        <a class="tab" href="#overview">Overview</a>
+        <a class="tab" href="#driver">Pick by driver</a>
+        <a class="tab" href="#compared">The 10 compared</a>
+        <a class="tab" href="#assurance">Assurance ladder</a>
+        <a class="tab" href="#start-here">Start here</a>
+        <a class="tab" href="#bottom-line">Bottom line</a>
+      </nav>
+
+      <div class="layout">
+        <article class="content">
+
+          <section id="overview">
+            <div class="stat-grid animate">
+              <div class="stat"><span class="num">10</span><span class="lbl">frameworks in play</span></div>
+              <div class="stat"><span class="num">3</span><span class="lbl">assurance levels: self, attest, certify</span></div>
+              <div class="stat"><span class="num">~64%</span><span class="lbl">of controls overlap across frameworks</span></div>
+              <div class="stat"><span class="num">2</span><span class="lbl">carry the most global weight</span></div>
+              <div class="stat"><span class="num">1</span><span class="lbl">place to start (CIS)</span></div>
+            </div>
+            <p class="lede">A <a href="/">vectorised comparison of 58 frameworks</a> found that nearly two-thirds of all security controls have a semantic twin in a different framework. That reframes the whole &ldquo;which framework?&rdquo; debate: the underlying work is largely the same everywhere. What differs is the <strong>output</strong> &mdash; a certificate, an auditor&rsquo;s report, a self-attestation, or nothing but legal exposure. Choose the framework whose <em>proof</em> your buyers, auditors and regulators actually ask for, then let the shared controls satisfy the rest.</p>
+          </section>
+
+          <section id="driver">
+            <div class="section-head"><h2>1 &middot; Pick by What&rsquo;s Forcing the Decision</h2></div>
+            <p>Nobody adopts a framework in a vacuum &mdash; something is pushing: a lost deal, a payment processor, a law, a federal RFP. Name the driver and the framework usually names itself.</p>
+            <div class="table-wrap animate">
+              <table class="data-table">
+                <thead><tr><th>What&rsquo;s forcing it</th><th>Adopt</th><th>Because</th></tr></thead>
+                <tbody>
+                  <tr><td>Customers/investors want proof you&rsquo;re secure</td><td><strong>SOC 2</strong> (US) or <strong>ISO 27001</strong> (global)</td><td class="reading">The two credentials buyers recognise on sight</td></tr>
+                  <tr><td>You store or process card payments</td><td><strong>PCI DSS 4.0</strong></td><td class="reading">Mandated by the card brands &mdash; non-negotiable</td></tr>
+                  <tr><td>You handle US health data (PHI)</td><td><strong>HIPAA</strong> + <strong>HITRUST</strong></td><td class="reading">HIPAA is the law; HITRUST is how you prove it to partners</td></tr>
+                  <tr><td>You sell to the US federal government</td><td><strong>NIST 800-53</strong> / FedRAMP</td><td class="reading">The control baseline behind an ATO</td></tr>
+                  <tr><td>You&rsquo;re cloud-native or sell cloud services</td><td><strong>CSA CCM</strong> (+ ISO 27001 / SOC 2)</td><td class="reading">Cloud-specific control expectations &amp; the STAR registry</td></tr>
+                  <tr><td>You need a privacy programme (GDPR-style)</td><td><strong>ISO 27701</strong></td><td class="reading">Bolts a privacy management system onto ISO 27001</td></tr>
+                  <tr><td>You just want to get measurably more secure</td><td><strong>CIS Controls</strong>, then <strong>NIST CSF</strong></td><td class="reading">A do-this-first list, then a governance structure</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="callout"><p>&#9656; Most organisations end up carrying two or three at once &mdash; one credential customers want (ISO 27001 / SOC 2) plus whatever mandates their industry imposes (PCI, HIPAA, FedRAMP).</p></div>
+          </section>
+
+          <section id="compared">
+            <div class="section-head"><h2>2 &middot; The Ten, Compared</h2></div>
+            <p>The same ten frameworks, side by side &mdash; what kind of instrument each one is, who it fits, and the artefact it leaves you holding.</p>
+            <div class="table-wrap animate">
+              <table class="data-table">
+                <thead><tr><th>Framework</th><th>Type</th><th>Best for</th><th>Proof it produces</th></tr></thead>
+                <tbody>
+                  <tr><td><strong>NIST CSF 2.0</strong></td><td><span class="tag self">Self-assessed</span></td><td class="reading">A strategic, risk-based blueprint without certification</td><td class="reading">Maturity/tier self-assessment</td></tr>
+                  <tr><td><strong>CIS Critical Security Controls</strong></td><td><span class="tag self">Self-assessed</span></td><td class="reading">Teams wanting a prioritised, technical &ldquo;do this first&rdquo; list</td><td class="reading">IG1/IG2/IG3 self-assessment</td></tr>
+                  <tr><td><strong>CSA CCM</strong></td><td><span class="tag self">Self / STAR</span></td><td class="reading">Cloud providers &amp; consumers setting cloud expectations</td><td class="reading">CAIQ &amp; STAR registry listing</td></tr>
+                  <tr><td><strong>NIST 800-53</strong></td><td><span class="tag self">Control catalogue</span></td><td class="reading">US federal systems &amp; FedRAMP supply chains</td><td class="reading">Control baseline for an ATO</td></tr>
+                  <tr><td><strong>SOC 2</strong></td><td><span class="tag attest">Attestation</span></td><td class="reading">SaaS &amp; service providers proving controls to customers</td><td class="reading">Independent auditor&rsquo;s report (Type I/II)</td></tr>
+                  <tr><td><strong>PCI DSS 4.0</strong></td><td><span class="tag attest">Mandate</span></td><td class="reading">Anyone touching cardholder data</td><td class="reading">AOC / ROC / SAQ</td></tr>
+                  <tr><td><strong>ISO/IEC 27001</strong></td><td><span class="tag cert">Certifiable</span></td><td class="reading">Global orgs needing a recognised ISMS certificate</td><td class="reading">Accredited certificate</td></tr>
+                  <tr><td><strong>ISO/IEC 27701</strong></td><td><span class="tag cert">Certifiable ext.</span></td><td class="reading">Orgs adding a privacy (PIMS) layer to ISO 27001</td><td class="reading">Certificate (as a 27001 extension)</td></tr>
+                  <tr><td><strong>HITRUST CSF</strong></td><td><span class="tag cert">Certifiable</span></td><td class="reading">Healthcare vendors wanting one cert mapping many standards</td><td class="reading">HITRUST certification (e1/i1/r2)</td></tr>
+                  <tr><td><strong>HIPAA Security Rule</strong></td><td><span class="tag law">US law</span></td><td class="reading">Covered entities &amp; business associates handling PHI</td><td class="reading">Legal compliance (no certificate)</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="note">Types are grouped by the kind of assurance each yields &mdash; the axis that actually differentiates them, since the controls largely coincide.</p>
+          </section>
+
+          <section id="assurance">
+            <div class="section-head"><h2>3 &middot; The Assurance Ladder</h2></div>
+            <p>Frameworks differ most in how strong a promise they let you make to an outsider. That &ldquo;strength of proof&rdquo; is the axis buyers price in &mdash; a self-attestation and an accredited certificate are worlds apart in a procurement review, even when the controls behind them are identical.</p>
+            <figure class="chart-card animate">
+              <figcaption>Strength of external assurance</figcaption>
+              <div class="thr-row"><span class="thr-lab">Self-assessed<span class="thr-sub">NIST CSF, CIS, CSA CCM, 800-53 baseline</span></span><span class="meter"><span class="track"><span class="fill" style="width:40%"></span></span><b>1&times;</b></span></div>
+              <div class="thr-row"><span class="thr-lab">Third-party attested<span class="thr-sub">SOC 2, PCI DSS (QSA)</span></span><span class="meter"><span class="track"><span class="fill" style="width:70%"></span></span><b>2&times;</b></span></div>
+              <div class="thr-row"><span class="thr-lab">Accredited certification<span class="thr-sub">ISO 27001, ISO 27701, HITRUST</span></span><span class="meter"><span class="track"><span class="fill" style="width:100%"></span></span><b>3&times;</b></span></div>
+            </figure>
+            <div class="callout"><p>&#9656; Climb the ladder only as far as your buyers require. Paying for a certification when customers would accept a SOC 2 report &mdash; or a SOC 2 when they&rsquo;d accept a questionnaire &mdash; is spend without a sale attached.</p></div>
+          </section>
+
+          <section id="start-here">
+            <div class="section-head"><h2>4 &middot; A Sane Order to Adopt Them</h2></div>
+            <p>Because the controls overlap so heavily, you don&rsquo;t choose one framework and abandon the rest &mdash; you build the shared control core once, then attach whichever proofs the market demands. A defensible sequence:</p>
+            <ol class="steps">
+              <li><strong>CIS Controls (IG1)</strong> &mdash; stop the bleeding with concrete technical hygiene; no auditor required.</li>
+              <li><strong>NIST CSF 2.0</strong> &mdash; wrap the controls in a governance structure (Govern, Identify, Protect, Detect, Respond, Recover).</li>
+              <li><strong>ISO 27001 <em>or</em> SOC 2</strong> &mdash; earn the one credential your customers keep asking for (global &rarr; ISO; US SaaS &rarr; SOC 2).</li>
+              <li><strong>Layer the mandates</strong> &mdash; add PCI (cards), HIPAA/HITRUST (health), 800-53/FedRAMP (federal) or ISO 27701 (privacy) only as they apply.</li>
+            </ol>
+          </section>
+
+          <section id="bottom-line">
+            <div class="section-head"><h2>Bottom line</h2></div>
+            <ul class="takeaways">
+              <li><strong>The controls are shared; the proof is not</strong> &mdash; choose for the artefact your market accepts, not the control list.</li>
+              <li><strong>Name the driver first</strong> &mdash; a lost deal points to SOC 2/ISO; cards point to PCI; PHI points to HIPAA/HITRUST.</li>
+              <li><strong>Assurance has a ladder</strong> &mdash; self-assessed, attested, certified &mdash; and buyers pay for the rung, so climb only as high as they ask.</li>
+              <li><strong>Build once, certify many</strong> &mdash; ~64% control overlap means a single control programme feeds most frameworks.</li>
+              <li><strong>Start with CIS, structure with CSF</strong> &mdash; then attach the credential; don&rsquo;t begin with the certificate.</li>
+            </ul>
+            <p class="method"><strong>Sources &amp; method.</strong> Framework characteristics are drawn from each body&rsquo;s published materials (NIST CSF 2.0, ISO/IEC 27001 &amp; 27701, AICPA SOC 2 Trust Services Criteria, PCI DSS 4.0, the HIPAA Security Rule, HITRUST CSF, CIS Controls v8, CSA Cloud Controls Matrix, NIST SP 800-53). The overlap figure comes from the companion analysis, <a href="/">Regulatory Controls, Decoded</a>. Guidance here is general and not a substitute for legal or audit advice. Original analysis; no third-party material reproduced.</p>
+          </section>
+
+        </article>
+
+        <aside class="sidebar">
+          <div class="editorial-card author-card">
+            <h2>About the Author</h2>
+            <p class="name">Manzill Surolia</p>
+            <p><strong>Education:</strong> LL.B, MCA</p>
+            <p><strong>Experience:</strong> Cyber security professional with over 10 years of experience in cyber security, governance, risk management, and compliance. Strong background in governance, risk, and compliance (GRC), with hands-on experience in security auditing, regulatory compliance (HITRUST, PCI-DSS, FedRAMP, ISO 27001, NIST), and overseeing data protection measures. Adept in designing incident response plans, business continuity plans (BCP), and driving initiatives in security posture management.</p>
+            <p class="socials">
+              <a href="https://in.linkedin.com/in/manzill" rel="me">LinkedIn</a> &middot;
+              <a href="https://x.com/manzill" rel="me">X</a> &middot;
+              <a href="https://www.facebook.com/manzill" rel="me">Facebook</a>
+              <span class="tag-hash">&nbsp;&middot; #Manzill</span>
+            </p>
+            <div class="byline">&copy; 2026 <strong>Manzill Surolia</strong>. All rights reserved.</div>
+          </div>
+
+          <div class="editorial-card more-card">
+            <h2>More analysis</h2>
+            <ul class="more-list">
+              <li><a href="/">Regulatory Controls, Decoded</a><span class="m-desc">58 security &amp; privacy frameworks, vectorised</span></li>
+              <li><a href="/iso-27001-2022">ISO 27001:2013 &rarr; 2022</a><span class="m-desc">114 controls became 93 &mdash; what moved</span></li>
+              <li><a href="/security-tooling-landscape">The Security Tooling Landscape</a><span class="m-desc">~150 tools across 17 categories, mapped</span></li>
+            </ul>
+          </div>
+        </aside>
+      </div>
+    </main>
+
+    <footer class="site-foot">
+      <div class="foot-in">
+        <span>&copy; 2026 <strong>Manzill Surolia</strong></span>
+        <span class="sep">&middot;</span>
+        <a href="/">Home</a>
+        <a href="/iso-27001-2022">ISO 27001:2022</a>
+        <a href="/security-tooling-landscape">Tooling landscape</a>
+        <span class="sep">&middot;</span>
+        <a href="https://in.linkedin.com/in/manzill" rel="me">LinkedIn</a>
+      </div>
+    </footer>
+
+    <script>
+    (function () {
+      var els = document.querySelectorAll('.animate');
+      var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (reduce || !('IntersectionObserver' in window)) {
+        els.forEach(function (el) { el.classList.add('in-view'); });
+        return;
+      }
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) { e.target.classList.add('in-view'); io.unobserve(e.target); }
+        });
+      }, { threshold: 0.15 });
+      els.forEach(function (el) { io.observe(el); });
+    })();
+    </script>
+</body>
+</html>

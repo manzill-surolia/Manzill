@@ -583,6 +583,14 @@ aside.sidebar { position: sticky; top: 64px; }
 .author-card .socials a:hover { text-decoration: underline; }
 .author-card .tag-hash { color: var(--muted); }
 
+.more-card h2 { color: var(--link); }
+ul.more-list { margin: 4px 0 0; padding: 0; list-style: none; }
+ul.more-list li { padding: 9px 0; border-bottom: 1px solid var(--border); }
+ul.more-list li:last-child { border-bottom: 0; }
+ul.more-list a { font-weight: 700; color: var(--link); }
+ul.more-list a:hover { text-decoration: underline; }
+ul.more-list .m-desc { display: block; font-size: .82rem; color: var(--muted); font-weight: 400; margin-top: 2px; }
+
 @media (max-width: 860px) {
   .layout { grid-template-columns: minmax(0, 1fr); gap: 8px; }
   aside.sidebar { position: static; margin-top: 8px; }
@@ -839,6 +847,15 @@ aside.sidebar { position: sticky; top: 64px; }
               <span class="tag-hash">&nbsp;&middot; #Manzill</span>
             </p>
             <div class="byline">&copy; 2026 <strong>Manzill Surolia</strong>. All rights reserved.</div>
+          </div>
+
+          <div class="editorial-card more-card">
+            <h2>More analysis</h2>
+            <ul class="more-list">
+              <li><a href="/iso-27001-2022">ISO 27001:2013 &rarr; 2022, Quantified</a><span class="m-desc">114 controls became 93 &mdash; what actually moved</span></li>
+              <li><a href="/security-tooling-landscape">The Cybersecurity Tooling Landscape</a><span class="m-desc">~150 tools across 17 categories, mapped to 6 jobs</span></li>
+              <li><a href="/choosing-a-security-framework">Choosing a Security Framework</a><span class="m-desc">10 frameworks, one decision</span></li>
+            </ul>
           </div>
         </aside>
       </div>

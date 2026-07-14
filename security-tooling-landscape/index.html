@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#0e3a5f">
+
+    <title>The Cybersecurity Tooling Landscape, Mapped | Manzill Surolia</title>
+    <meta name="description" content="Roughly 150 security products span 17 categories &mdash; but they do only 6 jobs, and a handful of platform vendors now span up to half the map. A facts-first read of the security tooling market, with the open-source substitutes for each category. By Manzill Surolia.">
+    <meta name="keywords" content="cybersecurity tools, SIEM, SOAR, EDR, XDR, NDR, CSPM, CNAPP, ZTNA, PAM, IAM, DLP, attack surface management, threat intelligence, security platform consolidation, open source security tools">
+    <meta name="author" content="Manzill Surolia">
+
+    <link rel="canonical" href="https://www.manzill.com/security-tooling-landscape">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="icon" type="image/png" sizes="512x512" href="/icon.png">
+    <link rel="apple-touch-icon" href="/icon.png">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Manzill Surolia">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:title" content="The Cybersecurity Tooling Landscape, Mapped">
+    <meta property="og:description" content="~150 products, 17 categories, 6 real jobs. The security market looks sprawling but is consolidating into platforms &mdash; measured, not asserted.">
+    <meta property="og:url" content="https://www.manzill.com/security-tooling-landscape">
+    <meta property="og:image" content="https://www.manzill.com/manzill-og.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:alt" content="Manzill Surolia &mdash; security tooling landscape">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="The Cybersecurity Tooling Landscape, Mapped">
+    <meta name="twitter:description" content="~150 products, 17 categories, 6 real jobs &mdash; and a market quietly consolidating into platforms. By Manzill Surolia.">
+    <meta name="twitter:image" content="https://www.manzill.com/manzill-og.png">
+    <meta name="twitter:image:alt" content="Manzill Surolia &mdash; security tooling landscape">
+
+    <!-- Fonts: Inter (modern UI) with system fallback -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap">
+
+    <script>document.documentElement.classList.add('js');</script>
+
+    <style>
+:root {
+  --brand: #0e3a5f;
+  --brand-dark: #082438;
+  --link: #0d5d92;
+  --accent: #12a5b8;
+  --bg: #f6f8fa;
+  --surface: #ffffff;
+  --text: #0f1a24;
+  --muted: #55636e;
+  --border: #dde4ea;
+  --shadow: 0 1px 3px rgba(0,0,0,.06), 0 4px 12px rgba(0,0,0,.04);
+  --radius: 12px;
+  --maxw: 1100px;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --link: #5cb3e0;
+    --bg: #0d1117;
+    --surface: #161b22;
+    --text: #e6edf3;
+    --muted: #8b98a5;
+    --border: #26303b;
+    --shadow: 0 1px 3px rgba(0,0,0,.4), 0 4px 12px rgba(0,0,0,.3);
+  }
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: inherit; text-decoration: none; }
+img { display: block; max-width: 100%; height: auto; }
+
+header.site {
+  background: var(--brand);
+  color: #fff;
+  border-bottom: 3px solid var(--accent);
+  box-shadow: var(--shadow);
+}
+.bar {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.brand { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 1.4rem; }
+.brand .logo {
+  width: 34px; height: 34px; background: #fff; color: var(--brand);
+  border-radius: 8px; display: grid; place-items: center;
+  font-weight: 900; font-size: 1.15rem; font-family: system-ui, sans-serif;
+}
+
+main { max-width: var(--maxw); margin: 0 auto; padding: 20px 16px 60px; }
+
+.section-head { display: flex; align-items: baseline; gap: 12px; margin: 8px 0 14px; }
+.section-head h2 {
+  font-size: 1.25rem; margin: 0; padding-left: 12px;
+  border-left: 4px solid var(--brand); font-weight: 800;
+}
+
+.tabs {
+  display: flex; gap: 6px; overflow-x: auto; -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin; background: var(--surface); border: 1px solid var(--border);
+  border-radius: 999px; padding: 6px; margin: 4px 0 22px;
+  position: sticky; top: 8px; z-index: 10; box-shadow: var(--shadow);
+}
+.tabs::-webkit-scrollbar { height: 4px; }
+.tab {
+  flex: 0 0 auto; background: transparent; border: 0; color: var(--text);
+  text-decoration: none; padding: 8px 14px; border-radius: 999px;
+  font-family: inherit; font-size: .92rem; font-weight: 600; cursor: pointer;
+  white-space: nowrap; display: inline-flex; align-items: center; gap: 6px;
+  transition: background .15s ease, color .15s ease;
+}
+.tab:hover { background: rgba(14,58,95,.08); }
+.tab[aria-selected="true"] { background: var(--brand); color: #fff; }
+@media (prefers-color-scheme: dark) { .tab:hover { background: rgba(255,255,255,.06); } }
+
+.editorial-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-left: 4px solid var(--accent); border-radius: var(--radius);
+  padding: 18px 20px; margin-bottom: 18px; box-shadow: var(--shadow);
+}
+.editorial-card h2 { margin: 0 0 10px; font-size: 1.1rem; font-weight: 800; color: var(--link); }
+.editorial-card p { margin: 0 0 12px; font-size: .95rem; line-height: 1.7; }
+.editorial-card .byline {
+  margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--border);
+  font-size: .85rem; color: var(--muted);
+}
+.editorial-card .byline strong { color: var(--text); }
+
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
+
+.hero { margin: 26px 0 6px; }
+.hero .eyebrow { margin: 0 0 6px; font-size: .8rem; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; color: var(--link); }
+.hero h1 { font-size: clamp(1.5rem, 3.2vw, 2.05rem); line-height: 1.12; letter-spacing: -.015em; margin: 0; font-weight: 800; }
+.hero .sub { margin: .5rem 0 0; color: var(--muted); font-size: clamp(1rem, 2.2vw, 1.18rem); max-width: 62ch; }
+
+.layout { display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: 30px; align-items: start; }
+article.content, aside.sidebar { min-width: 0; }
+article.content > section { margin-bottom: 40px; scroll-margin-top: 64px; }
+article.content > section:first-child { margin-top: 6px; }
+article.content p { margin: 0 0 14px; }
+.lede { font-size: 1.06rem; line-height: 1.72; }
+.note { font-size: .88rem; color: var(--muted); margin: 6px 0 0; }
+.reading { color: var(--muted); }
+
+.stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin: 18px 0 22px; }
+.stat {
+  background: linear-gradient(135deg, var(--brand), var(--brand-dark)); color: #fff;
+  border-radius: var(--radius); padding: 16px 16px 14px; box-shadow: var(--shadow);
+  display: flex; flex-direction: column; gap: 4px; border-top: 3px solid var(--accent);
+}
+.stat .num { font-size: 2rem; font-weight: 900; line-height: 1; letter-spacing: -.02em; }
+.stat .lbl { font-size: .82rem; opacity: .95; line-height: 1.35; }
+
+.meter { display: flex; align-items: center; gap: 10px; }
+.meter .track { flex: 1 1 auto; min-width: 60px; height: 9px; background: var(--border); border-radius: 999px; overflow: hidden; }
+.meter .fill { display: block; height: 100%; background: linear-gradient(90deg, var(--brand), var(--brand-dark)); border-radius: 999px; }
+.meter b { font-variant-numeric: tabular-nums; min-width: 3.4ch; text-align: right; font-weight: 700; }
+
+.chart-card { margin: 22px 0 0; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px 18px 18px; box-shadow: var(--shadow); }
+.chart-card figcaption { font-weight: 700; font-size: .95rem; margin-bottom: 12px; padding-left: 10px; border-left: 3px solid var(--accent); }
+.thr-row { display: flex; align-items: center; gap: 14px; margin: 10px 0; }
+.thr-lab { flex: 0 0 168px; font-size: .86rem; font-weight: 600; }
+.thr-sub { display: block; color: var(--muted); font-weight: 400; font-size: .78rem; }
+.chart-card .meter { flex: 1; }
+
+.table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow); background: var(--surface); }
+table.data-table { border-collapse: collapse; width: 100%; font-size: .92rem; }
+table.data-table th, table.data-table td { text-align: left; padding: 11px 14px; vertical-align: top; border-bottom: 1px solid var(--border); }
+table.data-table thead th { background: var(--brand); color: #fff; font-weight: 700; font-size: .82rem; letter-spacing: .01em; white-space: nowrap; }
+table.data-table tbody tr:nth-child(even) { background: rgba(14,58,95,.035); }
+table.data-table tbody tr:last-child td { border-bottom: 0; }
+table.data-table tbody tr:hover { background: rgba(14,58,95,.07); }
+td.ref { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-weight: 700; color: var(--link); white-space: nowrap; }
+.mcell { min-width: 160px; }
+.tag { display: inline-block; font-size: .72rem; font-weight: 700; padding: 2px 8px; border-radius: 999px; background: rgba(18,165,184,.14); color: var(--link); white-space: nowrap; }
+@media (prefers-color-scheme: dark) {
+  table.data-table tbody tr:nth-child(even) { background: rgba(255,255,255,.03); }
+  table.data-table tbody tr:hover { background: rgba(14,58,95,.16); }
+}
+
+.callout { background: rgba(18,165,184,.10); border: 1px solid var(--border); border-left: 4px solid var(--accent); border-radius: var(--radius); padding: 14px 18px; margin: 16px 0 0; }
+.callout p { margin: 0; font-weight: 600; color: var(--text); }
+
+ul.takeaways { margin: 6px 0 0; padding-left: 0; list-style: none; }
+ul.takeaways li { position: relative; padding: 10px 0 10px 30px; border-bottom: 1px solid var(--border); font-size: .98rem; }
+ul.takeaways li:last-child { border-bottom: 0; }
+ul.takeaways li::before { content: "\25B8"; color: var(--link); position: absolute; left: 6px; top: 10px; font-weight: 900; }
+.method { margin-top: 22px; font-size: .86rem; color: var(--muted); background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px 16px; }
+.method strong { color: var(--text); }
+
+aside.sidebar { position: sticky; top: 64px; }
+.author-card p.name { font-size: 1.15rem; font-weight: 800; color: var(--text); margin-bottom: 10px; }
+.author-card .socials { font-size: .9rem; }
+.author-card .socials a { color: var(--link); font-weight: 700; }
+.author-card .socials a:hover { text-decoration: underline; }
+.author-card .tag-hash { color: var(--muted); }
+
+.more-card h2 { color: var(--link); }
+ul.more-list { margin: 4px 0 0; padding: 0; list-style: none; }
+ul.more-list li { padding: 9px 0; border-bottom: 1px solid var(--border); }
+ul.more-list li:last-child { border-bottom: 0; }
+ul.more-list a { font-weight: 700; color: var(--link); }
+ul.more-list a:hover { text-decoration: underline; }
+ul.more-list .m-desc { display: block; font-size: .82rem; color: var(--muted); font-weight: 400; margin-top: 2px; }
+
+footer.site-foot { border-top: 1px solid var(--border); background: var(--surface); color: var(--muted); font-size: .86rem; }
+footer.site-foot .foot-in { max-width: var(--maxw); margin: 0 auto; padding: 20px 16px; display: flex; flex-wrap: wrap; gap: 8px 18px; align-items: center; }
+footer.site-foot a { color: var(--link); font-weight: 700; }
+footer.site-foot a:hover { text-decoration: underline; }
+footer.site-foot .sep { opacity: .5; }
+
+@media (max-width: 860px) { .layout { grid-template-columns: minmax(0, 1fr); gap: 8px; } aside.sidebar { position: static; margin-top: 8px; } }
+
+.js .meter .fill { transform: scaleX(0); transform-origin: left; transition: transform .9s cubic-bezier(.22,1,.36,1); }
+.js .animate.in-view .meter .fill { transform: scaleX(1); }
+.js .animate.stat-grid .stat { opacity: 0; transform: translateY(12px); transition: opacity .5s ease, transform .5s ease; }
+.js .animate.stat-grid.in-view .stat { opacity: 1; transform: none; }
+.js .animate.stat-grid.in-view .stat:nth-child(2){ transition-delay: .07s; }
+.js .animate.stat-grid.in-view .stat:nth-child(3){ transition-delay: .14s; }
+.js .animate.stat-grid.in-view .stat:nth-child(4){ transition-delay: .21s; }
+.js .animate.stat-grid.in-view .stat:nth-child(5){ transition-delay: .28s; }
+.js .animate table.data-table tbody tr { opacity: 0; transform: translateY(6px); transition: opacity .45s ease, transform .45s ease; }
+.js .animate.in-view table.data-table tbody tr { opacity: 1; transform: none; }
+.js .animate.in-view table.data-table tbody tr:nth-child(2){ transition-delay: .04s; }
+.js .animate.in-view table.data-table tbody tr:nth-child(3){ transition-delay: .08s; }
+.js .animate.in-view table.data-table tbody tr:nth-child(4){ transition-delay: .12s; }
+.js .animate.in-view table.data-table tbody tr:nth-child(5){ transition-delay: .16s; }
+.js .animate.in-view table.data-table tbody tr:nth-child(6){ transition-delay: .20s; }
+.js .animate.in-view table.data-table tbody tr:nth-child(7){ transition-delay: .24s; }
+.js .animate.in-view table.data-table tbody tr:nth-child(8){ transition-delay: .28s; }
+.js .animate.chart-card { opacity: 0; transform: translateY(10px); transition: opacity .5s ease, transform .5s ease; }
+.js .animate.chart-card.in-view { opacity: 1; transform: none; }
+    </style>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Manzill Surolia",
+      "url": "https://www.manzill.com/",
+      "image": "https://www.manzill.com/manzill-og.png",
+      "jobTitle": "Cyber Security & GRC Professional",
+      "knowsAbout": ["Cyber Security", "Security Operations", "SIEM", "SOAR", "EDR", "XDR", "Cloud Security", "Risk Management", "GRC"],
+      "sameAs": ["https://in.linkedin.com/in/manzill", "https://x.com/manzill", "https://www.facebook.com/manzill"]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": ["Article", "TechArticle"],
+      "headline": "The Cybersecurity Tooling Landscape, Mapped",
+      "description": "A facts-first analysis of the security tooling market: ~150 products across 17 categories reduce to 6 core jobs, with a handful of platform vendors spanning much of the map.",
+      "author": { "@type": "Person", "name": "Manzill Surolia", "url": "https://www.manzill.com/" },
+      "publisher": { "@type": "Person", "name": "Manzill Surolia" },
+      "datePublished": "2026-07-14",
+      "dateModified": "2026-07-14",
+      "articleSection": "Cyber Security",
+      "keywords": "cybersecurity tools, SIEM, SOAR, EDR, XDR, NDR, CSPM, CNAPP, ZTNA, PAM, IAM, DLP, attack surface management, threat intelligence, platform consolidation, open source security",
+      "image": "https://www.manzill.com/manzill-og.png",
+      "mainEntityOfPage": "https://www.manzill.com/security-tooling-landscape",
+      "about": ["Security Operations", "SIEM", "EDR", "XDR", "CNAPP", "Security platform consolidation", "Open source security tools"]
+    }
+    </script>
+</head>
+<body>
+    <header class="site">
+      <div class="bar">
+        <a class="brand" href="/">
+          <span class="logo">M</span>
+          <span>Manzill Surolia</span>
+        </a>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <p class="eyebrow">Analysis &middot; 14 Jul 2026</p>
+        <h1>The Cybersecurity Tooling Landscape, Mapped</h1>
+        <p class="sub">About 150 products fill 17 acronym-named categories. Strip the branding and the market does just six jobs &mdash; and a handful of vendors now do most of them.</p>
+      </section>
+
+      <nav class="tabs" aria-label="Sections">
+        <a class="tab" href="#overview">Overview</a>
+        <a class="tab" href="#six-jobs">Six jobs</a>
+        <a class="tab" href="#platforms">Platform players</a>
+        <a class="tab" href="#convergence">Convergence</a>
+        <a class="tab" href="#open-source">Open-source stack</a>
+        <a class="tab" href="#bottom-line">Bottom line</a>
+      </nav>
+
+      <div class="layout">
+        <article class="content">
+
+          <section id="overview">
+            <div class="stat-grid animate">
+              <div class="stat"><span class="num">~150</span><span class="lbl">products catalogued</span></div>
+              <div class="stat"><span class="num">17</span><span class="lbl">named categories</span></div>
+              <div class="stat"><span class="num">6</span><span class="lbl">jobs they actually do</span></div>
+              <div class="stat"><span class="num">9</span><span class="lbl">categories the top platform spans</span></div>
+              <div class="stat"><span class="num">10+</span><span class="lbl">open-source substitutes</span></div>
+            </div>
+            <p class="lede">The security market <em>looks</em> like an unmanageable wall of acronyms &mdash; SIEM, SOAR, EDR, XDR, NDR, CSPM, CNAPP, ZTNA, PAM, DLP, ASM, TIP. Catalogue the roughly 150 named products and the sprawl collapses. The 17 categories answer only <strong>six underlying jobs</strong>; the same seven or eight vendors reappear category after category; and almost every category has a mature <strong>open-source substitute</strong>. What reads as 17 buying decisions is closer to six &mdash; and increasingly one platform decision.</p>
+
+            <figure class="chart-card animate">
+              <figcaption>Where the 17 categories sit &mdash; share by job</figcaption>
+              <div class="thr-row"><span class="thr-lab">Detect &amp; Respond<span class="thr-sub">SIEM, SOAR, EDR, NDR, XDR, TIP, deception</span></span><span class="meter"><span class="track"><span class="fill" style="width:100%"></span></span><b>7</b></span></div>
+              <div class="thr-row"><span class="thr-lab">Manage Exposure<span class="thr-sub">ASM, vuln/patch, CSPM/CNAPP</span></span><span class="meter"><span class="track"><span class="fill" style="width:43%"></span></span><b>3</b></span></div>
+              <div class="thr-row"><span class="thr-lab">Control Identity<span class="thr-sub">IAM, PAM, ZTNA</span></span><span class="meter"><span class="track"><span class="fill" style="width:43%"></span></span><b>3</b></span></div>
+              <div class="thr-row"><span class="thr-lab">Protect Data<span class="thr-sub">DLP, email / anti-phishing</span></span><span class="meter"><span class="track"><span class="fill" style="width:29%"></span></span><b>2</b></span></div>
+              <div class="thr-row"><span class="thr-lab">Govern Risk<span class="thr-sub">GRC</span></span><span class="meter"><span class="track"><span class="fill" style="width:14%"></span></span><b>1</b></span></div>
+              <div class="thr-row"><span class="thr-lab">Test Defences<span class="thr-sub">pen-test / red-team</span></span><span class="meter"><span class="track"><span class="fill" style="width:14%"></span></span><b>1</b></span></div>
+            </figure>
+          </section>
+
+          <section id="six-jobs">
+            <div class="section-head"><h2>1 &middot; Seventeen Categories, Six Jobs</h2></div>
+            <p>Every acronym in the landscape is a tool built to do one of six things: find and stop attacks, shrink what&rsquo;s exposed, decide who gets in, keep data from leaving, prove you&rsquo;re governed, or check your own defences. Grouping the categories by <em>job</em> &mdash; not by vendor marketing &mdash; is what makes the market legible.</p>
+            <div class="table-wrap animate">
+              <table class="data-table">
+                <thead><tr><th>Job</th><th>Categories it covers</th><th>The question it answers</th></tr></thead>
+                <tbody>
+                  <tr><td><strong>Detect &amp; Respond</strong></td><td class="reading">SIEM, SOAR, EDR, NDR, XDR, Threat Intelligence, Deception</td><td class="reading">&ldquo;Is something happening, and can we stop it fast?&rdquo;</td></tr>
+                  <tr><td><strong>Manage Exposure</strong></td><td class="reading">Attack Surface Mgmt, Vulnerability/Patch Mgmt, CSPM/CNAPP</td><td class="reading">&ldquo;What can an attacker even reach?&rdquo;</td></tr>
+                  <tr><td><strong>Control Identity</strong></td><td class="reading">IAM, Privileged Access Mgmt, Zero-Trust Network Access</td><td class="reading">&ldquo;Who is this, and what should they touch?&rdquo;</td></tr>
+                  <tr><td><strong>Protect Data</strong></td><td class="reading">Data Loss Prevention, Email Security / Anti-Phishing</td><td class="reading">&ldquo;Is sensitive data staying where it belongs?&rdquo;</td></tr>
+                  <tr><td><strong>Govern Risk</strong></td><td class="reading">GRC platforms</td><td class="reading">&ldquo;Can we prove we&rsquo;re managing all of the above?&rdquo;</td></tr>
+                  <tr><td><strong>Test Defences</strong></td><td class="reading">Penetration testing / red-team / adversary simulation</td><td class="reading">&ldquo;Does any of this actually work?&rdquo;</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="callout"><p>&#9656; Buy for the job, not the acronym. Two &ldquo;different&rdquo; products in the same job column are usually competing for the same budget line &mdash; the overlap is the point, not a feature.</p></div>
+          </section>
+
+          <section id="platforms">
+            <div class="section-head"><h2>2 &middot; The Platform Players: Few Vendors, Many Boxes</h2></div>
+            <p>The clearest signal in the landscape is repetition. Map each vendor to the categories it appears in and a short list of platform players emerges &mdash; suites that already span a third to half of the entire market. This is why &ldquo;best-of-breed vs platform&rdquo; is the defining procurement question of the decade.</p>
+            <div class="table-wrap animate">
+              <table class="data-table">
+                <thead><tr><th>Vendor</th><th>Categories spanned (of 17)</th><th>Where it shows up</th></tr></thead>
+                <tbody>
+                  <tr><td><strong>Microsoft</strong></td><td class="mcell"><span class="meter"><span class="track"><span class="fill" style="width:100%"></span></span><b>9</b></span></td><td class="reading">Sentinel (SIEM), Defender EDR/XDR, O365 email, Entra (IAM), Purview (DLP), Defender for Cloud, Defender Vuln Mgmt, Zero Trust</td></tr>
+                  <tr><td><strong>Palo Alto Networks</strong></td><td class="mcell"><span class="meter"><span class="track"><span class="fill" style="width:89%"></span></span><b>8</b></span></td><td class="reading">Cortex XSOAR/XDR, Xpanse (ASM), Prisma Cloud (CNAPP), Prisma Access (ZTNA), AutoFocus (TIP), NDR</td></tr>
+                  <tr><td><strong>Fortinet</strong></td><td class="mcell"><span class="meter"><span class="track"><span class="fill" style="width:56%"></span></span><b>5</b></span></td><td class="reading">FortiSOAR, FortiEDR, FortiXDR, FortiMail, Fortinet ZTNA</td></tr>
+                  <tr><td><strong>IBM</strong></td><td class="mcell"><span class="meter"><span class="track"><span class="fill" style="width:56%"></span></span><b>5</b></span></td><td class="reading">QRadar (SIEM), Resilient (SOAR), Randori (ASM), OpenPages (GRC), X-Force (TIP)</td></tr>
+                  <tr><td><strong>Trellix</strong></td><td class="mcell"><span class="meter"><span class="track"><span class="fill" style="width:44%"></span></span><b>4</b></span></td><td class="reading">EDR, NDR, XDR, DLP</td></tr>
+                  <tr><td><strong>Cisco</strong></td><td class="mcell"><span class="meter"><span class="track"><span class="fill" style="width:44%"></span></span><b>4</b></span></td><td class="reading">Stealthwatch (NDR), Secure Email, Duo (IAM/ZTNA), Kenna (vuln)</td></tr>
+                  <tr><td><strong>Trend Micro</strong></td><td class="mcell"><span class="meter"><span class="track"><span class="fill" style="width:44%"></span></span><b>4</b></span></td><td class="reading">Vision One (EDR/XDR), email security, Cloud One (CSPM)</td></tr>
+                  <tr><td><strong>SentinelOne</strong></td><td class="mcell"><span class="meter"><span class="track"><span class="fill" style="width:33%"></span></span><b>3</b></span></td><td class="reading">Singularity EDR/XDR, Attivo (deception)</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="note">Category spans are counted across the 17 functional categories in this landscape, based on the products each vendor fields in it &mdash; a directional read of reach, not market share.</p>
+          </section>
+
+          <section id="convergence">
+            <div class="section-head"><h2>3 &middot; The Convergence: Everything Is Becoming XDR</h2></div>
+            <p>The category list is a snapshot of a market mid-merge. Four originally separate boxes &mdash; endpoint (EDR), network (NDR), log analytics (SIEM) and automation (SOAR) &mdash; are collapsing into a single detection-and-response plane branded XDR. On the exposure side, standalone vulnerability scanning, cloud posture (CSPM) and workload protection are fusing into CNAPP. Identity is pulling IAM, PAM and network access (ZTNA) toward one control point.</p>
+            <div class="table-wrap animate">
+              <table class="data-table">
+                <thead><tr><th>Converging into</th><th>Absorbs</th><th>Driver</th></tr></thead>
+                <tbody>
+                  <tr><td><strong>XDR</strong></td><td class="reading">EDR + NDR + SIEM + SOAR + threat intel</td><td class="reading">Correlation across signals beats siloed alerts; less swivel-chair</td></tr>
+                  <tr><td><strong>CNAPP</strong></td><td class="reading">CSPM + vulnerability mgmt + workload &amp; IaC scanning</td><td class="reading">Cloud risk is one continuum from code to runtime</td></tr>
+                  <tr><td><strong>Identity fabric</strong></td><td class="reading">IAM + PAM + ZTNA + ITDR</td><td class="reading">Identity is the perimeter; access decisions want one brain</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="callout"><p>&#9656; The 17-box map is already dating. Buy a point tool today and you may be buying a feature of tomorrow&rsquo;s platform &mdash; so weight integration and data portability as heavily as the feature checklist.</p></div>
+          </section>
+
+          <section id="open-source">
+            <div class="section-head"><h2>4 &middot; The Shadow Stack: Open Source Covers Most of It</h2></div>
+            <p>Almost every commercial category has a battle-tested open-source counterpart. A capable team can assemble a credible detection-and-response stack for the cost of the people running it &mdash; which reframes many &ldquo;buy&rdquo; decisions as &ldquo;buy the time, not the tool.&rdquo;</p>
+            <div class="table-wrap animate">
+              <table class="data-table">
+                <thead><tr><th>Commercial category</th><th>Open-source substitute</th><th>Does the job of</th></tr></thead>
+                <tbody>
+                  <tr><td>SIEM / log analytics</td><td><span class="tag">Wazuh</span> &middot; <span class="tag">Elastic</span></td><td class="reading">Collection, correlation, alerting</td></tr>
+                  <tr><td>NDR / IDS</td><td><span class="tag">Zeek</span> &middot; <span class="tag">Suricata</span> &middot; <span class="tag">Snort</span></td><td class="reading">Network detection &amp; traffic analysis</td></tr>
+                  <tr><td>SOAR / case mgmt</td><td><span class="tag">TheHive</span></td><td class="reading">Incident response orchestration</td></tr>
+                  <tr><td>Threat Intelligence</td><td><span class="tag">MISP</span> &middot; <span class="tag">OTX</span></td><td class="reading">Indicator sharing &amp; enrichment</td></tr>
+                  <tr><td>Vulnerability scanning</td><td><span class="tag">OpenVAS</span> (Greenbone)</td><td class="reading">Network &amp; host vuln assessment</td></tr>
+                  <tr><td>Digital forensics / DFIR</td><td><span class="tag">Velociraptor</span></td><td class="reading">Endpoint hunting &amp; evidence collection</td></tr>
+                  <tr><td>Detection engineering</td><td><span class="tag">Sigma</span> &middot; <span class="tag">YARA</span></td><td class="reading">Portable detection &amp; malware rules</td></tr>
+                  <tr><td>Adversary simulation</td><td><span class="tag">Caldera</span> (MITRE ATT&amp;CK)</td><td class="reading">Automated red-team / emulation</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="note">The trade is real: open source shifts spend from licences to skilled engineering time and integration effort. It is cheapest where you already have the talent.</p>
+          </section>
+
+          <section id="bottom-line">
+            <div class="section-head"><h2>Bottom line</h2></div>
+            <ul class="takeaways">
+              <li><strong>Seventeen categories, six jobs</strong> &mdash; organise your stack by job and the map stops being intimidating.</li>
+              <li><strong>The platforms already won the middle</strong> &mdash; Microsoft and Palo Alto each span roughly half the categories; consolidation is the default, not the exception.</li>
+              <li><strong>XDR and CNAPP are absorbing point tools</strong> &mdash; buy for integration and data portability, because today&rsquo;s product is tomorrow&rsquo;s feature.</li>
+              <li><strong>Open source covers most categories</strong> &mdash; the question is whether you&rsquo;re buying the tool or the team-time to run it.</li>
+              <li><strong>Coverage &gt; count</strong> &mdash; ten well-integrated tools mapped to the six jobs beat thirty overlapping ones and their alert fatigue.</li>
+            </ul>
+            <p class="method"><strong>Sources &amp; method.</strong> The category list and product names are drawn from published security technology-stack maps and vendor documentation; products were grouped into 17 functional categories, then into six jobs, and each vendor&rsquo;s category span was counted across that landscape. Vendor spans are a directional measure of breadth in this map, not market share. Open-source substitutes are widely used projects for each category. This is original analysis; no third-party graphics or text are reproduced.</p>
+          </section>
+
+        </article>
+
+        <aside class="sidebar">
+          <div class="editorial-card author-card">
+            <h2>About the Author</h2>
+            <p class="name">Manzill Surolia</p>
+            <p><strong>Education:</strong> LL.B, MCA</p>
+            <p><strong>Experience:</strong> Cyber security professional with over 10 years of experience in cyber security, governance, risk management, and compliance. Strong background in governance, risk, and compliance (GRC), with hands-on experience in security auditing, regulatory compliance (HITRUST, PCI-DSS, FedRAMP, ISO 27001, NIST), and overseeing data protection measures. Adept in designing incident response plans, business continuity plans (BCP), and driving initiatives in security posture management.</p>
+            <p class="socials">
+              <a href="https://in.linkedin.com/in/manzill" rel="me">LinkedIn</a> &middot;
+              <a href="https://x.com/manzill" rel="me">X</a> &middot;
+              <a href="https://www.facebook.com/manzill" rel="me">Facebook</a>
+              <span class="tag-hash">&nbsp;&middot; #Manzill</span>
+            </p>
+            <div class="byline">&copy; 2026 <strong>Manzill Surolia</strong>. All rights reserved.</div>
+          </div>
+
+          <div class="editorial-card more-card">
+            <h2>More analysis</h2>
+            <ul class="more-list">
+              <li><a href="/">Regulatory Controls, Decoded</a><span class="m-desc">58 security &amp; privacy frameworks, vectorised</span></li>
+              <li><a href="/iso-27001-2022">ISO 27001:2013 &rarr; 2022</a><span class="m-desc">114 controls became 93 &mdash; what moved</span></li>
+              <li><a href="/choosing-a-security-framework">Choosing a Security Framework</a><span class="m-desc">10 frameworks, one decision</span></li>
+            </ul>
+          </div>
+        </aside>
+      </div>
+    </main>
+
+    <footer class="site-foot">
+      <div class="foot-in">
+        <span>&copy; 2026 <strong>Manzill Surolia</strong></span>
+        <span class="sep">&middot;</span>
+        <a href="/">Home</a>
+        <a href="/iso-27001-2022">ISO 27001:2022</a>
+        <a href="/choosing-a-security-framework">Framework chooser</a>
+        <span class="sep">&middot;</span>
+        <a href="https://in.linkedin.com/in/manzill" rel="me">LinkedIn</a>
+      </div>
+    </footer>
+
+    <script>
+    (function () {
+      var els = document.querySelectorAll('.animate');
+      var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (reduce || !('IntersectionObserver' in window)) {
+        els.forEach(function (el) { el.classList.add('in-view'); });
+        return;
+      }
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) { e.target.classList.add('in-view'); io.unobserve(e.target); }
+        });
+      }, { threshold: 0.15 });
+      els.forEach(function (el) { io.observe(el); });
+    })();
+    </script>
+</body>
+</html>

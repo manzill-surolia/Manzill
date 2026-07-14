@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#0e3a5f">
+
+    <title>ISO 27001:2013 &rarr; 2022, Quantified | Manzill Surolia</title>
+    <meta name="description" content="ISO/IEC 27001 moved from 114 controls in 14 domains to 93 controls in 4 themes. A facts-first breakdown of the 11 new controls, the 57&rarr;24 merges, the new attribute lens, and what the closed 2025 transition window means. By Manzill Surolia.">
+    <meta name="keywords" content="ISO 27001, ISO 27001:2022, ISO 27002:2022, Annex A controls, ISMS, threat intelligence, data leakage prevention, secure coding, ISO 27001 transition, control attributes, NIST CSF">
+    <meta name="author" content="Manzill Surolia">
+
+    <link rel="canonical" href="https://www.manzill.com/iso-27001-2022">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="icon" type="image/png" sizes="512x512" href="/icon.png">
+    <link rel="apple-touch-icon" href="/icon.png">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Manzill Surolia">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:title" content="ISO 27001:2013 &rarr; 2022, Quantified">
+    <meta property="og:description" content="114 controls in 14 domains became 93 in 4 themes &mdash; not by deletion but by consolidation. The 11 new controls, the merges, and the attribute lens, measured.">
+    <meta property="og:url" content="https://www.manzill.com/iso-27001-2022">
+    <meta property="og:image" content="https://www.manzill.com/manzill-og.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:alt" content="Manzill Surolia &mdash; ISO 27001:2022 analysis">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="ISO 27001:2013 &rarr; 2022, Quantified">
+    <meta name="twitter:description" content="114 controls in 14 domains became 93 in 4 themes &mdash; consolidation, not reduction. A facts-first breakdown by Manzill Surolia.">
+    <meta name="twitter:image" content="https://www.manzill.com/manzill-og.png">
+    <meta name="twitter:image:alt" content="Manzill Surolia &mdash; ISO 27001:2022 analysis">
+
+    <!-- Fonts: Inter (modern UI) with system fallback -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap">
+
+    <!-- flag JS early so scroll-in animations don't flash unstyled content -->
+    <script>document.documentElement.classList.add('js');</script>
+
+    <style>
+:root {
+  --brand: #0e3a5f;
+  --brand-dark: #082438;
+  --link: #0d5d92;
+  --accent: #12a5b8;
+  --bg: #f6f8fa;
+  --surface: #ffffff;
+  --text: #0f1a24;
+  --muted: #55636e;
+  --border: #dde4ea;
+  --shadow: 0 1px 3px rgba(0,0,0,.06), 0 4px 12px rgba(0,0,0,.04);
+  --radius: 12px;
+  --maxw: 1100px;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --link: #5cb3e0;
+    --bg: #0d1117;
+    --surface: #161b22;
+    --text: #e6edf3;
+    --muted: #8b98a5;
+    --border: #26303b;
+    --shadow: 0 1px 3px rgba(0,0,0,.4), 0 4px 12px rgba(0,0,0,.3);
+  }
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: inherit; text-decoration: none; }
+img { display: block; max-width: 100%; height: auto; }
+
+header.site {
+  background: var(--brand);
+  color: #fff;
+  border-bottom: 3px solid var(--accent);
+  box-shadow: var(--shadow);
+}
+.bar {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 800;
+  font-size: 1.4rem;
+}
+.brand .logo {
+  width: 34px; height: 34px;
+  background: #fff;
+  color: var(--brand);
+  border-radius: 8px;
+  display: grid;
+  place-items: center;
+  font-weight: 900;
+  font-size: 1.15rem;
+  font-family: system-ui, sans-serif;
+}
+
+main {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 20px 16px 60px;
+}
+
+.section-head {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin: 8px 0 14px;
+}
+.section-head h2 {
+  font-size: 1.25rem;
+  margin: 0;
+  padding-left: 12px;
+  border-left: 4px solid var(--brand);
+  font-weight: 800;
+}
+
+.tabs {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 6px;
+  margin: 4px 0 22px;
+  position: sticky;
+  top: 8px;
+  z-index: 10;
+  box-shadow: var(--shadow);
+}
+.tabs::-webkit-scrollbar { height: 4px; }
+.tab {
+  flex: 0 0 auto;
+  background: transparent;
+  border: 0;
+  color: var(--text);
+  text-decoration: none;
+  padding: 8px 14px;
+  border-radius: 999px;
+  font-family: inherit;
+  font-size: .92rem;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: background .15s ease, color .15s ease;
+}
+.tab:hover { background: rgba(14,58,95,.08); }
+.tab[aria-selected="true"] { background: var(--brand); color: #fff; }
+@media (prefers-color-scheme: dark) { .tab:hover { background: rgba(255,255,255,.06); } }
+
+.editorial-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--accent);
+  border-radius: var(--radius);
+  padding: 18px 20px;
+  margin-bottom: 18px;
+  box-shadow: var(--shadow);
+}
+.editorial-card h2 { margin: 0 0 10px; font-size: 1.1rem; font-weight: 800; color: var(--link); }
+.editorial-card p { margin: 0 0 12px; font-size: .95rem; line-height: 1.7; }
+.editorial-card .byline {
+  margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--border);
+  font-size: .85rem; color: var(--muted);
+}
+.editorial-card .byline strong { color: var(--text); }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+
+.hero { margin: 26px 0 6px; }
+.hero .eyebrow {
+  margin: 0 0 6px;
+  font-size: .8rem; font-weight: 700; letter-spacing: .05em;
+  text-transform: uppercase; color: var(--link);
+}
+.hero h1 {
+  font-size: clamp(1.5rem, 3.2vw, 2.05rem);
+  line-height: 1.12; letter-spacing: -.015em; margin: 0; font-weight: 800;
+}
+.hero .sub {
+  margin: .5rem 0 0; color: var(--muted);
+  font-size: clamp(1rem, 2.2vw, 1.18rem); max-width: 62ch;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 320px;
+  gap: 30px; align-items: start;
+}
+article.content, aside.sidebar { min-width: 0; }
+article.content > section { margin-bottom: 40px; scroll-margin-top: 64px; }
+article.content > section:first-child { margin-top: 6px; }
+article.content p { margin: 0 0 14px; }
+.lede { font-size: 1.06rem; line-height: 1.72; }
+.note { font-size: .88rem; color: var(--muted); margin: 6px 0 0; }
+.reading { color: var(--muted); }
+
+/* stat tiles */
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 12px; margin: 18px 0 22px;
+}
+.stat {
+  background: linear-gradient(135deg, var(--brand), var(--brand-dark));
+  color: #fff; border-radius: var(--radius); padding: 16px 16px 14px;
+  box-shadow: var(--shadow); display: flex; flex-direction: column; gap: 4px;
+  border-top: 3px solid var(--accent);
+}
+.stat .num { font-size: 2rem; font-weight: 900; line-height: 1; letter-spacing: -.02em; }
+.stat .lbl { font-size: .82rem; opacity: .95; line-height: 1.35; }
+
+/* meter (bar) */
+.meter { display: flex; align-items: center; gap: 10px; }
+.meter .track {
+  flex: 1 1 auto; min-width: 60px; height: 9px;
+  background: var(--border); border-radius: 999px; overflow: hidden;
+}
+.meter .fill {
+  display: block; height: 100%;
+  background: linear-gradient(90deg, var(--brand), var(--brand-dark));
+  border-radius: 999px;
+}
+.meter b { font-variant-numeric: tabular-nums; min-width: 3.4ch; text-align: right; font-weight: 700; }
+
+/* chart card (threshold bars) */
+.chart-card {
+  margin: 22px 0 0; background: var(--surface);
+  border: 1px solid var(--border); border-radius: var(--radius);
+  padding: 16px 18px 18px; box-shadow: var(--shadow);
+}
+.chart-card figcaption {
+  font-weight: 700; font-size: .95rem; margin-bottom: 12px;
+  padding-left: 10px; border-left: 3px solid var(--accent);
+}
+.thr-row { display: flex; align-items: center; gap: 14px; margin: 10px 0; }
+.thr-lab { flex: 0 0 148px; font-size: .86rem; font-weight: 600; }
+.thr-sub { display: block; color: var(--muted); font-weight: 400; font-size: .78rem; }
+.chart-card .meter { flex: 1; }
+
+/* data tables */
+.table-wrap {
+  overflow-x: auto; -webkit-overflow-scrolling: touch;
+  border: 1px solid var(--border); border-radius: var(--radius);
+  box-shadow: var(--shadow); background: var(--surface);
+}
+table.data-table { border-collapse: collapse; width: 100%; font-size: .92rem; }
+table.data-table th, table.data-table td {
+  text-align: left; padding: 11px 14px; vertical-align: top;
+  border-bottom: 1px solid var(--border);
+}
+table.data-table thead th {
+  background: var(--brand); color: #fff; font-weight: 700;
+  font-size: .82rem; letter-spacing: .01em; white-space: nowrap;
+}
+table.data-table tbody tr:nth-child(even) { background: rgba(14,58,95,.035); }
+table.data-table tbody tr:last-child td { border-bottom: 0; }
+table.data-table tbody tr:hover { background: rgba(14,58,95,.07); }
+td.ref { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-weight: 700; color: var(--link); white-space: nowrap; }
+.tag { display: inline-block; font-size: .72rem; font-weight: 700; padding: 2px 8px; border-radius: 999px; background: rgba(18,165,184,.14); color: var(--link); white-space: nowrap; }
+@media (prefers-color-scheme: dark) {
+  table.data-table tbody tr:nth-child(even) { background: rgba(255,255,255,.03); }
+  table.data-table tbody tr:hover { background: rgba(14,58,95,.16); }
+}
+
+/* callout */
+.callout {
+  background: rgba(18,165,184,.10);
+  border: 1px solid var(--border); border-left: 4px solid var(--accent);
+  border-radius: var(--radius); padding: 14px 18px; margin: 16px 0 0;
+}
+.callout p { margin: 0; font-weight: 600; color: var(--text); }
+
+/* takeaways */
+ul.takeaways { margin: 6px 0 0; padding-left: 0; list-style: none; }
+ul.takeaways li {
+  position: relative; padding: 10px 0 10px 30px;
+  border-bottom: 1px solid var(--border); font-size: .98rem;
+}
+ul.takeaways li:last-child { border-bottom: 0; }
+ul.takeaways li::before {
+  content: "\25B8"; color: var(--link); position: absolute; left: 6px; top: 10px; font-weight: 900;
+}
+.method {
+  margin-top: 22px; font-size: .86rem; color: var(--muted);
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 14px 16px;
+}
+.method strong { color: var(--text); }
+
+/* sidebar */
+aside.sidebar { position: sticky; top: 64px; }
+.author-card p.name { font-size: 1.15rem; font-weight: 800; color: var(--text); margin-bottom: 10px; }
+.author-card .socials { font-size: .9rem; }
+.author-card .socials a { color: var(--link); font-weight: 700; }
+.author-card .socials a:hover { text-decoration: underline; }
+.author-card .tag-hash { color: var(--muted); }
+
+/* "more analysis" cross-links */
+.more-card h2 { color: var(--link); }
+ul.more-list { margin: 4px 0 0; padding: 0; list-style: none; }
+ul.more-list li { padding: 9px 0; border-bottom: 1px solid var(--border); }
+ul.more-list li:last-child { border-bottom: 0; }
+ul.more-list a { font-weight: 700; color: var(--link); }
+ul.more-list a:hover { text-decoration: underline; }
+ul.more-list .m-desc { display: block; font-size: .82rem; color: var(--muted); font-weight: 400; margin-top: 2px; }
+
+/* footer */
+footer.site-foot {
+  border-top: 1px solid var(--border); background: var(--surface);
+  color: var(--muted); font-size: .86rem;
+}
+footer.site-foot .foot-in {
+  max-width: var(--maxw); margin: 0 auto; padding: 20px 16px;
+  display: flex; flex-wrap: wrap; gap: 8px 18px; align-items: center;
+}
+footer.site-foot a { color: var(--link); font-weight: 700; }
+footer.site-foot a:hover { text-decoration: underline; }
+footer.site-foot .sep { opacity: .5; }
+
+@media (max-width: 860px) {
+  .layout { grid-template-columns: minmax(0, 1fr); gap: 8px; }
+  aside.sidebar { position: static; margin-top: 8px; }
+}
+
+/* scroll-in animations */
+.js .meter .fill { transform: scaleX(0); transform-origin: left; transition: transform .9s cubic-bezier(.22,1,.36,1); }
+.js .animate.in-view .meter .fill { transform: scaleX(1); }
+.js .animate.stat-grid .stat { opacity: 0; transform: translateY(12px); transition: opacity .5s ease, transform .5s ease; }
+.js .animate.stat-grid.in-view .stat { opacity: 1; transform: none; }
+.js .animate.stat-grid.in-view .stat:nth-child(2){ transition-delay: .07s; }
+.js .animate.stat-grid.in-view .stat:nth-child(3){ transition-delay: .14s; }
+.js .animate.stat-grid.in-view .stat:nth-child(4){ transition-delay: .21s; }
+.js .animate.stat-grid.in-view .stat:nth-child(5){ transition-delay: .28s; }
+.js .animate table.data-table tbody tr { opacity: 0; transform: translateY(6px); transition: opacity .45s ease, transform .45s ease; }
+.js .animate.in-view table.data-table tbody tr { opacity: 1; transform: none; }
+.js .animate.in-view table.data-table tbody tr:nth-child(2){ transition-delay: .04s; }
+.js .animate.in-view table.data-table tbody tr:nth-child(3){ transition-delay: .08s; }
+.js .animate.in-view table.data-table tbody tr:nth-child(4){ transition-delay: .12s; }
+.js .animate.in-view table.data-table tbody tr:nth-child(5){ transition-delay: .16s; }
+.js .animate.in-view table.data-table tbody tr:nth-child(6){ transition-delay: .20s; }
+.js .animate.in-view table.data-table tbody tr:nth-child(7){ transition-delay: .24s; }
+.js .animate.in-view table.data-table tbody tr:nth-child(8){ transition-delay: .28s; }
+.js .animate.chart-card { opacity: 0; transform: translateY(10px); transition: opacity .5s ease, transform .5s ease; }
+.js .animate.chart-card.in-view { opacity: 1; transform: none; }
+    </style>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Manzill Surolia",
+      "url": "https://www.manzill.com/",
+      "image": "https://www.manzill.com/manzill-og.png",
+      "jobTitle": "Cyber Security & GRC Professional",
+      "knowsAbout": ["Cyber Security", "Risk Management", "Governance", "GRC", "Compliance", "ISO 27001", "ISO 27002", "HITRUST", "PCI-DSS", "FedRAMP", "NIST"],
+      "sameAs": ["https://in.linkedin.com/in/manzill", "https://x.com/manzill", "https://www.facebook.com/manzill"]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": ["Article", "TechArticle"],
+      "headline": "ISO 27001:2013 → 2022, Quantified",
+      "description": "A facts-first analysis of the ISO/IEC 27001:2022 revision: 114 controls in 14 domains became 93 in 4 themes, with 11 new controls, 57→24 merges, and a new attribute lens.",
+      "author": { "@type": "Person", "name": "Manzill Surolia", "url": "https://www.manzill.com/" },
+      "publisher": { "@type": "Person", "name": "Manzill Surolia" },
+      "datePublished": "2026-07-14",
+      "dateModified": "2026-07-14",
+      "articleSection": "Cyber Security",
+      "keywords": "ISO 27001:2022, ISO 27002:2022, Annex A controls, ISMS, control attributes, threat intelligence, data leakage prevention, secure coding, ISO 27001 transition",
+      "image": "https://www.manzill.com/manzill-og.png",
+      "mainEntityOfPage": "https://www.manzill.com/iso-27001-2022",
+      "about": ["ISO/IEC 27001:2022", "ISO/IEC 27002:2022", "Information Security Management System", "Annex A controls", "Control attributes"]
+    }
+    </script>
+</head>
+<body>
+    <header class="site">
+      <div class="bar">
+        <a class="brand" href="/">
+          <span class="logo">M</span>
+          <span>Manzill Surolia</span>
+        </a>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <p class="eyebrow">Analysis &middot; 14 Jul 2026</p>
+        <h1>ISO 27001:2013 &rarr; 2022, Quantified</h1>
+        <p class="sub">114 controls in 14 domains became 93 in 4 themes &mdash; not by deleting the work, but by consolidating it. Here is exactly what moved.</p>
+      </section>
+
+      <nav class="tabs" aria-label="Sections">
+        <a class="tab" href="#overview">Overview</a>
+        <a class="tab" href="#structure">Structure</a>
+        <a class="tab" href="#new-controls">11 new controls</a>
+        <a class="tab" href="#attributes">Attributes</a>
+        <a class="tab" href="#clauses">Clause changes</a>
+        <a class="tab" href="#migration">Migration</a>
+        <a class="tab" href="#bottom-line">Bottom line</a>
+      </nav>
+
+      <div class="layout">
+        <article class="content">
+
+          <section id="overview">
+            <div class="stat-grid animate">
+              <div class="stat"><span class="num">114&rarr;93</span><span class="lbl">Annex&nbsp;A controls (net &minus;21)</span></div>
+              <div class="stat"><span class="num">14&rarr;4</span><span class="lbl">domains became themes</span></div>
+              <div class="stat"><span class="num">11</span><span class="lbl">brand-new controls</span></div>
+              <div class="stat"><span class="num">57&rarr;24</span><span class="lbl">controls merged down</span></div>
+              <div class="stat"><span class="num">0</span><span class="lbl">controls actually deleted</span></div>
+            </div>
+            <p class="lede">The 2022 revision reads like a cut, but nothing was thrown away. ISO/IEC 27001:2022 (with its control text in ISO/IEC 27002:2022) took the 2013 catalogue of <strong>114 controls across 14 domains</strong> and re-indexed it into <strong>93 controls across 4 themes</strong>. The shrinkage is almost entirely consolidation &mdash; <strong>57 overlapping controls were merged into 24</strong>, one control was split into two, and <strong>11 genuinely new controls</strong> were added for the threats the 2013 edition never anticipated: cloud, data leakage, threat intelligence, secure coding. Count fell; coverage grew.</p>
+
+            <figure class="chart-card animate">
+              <figcaption>How the 114 old controls map forward</figcaption>
+              <div class="thr-row"><span class="thr-lab">Merged<span class="thr-sub">57 controls &rarr; 24</span></span><span class="meter"><span class="track"><span class="fill" style="width:50%"></span></span><b>57</b></span></div>
+              <div class="thr-row"><span class="thr-lab">Carried over<span class="thr-sub">unchanged or renamed</span></span><span class="meter"><span class="track"><span class="fill" style="width:49%"></span></span><b>56</b></span></div>
+              <div class="thr-row"><span class="thr-lab">Split<span class="thr-sub">1 control &rarr; 2</span></span><span class="meter"><span class="track"><span class="fill" style="width:2%"></span></span><b>1</b></span></div>
+              <div class="thr-row"><span class="thr-lab">New in 2022<span class="thr-sub">added controls</span></span><span class="meter"><span class="track"><span class="fill" style="width:10%"></span></span><b>11</b></span></div>
+              <p class="note">57 merged + 56 carried + 1 split = the 114 old controls; 24 + 56 + 2 + 11 = the 93 new ones.</p>
+            </figure>
+          </section>
+
+          <section id="structure">
+            <div class="section-head"><h2>1 &middot; The Structure: 14 Domains Became 4 Themes</h2></div>
+            <p>The 2013 Annex A grouped controls into fourteen numbered domains (A.5&ndash;A.18). The 2022 edition flattens them into four themes, each a single clause. Every old domain still lives inside one of the four &mdash; the syllabus did not change, its filing system did.</p>
+            <div class="table-wrap animate">
+              <table class="data-table">
+                <thead><tr><th>2022 theme</th><th>Clause</th><th>Controls</th><th>Absorbs (from the 2013 domains)</th></tr></thead>
+                <tbody>
+                  <tr><td><strong>Organizational</strong></td><td class="ref">A.5</td><td class="mcell"><span class="meter"><span class="track"><span class="fill" style="width:100%"></span></span><b>37</b></span></td><td class="reading">Policies, org of infosec, asset mgmt, supplier relationships, incident mgmt, compliance, business continuity</td></tr>
+                  <tr><td><strong>People</strong></td><td class="ref">A.6</td><td class="mcell"><span class="meter"><span class="track"><span class="fill" style="width:22%"></span></span><b>8</b></span></td><td class="reading">Human-resource security, awareness, remote working, screening</td></tr>
+                  <tr><td><strong>Physical</strong></td><td class="ref">A.7</td><td class="mcell"><span class="meter"><span class="track"><span class="fill" style="width:38%"></span></span><b>14</b></span></td><td class="reading">Physical &amp; environmental security, secure areas, equipment</td></tr>
+                  <tr><td><strong>Technological</strong></td><td class="ref">A.8</td><td class="mcell"><span class="meter"><span class="track"><span class="fill" style="width:92%"></span></span><b>34</b></span></td><td class="reading">Access control, cryptography, operations, comms, secure development</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="note">37 + 8 + 14 + 34 = 93. Organizational and Technological carry three-quarters of the catalogue between them.</p>
+            <div class="callout"><p>&#9656; Re-theming is why a control&rsquo;s number changed even when its meaning did not. A.9.2.3 &ldquo;Privileged access rights&rdquo; (2013) is now A.8.2 &mdash; same requirement, new address. Your Statement of Applicability needs re-numbering, not re-thinking.</p></div>
+          </section>
+
+          <section id="new-controls">
+            <div class="section-head"><h2>2 &middot; The 11 New Controls</h2></div>
+            <p>These are the only controls with no ancestor in 2013. Read as a list, they are a decade of threat evolution written into the standard: the cloud became default, data started leaving in bulk, and development moved left.</p>
+            <div class="table-wrap animate">
+              <table class="data-table">
+                <thead><tr><th>Ref.</th><th>New control</th><th>Theme</th><th>Why it was added</th></tr></thead>
+                <tbody>
+                  <tr><td class="ref">5.7</td><td><strong>Threat intelligence</strong></td><td><span class="tag">Organizational</span></td><td class="reading">Collect and act on information about threats, not just react to incidents</td></tr>
+                  <tr><td class="ref">5.23</td><td><strong>Information security for use of cloud services</strong></td><td><span class="tag">Organizational</span></td><td class="reading">Acquire, use and exit cloud services securely &mdash; the shared-responsibility gap</td></tr>
+                  <tr><td class="ref">5.30</td><td><strong>ICT readiness for business continuity</strong></td><td><span class="tag">Organizational</span></td><td class="reading">Plan and test IT recovery to meet continuity objectives (RTO/RPO)</td></tr>
+                  <tr><td class="ref">7.4</td><td><strong>Physical security monitoring</strong></td><td><span class="tag">Physical</span></td><td class="reading">Continuously monitor premises for unauthorised physical access</td></tr>
+                  <tr><td class="ref">8.9</td><td><strong>Configuration management</strong></td><td><span class="tag">Technological</span></td><td class="reading">Define, enforce and monitor secure configurations across assets</td></tr>
+                  <tr><td class="ref">8.10</td><td><strong>Information deletion</strong></td><td><span class="tag">Technological</span></td><td class="reading">Delete data no longer required &mdash; a direct nod to privacy law</td></tr>
+                  <tr><td class="ref">8.11</td><td><strong>Data masking</strong></td><td><span class="tag">Technological</span></td><td class="reading">Mask, pseudonymise or anonymise data to limit exposure</td></tr>
+                  <tr><td class="ref">8.12</td><td><strong>Data leakage prevention</strong></td><td><span class="tag">Technological</span></td><td class="reading">Detect and stop unauthorised data exfiltration (DLP)</td></tr>
+                  <tr><td class="ref">8.16</td><td><strong>Monitoring activities</strong></td><td><span class="tag">Technological</span></td><td class="reading">Monitor networks, systems and apps for anomalous behaviour</td></tr>
+                  <tr><td class="ref">8.23</td><td><strong>Web filtering</strong></td><td><span class="tag">Technological</span></td><td class="reading">Control access to external websites to reduce malicious exposure</td></tr>
+                  <tr><td class="ref">8.28</td><td><strong>Secure coding</strong></td><td><span class="tag">Technological</span></td><td class="reading">Apply secure-coding principles across the development lifecycle</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="callout"><p>&#9656; Eight of the eleven are Technological, and four of those (deletion, masking, DLP, monitoring) are data-centric. If you built an ISMS in the 2010s, this table is your gap list.</p></div>
+          </section>
+
+          <section id="attributes">
+            <div class="section-head"><h2>3 &middot; The Attribute Lens: Controls Became a Database</h2></div>
+            <p>The quiet structural upgrade in 2022 is that every control in ISO/IEC 27002:2022 now carries five attributes. A catalogue you used to read top-to-bottom became a table you can filter &mdash; &ldquo;show me every detective control that supports Recover&rdquo; is now a query, and it maps cleanly onto other frameworks.</p>
+            <div class="table-wrap animate">
+              <table class="data-table">
+                <thead><tr><th>Attribute</th><th>Values</th><th>What it lets you do</th></tr></thead>
+                <tbody>
+                  <tr><td><strong>Control type</strong></td><td class="reading">Preventive &middot; Detective &middot; Corrective</td><td class="reading">Balance the portfolio across the incident timeline</td></tr>
+                  <tr><td><strong>Information security properties</strong></td><td class="reading">Confidentiality &middot; Integrity &middot; Availability</td><td class="reading">Trace coverage back to the CIA triad</td></tr>
+                  <tr><td><strong>Cybersecurity concepts</strong></td><td class="reading">Identify &middot; Protect &middot; Detect &middot; Respond &middot; Recover</td><td class="reading">Map 1:1 onto the NIST Cybersecurity Framework</td></tr>
+                  <tr><td><strong>Operational capabilities</strong></td><td class="reading">Governance, Asset&nbsp;mgmt, Identity&nbsp;&amp;&nbsp;access, &hellip; (15 in total)</td><td class="reading">Assign controls to the teams that actually run them</td></tr>
+                  <tr><td><strong>Security domains</strong></td><td class="reading">Governance&nbsp;&amp;&nbsp;ecosystem &middot; Protection &middot; Defence &middot; Resilience</td><td class="reading">Report posture in board-level language</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="note">The <em>Cybersecurity concepts</em> attribute is the bridge: it is the reason a 2022 ISMS crosswalks to NIST CSF far more cleanly than a 2013 one did.</p>
+          </section>
+
+          <section id="clauses">
+            <div class="section-head"><h2>4 &middot; What Changed Outside Annex A</h2></div>
+            <p>The management-system clauses (4&ndash;10) are largely stable, but the revision is not <em>only</em> about controls. A handful of requirement-level edits are easy to miss and are exactly what auditors check first on a transition.</p>
+            <div class="table-wrap animate">
+              <table class="data-table">
+                <thead><tr><th>Clause</th><th>Change</th></tr></thead>
+                <tbody>
+                  <tr><td class="ref">Title</td><td class="reading">Renamed to <strong>&ldquo;Information security, cybersecurity and privacy protection&rdquo;</strong> &mdash; scope now names privacy explicitly</td></tr>
+                  <tr><td class="ref">4.2</td><td class="reading">Added: determine <strong>which</strong> interested-party requirements will be addressed through the ISMS</td></tr>
+                  <tr><td class="ref">6.2</td><td class="reading">Information security objectives must now be <strong>monitored</strong> and documented</td></tr>
+                  <tr><td class="ref">6.3</td><td class="reading"><strong>New:</strong> &ldquo;Planning of changes&rdquo; &mdash; changes to the ISMS must be done in a planned manner</td></tr>
+                  <tr><td class="ref">8.1</td><td class="reading">Reworded: establish <strong>criteria</strong> for processes and control externally provided processes/products/services</td></tr>
+                  <tr><td class="ref">9.3</td><td class="reading">Management review must consider <strong>changes</strong> in interested-party needs and expectations</td></tr>
+                  <tr><td class="ref">10</td><td class="reading">Order swapped: <strong>10.1 Continual improvement</strong> now precedes 10.2 Nonconformity &amp; corrective action</td></tr>
+                  <tr><td class="ref">Amd&nbsp;1:2024</td><td class="reading"><strong>Climate action:</strong> 4.1 must consider whether climate change is relevant; 4.2 notes interested parties may have climate-related requirements</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <section id="migration">
+            <div class="section-head"><h2>5 &middot; Migration &mdash; and Why the Clock Already Ran Out</h2></div>
+            <p>ISO/IEC 27001:2022 was published on <strong>25 October 2022</strong>. The accreditation bodies set a <strong>three-year transition</strong>, so certificates issued against the 2013 edition ceased to be valid after <strong>31 October 2025</strong>. As of this writing that window is closed: a &ldquo;current&rdquo; ISO 27001 certificate now means the 2022 edition, full stop. If any part of your programme still references the 2013 Annex A, it is not a future task &mdash; it is a live nonconformity.</p>
+            <ul class="takeaways">
+              <li><strong>Re-baseline the Statement of Applicability</strong> &mdash; restate it against the 93 controls, preserving justification and mapping old numbers forward.</li>
+              <li><strong>Gap-assess the 11 new controls</strong> &mdash; threat intelligence, cloud, ICT continuity, config mgmt, deletion, masking, DLP, monitoring, web filtering, physical monitoring, secure coding.</li>
+              <li><strong>Close the clause edits</strong> &mdash; add &ldquo;planning of changes&rdquo; (6.3), monitor objectives (6.2), and fold climate into context (Amd&nbsp;1:2024).</li>
+              <li><strong>Re-run the risk treatment</strong> so each residual risk points at a 2022 control reference.</li>
+              <li><strong>Update audit &amp; review evidence</strong> &mdash; internal audit programme, management review inputs, and training material all cite the new structure.</li>
+            </ul>
+          </section>
+
+          <section id="bottom-line">
+            <div class="section-head"><h2>Bottom line</h2></div>
+            <ul class="takeaways">
+              <li><strong>Fewer controls, not less work</strong> &mdash; the drop from 114 to 93 is 57&rarr;24 consolidation, not deletion.</li>
+              <li><strong>The 11 new controls are the real delta</strong> &mdash; and eight are data- and cloud-centric, tracking where the last decade&rsquo;s breaches happened.</li>
+              <li><strong>Attributes turn the catalogue into a queryable database</strong> &mdash; and align it, control-by-control, to NIST CSF.</li>
+              <li><strong>The clauses moved too</strong> &mdash; &ldquo;planning of changes&rdquo; and the 2024 climate amendment are quiet audit traps.</li>
+              <li><strong>The transition is over</strong> &mdash; since 31 Oct 2025, only the 2022 edition counts; a 2013 reference is a finding, not a plan.</li>
+            </ul>
+            <p class="method"><strong>Sources &amp; method.</strong> Figures are drawn from the published standards &mdash; ISO/IEC 27001:2022, its Annex A, ISO/IEC 27002:2022 (which carries the control text and attributes), and ISO/IEC 27001:2022/Amd&nbsp;1:2024 &mdash; together with the IAF/accreditation-body transition timeline. Control counts and the 57&rarr;24 merge / 1-split / 11-new arithmetic are taken directly from the 2022 texts. This is original analysis; no third-party material is reproduced.</p>
+          </section>
+
+        </article>
+
+        <aside class="sidebar">
+          <div class="editorial-card author-card">
+            <h2>About the Author</h2>
+            <p class="name">Manzill Surolia</p>
+            <p><strong>Education:</strong> LL.B, MCA</p>
+            <p><strong>Experience:</strong> Cyber security professional with over 10 years of experience in cyber security, governance, risk management, and compliance. Strong background in governance, risk, and compliance (GRC), with hands-on experience in security auditing, regulatory compliance (HITRUST, PCI-DSS, FedRAMP, ISO 27001, NIST), and overseeing data protection measures. Adept in designing incident response plans, business continuity plans (BCP), and driving initiatives in security posture management.</p>
+            <p class="socials">
+              <a href="https://in.linkedin.com/in/manzill" rel="me">LinkedIn</a> &middot;
+              <a href="https://x.com/manzill" rel="me">X</a> &middot;
+              <a href="https://www.facebook.com/manzill" rel="me">Facebook</a>
+              <span class="tag-hash">&nbsp;&middot; #Manzill</span>
+            </p>
+            <div class="byline">&copy; 2026 <strong>Manzill Surolia</strong>. All rights reserved.</div>
+          </div>
+
+          <div class="editorial-card more-card">
+            <h2>More analysis</h2>
+            <ul class="more-list">
+              <li><a href="/">Regulatory Controls, Decoded</a><span class="m-desc">58 security &amp; privacy frameworks, vectorised</span></li>
+              <li><a href="/security-tooling-landscape">The Security Tooling Landscape</a><span class="m-desc">~150 tools across 18 categories, mapped</span></li>
+              <li><a href="/choosing-a-security-framework">Choosing a Security Framework</a><span class="m-desc">10 frameworks, one decision</span></li>
+            </ul>
+          </div>
+        </aside>
+      </div>
+    </main>
+
+    <footer class="site-foot">
+      <div class="foot-in">
+        <span>&copy; 2026 <strong>Manzill Surolia</strong></span>
+        <span class="sep">&middot;</span>
+        <a href="/">Home</a>
+        <a href="/security-tooling-landscape">Tooling landscape</a>
+        <a href="/choosing-a-security-framework">Framework chooser</a>
+        <span class="sep">&middot;</span>
+        <a href="https://in.linkedin.com/in/manzill" rel="me">LinkedIn</a>
+      </div>
+    </footer>
+
+    <script>
+    (function () {
+      var els = document.querySelectorAll('.animate');
+      var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (reduce || !('IntersectionObserver' in window)) {
+        els.forEach(function (el) { el.classList.add('in-view'); });
+        return;
+      }
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) { e.target.classList.add('in-view'); io.unobserve(e.target); }
+        });
+      }, { threshold: 0.15 });
+      els.forEach(function (el) { io.observe(el); });
+    })();
+    </script>
+</body>
+</html>

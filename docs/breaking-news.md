@@ -28,22 +28,26 @@ an operator guide.
 - Clock and dates are Hindi (e.g. `शाम 5:22 बजे`, `रविवार, 12 जुलाई 2026`). `<html lang="hi">`.
 
 ### Content depth (target ≥ 2 pages on a developed story)
-The page **header is the red "लाइव ब्रेकिंग न्यूज़" banner itself** — a full-width, sticky
-red bar with a blinking `● लाइव` chip and the wordmark **जयपुर न्यूज़** (→ news.manzill.com).
-There is no separate brand bar / date-strip above it; the story body follows directly. Section
-order below the header:
-1. **livebar** — severity badge · अंतिम अपडेट (Hindi date/time) · रिफ्रेश.
+The page **header is the red "लाइव ब्रेकिंग न्यूज़" banner itself** — a full-width red bar
+(it **scrolls with the page**, not sticky) carrying a blinking `● लाइव` chip, the **अंतिम अपडेट**
+(Hindi date/time) plus a **↻ रिफ्रेश** button **inline**, and the wordmark **जयपुर न्यूज़**
+(→ news.manzill.com) at the right. There is no separate brand bar / date-strip above it; the
+story body follows directly. Section order below the header:
+1. **livebar** — just the severity badge (e.g. `विकसित हो रही`). The अंतिम अपडेट + रिफ्रेश now
+   live inline in the red header above.
 2. **पूरी खबर** — detailed analysis written as **flowing prose: 3–5 cohesive, multi-sentence
    paragraphs** (background → full chronology from first report to now → current status).
    Not many short one-line fragments.
-3. **मुख्य तथ्य** — 4–8 key-fact bullets.
-4. **पुलिस की जवाबदेही** — **mandatory** highlight of any **sourced** Jaipur/Rajasthan
+3. **घटनाक्रम — शुरुआत से अब तक** — dated developments as a top-to-bottom **dot-line-dot**
+   chain, **oldest at top → newest at bottom** (past → present). Each entry is labelled with its
+   **Hindi date *and* time** (e.g. `13 जुलाई, दोपहर 4:06 बजे`), taken from the archived point's
+   real timestamp — never fabricated. The chain is animated: each entry fades in with a staggered
+   reveal, and the newest (bottom) dot pulses as the "live/developing" point. Motion is disabled
+   under `prefers-reduced-motion` (items stay visible).
+4. **मुख्य तथ्य** — 4–8 key-fact bullets.
+5. **पुलिस की जवाबदेही** — **mandatory** highlight of any **sourced** Jaipur/Rajasthan
    police incompetence, negligence, delay or lapse in an investigation. Shown only when
    the sources report it; **never fabricated**. Accent-styled card.
-5. **घटनाक्रम — शुरुआत से अब तक** — dated developments as a top-to-bottom **dot-line-dot**
-   chain, **oldest at top → newest at bottom** (past → present). The chain is animated: each
-   entry fades in with a staggered reveal, and the newest (bottom) dot pulses as the
-   "live/developing" point. Motion is disabled under `prefers-reduced-motion` (items stay visible).
 6. **आगे क्या** — short outlook.
 7. **स्रोत** — source cards (Hindi titles, same-tab links).
 8. **यह भी ब्रेकिंग** ("is also breaking") — other current Jaipur stories, drawn from the feeds
@@ -95,6 +99,7 @@ breaking/rss.xml, breaking/sitemap.xml
 breaking/favicon.svg                  # Hawa Mahal
 breaking/data/state.json              # last render state (+ render_version gate)
 breaking/data/archive.json            # rolling 30-day story history
+breaking/data/override.json           # optional manual pin (force a chosen story to lead)
 ```
 
 Each run: fetch Google News RSS for Jaipur/Rajasthan + event terms → cluster into the top
@@ -120,6 +125,31 @@ Notes learned along the way:
 ### Publish now (don't wait for the cron)
 - **Actions → Breaking News Update → Run workflow → main.** GitHub throttles scheduled runs
   (often ~hourly), so a manual run is the fastest way to see changes live.
+
+### Force a specific story as breaking
+By default the lead is auto-picked on newsworthiness. To **pin** a chosen story as the lead:
+
+- **From GitHub (no code edit):** **Actions → Breaking News Update → Run workflow** and fill
+  either `force_query` (keywords, e.g. `Rajasthan High Court bomb threat`) **or** `force_url`
+  **plus** `force_headline`. `force_query` pulls an extra targeted feed and promotes the
+  best-matching cluster, so the pinned story still gets real multi-source Hindi coverage;
+  `force_url` + `force_headline` injects that exact article as the lead.
+- **Via a committed pin file** `breaking/data/override.json` (handy when asking the assistant
+  to *"run this as breaking: <url>"*):
+  ```json
+  { "query": "Rajasthan High Court bomb threat" }
+  ```
+  or a manual pin, optionally auto-expiring:
+  ```json
+  { "url": "https://…", "headline": "…", "source": "…", "summary": "…",
+    "expires": "2026-07-15T00:00:00Z" }
+  ```
+  An active pin **re-renders on every run** (it bypasses the "feed unchanged" skip), so the
+  page keeps tracking the pinned story until you clear it.
+- **Back to automatic:** delete/empty `override.json` (or leave the workflow inputs blank),
+  or set an `expires` in the past. The page resumes auto-selecting the top story.
+- **Precedence:** the `FORCE_*` workflow inputs override the pin file; `query` wins over
+  `url`+`headline` when both are present.
 
 ### Cadence
 - `cron: */20 * * * *` (best-effort; GitHub coalesces schedules under load). The generator

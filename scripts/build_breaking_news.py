@@ -51,6 +51,9 @@ STATE_PATH = ROOT / "breaking" / "data" / "state.json"
 # narrate the full multi-day arc (Google News RSS only exposes ~24-48h).
 ARCHIVE_PATH = ROOT / "breaking" / "data" / "archive.json"
 ARCHIVE_DAYS = 30
+# Optional manual pin: force a chosen story to lead (by keywords or an explicit URL).
+# See load_override(); also fed by the FORCE_QUERY/FORCE_URL/FORCE_HEADLINE workflow inputs.
+OVERRIDE_PATH = ROOT / "breaking" / "data" / "override.json"
 # The page moved to /breaking; the retired /breaking-news folder is deleted each run.
 OLD_DIR = ROOT / "breaking-news"
 
@@ -61,7 +64,7 @@ NEWS_SITE = "https://news.manzill.com"
 # Bump whenever the rendered output (template/RSS/sitemap format) changes. A mismatch
 # with the value stored in state forces a one-time re-render even when the feed is
 # unchanged, so a redesign rolls out on the next scheduled run without a manual push.
-RENDER_VERSION = "8"
+RENDER_VERSION = "9"
 
 # strftime has no Hindi locale, so map month names for the Hindi date/time strings.
 HINDI_MONTHS = [
@@ -434,8 +437,11 @@ def groq_analyze(api_key: str, clusters: list[dict], story: dict) -> dict | None
     lead_sources = [s["title"] for s in cluster_sources(lead, limit=6)]
     lead_snippets = [i["summary"] for i in lead["items"][:5] if i["summary"]][:5]
     # The archived arc: every dated development point we have gathered for this story.
+    # `when` carries the exact Hindi date+time so the AI can label each development with a
+    # real timestamp instead of a bare date.
     history = [
-        {"date": p.get("date", ""), "report": p.get("text_en", ""), "source": p.get("source", "")}
+        {"when": _hindi_point_label(p), "date": p.get("date", ""),
+         "report": p.get("text_en", ""), "source": p.get("source", "")}
         for p in story.get("points", [])
     ][-40:]
 
@@ -468,8 +474,9 @@ def groq_analyze(api_key: str, clusters: list[dict], story: dict) -> dict | None
                         "हर पैराग्राफ में कई वाक्य हों; पैराग्राफ \\n\\n से अलग करें",
             "key_facts": "4-8 हिंदी बिंदुओं की array (छोटे तथ्य)",
             "developments": "objects की array [{date_label, text}] — घटनाक्रम पुराने से नए क्रम में "
-                            "(oldest first), story_history के अनुसार; date_label = हिंदी तिथि/चरण "
-                            "(जैसे '6 जुलाई', 'एक हफ्ते पहले', 'ताज़ा'); text = विस्तृत हिंदी वाक्य",
+                            "(oldest first), story_history के अनुसार; date_label = उसी बिंदु का हिंदी "
+                            "दिनांक व समय, story_history के 'when' से (जैसे '13 जुलाई, दोपहर 4:06 बजे'); "
+                            "समय ज्ञात न हो तो केवल तिथि; समय कभी न गढ़ें; text = विस्तृत हिंदी वाक्य",
             "police_accountability": "हिंदी पैराग्राफ — जयपुर/राजस्थान पुलिस की लापरवाही/देरी/चूक/"
                                      "आलोचना के प्रमाणित तथ्य; यदि स्रोतों में कुछ नहीं तो खाली स्ट्रिंग",
             "what_next": "1-2 हिंदी वाक्य — आगे क्या संभावित/अपेक्षित है",
@@ -627,6 +634,122 @@ def minutes_since(iso: str | None) -> float:
     return (now_utc() - dt).total_seconds() / 60.0
 
 
+# --------------------------------------------------------------------------- #
+# Manual override — force a chosen story to lead
+# --------------------------------------------------------------------------- #
+def load_override() -> dict:
+    """A manual pin that forces a chosen story to lead — by keywords (`query`) or an explicit
+    `url`+`headline`. Read from breaking/data/override.json, with the FORCE_QUERY/FORCE_URL/
+    FORCE_HEADLINE env vars (workflow inputs) taking precedence. Returns {} when absent,
+    empty, past its optional `expires`, or not actionable."""
+    ov: dict = {}
+    if OVERRIDE_PATH.exists():
+        try:
+            ov = json.loads(OVERRIDE_PATH.read_text() or "{}") or {}
+        except Exception as exc:
+            print(f"  ! override.json unreadable, ignoring: {exc}", file=sys.stderr)
+            ov = {}
+
+    env_query = os.environ.get("FORCE_QUERY", "").strip()
+    env_url = os.environ.get("FORCE_URL", "").strip()
+    env_headline = os.environ.get("FORCE_HEADLINE", "").strip()
+    if env_query:
+        ov = {**ov, "query": env_query}
+    if env_url:
+        ov = {**ov, "url": env_url}
+    if env_headline:
+        ov = {**ov, "headline": env_headline}
+    if not ov:
+        return {}
+
+    expires = ov.get("expires")
+    if expires:
+        try:
+            if now_utc() >= datetime.fromisoformat(str(expires).replace("Z", "+00:00")):
+                print("  override present but expired; ignoring.")
+                return {}
+        except Exception:
+            pass  # unparseable expiry -> treat the pin as still active
+
+    if ov.get("query") or (ov.get("url") and ov.get("headline")):
+        return ov
+    print("  override present but not actionable (needs `query` or `url`+`headline`); ignoring.",
+          file=sys.stderr)
+    return {}
+
+
+def _merge_items(items: list[dict], extra: list[dict]) -> list[dict]:
+    """Fold an extra targeted feed into the main item list, deduping by title (newest wins)."""
+    seen = {normalize(i["title"])[:80]: i for i in items if normalize(i["title"])[:80]}
+    for it in extra:
+        key = normalize(it["title"])[:80]
+        if not key:
+            continue
+        prev = seen.get(key)
+        if prev is None or it["published"] > prev["published"]:
+            seen[key] = it
+    merged = list(seen.values())
+    merged.sort(key=lambda x: x["published"], reverse=True)
+    return merged
+
+
+def _build_cluster(items: list[dict]) -> dict:
+    """Assemble a cluster dict (same shape cluster_items produces) from a list of items."""
+    kw: set[str] = set()
+    for it in items:
+        kw |= keywords(it["title"] + " " + it.get("summary", ""))
+    cl = {"items": items, "keywords": kw, "headline": items[0]["title"]}
+    cl["severity"] = max(
+        (severity_of(i["title"] + " " + i.get("summary", "")) for i in items),
+        key=severity_rank,
+    )
+    cl["police_flag"] = is_police_misconduct(cl)
+    cl["score"] = 1e6  # pinned to the front regardless of the usual newsworthiness score
+    return cl
+
+
+def _force_lead(clusters: list[dict], items: list[dict], ov: dict) -> list[dict]:
+    """Return clusters reordered so the pinned story leads. `query` promotes the best-matching
+    cluster (pulling an extra targeted feed so it still gets real multi-source coverage);
+    `url`+`headline` injects a synthetic one-item cluster."""
+    query = (ov.get("query") or "").strip()
+    if query:
+        merged = _merge_items(items, fetch_feed(query))
+        clusters = cluster_items(merged)
+        qkw = keywords(query)
+        qnorm = normalize(query)
+        best_i, best_sim = 0, -1.0
+        for i, cl in enumerate(clusters):
+            sim = jaccard(qkw, cl["keywords"])
+            if qnorm and qnorm in normalize(cl["headline"]):
+                sim += 0.5  # nudge an exact phrase match ahead of a loose keyword overlap
+            if sim > best_sim:
+                best_i, best_sim = i, sim
+        if clusters and best_sim > 0:
+            clusters.insert(0, clusters.pop(best_i))
+        print(f"  override: pinned lead by query {query!r} (match={best_sim:.2f})")
+        return clusters
+
+    url = (ov.get("url") or "").strip()
+    headline = (ov.get("headline") or "").strip()
+    if url and headline:
+        item = {
+            "title": headline,
+            "link": url,
+            "source": (ov.get("source") or "").strip(),
+            "published": now_utc(),
+            "summary": (ov.get("summary") or "").strip(),
+        }
+        forced = _build_cluster([item])
+        # Drop any existing cluster that is really the same story, then lead with the pin.
+        clusters = [c for c in clusters if jaccard(forced["keywords"], c["keywords"]) < 0.6]
+        clusters.insert(0, forced)
+        print(f"  override: pinned manual lead {headline!r}")
+        return clusters
+
+    return clusters
+
+
 def build() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--no-ai", action="store_true", help="skip Groq, render from feeds only")
@@ -664,6 +787,15 @@ def build() -> None:
         return
 
     clusters = cluster_items(items)
+
+    # A manual pin (override.json / FORCE_* inputs) can force a chosen story to lead.
+    override = load_override()
+    if override:
+        clusters = _force_lead(clusters, items, override)
+    if not clusters:
+        print("No clusters to render; keeping existing page (no commit).")
+        return
+
     top = clusters[0]
     feed_hash = hashlib.sha1(
         "|".join(normalize(i["title"]) for i in top["items"]).encode()
@@ -671,9 +803,11 @@ def build() -> None:
 
     # Skip when the top-story feed is unchanged AND already rendered by this output
     # version (no Groq call, no commit). A RENDER_VERSION bump forces a one-time re-render.
+    # An active override always re-renders so the pinned story takes effect immediately.
     feed_changed = feed_hash != state.get("last_feed_hash")
     up_to_date = state.get("render_version") == RENDER_VERSION
-    if OUT_HTML.exists() and state.get("lead") and not feed_changed and up_to_date:
+    if (OUT_HTML.exists() and state.get("lead") and not feed_changed
+            and up_to_date and not override):
         print("No change in top-story feed; skipping update (no commit).")
         return
 
@@ -695,6 +829,9 @@ def build() -> None:
         # No AI / Groq failed: a clean Hindi holding page — never English feed text.
         print("Groq unavailable — rendering Hindi holding page.")
         lead, other_stories = _holding_lead(), []
+
+    # Stamp the timeline with real archived date+time where the mapping is unambiguous.
+    attach_dev_times(lead, story)
 
     state.update(
         {
@@ -847,6 +984,44 @@ def _src_meta(name_hi: str, time_hi: str) -> str:
     if time_hi:
         parts.append(f'<span>{esc(time_hi)}</span>')
     return '<span class="dot"></span>'.join(parts)
+
+
+def _hindi_point_label(point: dict) -> str:
+    """Compact Hindi date+time (IST) for one archived development point, e.g.
+    '13 जुलाई, दोपहर 4:06 बजे'. Uses the stored `iso`; falls back to `date`+`time_ist`.
+    Returns "" only when the point carries no usable timestamp."""
+    iso = point.get("iso")
+    if iso:
+        try:
+            d = to_ist(datetime.fromisoformat(iso))
+            return f"{d.day} {HINDI_MONTHS[d.month - 1]}, {_hindi_clock(d)}"
+        except Exception:
+            pass
+    date, time_ist = point.get("date", ""), point.get("time_ist", "")
+    try:
+        y, m, day = (int(x) for x in date.split("-"))
+    except Exception:
+        return date or ""
+    label = f"{day} {HINDI_MONTHS[m - 1]}"
+    try:
+        hh, mm = (int(x) for x in time_ist.split(":"))
+        return f"{label}, {_hindi_clock(datetime(y, m, day, hh, mm))}"
+    except Exception:
+        return label
+
+
+def attach_dev_times(lead: dict, story: dict) -> None:
+    """Give each timeline development a real archived timestamp when the mapping is
+    unambiguous. The AI narrates story points oldest-first, so when the counts match we
+    align by index and use the point's exact IST date+time (never fabricated). Otherwise
+    the AI's own `date_label` is left untouched."""
+    devs = lead.get("developments") or []
+    points = story.get("points") or []
+    if devs and len(devs) == len(points):
+        for dev, point in zip(devs, points):
+            label = _hindi_point_label(point)
+            if label:
+                dev["label"] = label
 
 
 BRAND_SUFFIX = "ब्रेकिंग जयपुर न्यूज़"
@@ -1559,16 +1734,15 @@ footer a { color: var(--brand); font-weight: 600; }
   .date-strip > span:not(.live-pill) { display: none; }
 }
 
-/* Red LIVE breaking banner — this is the page header (full-width, sticky) */
+/* Red LIVE breaking banner — this is the page header (full-width, scrolls with the page) */
 .breaking-banner {
-  position: sticky; top: 0; z-index: 50;
   background: linear-gradient(90deg, #e0112b, #b71c1c);
   color: #fff; box-shadow: var(--shadow);
   border-bottom: 3px solid var(--accent);
 }
 .breaking-banner .bn-inner {
   max-width: var(--maxw); margin: 0 auto; padding: 12px 16px;
-  display: flex; align-items: center; gap: 12px;
+  display: flex; align-items: center; gap: 10px 12px; flex-wrap: wrap;
   font-weight: 800; letter-spacing: .03em;
 }
 .breaking-banner .live-chip {
@@ -1585,11 +1759,29 @@ footer a { color: var(--brand); font-weight: 600; }
   font-size: .98rem; text-transform: uppercase; overflow: hidden;
   text-overflow: ellipsis; white-space: nowrap;
 }
+/* अंतिम अपडेट + रिफ्रेश now live inline in the red header, pushed to the right. */
+.breaking-banner .bn-updated {
+  margin-left: auto; flex: 0 1 auto; color: #fff; opacity: .92;
+  font-size: .8rem; font-weight: 600; letter-spacing: normal;
+  text-transform: none; white-space: nowrap;
+}
+.breaking-banner .bn-refresh {
+  flex: 0 0 auto; background: rgba(255,255,255,.16);
+  border: 1px solid rgba(255,255,255,.42); color: #fff;
+  padding: 4px 11px; border-radius: 999px; font-size: .74rem;
+  font-family: inherit; font-weight: 700; letter-spacing: normal; cursor: pointer;
+}
+.breaking-banner .bn-refresh:hover { background: rgba(255,255,255,.28); }
 .breaking-banner .bn-brand {
-  margin-left: auto; flex: 0 0 auto; color: #fff; opacity: .95;
+  flex: 0 0 auto; color: #fff; opacity: .95;
   font-size: .95rem; font-weight: 800;
 }
 @keyframes blink { 50% { opacity: .4; } }
+/* On narrow screens keep the essentials; the timestamp wraps rather than clips. */
+@media (max-width: 560px) {
+  .breaking-banner .bn-updated { margin-left: 0; white-space: normal; font-size: .74rem; }
+  .breaking-banner .bn-label { white-space: normal; }
+}
 
 /* Key facts list */
 ul.facts { margin: 0; padding-left: 20px; max-width: 760px; }
@@ -1615,7 +1807,9 @@ ul.facts li { margin: 0 0 8px; line-height: 1.6; }
     <header class="breaking-banner">
       <div class="bn-inner">
         <span class="live-chip"><span class="ping"></span>लाइव</span>
-        <span class="bn-label">लाइव ब्रेकिंग न्यूज़ &mdash; पल-पल के अपडेट</span>
+        <span class="bn-label">लाइव ब्रेकिंग न्यूज़</span>
+        <span class="bn-updated">अंतिम अपडेट {{UPDATED_IST}}</span>
+        <button class="bn-refresh" type="button" onclick="location.reload()" aria-label="रिफ्रेश">&#8635; रिफ्रेश</button>
         <a class="bn-brand" href="https://news.manzill.com">जयपुर न्यूज़</a>
       </div>
     </header>
@@ -1623,8 +1817,6 @@ ul.facts li { margin: 0 0 8px; line-height: 1.6; }
     <main>
       <div class="livebar">
         <span class="sev-badge"><span class="dot"></span>{{BADGE}}</span>
-        <span class="updated">अंतिम अपडेट {{UPDATED_IST}}</span>
-        <button class="refresh-btn" type="button" onclick="location.reload()" aria-label="रिफ्रेश">&#8635; रिफ्रेश</button>
       </div>
 
       <section class="hero">
@@ -1637,10 +1829,6 @@ ul.facts li { margin: 0 0 8px; line-height: 1.6; }
         <div class="byline">सार्वजनिक जयपुर न्यूज़ फ़ीड से संकलित &middot; समय भारतीय मानक समयानुसार।</div>
       </div>
 
-      {{KEY_FACTS}}
-
-      {{POLICE}}
-
       <section class="feed">
         <div class="section-head">
           <h2>घटनाक्रम &mdash; शुरुआत से अब तक</h2>
@@ -1651,6 +1839,10 @@ ul.facts li { margin: 0 0 8px; line-height: 1.6; }
         </ul>
         <p class="note">ऊपर से नीचे: पुराने से नए घटनाक्रम। खबर के विकसित होते ही यह पेज अपने-आप रिफ्रेश होता रहता है।</p>
       </section>
+
+      {{KEY_FACTS}}
+
+      {{POLICE}}
 
       {{WHAT_NEXT}}
 

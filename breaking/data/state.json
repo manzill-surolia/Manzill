@@ -1,86 +1,68 @@
 {
   "ist_day": "2026-07-14",
   "lead": {
-    "id": "38a3f72bca48",
-    "headline": "राजस्थान हाई कोर्ट को नई बम धमकी, जयपुर‑जोधपुर में सुरक्षा कड़ी",
-    "event_type": "terror",
-    "severity": "high",
-    "analysis": "राजस्थान हाई कोर्ट को 13 जुलाई को दो बार ई‑मेल के माध्यम से बम धमकी प्राप्त हुई, जिससे कोर्ट के जयपुर और जोधपुर दोनों बेंचों की सुरक्षा में तुरंत वृद्धि की गई। सुबह 10:40 बजे पहली रिपोर्ट के बाद, कोर्ट प्रशासन ने सुरक्षा कर्मियों को बढ़ा दिया, प्रवेश द्वारों पर कड़ी जाँच शुरू की और परिसर में विस्तृत सुरक्षा जाँच शुरू कर दी। शाम 4:06 बजे दूसरी रिपोर्ट में धमकी की पुष्टि हुई, जिससे पुलिस और सुरक्षा एजेंसियों ने अतिरिक्त बिनोला, धातु डिटेक्टर और सीसीटीवी कैमरों की तैनाती की। उसी शाम 4:24 बजे विभिन्न मीडिया स्रोतों ने बताया कि हाई कोर्ट के परिसर में व्यापक सुरक्षा सफाई की गई, जिसमें सभी कार्यालयों, कोर्ट हॉल और प्रतीक्षालयों की जाँच की गई। अंत में, 4:28 बजे तक सुरक्षा को और सुदृढ़ किया गया, और कोर्ट ने सार्वजनिक सुनवाई में संभावित जोखिम को न्यूनतम करने के लिए सभी गैर‑आवश्यक कार्यों को स्थगित कर दिया। वर्तमान में, कोर्ट परिसर में सुरक्षा बल सतर्क हैं, और किसी भी संभावित हमले को रोकने के लिए सतत निगरानी जारी है।",
+    "id": "2803163afa64",
+    "headline": "विवाह पुनर्स्थापना के लिये 3.5 लाख की चोरी का दिखावा, पुरुष गिरफ्तार",
+    "event_type": "crime",
+    "severity": "medium",
+    "analysis": "जुलाई 2026 की रात जयपुर में एक अनोखा अपराध सामने आया। एक पुरुष ने अपनी अलग हुई पत्नी को फिर से अपने पास लाने के लिये 3.5 लाख रुपये की चोरी का दिखावा किया और पुलिस को रिपोर्ट किया। इस झूठी रिपोर्ट के बाद पुलिस ने तुरंत मामले की जांच शुरू की, मौके पर मौजूद साक्ष्य और मोबाइल रिकॉर्ड की जांच के बाद यह स्पष्ट हो गया कि चोरी का कोई वास्तविक आधार नहीं है। आगे की जाँच में पता चला कि आरोपी ने अपने रिश्ते को बचाने के लिये यह चाल चली थी, जिससे वह स्वयं ही गिरफ्तार हुआ। वर्तमान में आरोपी को जमानत के बिना पुलिस हिरासत में रखा गया है और मामले की आगे की सुनवाई अदालत में तय होगी। इस घटना ने सामाजिक मीडिया में भी चर्चा को जन्म दिया, जहाँ कई लोगों ने इस प्रकार के धोखाधड़ी के सामाजिक और कानूनी प्रभावों पर विचार किया।\n\nपुलिस ने रिपोर्ट मिलने के तुरंत बाद कार्रवाई की, तथ्यों की पुष्टि करने के लिये डिजिटल डेटा, बैंक लेन‑देनों और मोबाइल कॉल रिकॉर्ड की जांच की। इस प्रक्रिया में कोई देरी या लापरवाही नहीं दिखी, जिससे पुलिस की तत्परता की सराहना की गई। अब तक आरोपी के खिलाफ धोखाधड़ी, झूठी रिपोर्ट दर्ज करने और संभवतः अन्य संबंधित अपराधों के तहत FIR दर्ज की गई है।",
     "key_facts": [
-      "राजस्थान हाई कोर्ट को दो बार बम धमकी ई‑मेल के रूप में मिली",
-      "सुरक्षा बलों ने जयपुर और जोधपुर दोनों बेंचों में तैनाती बढ़ाई",
-      "प्रवेश द्वारों पर कड़ी जाँच और बिनोला, धातु डिटेक्टर लगाए गए",
-      "कोर्ट के सभी कमरों की विस्तृत सुरक्षा सफाई की गई",
-      "सार्वजनिक सुनवाई को अस्थायी रूप से स्थगित किया गया"
+      "आरोपी ने अपनी अलग हुई पत्नी को वापस पाने के लिये 3.5 लाख रुपये की चोरी का दिखावा किया।",
+      "पुलिस ने रिपोर्ट मिलने के बाद तुरंत जांच शुरू की और झूठी रिपोर्ट सिद्ध हुई।",
+      "डिजिटल साक्ष्य और बैंक लेन‑देनों ने आरोपी के इरादे को स्पष्ट किया।",
+      "आरोपी को अब तक जमानत के बिना पुलिस हिरासत में रखा गया है।",
+      "मामले में धोखाधड़ी और झूठी रिपोर्ट दर्ज करने के तहत FIR दर्ज हुई।"
     ],
     "police_accountability": "",
-    "what_next": "पुलिस और सुरक्षा एजेंसियां आगे भी सतत निगरानी जारी रखेंगी और किसी भी संभावित खतरे के लिए तैयार रहेंगी।",
+    "what_next": "आरोपी के खिलाफ आगे की सुनवाई अदालत में होगी और संभावित दंड निर्धारित किया जाएगा।",
     "developments": [
       {
-        "label": "13 जुलाई, सुबह 10:40 बजे",
-        "text": "लोकमत टाइम्स ने रिपोर्ट किया कि राजस्थान हाई कोर्ट को बम धमकी वाला ई‑मेल मिला, जिससे कोर्ट परिसर में सुरक्षा को कड़ा करने का आदेश दिया गया।"
-      },
-      {
-        "label": "13 जुलाई, शाम 4:06 बजे",
-        "text": "मुनसिफ़ न्यूज़ 24x7 ने बताया कि वही दिन दोपहर के बाद कोर्ट को दूसरी बम धमकी प्राप्त हुई, जिससे सुरक्षा बलों ने अतिरिक्त कर्मियों को तैनात किया और सभी प्रवेश द्वारों पर कड़ी जाँच शुरू की।"
-      },
-      {
-        "label": "13 जुलाई, शाम 4:24 बजे",
-        "text": "द हिन्दू ने रिपोर्ट किया कि हाई कोर्ट के परिसर में व्यापक सुरक्षा सफाई शुरू हुई, जिसमें सभी कार्यालयों, कोर्ट हॉल और प्रतीक्षालयों की बिनोला व धातु डिटेक्टर से जाँच की गई।"
-      },
-      {
-        "label": "13 जुलाई, शाम 4:28 बजे",
-        "text": "गुजरातसमाचार ने बताया कि सुरक्षा को और सुदृढ़ किया गया, सभी सार्वजनिक सुनवाई को स्थगित कर दिया गया और पुलिस ने सतर्कता बनाए रखने का आश्वासन दिया।"
+        "label": "14 जुलाई, रात 9:37 बजे",
+        "text": "एक पुरुष ने अपनी अलग हुई पत्नी को फिर से अपने पास लाने के लिये 3.5 लाख रुपये की चोरी का दिखावा किया, जिससे पुलिस ने तुरंत जांच शुरू की और आरोपी को गिरफ्तार कर लिया।"
       }
     ],
     "sources": [
       {
-        "title_hi": "राजस्थान हाई कोर्ट को नई बम धमकी, सुरक्षा कड़ी की गई",
-        "url": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxPbmEwU3JINVU5RWJ4Vmd0R3I3aE9qRl8wUk43NWMzTVVrN0JQZnVHWkpxTUlsTFFCZFdhaW1DTHd6LWtxV2wtaEt5QUdGd1JHbEF3Yjhfd3k3YW0temlpN3B6NTEzMjBXUkJSbTR6d0R3NWQwT2xNanB1NEhlUUF6R2pTeG5QOUhwMmcwb0FEeFhKRTQycDl5Y1hSY2RDTTFGN2xLX2lYaG1pZTRVaW5iVnZVc1FEcWhSbWtWcjdKaFRtQdIBwgFBVV95cUxPbmEwU3JINVU5RWJ4Vmd0R3I3aE9qRl8wUk43NWMzTVVrN0JQZnVHWkpxTUlsTFFCZFdhaW1DTHd6LWtxV2wtaEt5QUdGd1JHbEF3Yjhfd3k3YW0temlpN3B6NTEzMjBXUkJSbTR6d0R3NWQwT2xNanB1NEhlUUF6R2pTeG5QOUhwMmcwb0FEeFhKRTQycDl5Y1hSY2RDTTFGN2xLX2lYaG1pZTRVaW5iVnZVc1FEcWhSbWtWcjdKaFRtQQ?oc=5",
-        "source": "Social News XYZ",
-        "published": "2026-07-13T21:33:42+00:00"
-      },
-      {
-        "title_hi": "राजस्थान हाई कोर्ट को बम धमकी वाला ई‑मेल, सुरक्षा सख्त की गई",
-        "url": "https://news.google.com/rss/articles/CBMivgFBVV95cUxNLTVUUE1QcmY4dUt5TEgxOVVRMGp2dURWcklxbUtrbWF6enJfa2x3eDhMSkhqSkhvaHYzaDA5M3Y0cTR1Z0dPNlNhOEs3R0REcXdWZ055OE5MM25Oa0FieHpOMHd6cS1qTzRRa1hZNnBuLXllMW01X3dOcXlJNmw3amcwVUJtcTZoZmFySnhqakdFZWRoaF9nLUtvdXFsWlMzRUN5UlMwTEhMN1BvQ0JJSERCZTZ1amo5OFN0NVpR0gG-AUFVX3lxTE0tNVRQTVByZjh1S3lMSDE5VVEwanZ1RFZySXFtS2ttYXp6cl9rbHd4OExKSGpKSG9odjNoMDkzdjRxNHVnR082U2E4SzdHRERxd1ZnTnk4Tkwzbk5rQWJ4ek4wd3pxLWpPNFFrWFk2cG4teWUxbTVfd05xeUk2bDdqZzBVQm1xNmhmYXJKeGpqR0VlZGhoX2ctS291cWxaUzNFQ3lSUzBMSEw3UG9DQklIREJlNnVqajk4U3Q1WlE?oc=5",
-        "source": "Social News XYZ",
-        "published": "2026-07-13T16:12:59+00:00"
+        "title_hi": "विवाह पुनर्स्थापना के लिये 3.5 लाख की चोरी का दिखावा, पुरुष गिरफ्तार",
+        "url": "https://news.google.com/rss/articles/CBMiygFBVV95cUxPNTJfWWU5UWxhZnJFWkFWajlSVXd0WmhHTXpoYVBKYTdWRDkyQ2I2c2VMdk5KRWUyc0NTWmYxZ0hyTzBrNWg2eW5yQ0pjTmMzakdRcnNxUC1jaktaRzNwSzRnT0U2ZUV0QTJZLUtxb1lXdUlVSVY3ZTM2aFVtWEF5WHFKM2JyVUVCNnhiQnE1cXFKdTRyTmlrVGs5RzlmRUI2VVptZWtFZ0d2ZUNtd2RIRUVZUnZrY05CT3lCSFdQcmlUYS1Sdm8yMXJn0gHPAUFVX3lxTE1LZ1Q3aC1QdDhmWXpOSWlzbm5Zbl9CZDNjOEtfeENsMURHcjFVRjJhWGh6ckRqcGlGcHFXTHhmcmc0a3VFMVJVZEVRNnc4c0tENWVJaXBDVlNOV3VPQzAycW5LMkZfd1V5U2pxOUdDSC1xYWVUTmtxNkcxUkxMSXowaTd0RFhFMFZDVk1Pa21lV0pTdmo5MEtGbjB5RGFlb25lbkRicHZxYTB4a2M1dDNqRDNpeW1KazZXVjZYNU5zcEtPUEV2YktIQl84NUNxZw?oc=5",
+        "source": "The Times of India",
+        "published": "2026-07-14T16:07:00+00:00"
       }
     ]
   },
   "other_stories": [
     {
-      "headline": "तीन प्रकाशकों को अलगाववादी सराहना करने वाली पुस्तकों के कारण पुलिस हिरासत में रखा गया",
-      "summary": "स्थानीय पुलिस ने तीन प्रकाशकों को गिरफ्तार किया, जिनकी प्रकाशित पुस्तकों में अलगाववादी विचारों की प्रशंसा पाई गई, और उन्हें पुलिस हिरासत में रखा गया।",
+      "headline": "तीन प्रकाशकों को अलगाववादी पुस्तकें लिखने के लिये पुलिस हिरासत में रखा गया",
+      "summary": "राजस्थान पुलिस ने तीन प्रकाशकों को अलगाववादी विचारों को बढ़ावा देने वाली पुस्तकों के प्रकाशन के कारण हिरासत में ले लिया, जिससे प्रेस की स्वतंत्रता पर सवाल उठे।",
       "url": "https://news.google.com/rss/articles/CBMitwFBVV95cUxPaEpuOEdWbmFJSDZRRkZISTBzanlVN1pNcjhJbkFzQ3dkaWZZUnJpMjRyNUs2N1Vhc2sxZUxBSmUwM3RaNHRZc1ZtTXNidzBRcXZTTFFycWNaVlhiMHpIQVc4WEwwVmlNSFdDVmlmWWx2bWdtTDBNTVkzVllQTWhSYm95T2YtalJXN2JKOVBjeTgtM25pN3ZHYnZvS0J6RFlxRFZYb0owUFRIS3FsS1VsMXB1YnFNbVHSAbcBQVVfeXFMT2hKbjhHVm5hSUg2UUZGSEkwc2p5VTdaTXI4SW5Bc0N3ZGlmWVJyaTI0cjVLNjdVYXNrMWVMQUplMDN0WjR0WXNWbU1zYncwUXF2U0xRcnFjWlZYYjB6SEFXOFhMMFZpTUhXQ1ZpZllsdm1nbUwwTU1ZM1ZZUE1oUmJveU9mLWpSVzdiSjlQY3k4LTNuaTd2R2J2b0tCekRZcURWWG9KMFBUSEtxbEtVbDFwdWJxTW1R?oc=5",
       "source": "The Tribune"
     },
     {
-      "headline": "हिमाचल पुलिस ऑर्केस्ट्रा प्रमुख को सोशल मीडिया से आय के कारण निलंबित किया गया",
-      "summary": "हिमाचल पुलिस ने ऑर्केस्ट्रा के प्रमुख को निलंबित कर दिया, क्योंकि उन्होंने सोशल मीडिया प्लेटफ़ॉर्म से आय अर्जित करने के आरोपों को स्वीकार किया।",
+      "headline": "हिमाचल पुलिस ऑर्केस्ट्रा के इंचार्ज को सोशल मीडिया से आय के लिये निलंबित किया गया",
+      "summary": "हिमाचल प्रदेश पुलिस ने अपने ऑर्केस्ट्रा के इंचार्ज को सोशल मीडिया प्लेटफ़ॉर्म से आय अर्जित करने के कारण निलंबित कर दिया, यह कदम अनुशासनात्मक उल्लंघन के रूप में देखा गया।",
       "url": "https://news.google.com/rss/articles/CBMizAFBVV95cUxNMjdpU2FyeEtXWnYxWC1xbHFKWEFBdlhDdGJoNFc0S1oyT3Z6X1c3LUZTVVp3YWdONG9rQ196NThjOVFaaUU5ZEU1aHNvRHo0b3ZMV3JFeTBwRGxoS3ZvNTBzT2lWQ1VJZ0ZVQzJ2cmx1MU9NOERDZHA1MkVTUko4eW92RUlvQV9EX0trRm1HX19uOURaamRSY2R5dW03RmdjdHg3SEVlOEhiTXhCWVJRSEJpVEI0WkJvVkh3cENSLWlSUk45QzZ1SmNDd3XSAcwBQVVfeXFMTTI3aVNhcnhLV1p2MVgtcWxxSlhBQXZYQ3RiaDRXNEtaMk92el9XNy1GU1Vad2FnTjRva0NfejU4YzlRWmlFOWRFNWhzb0R6NG92TFdyRXkwcERsaEt2bzUwc09pVkNVSWdGVUMydnJsdTFPTThEQ2RwNTJFU1JKOHlvdkVJb0FfRF9La0ZtR19fbjlEWmpkUmNkeXVtN0ZnY3R4N0hFZThIYk14QllSUUhCaVRCNFpCb1ZId3BDUi1pUlJOOUM2dUpjQ3d1?oc=5",
       "source": "The Tribune"
     },
     {
-      "headline": "राजस्थान हाई कोर्ट ने मृत्युदंड को रद्द किया, पत्नी की हत्या के आरोप में अपर्याप्त साक्ष्य श्रृंखला के कारण आरोपी को बरी किया",
-      "summary": "कोर्ट ने साक्ष्य की कमी के कारण मृत्युदंड को रद्द कर दिया और आरोपी को बरी कर दिया, यह फैसला पत्नी की हत्या के मामले में आया।",
+      "headline": "गर्भवती महिला बीवार अस्पताल में मौत, परिवार ने विरोध प्रदर्शन किया",
+      "summary": "बीवार के एक अस्पताल में गर्भवती महिला की मृत्यु के बाद उसके परिवार ने अस्पताल की देखभाल में लापरवाही का आरोप लगाते हुए शहर में विरोध प्रदर्शन किया।",
+      "url": "https://news.google.com/rss/articles/CBMiygFBVV95cUxPSU12VmtvdUFoNDBXSXhETUhDSW0wNkpJcHZTYXMzOUJRVzRoSkozWmpFcUlJR3pjMjZKSUpHUEZGTkZuMVBBS2lKNWNhb2lsZmg5ZHFSNnVFeVFxNC01Q3lGUFlHaElNVkpzSUczM2tEdXNnTXBCYk5aTTJrcFFwU0VWTU1XOVVHdDZla1hkNjJ4RTJoQm5HVGwxV2x6dDd0eEJCM3dtLTkxajlRWmMxQWxDM2lHLUtMQjJqZDU2UHR4Ui1WNzNsLWFB0gHPAUFVX3lxTE0xOHZIckRXRkpqZWx3OEZobjNJUWR3TlJCUDFENmhiR0Q4azNFcnRUTFpqcHlfaHVLNnpTOC1BOGFuUERQc1EzbUtZdWQzX2gxdHdmaE5RNS11N0VNVGRibmtzQUc5N2VSSkVMWUJaeXlUUHVUZFZ5c1Q5eHVETmFmN2hKdEVPX0ppclFMdU1fZU9VR2xGaEtrUTNMcjdxVDM4VzVnR1dqb24zcTVkTjRZY2M2NXNValdVRkhSRU1RemdpbllLZ0pwZ0VtT1RTaw?oc=5",
+      "source": "The Times of India"
+    },
+    {
+      "headline": "राजस्थान उच्च न्यायालय को नई बम धमकी मिली, जयपुर‑जोधपुर में सुरक्षा बढ़ाई गई",
+      "summary": "राजस्थान उच्च न्यायालय को बम धमकी मिलने के बाद जयपुर और जोधपुर में सुरक्षा उपायों को कड़ा किया गया, पुलिस ने संभावित खतरे को रोकने के लिये अतिरिक्त गश्तें तैनात कीं।",
+      "url": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxPbmEwU3JINVU5RWJ4Vmd0R3I3aE9qRl8wUk43NWMzTVVrN0JQZnVHWkpxTUlsTFFCZFdhaW1DTHd6LWtxV2wtaEt5QUdGd1JHbEF3Yjhfd3k3YW0temlpN3B6NTEzMjBXUkJSbTR6d0R3NWQwT2xNanB1NEhlUUF6R2pTeG5QOUhwMmcwb0FEeFhKRTQycDl5Y1hSY2RDTTFGN2xLX2lYaG1pZTRVaW5iVnZVc1FEcWhSbWtWcjdKaFRtQdIBwgFBVV95cUxPbmEwU3JINVU5RWJ4Vmd0R3I3aE9qRl8wUk43NWMzTVVrN0JQZnVHWkpxTUlsTFFCZFdhaW1DTHd6LWtxV2wtaEt5QUdGd1JHbEF3Yjhfd3k3YW0temlpN3B6NTEzMjBXUkJSbTR6d0R3NWQwT2xNanB1NEhlUUF6R2pTeG5QOUhwMmcwb0FEeFhKRTQycDl5Y1hSY2RDTTFGN2xLX2lYaG1pZTRVaW5iVnZVc1FEcWhSbWtWcjdKaFRtQQ?oc=5",
+      "source": "Social News XYZ"
+    },
+    {
+      "headline": "राजस्थान उच्च न्यायालय ने मृत्युदंड को रद्द किया, पत्नी की हत्या के आरोपी को बरी कर दिया",
+      "summary": "उच्च न्यायालय ने साक्ष्य की कमी के कारण पत्नी की हत्या के आरोपी के विरुद्ध मृत्युदंड को रद्द कर दिया और उसे बरी कर दिया, जिससे न्यायिक प्रक्रिया में साक्ष्य की महत्ता पर प्रकाश पड़ा।",
       "url": "https://news.google.com/rss/articles/CBMi0wFBVV95cUxOZFF2YVMyOFpfMklrQkxVWHcxT1psbi1XZHdQTExvSlJ6aXpoWWloWWhPbEFFeGwtTHBNSXhzSER3OW5WU3o0YUtyX2c3RC1JQjAxZjVydXl4ck9iSkxqUWsxZGliU0JRSHREY2hOMzFpZi1MbmI4czhQQ0tqMlNhUXVKRkF5MnlfOTB0TTBTLTJVT2hQaG9RRW41eXliMzNnTFJwMmp6WVRFRklKbmdSQWxKdkRtX1Z1TjBpbEZudHdaV1g4V2tNWS1PMXNwRW5OQjhz?oc=5",
       "source": "The PinkCity Post"
-    },
-    {
-      "headline": "दिल्ली हाई कोर्ट ने जयपुर के पोली ग्राउंड के बेदखली सुनवाई को 12 अगस्त तक स्थगित किया",
-      "summary": "दिल्ली हाई कोर्ट ने जयपुर के पोली ग्राउंड की बेदखली सुनवाई को 12 अगस्त तक स्थगित करने का आदेश दिया, जिससे मामले की सुनवाई में देरी हुई।",
-      "url": "https://news.google.com/rss/articles/CBMimAFBVV95cUxPbjNYV2JxZmlVNTd5VmgzUDFfem5KczlWOUMyZl9mZGNaem1Gemt4WVpBSDJPZWtYTGFyWm44cHZsN2N5OFRyNm52LTkwU2JGUnd1Mmx1ZUdPUEpNUEgzVW5tRGJ4eXNGdDFMcW03b3RIUGxjLWNoQy0wdzBlYzMwdzZPT1VGQnZSOE5SZWZZTnZrTEdJQ2otNQ?oc=5",
-      "source": "Law Trend"
-    },
-    {
-      "headline": "मनचेरियल में महिला को आत्महत्या करने के लिए मजबूर करने वाले तीन लोगों को गिरफ्तार किया गया",
-      "summary": "मनचेरियल में पुलिस ने तीन आरोपियों को गिरफ्तार किया, जिन्होंने एक महिला को आत्महत्या करने के लिए मजबूर किया, और अब उन्हें न्यायिक प्रक्रिया में लाया गया।",
-      "url": "https://news.google.com/rss/articles/CBMilgFBVV95cUxOTlNRUkplS1Vzd3UzVDNmMDk4Z3JCckNHdTVrZDR6Q1hWNmU5a1RrN0tvTjdJYkZNUF8xSzRwSTYzQl8tc1FZc0plZWduQUJRYmYwOUVFWW9yN3NfR242WHMwZmxfNWMyY09iUnFka3A3ZzZfWmllZVhxMUpIR0VqSVo0YWZyemlDNHNMaWlCYWk0bW9HWFE?oc=5",
-      "source": "Telangana Today"
     }
   ],
-  "last_feed_hash": "1104fc9dd7d84ce5",
-  "last_updated": "2026-07-14T13:49:57.558057+00:00",
+  "last_feed_hash": "5a1e4370c3c2ef84",
+  "last_updated": "2026-07-14T16:40:23.166891+00:00",
   "render_version": "10"
 }

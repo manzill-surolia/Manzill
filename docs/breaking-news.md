@@ -28,13 +28,13 @@ an operator guide.
 - Clock and dates are Hindi (e.g. `शाम 5:22 बजे`, `रविवार, 12 जुलाई 2026`). `<html lang="hi">`.
 
 ### Content depth (target ≥ 2 pages on a developed story)
-The page **header is the red "लाइव ब्रेकिंग न्यूज़" banner itself** — a full-width red bar
-(it **scrolls with the page**, not sticky) carrying a blinking `● लाइव` chip, the **अंतिम अपडेट**
-(Hindi date/time) plus a **↻ रिफ्रेश** button **inline**, and the wordmark **जयपुर न्यूज़**
-(→ news.manzill.com) at the right. There is no separate brand bar / date-strip above it; the
-story body follows directly. Section order below the header:
-1. **livebar** — just the severity badge (e.g. `विकसित हो रही`). The अंतिम अपडेट + रिफ्रेश now
-   live inline in the red header above.
+The page **header is the red "लाइव ब्रेकिंग न्यूज़" banner itself** — a slim, full-width red bar
+(it **scrolls with the page**, not sticky) carrying only a blinking `● लाइव` chip and the
+label, so it stays one line tall on mobile. There is no separate brand bar / date-strip above
+it; the story body follows directly. Section order below the header:
+1. **livebar** — a slim meta strip just above the headline: **अंतिम अपडेट** (Hindi date/time),
+   a **↻ रिफ्रेश** button, and the wordmark **जयपुर न्यूज़** (→ news.manzill.com) at the right.
+   No severity badge (removed).
 2. **पूरी खबर** — detailed analysis written as **flowing prose: 3–5 cohesive, multi-sentence
    paragraphs** (background → full chronology from first report to now → current status).
    Not many short one-line fragments.
@@ -67,8 +67,8 @@ story body follows directly. Section order below the header:
   Google News RSS alone only exposes ~24–48h, which is why the archive exists.
 
 ### Branding
-- The red live banner **is** the header; it carries a small **जयपुर न्यूज़** wordmark linking
-  to **news.manzill.com** (no separate brand bar).
+- The red live banner **is** the header; the **जयपुर न्यूज़** wordmark linking to
+  **news.manzill.com** sits in the meta strip below it (no separate brand bar).
 - Footer links only to news.manzill.com (anchor text **"जयपुर न्यूज़ हिंदी में"**) and the RSS feed.
 - **No links** to the manzill.com homepage or the `jaipur-news` / `jaipur-properties`
   stub pages — this page is independent of them.

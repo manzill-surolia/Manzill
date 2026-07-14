@@ -64,7 +64,7 @@ NEWS_SITE = "https://news.manzill.com"
 # Bump whenever the rendered output (template/RSS/sitemap format) changes. A mismatch
 # with the value stored in state forces a one-time re-render even when the feed is
 # unchanged, so a redesign rolls out on the next scheduled run without a manual push.
-RENDER_VERSION = "9"
+RENDER_VERSION = "10"
 
 # strftime has no Hindi locale, so map month names for the Hindi date/time strings.
 HINDI_MONTHS = [
@@ -936,14 +936,6 @@ def _holding_lead() -> dict:
 # --------------------------------------------------------------------------- #
 # Rendering
 # --------------------------------------------------------------------------- #
-SEV_LABEL = {
-    "critical": "गंभीर", "high": "विकसित हो रही", "medium": "अपडेट हो रही", "low": "निगरानी में",
-}
-SEV_COLOR = {
-    "critical": "#b71c1c", "high": "#e65100", "medium": "#b26a00", "low": "#6b6b6b",
-}
-
-
 def esc(text: str) -> str:
     return html.escape(text or "", quote=True)
 
@@ -1033,8 +1025,6 @@ def render(state: dict, now: datetime) -> None:
     updated_ist = _hindi_datetime(now)
 
     sev = lead.get("severity", "low")
-    badge = SEV_LABEL.get(sev, "निगरानी में")
-    color = SEV_COLOR.get(sev, "#6b6b6b")
     headline = lead.get("headline") or "जयपुर: ताज़ा खबरें अपडेट हो रही हैं"
     headline_html = esc(headline)
     title = (f"{headline} | {BRAND_SUFFIX}" if lead.get("headline")
@@ -1163,8 +1153,6 @@ def render(state: dict, now: datetime) -> None:
 
     replacements = {
         "{{TITLE}}": esc(title),
-        "{{BADGE}}": esc(badge),
-        "{{BADGE_COLOR}}": color,
         "{{HEADLINE}}": headline_html,
         "{{ANALYSIS}}": analysis_html,
         "{{KEY_FACTS}}": key_facts_html,
@@ -1693,13 +1681,9 @@ section.feed { margin-bottom: 36px; }
   width: 7px; height: 7px; border-radius: 50%; background: var(--accent);
   animation: pulse 1.4s infinite;
 }
+/* Meta strip under the red header: अंतिम अपडेट · रिफ्रेश · brand link, above the headline. */
 .livebar { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin: 6px 0 8px; }
-.sev-badge {
-  display: inline-flex; align-items: center; gap: 7px; color: #fff; font-weight: 800;
-  font-size: .72rem; letter-spacing: .04em; padding: 5px 12px; border-radius: 999px;
-  background: {{BADGE_COLOR}};
-}
-.sev-badge .dot { width: 8px; height: 8px; border-radius: 50%; background: #fff; animation: pulse 1.6s infinite; }
+.livebar .brand-link { margin-left: auto; color: var(--brand); font-weight: 800; font-size: .9rem; }
 .updated { font-size: .82rem; color: var(--muted); }
 .editorial-card.fade-in { margin-bottom: 26px; }
 ul.timeline { list-style: none; margin: 0; padding: 0; max-width: 760px; }
@@ -1759,29 +1743,7 @@ footer a { color: var(--brand); font-weight: 600; }
   font-size: .98rem; text-transform: uppercase; overflow: hidden;
   text-overflow: ellipsis; white-space: nowrap;
 }
-/* अंतिम अपडेट + रिफ्रेश now live inline in the red header, pushed to the right. */
-.breaking-banner .bn-updated {
-  margin-left: auto; flex: 0 1 auto; color: #fff; opacity: .92;
-  font-size: .8rem; font-weight: 600; letter-spacing: normal;
-  text-transform: none; white-space: nowrap;
-}
-.breaking-banner .bn-refresh {
-  flex: 0 0 auto; background: rgba(255,255,255,.16);
-  border: 1px solid rgba(255,255,255,.42); color: #fff;
-  padding: 4px 11px; border-radius: 999px; font-size: .74rem;
-  font-family: inherit; font-weight: 700; letter-spacing: normal; cursor: pointer;
-}
-.breaking-banner .bn-refresh:hover { background: rgba(255,255,255,.28); }
-.breaking-banner .bn-brand {
-  flex: 0 0 auto; color: #fff; opacity: .95;
-  font-size: .95rem; font-weight: 800;
-}
 @keyframes blink { 50% { opacity: .4; } }
-/* On narrow screens keep the essentials; the timestamp wraps rather than clips. */
-@media (max-width: 560px) {
-  .breaking-banner .bn-updated { margin-left: 0; white-space: normal; font-size: .74rem; }
-  .breaking-banner .bn-label { white-space: normal; }
-}
 
 /* Key facts list */
 ul.facts { margin: 0; padding-left: 20px; max-width: 760px; }
@@ -1808,15 +1770,14 @@ ul.facts li { margin: 0 0 8px; line-height: 1.6; }
       <div class="bn-inner">
         <span class="live-chip"><span class="ping"></span>लाइव</span>
         <span class="bn-label">लाइव ब्रेकिंग न्यूज़</span>
-        <span class="bn-updated">अंतिम अपडेट {{UPDATED_IST}}</span>
-        <button class="bn-refresh" type="button" onclick="location.reload()" aria-label="रिफ्रेश">&#8635; रिफ्रेश</button>
-        <a class="bn-brand" href="https://news.manzill.com">जयपुर न्यूज़</a>
       </div>
     </header>
 
     <main>
       <div class="livebar">
-        <span class="sev-badge"><span class="dot"></span>{{BADGE}}</span>
+        <span class="updated">अंतिम अपडेट {{UPDATED_IST}}</span>
+        <button class="refresh-btn" type="button" onclick="location.reload()" aria-label="रिफ्रेश">&#8635; रिफ्रेश</button>
+        <a class="brand-link" href="https://news.manzill.com">जयपुर न्यूज़</a>
       </div>
 
       <section class="hero">

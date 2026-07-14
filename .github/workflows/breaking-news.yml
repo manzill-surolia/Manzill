@@ -9,6 +9,19 @@ on:
   schedule:
     - cron: "*/20 * * * *"
   workflow_dispatch:
+    inputs:
+      force_query:
+        description: "Force a story to lead by keywords (e.g. Rajasthan High Court bomb threat). Blank = auto-pick."
+        required: false
+        default: ""
+      force_url:
+        description: "Force a specific article URL to lead (also fill force_headline)."
+        required: false
+        default: ""
+      force_headline:
+        description: "Headline for the forced URL (required if force_url is set)."
+        required: false
+        default: ""
 
 permissions:
   contents: write
@@ -36,6 +49,10 @@ jobs:
         env:
           GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
           GROQ_MODEL: ${{ vars.GROQ_MODEL }}
+          # Optional manual pin from a "Run workflow" dispatch; empty on scheduled runs.
+          FORCE_QUERY: ${{ github.event.inputs.force_query }}
+          FORCE_URL: ${{ github.event.inputs.force_url }}
+          FORCE_HEADLINE: ${{ github.event.inputs.force_headline }}
         run: python scripts/build_breaking_news.py
 
       - name: Commit and push if changed

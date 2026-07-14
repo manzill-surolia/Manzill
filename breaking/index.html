@@ -465,16 +465,15 @@ footer a { color: var(--brand); font-weight: 600; }
   .date-strip > span:not(.live-pill) { display: none; }
 }
 
-/* Red LIVE breaking banner — this is the page header (full-width, sticky) */
+/* Red LIVE breaking banner — this is the page header (full-width, scrolls with the page) */
 .breaking-banner {
-  position: sticky; top: 0; z-index: 50;
   background: linear-gradient(90deg, #e0112b, #b71c1c);
   color: #fff; box-shadow: var(--shadow);
   border-bottom: 3px solid var(--accent);
 }
 .breaking-banner .bn-inner {
   max-width: var(--maxw); margin: 0 auto; padding: 12px 16px;
-  display: flex; align-items: center; gap: 12px;
+  display: flex; align-items: center; gap: 10px 12px; flex-wrap: wrap;
   font-weight: 800; letter-spacing: .03em;
 }
 .breaking-banner .live-chip {
@@ -491,11 +490,29 @@ footer a { color: var(--brand); font-weight: 600; }
   font-size: .98rem; text-transform: uppercase; overflow: hidden;
   text-overflow: ellipsis; white-space: nowrap;
 }
+/* अंतिम अपडेट + रिफ्रेश now live inline in the red header, pushed to the right. */
+.breaking-banner .bn-updated {
+  margin-left: auto; flex: 0 1 auto; color: #fff; opacity: .92;
+  font-size: .8rem; font-weight: 600; letter-spacing: normal;
+  text-transform: none; white-space: nowrap;
+}
+.breaking-banner .bn-refresh {
+  flex: 0 0 auto; background: rgba(255,255,255,.16);
+  border: 1px solid rgba(255,255,255,.42); color: #fff;
+  padding: 4px 11px; border-radius: 999px; font-size: .74rem;
+  font-family: inherit; font-weight: 700; letter-spacing: normal; cursor: pointer;
+}
+.breaking-banner .bn-refresh:hover { background: rgba(255,255,255,.28); }
 .breaking-banner .bn-brand {
-  margin-left: auto; flex: 0 0 auto; color: #fff; opacity: .95;
+  flex: 0 0 auto; color: #fff; opacity: .95;
   font-size: .95rem; font-weight: 800;
 }
 @keyframes blink { 50% { opacity: .4; } }
+/* On narrow screens keep the essentials; the timestamp wraps rather than clips. */
+@media (max-width: 560px) {
+  .breaking-banner .bn-updated { margin-left: 0; white-space: normal; font-size: .74rem; }
+  .breaking-banner .bn-label { white-space: normal; }
+}
 
 /* Key facts list */
 ul.facts { margin: 0; padding-left: 20px; max-width: 760px; }
@@ -583,7 +600,9 @@ ul.facts li { margin: 0 0 8px; line-height: 1.6; }
     <header class="breaking-banner">
       <div class="bn-inner">
         <span class="live-chip"><span class="ping"></span>लाइव</span>
-        <span class="bn-label">लाइव ब्रेकिंग न्यूज़ &mdash; पल-पल के अपडेट</span>
+        <span class="bn-label">लाइव ब्रेकिंग न्यूज़</span>
+        <span class="bn-updated">अंतिम अपडेट 14 जुलाई 2026, सुबह 4:15 बजे</span>
+        <button class="bn-refresh" type="button" onclick="location.reload()" aria-label="रिफ्रेश">&#8635; रिफ्रेश</button>
         <a class="bn-brand" href="https://news.manzill.com">जयपुर न्यूज़</a>
       </div>
     </header>
@@ -591,8 +610,6 @@ ul.facts li { margin: 0 0 8px; line-height: 1.6; }
     <main>
       <div class="livebar">
         <span class="sev-badge"><span class="dot"></span>विकसित हो रही</span>
-        <span class="updated">अंतिम अपडेट 14 जुलाई 2026, सुबह 4:15 बजे</span>
-        <button class="refresh-btn" type="button" onclick="location.reload()" aria-label="रिफ्रेश">&#8635; रिफ्रेश</button>
       </div>
 
       <section class="hero">
@@ -609,6 +626,20 @@ ul.facts li { margin: 0 0 8px; line-height: 1.6; }
       </div>
 
       <section class="feed">
+        <div class="section-head">
+          <h2>घटनाक्रम &mdash; शुरुआत से अब तक</h2>
+          <span class="count">4 घटनाक्रम</span>
+        </div>
+        <ul class="timeline">
+          <li class="tl-item sev-high" style="--i:0"><time>13 जुलाई, सुबह 10:40 बजे</time><p>राजस्थान उच्च न्यायालय को बम धमकी वाला ई‑मेल प्राप्त हुआ, जिससे सुरक्षा को कड़ा करने का आदेश जारी किया गया।</p></li>
+<li class="tl-item sev-high" style="--i:1"><time>13 जुलाई, शाम 4:06 बजे</time><p>लोकमैटाइम्स ने रिपोर्ट किया कि धमकी के बाद कोर्ट परिसर में अतिरिक्त पुलिस गश्त और धातु डिटेक्टर लगाए गए।</p></li>
+<li class="tl-item sev-high" style="--i:2"><time>13 जुलाई, शाम 4:24 बजे</time><p>द हिंदू ने बताया कि फोरेंसिक टीम ने संभावित विस्फोटकों की खोज में व्यापक तलाशी अभियान शुरू किया।</p></li>
+<li class="tl-item sev-high" style="--i:3"><time>13 जुलाई, शाम 4:28 बजे</time><p>गुजरातसमाचार ने कहा कि सुरक्षा को तीव्र किया गया और सभी न्यायिक कार्यों को अस्थायी रूप से रोक दिया गया।</p></li>
+        </ul>
+        <p class="note">ऊपर से नीचे: पुराने से नए घटनाक्रम। खबर के विकसित होते ही यह पेज अपने-आप रिफ्रेश होता रहता है।</p>
+      </section>
+
+      <section class="feed">
         <div class="section-head"><h2>मुख्य तथ्य</h2></div>
         <ul class="facts">
           <li>राजस्थान उच्च न्यायालय को 13 जुलाई को बम धमकी वाला ई‑मेल मिला</li>
@@ -620,20 +651,6 @@ ul.facts li { margin: 0 0 8px; line-height: 1.6; }
       </section>
 
       
-
-      <section class="feed">
-        <div class="section-head">
-          <h2>घटनाक्रम &mdash; शुरुआत से अब तक</h2>
-          <span class="count">4 घटनाक्रम</span>
-        </div>
-        <ul class="timeline">
-          <li class="tl-item sev-high" style="--i:0"><time>13 जुलाई</time><p>राजस्थान उच्च न्यायालय को बम धमकी वाला ई‑मेल प्राप्त हुआ, जिससे सुरक्षा को कड़ा करने का आदेश जारी किया गया।</p></li>
-<li class="tl-item sev-high" style="--i:1"><time>13 जुलाई</time><p>लोकमैटाइम्स ने रिपोर्ट किया कि धमकी के बाद कोर्ट परिसर में अतिरिक्त पुलिस गश्त और धातु डिटेक्टर लगाए गए।</p></li>
-<li class="tl-item sev-high" style="--i:2"><time>13 जुलाई</time><p>द हिंदू ने बताया कि फोरेंसिक टीम ने संभावित विस्फोटकों की खोज में व्यापक तलाशी अभियान शुरू किया।</p></li>
-<li class="tl-item sev-high" style="--i:3"><time>13 जुलाई</time><p>गुजरातसमाचार ने कहा कि सुरक्षा को तीव्र किया गया और सभी न्यायिक कार्यों को अस्थायी रूप से रोक दिया गया।</p></li>
-        </ul>
-        <p class="note">ऊपर से नीचे: पुराने से नए घटनाक्रम। खबर के विकसित होते ही यह पेज अपने-आप रिफ्रेश होता रहता है।</p>
-      </section>
 
       <section class="feed">
         <div class="section-head"><h2>आगे क्या</h2></div>

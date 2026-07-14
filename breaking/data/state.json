@@ -1,77 +1,79 @@
 {
   "ist_day": "2026-07-15",
   "lead": {
-    "id": "047db77c1e00",
-    "headline": "जगन गुर्जर हत्या मामले में भाई पप्पू गुर्जर को दाऊसा जेल में स्थानांतरित",
-    "event_type": "crime",
+    "id": "8933fce67aee",
+    "headline": "राजस्थान में मातृ मृत्यु मामलों में वृद्धि, स्वास्थ्य मंत्री ने आपात बैठक बुलाई",
+    "event_type": "other",
     "severity": "high",
-    "analysis": "जगन गुर्जर की हत्या के बाद पुलिस ने मामले की जाँच में कई कदम उठाए। 13 जुलाई शाम को पुलिस ने शिफ्टिंग हेड ऑफिस (SHO) को पुलिस लाइन में भेजा, जिससे यह स्पष्ट हुआ कि भाई पप्पू गुर्जर को किसी अन्य जेल में स्थानांतरित करने की प्रक्रिया शुरू हो गई थी। यह कदम पुलिस की कार्रवाई को दर्शाता है, लेकिन साथ ही यह भी संकेत देता है कि जेल में सुरक्षा और व्यवस्था को लेकर चिंताएँ थीं।\n\nअगले दिन, 14 जुलाई रात को, आधिकारिक घोषणा के माध्यम से बताया गया कि पप्पू गुर्जर को जयपुर के दाऊसा जेल में स्थानांतरित कर दिया गया है। इस स्थानांतरण का उद्देश्य जाँच के दौरान संभावित हस्तक्षेप को रोकना और मामले की पारदर्शिता सुनिश्चित करना माना गया। अब पप्पू गुर्जर जेल में हैं और उनके खिलाफ चल रहे कानूनी कार्यवाही के तहत आगे की सुनवाई का इंतजार है।\n\nवर्तमान में, न्यायालय ने इस स्थानांतरण को स्वीकृति दी है और यह देखा जा रहा है कि इस कदम से मामले की जाँच में कोई बाधा तो नहीं आती। पुलिस ने कहा है कि सभी प्रक्रियाएँ कानून के दायरे में पूरी की जा रही हैं और भविष्य में भी इस दिशा में कदम उठाए जाएंगे।",
+    "analysis": "राजस्थान में मातृ मृत्यु की घटनाएँ हाल के महीनों में बढ़ती हुई दिख रही हैं, जिससे राज्य के स्वास्थ्य विभाग पर गंभीर प्रश्न उठे हैं। स्वास्थ्य मंत्री ने बताया कि अब तक 18 मामलों की पुष्टि हुई है, लेकिन इन मौतों के कारण अभी तक स्पष्ट नहीं हो पाए हैं, जिससे जनता में असंतोष बढ़ रहा है।\n\n14 जुलाई को प्रकाशित एक रिपोर्ट के अनुसार, स्वास्थ्य मंत्री ने कहा कि इन 18 मामलों को ‘रहस्य’ कहा गया है और तुरंत एक आपात बैठक बुलाने का निर्णय लिया गया। इस बैठक में स्वास्थ्य विभाग, अस्पताल प्रशासन और संबंधित विशेषज्ञों को शामिल किया गया ताकि कारणों की गहन जांच की जा सके।\n\nअगले दिन, 15 जुलाई को thinQ360 ने बताया कि स्वास्थ्य मंत्री ने इस मुद्दे पर एक विस्तृत बैठक का आयोजन किया, जिसमें विभिन्न सरकारी और निजी स्वास्थ्य संस्थानों के प्रतिनिधियों को आमंत्रित किया गया। बैठक में प्राथमिक कारणों की संभावनाओं पर चर्चा हुई, जैसे कि प्री‑नैटल देखभाल की कमी, आपातकालीन सेवाओं में देरी और अस्पतालों में आवश्यक सुविधाओं की अनुपलब्धता।\n\nवर्तमान में, राज्य सरकार ने सभी सार्वजनिक अस्पतालों में मातृ सुरक्षा प्रोटोकॉल को सुदृढ़ करने का आदेश दिया है और एक स्वतंत्र जांच आयोग का गठन करने की घोषणा की है। यह आयोग भविष्य में ऐसी घटनाओं को रोकने के लिए सिफ़ारिशें तैयार करेगा।",
     "key_facts": [
-      "जगन गुर्जर की हत्या के बाद भाई पप्पू गुर्जर को जेल में स्थानांतरित करने की प्रक्रिया शुरू हुई",
-      "13 जुलाई शाम 4:34 बजे SHO को पुलिस लाइन में भेजा गया",
-      "14 जुलाई रात 11:23 बजे पप्पू गुर्जर को दाऊसा जेल में स्थानांतरित किया गया",
-      "स्थानांतरण का उद्देश्य जाँच की सुरक्षा और पारदर्शिता सुनिश्चित करना है"
+      "राजस्थान में अब तक 18 मातृ मृत्यु मामलों की पुष्टि हुई है",
+      "मृत्यु के कारण अभी तक स्पष्ट नहीं, इसे ‘रहस्य’ कहा गया है",
+      "स्वास्थ्य मंत्री ने 14 जुलाई को आपात बैठक बुलाई",
+      "15 जुलाई को विभिन्न स्वास्थ्य संस्थानों के प्रतिनिधियों के साथ विस्तृत बैठक हुई",
+      "सरकार ने अस्पतालों में मातृ सुरक्षा प्रोटोकॉल सुदृढ़ करने का आदेश दिया",
+      "एक स्वतंत्र जांच आयोग का गठन करने की घोषणा की गई"
     ],
     "police_accountability": "",
-    "what_next": "भाई पप्पू गुर्जर की अगली सुनवाई न्यायालय के शेड्यूल पर निर्भर करेगी, और जाँच के परिणामों के आधार पर आगे की कार्यवाही तय होगी.",
+    "what_next": "स्वास्थ्य विभाग आगे विस्तृत जांच करेगा और अस्पतालों में मातृ सुरक्षा उपायों को सुदृढ़ करेगा।",
     "developments": [
       {
-        "label": "13 जुलाई, शाम 4:34 बजे",
-        "text": "शिफ्टिंग हेड ऑफिस (SHO) को पुलिस लाइन में भेजा गया, जिससे यह संकेत मिला कि भाई पप्पू गुर्जर को किसी अन्य जेल में स्थानांतरित करने की तैयारी चल रही थी।"
+        "label": "14 जुलाई, सुबह 8:48 बजे",
+        "text": "राजस्थान स्वास्थ्य मंत्री ने कहा कि 18 मातृ मृत्यु मामलों को अभी तक रहस्य माना जा रहा है और तुरंत एक आपात बैठक बुलाने का निर्णय लिया गया।"
       },
       {
-        "label": "14 जुलाई, रात 11:23 बजे",
-        "text": "आधिकारिक घोषणा के अनुसार पप्पू गुर्जर को जयपुर के दाऊसा जेल में स्थानांतरित कर दिया गया, जिससे जाँच के दौरान संभावित हस्तक्षेप को रोका जा सके।"
+        "label": "15 जुलाई, रात 1:21 बजे",
+        "text": "स्वास्थ्य मंत्री ने विभिन्न स्वास्थ्य विभागों और विशेषज्ञों को शामिल कर एक विस्तृत बैठक आयोजित की, जिसमें मातृ मृत्यु के संभावित कारणों और रोकथाम उपायों पर चर्चा हुई।"
       }
     ],
     "sources": [
       {
-        "title_hi": "जगन गुर्जर हत्या मामला: भाई पप्पू गुर्जर को जयपुर के दाऊसा जेल में स्थानांतरित किया गया",
-        "url": "https://news.google.com/rss/articles/CBMitAFBVV95cUxOMGdOYVh4LUhLSElrVmVJZDhhOEdmU1pqZS16NlA5XzNBX0FfNE1SZ0ZRSURJcFliTjhiaXRVVTZOcjdWYTNRaVJpN3plcng2eGt1Mkg2c3NaQjQtZWRISVg1dXhQa094RVF6dmNTeDZCRWVTNUdWajNQMjg4WThOSDZPd0MwQzUzTy1qT0ZWUFlBUkVITGZpY0hONm5hTi02ZTB6dXVZME41eFdVLW5YRWl0d1XSAbQBQVVfeXFMTjBnTmFYeC1IS0hJa1ZlSWQ4YThHZlNaamUtejZQOV8zQV9BXzRNUmdGUUlESXBZYk44Yml0VVU2TnI3VmEzUWlSaTd6ZXJ4NnhrdTJINnNzWkI0LWVkSElYNXV4UGtPeEVRenZjU3g2QkVlUzVHVmozUDI4OFk4Tkg2T3dDMEM1M08tak9GVlBZQVJFSExmaWNITjZuYU4tNmUwenV1WTBONXhXVS1uWEVpdHdV?oc=5",
-        "source": "Social News XYZ",
-        "published": "2026-07-14T17:53:44+00:00"
+        "title_hi": "राजस्थान में मातृ मृत्यु, स्वास्थ्य मंत्री ने आपात बैठक बुलाई",
+        "url": "https://news.google.com/rss/articles/CBMijAFBVV95cUxORHcwYUw4ZWdTdW53dEdYekctVEdqQWRxM2Q1ZW9zajJEMWlSUEl3RzItbkRrcVhvTXpscTBEeVBfdnBvcEtXbHFxbDZhMGg4b2FvelBXRXcxc2h6QzZVNmZwekVhc1pVRjhaUzZ0aGZmQks0bndWMkJzeWFOaFVQMkZJaTFOQkx1eVlxTA?oc=5",
+        "source": "thinQ360",
+        "published": "2026-07-14T19:51:59+00:00"
       },
       {
-        "title_hi": "डाकू जगन गुर्जर हत्या में एसएचओ को पुलिस लाइन में भेजा गया: भाई पप्पू को दूसरे जेल में स्थानांतरित किया जाएगा, एसपी-कोल...",
-        "url": "https://news.google.com/rss/articles/CBMiyAFBVV95cUxPQ2lBemV6SUl1ZTFHM3R1ZUlYXzVsM3gzeERPbW5qM0hOX2NKUm91Rl8tQVQ5X0lGeWh5YmIxX3ZRQzFzS1lnczBsRENBR1Y0N3RIZFkxTGlxRXd4WDdFanZaeW8xS2pUemtGTTFncy1obVJaaFBQSWlfNEcwcTlOOEpnUG9vOXhqb29TQlYzME8yZExLNU13UlNkUFN6bndkRFdtRTdWQVVVQVJoRXpuOEVkZzVHRE5ocGRwNFpaNXBOTWd3MjlYctIByAFBVV95cUxPQ2lBemV6SUl1ZTFHM3R1ZUlYXzVsM3gzeERPbW5qM0hOX2NKUm91Rl8tQVQ5X0lGeWh5YmIxX3ZRQzFzS1lnczBsRENBR1Y0N3RIZFkxTGlxRXd4WDdFanZaeW8xS2pUemtGTTFncy1obVJaaFBQSWlfNEcwcTlOOEpnUG9vOXhqb29TQlYzME8yZExLNU13UlNkUFN6bndkRFdtRTdWQVVVQVJoRXpuOEVkZzVHRE5ocGRwNFpaNXBOTWd3MjlYcg?oc=5",
-        "source": "Bhaskar English",
-        "published": "2026-07-13T11:04:15+00:00"
+        "title_hi": "राजस्थान स्वास्थ्य मंत्री ने कहा, 18 मातृ मृत्यु अभी भी रहस्य",
+        "url": "https://news.google.com/rss/articles/CBMi1gFBVV95cUxQLXJ6QXpWcGgwNXo2NzJxX1BoOGljQUt6czFqdGFhaC1qZkN1Y3BkLU9FM1F0cXhzcm9GM00tUlZWM3FmM2puTjRTOXU3X3gtNDJYSVlLaVlQUF9tZGdIZFpXQlJwbTFQc3Y0ZnItN0ZtR2Z5NllCU1B2NC1ubjk3Z25ZdmV1QUgwSFRSNVVvQTNodGxNTUdlMnBBSTlnT2ZocVJoREVvVE5XME44b29VT1l3MmtCdWRQTnBlNXVVMDhUZzhNdXRjUlJoc0tWZzZvdjgtWXJn0gHbAUFVX3lxTE1oNHhRckFPWl9SR3o5MlREZ1JvZ3N5NDhHRzVESkxpVGNTcFB0ZXFRblR3UWFXSWlIbEt1OEx2aGZ5dlVLWWotcEQ5ODdTQUxoQTRBN2RkeWRVdUkzb2ZyX0ExVTJsb1NHbXFaSmZ6THItSzh4ZTZGODVBY1ZUREVpQ3hBeE9kTkU3YVR4RVV0ZWpEamp1dUtDTHVnenBYTUxUN2ZNR0ZvM2lPYXRodENxV09sZm43N3djWDdKX1JsT3J0T25hZ29uNmlvb0JnN1RVZGU0RTBENzk0Yw?oc=5",
+        "source": "The Times of India",
+        "published": "2026-07-14T03:18:00+00:00"
       }
     ]
   },
   "other_stories": [
     {
-      "headline": "तीन प्रकाशक को अलगाववादी पुस्तकों की प्रशंसा करने के कारण पुलिस हिरासत में रखा गया",
-      "summary": "राज्य पुलिस ने उन तीन प्रकाशकों को हिरासत में ले लिया, जिनकी प्रकाशित पुस्तकों में अलगाववादी विचारों की प्रशंसा पाई गई।",
+      "headline": "तीन प्रकाशकों को पुलिस हिरासत में रखा गया",
+      "summary": "राज्य पुलिस ने उन तीन प्रकाशकों को हिरासत में रखा है जिन्होंने अलगाववादी विचारों को बढ़ावा देने वाली पुस्तकों को प्रकाशित करने का आरोप लगाया गया है।",
       "url": "https://news.google.com/rss/articles/CBMitwFBVV95cUxPaEpuOEdWbmFJSDZRRkZISTBzanlVN1pNcjhJbkFzQ3dkaWZZUnJpMjRyNUs2N1Vhc2sxZUxBSmUwM3RaNHRZc1ZtTXNidzBRcXZTTFFycWNaVlhiMHpIQVc4WEwwVmlNSFdDVmlmWWx2bWdtTDBNTVkzVllQTWhSYm95T2YtalJXN2JKOVBjeTgtM25pN3ZHYnZvS0J6RFlxRFZYb0owUFRIS3FsS1VsMXB1YnFNbVHSAbcBQVVfeXFMT2hKbjhHVm5hSUg2UUZGSEkwc2p5VTdaTXI4SW5Bc0N3ZGlmWVJyaTI0cjVLNjdVYXNrMWVMQUplMDN0WjR0WXNWbU1zYncwUXF2U0xRcnFjWlZYYjB6SEFXOFhMMFZpTUhXQ1ZpZllsdm1nbUwwTU1ZM1ZZUE1oUmJveU9mLWpSVzdiSjlQY3k4LTNuaTd2R2J2b0tCekRZcURWWG9KMFBUSEtxbEtVbDFwdWJxTW1R?oc=5",
       "source": "The Tribune"
     },
     {
       "headline": "हिमाचल पुलिस ऑर्केस्ट्रा के इंचार्ज को सोशल मीडिया से आय के कारण निलंबित किया गया",
-      "summary": "हिमाचल प्रदेश पुलिस ने अपने ऑर्केस्ट्रा के प्रमुख को सोशल मीडिया प्लेटफ़ॉर्म से आय अर्जित करने के आरोप में निलंबित कर दिया।",
+      "summary": "हिमाचल प्रदेश पुलिस के ऑर्केस्ट्रा के प्रमुख को सोशल मीडिया प्लेटफ़ॉर्म से आय अर्जित करने के कारण निलंबित किया गया है।",
       "url": "https://news.google.com/rss/articles/CBMizAFBVV95cUxNMjdpU2FyeEtXWnYxWC1xbHFKWEFBdlhDdGJoNFc0S1oyT3Z6X1c3LUZTVVp3YWdONG9rQ196NThjOVFaaUU5ZEU1aHNvRHo0b3ZMV3JFeTBwRGxoS3ZvNTBzT2lWQ1VJZ0ZVQzJ2cmx1MU9NOERDZHA1MkVTUko4eW92RUlvQV9EX0trRm1HX19uOURaamRSY2R5dW03RmdjdHg3SEVlOEhiTXhCWVJRSEJpVEI0WkJvVkh3cENSLWlSUk45QzZ1SmNDd3XSAcwBQVVfeXFMTTI3aVNhcnhLV1p2MVgtcWxxSlhBQXZYQ3RiaDRXNEtaMk92el9XNy1GU1Vad2FnTjRva0NfejU4YzlRWmlFOWRFNWhzb0R6NG92TFdyRXkwcERsaEt2bzUwc09pVkNVSWdGVUMydnJsdTFPTThEQ2RwNTJFU1JKOHlvdkVJb0FfRF9La0ZtR19fbjlEWmpkUmNkeXVtN0ZnY3R4N0hFZThIYk14QllSUUhCaVRCNFpCb1ZId3BDUi1pUlJOOUM2dUpjQ3d1?oc=5",
       "source": "The Tribune"
     },
     {
-      "headline": "राज्य उच्च न्यायालय ने स्थानीय चुनाव में देरी पर अपमानजनक दावे की सुनवाई स्थगित कर दी",
-      "summary": "राज्य उच्च न्यायालय ने स्थानीय चुनाव में देरी से संबंधित अपमानजनक दावे की सुनवाई को आगे के लिए टाल दिया।",
-      "url": "https://news.google.com/rss/articles/CBMizgFBVV95cUxNWENlWGZOaW12ZnNJUG5SUzF1aURiZVh2QmVwTWpOTFlmLVBteXlIeU5TWUlVSkJGaEdQX0poc2VsQW9qemRlQ25wOERwYTBuMG0wT2FDQ29VM2RhSVVoaG1UVHBmMF9CT3JRem9TQXhjRmlXMmZsVXRjdm16aDNNeFdvcUhGSVdXTmNmYzZjd2xrMjNhdWlBd3dfTUVtME9LNVdtQkx2VlM4Vnh0S2VoNXpEX0I3ZENDM3EyVzBNazhNcDM0UHU0cUV1R2hpQdIBzgFBVV95cUxNWENlWGZOaW12ZnNJUG5SUzF1aURiZVh2QmVwTWpOTFlmLVBteXlIeU5TWUlVSkJGaEdQX0poc2VsQW9qemRlQ25wOERwYTBuMG0wT2FDQ29VM2RhSVVoaG1UVHBmMF9CT3JRem9TQXhjRmlXMmZsVXRjdm16aDNNeFdvcUhGSVdXTmNmYzZjd2xrMjNhdWlBd3dfTUVtME9LNVdtQkx2VlM4Vnh0S2VoNXpEX0I3ZENDM3EyVzBNazhNcDM0UHU0cUV1R2hpQQ?oc=5",
-      "source": "The Times of India"
+      "headline": "जगन गुर्जर हत्या केस: भाई पप्पू गुर्जर को जयपुर के दौसा जेल में स्थानांतरित किया गया",
+      "summary": "जगन गुर्जर की हत्या के मामले में आरोपी के भाई पप्पू गुर्जर को सुरक्षा कारणों से जयपुर के दौसा जेल में स्थानांतरित किया गया।",
+      "url": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxQMkZscjRTd2YtR1g5cGIzLUdXQ0JpS3o1bEV3dm9zVHhoR3Zwa0NLc2FZU2Z1dWFNTGdoaVRjVGk1MG45UERQdXhZZFMzbVFXdTVOMVg5LWJTS196U01fWGo5cTM2emFEeXZXdTFvLXNLVi1sY0Q5TzZmUms3eHIzZDJfUkp6SHlpR0Q4NlJrcGlVS0lzY1hKSWZ2MmhHam01RW9Qc0hmX1lnQjdiMk9VdjJGQVF4c1c40gG4AUFVX3lxTFAyRmxyNFN3Zi1HWDlwYjMtR1dDQmlLejVsRXd2b3NUeGhHdnBrQ0tzYVlTZnV1YU1MZ2hpVGNUaTUwbjlQRFB1eFlkUzNtUVd1NU4xWDktYlNLX3pTTV9YajlxMzZ6YUR5dld1MW8tc0tWLWxjRDlPNmZSazd4cjNkMl9SSnpIeWlHRDg2UmtwaVVLSXNjWEpJZnYyaEdqbTVFb1BzSGZfWWdCN2IyT1V2MkZBUXhzVzg?oc=5",
+      "source": "lokmattimes.com"
     },
     {
-      "headline": "जयपुर की लड़की ने चचेरे भाई के साथ लिव-इन संबंध में माँ की हत्या कर दी, सरकारी नौकरी के लिए",
-      "summary": "जयपुर की एक युवा लड़की ने सरकारी नौकरी पाने की इच्छा से अपने चचेरे भाई के साथ लिव-इन संबंध में अपनी माँ की हत्या कर दी।",
+      "headline": "जयपुर की लड़की ने कज़िन के साथ लिव‑इन में रहकर माँ की हत्या कर दी, सरकारी नौकरी के लिए",
+      "summary": "एक जयपुर की महिला ने अपने कज़िन के साथ लिव‑इन संबंध में रहकर अपनी माँ की हत्या की, जिससे वह सरकारी नौकरी प्राप्त करने की आशा रखती थी।",
       "url": "https://news.google.com/rss/articles/CBMisgFBVV95cUxPNk1wQzNEWTZHNkZvcm4wcXVSVzdTcnpLel9YZHJTeGZhNS11OTdzNHFKWjRyM2NxLXpMaDdCYTNHdjdkLUJGZFB0OGNkQUgxTk5HaXdUMGtQZi03ek5GbTNJMjd3b1FfT3RPa0dtZUhFZkdDeFlJdlhtcUZoanZsYURCVnRqM2lwUUVQM0h1N09WYmxhZFZvRDU1M093cVhuNHZ5OEFiMS1XcUZiQjB4S0l30gGyAUFVX3lxTE82TXBDM0RZNkc2Rm9ybjBxdVJXN1Nyekt6X1hkclN4ZmE1LXU5N3M0cUpaNHIzY3EtekxoN0JhM0d2N2QtQkZkUHQ4Y2RBSDFOTkdpd1Qwa1BmLTd6TkZtM0kyN3dvUV9PdE9rR21lSEVmR0N4WUl2WG1xRmhqdmxhREJWdGozaXBRRVAzSHU3T1ZibGFkVm9ENTUzT3dxWG40dnk4QWIxLVdxRmJCMHhLSXc?oc=5",
       "source": "Kanak News Odisha"
     },
     {
-      "headline": "'उसने मदद मांगी': नई सीसीटीवी फुटेज में जयपुर स्कूल की लड़की की मौत से पहले बुलिंग के दृश्य दिखे",
-      "summary": "नए सीसीटीवी फुटेज में दिखा कि जयपुर के स्कूल में एक लड़की की मौत से पहले उसे बुलिंग का सामना करना पड़ा, जहाँ उसने मदद की गुहार लगाई।",
-      "url": "https://news.google.com/rss/articles/CBMi1gFBVV95cUxNd2Z5ck1vTmhFU3NXZ19OVUd5Wl9uVkRQeHJvODBGRkh1NnBRZXM3TW1CZnlWTFV2aXlzX3V2cVl5bzZpQjNKOFpJNjdWeG9fRFl5M2tibF81UlpqVmVuaXRDT3BxMURFeWJaZ3hzeERGbjZ5ZDB4aG9od0JDdzNWQTBfWWpRaWc5S2kyOS1ZR1ZwT05XS3BrSng2TWVHcUNsLWM0QzVaQkdxQzlBTjdFSnJlNm52RExMTWdhSHUzdFFseU4ySm1pZU83RFFpNjdET3hwWU1n?oc=5",
-      "source": "MSN"
+      "headline": "बिकानेर सरकारी अस्पताल में एक और मातृ मृत्यु की सूचना, कुल संख्या 19 तक पहुंची",
+      "summary": "बिकानेर के सरकारी अस्पताल में एक नई मातृ मृत्यु की पुष्टि हुई, जिससे राज्य में कुल मातृ मृत्यु की संख्या 19 तक बढ़ गई।",
+      "url": "https://news.google.com/rss/articles/CBMi5AFBVV95cUxNbXNNQU1JaC1wTkJxT29RR2p1RmszVmE2V0NhSEtaeWJMb3g3M0RjN2F5eUFvZHlTV3NMenBBYjFKd2QtWkkwRnhDZjFLaUNNVkpEWll4WVZNYjdqMTZkcnNTS0t0Zk85ckU4RE1palM1Rjk5RnZiRFhvT0lIbnVLVW16c3ctRGU2LU1YMUpkVHlZTkxyYmVoUU5VQnVPZWw0dHA2SWRMNW1kdGVOSHJ1cDhjMXh5UGJFRHpjMkV3T05TMDJDQ2l3OFZRMEZQNVZoRFdtVmh3WEUwY3M2TS1IYWRrYmbSAeoBQVVfeXFMTUlYbjhPMEkzcWkwQXZibkpZTEZhQS1rTlFabkZzRHM5X3V1TXBPTC1faWFkVXNmdHY2Q3dkQ1ZGYWtEeWo5ZEhRTjVKcUlxRGlrWU9GZTBpeDlfVGkxM0RZOTQzbk0wWGZKSEM1VnREQlM4aXZ4Z2FyS0JQdlBJLWJqR0Z0c1ZldlgzbkNDUi1PQ3RmVHZHZFNTWmctanFPMF9qZnRDQ1l4TDNLR0NRZFhqZy0yeURaX0YxWlZ2bnFlcXU2VExEMWtGNVZZb3pnX2IzU2FvbWNKbHlfdVVPbWtYaUV4QVF6TV9B?oc=5",
+      "source": "The Times of India"
     }
   ],
-  "last_feed_hash": "8b6c4aea0a79cf55",
-  "last_updated": "2026-07-14T19:09:01.136308+00:00",
+  "last_feed_hash": "c3434440574aace2",
+  "last_updated": "2026-07-14T23:28:05.306780+00:00",
   "render_version": "10"
 }

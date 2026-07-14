@@ -258,6 +258,41 @@
         }
       ],
       "last_seen": "2026-07-14T19:09:01.136308+00:00"
+    },
+    {
+      "id": "8933fce67aee",
+      "first_seen": "2026-07-14T23:28:05.306780+00:00",
+      "keywords": [
+        "convenes",
+        "deaths",
+        "health",
+        "maternal",
+        "meeting",
+        "minister",
+        "mystery",
+        "still",
+        "thinq360",
+        "times"
+      ],
+      "points": [
+        {
+          "date": "2026-07-14",
+          "time_ist": "08:48",
+          "iso": "2026-07-14T03:18:00+00:00",
+          "text_en": "18 maternal deaths still a ‘mystery’, says Rajasthan health minister",
+          "source": "The Times of India",
+          "url": "https://news.google.com/rss/articles/CBMi1gFBVV95cUxQLXJ6QXpWcGgwNXo2NzJxX1BoOGljQUt6czFqdGFhaC1qZkN1Y3BkLU9FM1F0cXhzcm9GM00tUlZWM3FmM2puTjRTOXU3X3gtNDJYSVlLaVlQUF9tZGdIZFpXQlJwbTFQc3Y0ZnItN0ZtR2Z5NllCU1B2NC1ubjk3Z25ZdmV1QUgwSFRSNVVvQTNodGxNTUdlMnBBSTlnT2ZocVJoREVvVE5XME44b29VT1l3MmtCdWRQTnBlNXVVMDhUZzhNdXRjUlJoc0tWZzZvdjgtWXJn0gHbAUFVX3lxTE1oNHhRckFPWl9SR3o5MlREZ1JvZ3N5NDhHRzVESkxpVGNTcFB0ZXFRblR3UWFXSWlIbEt1OEx2aGZ5dlVLWWotcEQ5ODdTQUxoQTRBN2RkeWRVdUkzb2ZyX0ExVTJsb1NHbXFaSmZ6THItSzh4ZTZGODVBY1ZUREVpQ3hBeE9kTkU3YVR4RVV0ZWpEamp1dUtDTHVnenBYTUxUN2ZNR0ZvM2lPYXRodENxV09sZm43N3djWDdKX1JsT3J0T25hZ29uNmlvb0JnN1RVZGU0RTBENzk0Yw?oc=5"
+        },
+        {
+          "date": "2026-07-15",
+          "time_ist": "01:21",
+          "iso": "2026-07-14T19:51:59+00:00",
+          "text_en": "Maternal Deaths in Rajasthan, Health Minister Convenes Meeting",
+          "source": "thinQ360",
+          "url": "https://news.google.com/rss/articles/CBMijAFBVV95cUxORHcwYUw4ZWdTdW53dEdYekctVEdqQWRxM2Q1ZW9zajJEMWlSUEl3RzItbkRrcVhvTXpscTBEeVBfdnBvcEtXbHFxbDZhMGg4b2FvelBXRXcxc2h6QzZVNmZwekVhc1pVRjhaUzZ0aGZmQks0bndWMkJzeWFOaFVQMkZJaTFOQkx1eVlxTA?oc=5"
+        }
+      ],
+      "last_seen": "2026-07-14T23:28:05.306780+00:00"
     }
   ]
 }

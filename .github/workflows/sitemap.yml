@@ -1,0 +1,62 @@
+name: Sitemap Update
+
+# Regenerates the root sitemap.xml by auto-discovering the site's pages (any
+# folder with an index.html). Runs on any push to main that adds or changes a
+# page, so a newly added page is indexed without hand-editing the XML. The daily
+# schedule is a safety net that also refreshes lastmod dates — handy because the
+# breaking-news bot pushes with GITHUB_TOKEN, which does not trigger this
+# workflow. Scheduled/push runs only fire from the default branch once merged;
+# use "Run workflow" (workflow_dispatch) to test on demand.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "**/index.html"
+      - "scripts/build_sitemap.py"
+      - ".github/workflows/sitemap.yml"
+  schedule:
+    - cron: "17 3 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sitemap
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          # Full history so `git log` can resolve each page's last-modified date.
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install -r scripts/requirements.txt
+
+      - name: Generate sitemap
+        run: python scripts/build_sitemap.py
+
+      - name: Commit and push if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add sitemap.xml
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "Update sitemap"
+            # Rebase in case the breaking-news bot pushed while we ran.
+            git pull --rebase origin main
+            git push
+          fi

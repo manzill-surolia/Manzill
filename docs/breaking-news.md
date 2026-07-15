@@ -166,6 +166,48 @@ By default the lead is auto-picked on newsworthiness. To **pin** a chosen story 
   publish even though the page generated fine.
 - **Page shows English:** the Groq call failed (check the log for `Groq HTTP …`). Verify the
   key and that Groq isn't rate-limited; the code falls back to a Hindi holding page, never English.
+- **Page shows the empty Hindi holding scaffold (`Groq HTTP 413`):** the request exceeded the
+  account's **8000 tokens-per-minute** limit. Groq counts *prompt + `max_tokens`* per request,
+  so an oversized `max_tokens` alone can trip it (`Requested 8242 > Limit 8000`). Keep
+  `max_tokens ≤ ~6000` and run a **single** AI pass. Extra keys in the same Groq org don't help
+  (shared TPM). See **Future work — TPM-safe enhancements** below and `AGENTS.md`.
+
+---
+
+## 4. Future work — TPM-safe enhancements
+
+A redesign attempt (anchor-style layout, a two-pass reporter→editor AI pipeline, multi-key
+rotation, `max_tokens` raised to 7000) had to be **reverted**: on this Groq tier the request grew
+to ~8242 tokens and hit the **8000 TPM** cap, returning `HTTP 413` on every run, so the page
+rendered the empty Hindi holding scaffold. The layout was fine — the *only* real defect was that
+one oversized request. See `AGENTS.md` for the standing Groq-TPM rules.
+
+The safe way to land the wanted improvements, **within the 8000 TPM budget**:
+
+### Do (single pass, no editor)
+1. **Remove the जयपुर न्यूज़ badge** (top-right of the meta strip) — delete the
+   `<a class="brand-link" …>जयपुर न्यूज़</a>` in `PAGE_TEMPLATE` and its CSS rule
+   `.livebar .brand-link { margin-left:auto; … }`; keep the livebar right-aligned without
+   depending on that element (e.g. move `margin-left:auto` onto the refresh button).
+2. **Mild expand** in the `groq_analyze` prompt: `analysis` **3–5 → 4–6** paragraphs and
+   `key_facts` **4–8 → 6–10**; raise `max_tokens` **4500 → 5500** (not 7000 — that was the bug).
+   Keep prompt additions lean so *prompt + max_tokens* stays comfortably under 8000.
+3. **Keep it single-pass** — do **not** add an editor/verify call or multi-key rotation on this
+   tier; both push the per-minute token total over budget.
+4. **Bump `RENDER_VERSION`** so the redesign repaints on the next run, and verify a real run
+   logs an HTTP 200 (not 413) and the page populates.
+
+### Free extras (no AI-token cost, safe to add anytime)
+The scrolling "ब्रेकिंग" ticker, the "developing / अभी" live timeline tip, and the RSS
+subscribe CTA are all rendered **server-side from content already on the page**, so they add no
+Groq tokens. The one extra that *does* cost a few output tokens is the anchor-style intro
+(`anchor_intro`) — fold it into the same single call only if the token budget allows.
+
+### When the full redesign becomes viable
+The two-agent **reporter → editor** verification design (self-check + richer timeline) needs
+either a **higher Groq tier** or keys in **separate Groq orgs** (independent TPM). That code was
+written and is preserved in git history (PR #18) — revive it from there rather than rewriting if
+the budget ever allows.
 
 ---
 

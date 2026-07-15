@@ -64,7 +64,7 @@ NEWS_SITE = "https://news.manzill.com"
 # Bump whenever the rendered output (template/RSS/sitemap format) changes. A mismatch
 # with the value stored in state forces a one-time re-render even when the feed is
 # unchanged, so a redesign rolls out on the next scheduled run without a manual push.
-RENDER_VERSION = "11"
+RENDER_VERSION = "10"
 
 # strftime has no Hindi locale, so map month names for the Hindi date/time strings.
 HINDI_MONTHS = [
@@ -98,11 +98,6 @@ HINDI_SOURCE = {
 # Feeds & scoring
 # --------------------------------------------------------------------------- #
 GNEWS = "https://news.google.com/rss/search?q={q}&hl=en-IN&gl=IN&ceid=IN:en"
-# Feed queries are intentionally English: clustering/scoring runs on ASCII keywords
-# (see normalize/keywords), so English items are what actually group into one story and
-# let cluster_sources() surface several outlets for it. The AI translates to Hindi later.
-# More queries here → bigger clusters (more distinct sources) and more dated archive points
-# → a richer multi-source lead and a longer timeline. Kept Jaipur/Rajasthan-scoped.
 FEED_QUERIES = [
     "Jaipur when:1d",
     "Jaipur breaking when:1d",
@@ -110,9 +105,6 @@ FEED_QUERIES = [
     "Jaipur fire OR accident OR blast when:1d",
     "Jaipur protest OR clash OR crime when:1d",
     "Jaipur weather OR IMD OR rain warning when:1d",
-    "Jaipur court OR arrest OR raid OR ED OR CBI when:1d",
-    "Jaipur road OR metro OR power OR water OR civic when:1d",
-    "Rajasthan breaking news when:1d",
     # Police accountability / misconduct — surfaced with high priority in "यह भी ब्रेकिंग".
     "Jaipur OR Rajasthan police lathicharge OR beaten OR custodial OR negligence "
     "OR misconduct OR suspended when:2d",
@@ -435,81 +427,11 @@ def groq_pick_model(api_key: str) -> str:
     return env_model or MODEL_PREFERENCE[0]
 
 
-def _groq_keys() -> list[str]:
-    """Collect Groq API keys for the reporter→editor pipeline. Reads GROQ_API_KEY,
-    GROQ_API_KEY_2/3/4 and a comma-separated GROQ_API_KEYS; de-dupes and drops blanks.
-    Backward compatible: with a single key both passes just share it."""
-    raw = [os.environ.get("GROQ_API_KEY", "")]
-    raw += [os.environ.get(f"GROQ_API_KEY_{n}", "") for n in (2, 3, 4)]
-    raw += os.environ.get("GROQ_API_KEYS", "").split(",")
-    keys: list[str] = []
-    for k in raw:
-        k = k.strip()
-        if k and k not in keys:
-            keys.append(k)
-    return keys
-
-
-def groq_chat(keys: list[str], system: str, user_content: str, *, max_tokens: int,
-              temperature: float = 0.35, prefer_index: int = 0,
-              tag: str = "groq") -> tuple[dict | None, int]:
-    """Send one JSON chat completion, rotating through `keys` on rate-limit/auth/5xx
-    errors. `prefer_index` chooses which key to try first (so the editor can use a
-    different key than the reporter). Returns (parsed_json_or_None, used_key_index)."""
-    if not keys:
-        return None, -1
-    start = prefer_index % len(keys)
-    order = list(range(start, len(keys))) + list(range(0, start))
-    for ki in order:
-        key = keys[ki]
-        model = groq_pick_model(key)
-        payload = json.dumps({
-            "model": model,
-            "messages": [
-                {"role": "system", "content": system},
-                {"role": "user", "content": user_content},
-            ],
-            "temperature": temperature,
-            "max_tokens": max_tokens,
-            "response_format": {"type": "json_object"},
-        }).encode()
-        req = urllib.request.Request(
-            f"{GROQ_BASE}/chat/completions",
-            data=payload,
-            headers={
-                "Authorization": f"Bearer {key}",
-                "Content-Type": "application/json",
-                "User-Agent": GROQ_UA,
-            },
-            method="POST",
-        )
-        try:
-            with urllib.request.urlopen(req, timeout=90) as resp:
-                body = json.loads(resp.read())
-            content = body["choices"][0]["message"]["content"]
-            data = json.loads(content)
-            print(f"  {tag}: model {model} (key #{ki + 1}/{len(keys)}) "
-                  f"responded ({len(content)} chars)")
-            return data, ki
-        except urllib.error.HTTPError as exc:
-            detail = exc.read()[:200]
-            print(f"  ! {tag}: Groq HTTP {exc.code} on key #{ki + 1}: {detail!r}",
-                  file=sys.stderr)
-            if exc.code == 400:
-                return None, ki  # bad payload — other keys fail identically
-            continue             # 401/403/429/5xx — try the next key
-        except Exception as exc:
-            print(f"  ! {tag}: Groq call failed on key #{ki + 1}: {exc}", file=sys.stderr)
-            continue
-    return None, -1
-
-
-def groq_analyze(keys: list[str], clusters: list[dict],
-                 story: dict) -> tuple[dict | None, int]:
-    """REPORTER agent — a deep HINDI package covering the story's full multi-day arc:
-    anchor intro, long analysis, key facts, dated developments, police accountability,
-    what-next, Hindi source titles and Hindi secondary stories. Returns
-    (package_or_None, used_key_index) so the editor can prefer a different key."""
+def groq_analyze(api_key: str, clusters: list[dict], story: dict) -> dict | None:
+    """Ask Groq for a deep HINDI package covering the story's full multi-day arc:
+    long analysis, key facts, dated developments, police accountability, what-next,
+    Hindi source titles and Hindi secondary stories."""
+    model = groq_pick_model(api_key)
     lead = clusters[0]
     others = order_secondary(clusters)  # police-misconduct stories first
     lead_sources = [s["title"] for s in cluster_sources(lead, limit=6)]
@@ -524,42 +446,37 @@ def groq_analyze(keys: list[str], clusters: list[dict],
     ][-40:]
 
     system = (
-        "आप जयपुर (राजस्थान, भारत) के एक हिंदी न्यूज़ चैनल के वरिष्ठ समाचार एंकर व संपादक हैं। "
-        "दी गई खबर को टीवी 'ब्रेकिंग न्यूज़' बुलेटिन की तरह — तेज़, आधिकारिक, पर पूरी तरह तथ्यपरक "
-        "हिंदी में — प्रस्तुत करें। दिए गए फ़ीड आइटम और घटनाक्रम इतिहास (story_history — शीर्षक "
-        "अंग्रेज़ी में हो सकते हैं) की जानकारी का ही उपयोग करें। story_history कई दिनों में फैला हो सकता "
-        "है — पूरी कहानी शुरुआत से अब तक क्रमवार, end-to-end समझाएँ ताकि पाठक को पूरी समझ मिले। "
-        "अपुष्ट बातों का श्रेय दें ('पुलिस के अनुसार', 'स्थानीय रिपोर्टों के मुताबिक')। स्रोतों में मौजूद न "
-        "होने वाले आँकड़े, नाम, समय या तथ्य कभी न गढ़ें; सनसनी के लिए बढ़ा-चढ़ाकर न लिखें। अनिवार्य "
-        "संपादकीय नियम: यदि स्रोतों में जयपुर/राजस्थान पुलिस की जाँच में किसी भी तरह की लापरवाही, देरी, "
-        "चूक, नाकामी या आलोचना का ज़िक्र हो, तो उसे 'police_accountability' में स्पष्ट व प्रमुखता से, "
-        "तथ्यों के साथ उजागर करें — लेकिन कभी मनगढ़ंत आरोप न लगाएँ। सभी टेक्स्ट फ़ील्ड पूरी तरह देवनागरी "
-        "हिंदी में हों — कोई अंग्रेज़ी वाक्य नहीं; केवल event_type और severity अंग्रेज़ी enum में रहें। "
-        "सिर्फ़ मान्य JSON लौटाएँ।"
+        "आप जयपुर (राजस्थान, भारत) की एक हिंदी न्यूज़ वेबसाइट के वरिष्ठ समाचार संपादक हैं। "
+        "दिए गए फ़ीड आइटम और घटनाक्रम इतिहास (story_history — शीर्षक अंग्रेज़ी में हो सकते हैं) की "
+        "जानकारी का ही उपयोग करें और तथ्यों को स्वाभाविक, शुद्ध, विस्तृत हिंदी में लिखें। "
+        "story_history कई दिनों में फैला हो सकता है — पूरी कहानी शुरुआत से अब तक क्रमवार समझाएँ ताकि "
+        "पाठक को end-to-end समझ मिले। अपुष्ट बातों का श्रेय दें ('पुलिस के अनुसार', "
+        "'स्थानीय रिपोर्टों के मुताबिक')। स्रोतों में मौजूद न होने वाले आँकड़े, नाम या तथ्य कभी न गढ़ें। "
+        "अनिवार्य संपादकीय नियम: यदि स्रोतों में जयपुर/राजस्थान पुलिस की जाँच में किसी भी तरह की "
+        "लापरवाही, देरी, चूक, नाकामी या आलोचना का ज़िक्र हो, तो उसे 'police_accountability' में "
+        "स्पष्ट व प्रमुखता से, तथ्यों के साथ उजागर करें — लेकिन कभी मनगढ़ंत आरोप न लगाएँ। "
+        "सभी टेक्स्ट फ़ील्ड पूरी तरह देवनागरी हिंदी में हों — कोई अंग्रेज़ी वाक्य नहीं; केवल event_type "
+        "और severity अंग्रेज़ी enum में रहें। सिर्फ़ मान्य JSON लौटाएँ।"
     )
     user = {
-        "task": "जयपुर की प्रमुख ब्रेकिंग खबर की गहराई से, बहु-दिवसीय, end-to-end, एंकर-शैली हिंदी कवरेज तैयार करें।",
+        "task": "जयपुर की प्रमुख ब्रेकिंग खबर की गहराई से, बहु-दिवसीय, end-to-end हिंदी कवरेज तैयार करें।",
         "lead_story": {"headline": lead["headline"], "snippets": lead_snippets},
         "story_history": history,
         "lead_sources_en": lead_sources,
         "other_stories_en": [c["headline"] for c in others],
         "output_schema": {
-            "lead_headline": "संक्षिप्त, सटीक, ध्यान खींचने वाला हिंदी शीर्षक",
-            "anchor_intro": "1-2 वाक्य का एंकर-शैली इंट्रो जैसे टीवी बुलेटिन में — "
-                            "'इस वक्त की बड़ी खबर — …'; तथ्यपरक व आधिकारिक, कोई मनगढ़ंत आँकड़ा नहीं",
+            "lead_headline": "संक्षिप्त, सटीक हिंदी शीर्षक",
             "event_type": "one of: terror, fire, earthquake, flood, accident, "
                           "crime, investigation, protest, civic, weather, other",
             "severity": "one of: critical, high, medium, low",
-            "analysis": "5-7 सुसंगत, बहु-वाक्य पैराग्राफ की विस्तृत हिंदी रिपोर्ट (प्रवाहमय गद्य, "
-                        "टुकड़ों में नहीं) — पृष्ठभूमि → शुरुआत से अब तक का पूरा घटनाक्रम → मौजूदा स्थिति "
-                        "→ असर/प्रभाव व लोगों पर प्रभाव; हर पैराग्राफ में कई वाक्य हों; पैराग्राफ \\n\\n से अलग करें",
-            "key_facts": "6-10 हिंदी बिंदुओं की array (छोटे, ठोस तथ्य)",
+            "analysis": "3-5 सुसंगत, बहु-वाक्य पैराग्राफ की विस्तृत हिंदी रिपोर्ट (प्रवाहमय गद्य, "
+                        "टुकड़ों में नहीं) — पृष्ठभूमि, शुरुआत से अब तक का पूरा घटनाक्रम, मौजूदा स्थिति; "
+                        "हर पैराग्राफ में कई वाक्य हों; पैराग्राफ \\n\\n से अलग करें",
+            "key_facts": "4-8 हिंदी बिंदुओं की array (छोटे तथ्य)",
             "developments": "objects की array [{date_label, text}] — घटनाक्रम पुराने से नए क्रम में "
-                            "(oldest first)। story_history के हर बिंदु को शामिल करें; बिंदु कम हों तो घटना के "
-                            "ज्ञात चरणों को भी क्रम से तोड़ें (जैसे चेतावनी → घटना → राहत/बचाव → कार्रवाई → जाँच), "
-                            "पर केवल स्रोतों में मौजूद तथ्यों से; date_label = असली हिंदी दिनांक+समय जहाँ ज्ञात हो "
-                            "(story_history के 'when' से, जैसे '13 जुलाई, दोपहर 4:06 बजे'); समय ज्ञात न हो तो केवल "
-                            "तिथि या सापेक्ष वाक्यांश ('इसके तुरंत बाद', 'उसी दिन'); समय कभी न गढ़ें; text = विस्तृत हिंदी वाक्य",
+                            "(oldest first), story_history के अनुसार; date_label = उसी बिंदु का हिंदी "
+                            "दिनांक व समय, story_history के 'when' से (जैसे '13 जुलाई, दोपहर 4:06 बजे'); "
+                            "समय ज्ञात न हो तो केवल तिथि; समय कभी न गढ़ें; text = विस्तृत हिंदी वाक्य",
             "police_accountability": "हिंदी पैराग्राफ — जयपुर/राजस्थान पुलिस की लापरवाही/देरी/चूक/"
                                      "आलोचना के प्रमाणित तथ्य; यदि स्रोतों में कुछ नहीं तो खाली स्ट्रिंग",
             "what_next": "1-2 हिंदी वाक्य — आगे क्या संभावित/अपेक्षित है",
@@ -568,49 +485,41 @@ def groq_analyze(keys: list[str], clusters: list[dict],
                              "other_stories_en के समान क्रम व संख्या में",
         },
     }
-    return groq_chat(keys, system, json.dumps(user, ensure_ascii=False),
-                     max_tokens=7000, temperature=0.35, prefer_index=0, tag="reporter")
+    payload = json.dumps(
+        {
+            "model": model,
+            "messages": [
+                {"role": "system", "content": system},
+                {"role": "user", "content": json.dumps(user, ensure_ascii=False)},
+            ],
+            "temperature": 0.35,
+            "max_tokens": 4500,
+            "response_format": {"type": "json_object"},
+        }
+    ).encode()
 
-
-def groq_edit(keys: list[str], reporter: dict, story: dict, clusters: list[dict],
-              avoid_index: int = 0) -> dict | None:
-    """EDITOR / VERIFY agent — a second Groq pass (preferring a key other than the
-    reporter's) that fact-checks the reporter's package against the same sources, drops or
-    softens anything unsourced, deepens the analysis, and enriches the timeline. Returns
-    the revised package in the SAME schema, or None (caller keeps the reporter's version)."""
-    if not keys or not reporter:
-        return None
-    lead = clusters[0]
-    lead_snippets = [i["summary"] for i in lead["items"][:6] if i["summary"]][:6]
-    lead_sources = [s["title"] for s in cluster_sources(lead, limit=6)]
-    history = [
-        {"when": _hindi_point_label(p), "report": p.get("text_en", ""),
-         "source": p.get("source", "")}
-        for p in story.get("points", [])
-    ][-40:]
-
-    system = (
-        "आप एक कड़े हिंदी समाचार संपादक हैं जो एक रिपोर्टर के तैयार पैकेज की fact-check व समीक्षा कर "
-        "रहे हैं। आपका काम तीन हिस्सों में: (1) सत्यापन — हर दावा दिए गए source_snippets/story_history में "
-        "आधारित होना चाहिए; जो तथ्य, आँकड़ा, नाम या समय स्रोतों में नहीं है उसे हटा दें या 'रिपोर्टों के "
-        "अनुसार' जैसे श्रेय के साथ नरम कर दें; कुछ भी नया न गढ़ें। (2) विस्तार — analysis को और सुसंगत, "
-        "गहरा व प्रवाहमय बनाएँ (5-7 पैराग्राफ); anchor_intro तीखा पर तथ्यपरक रखें। (3) घटनाक्रम — "
-        "developments को शुरुआत से अब तक क्रमवार, अधिक चरणों में बनाएँ, पर समय केवल तभी दें जब वह "
-        "स्रोत/इतिहास में हो, अन्यथा सापेक्ष वाक्यांश। पूरा आउटपुट ठीक उसी JSON schema में लौटाएँ जो "
-        "reporter_package का है (वही keys), पूरी तरह देवनागरी हिंदी में (केवल event_type व severity "
-        "अंग्रेज़ी enum)। सिर्फ़ मान्य JSON लौटाएँ।"
+    req = urllib.request.Request(
+        f"{GROQ_BASE}/chat/completions",
+        data=payload,
+        headers={
+            "Authorization": f"Bearer {api_key}",
+            "Content-Type": "application/json",
+            "User-Agent": GROQ_UA,
+        },
+        method="POST",
     )
-    user = {
-        "task": "नीचे दिए reporter_package की समीक्षा कर सुधरा हुआ पैकेज उसी schema में लौटाएँ।",
-        "source_snippets": lead_snippets,
-        "story_history": history,
-        "lead_sources_en": lead_sources,
-        "reporter_package": reporter,
-    }
-    prefer = (avoid_index + 1) if len(keys) > 1 else 0
-    data, _ = groq_chat(keys, system, json.dumps(user, ensure_ascii=False),
-                        max_tokens=7000, temperature=0.25, prefer_index=prefer, tag="editor")
-    return data
+    try:
+        with urllib.request.urlopen(req, timeout=90) as resp:
+            body = json.loads(resp.read())
+        content = body["choices"][0]["message"]["content"]
+        data = json.loads(content)
+        print(f"  Groq model {model} responded ({len(content)} chars)")
+        return data
+    except urllib.error.HTTPError as exc:
+        print(f"  ! Groq HTTP {exc.code}: {exc.read()[:300]!r}", file=sys.stderr)
+    except Exception as exc:
+        print(f"  ! Groq call failed: {exc}", file=sys.stderr)
+    return None
 
 
 # --------------------------------------------------------------------------- #
@@ -846,14 +755,12 @@ def build() -> None:
     parser.add_argument("--no-ai", action="store_true", help="skip Groq, render from feeds only")
     args = parser.parse_args()
 
-    keys = _groq_keys()
-    use_ai = bool(keys) and not args.no_ai
+    api_key = os.environ.get("GROQ_API_KEY", "").strip()
+    use_ai = bool(api_key) and not args.no_ai
     if args.no_ai:
         print("Running in --no-ai mode (feeds only).")
-    elif not keys:
-        print("No GROQ_API_KEY* set — running in feeds-only fallback mode.")
-    else:
-        print(f"Groq keys available: {len(keys)} (reporter→editor rotation).")
+    elif not api_key:
+        print("GROQ_API_KEY not set — running in feeds-only fallback mode.")
 
     # The page moved to /breaking; delete the retired /breaking-news folder.
     cleanup_old_dir()
@@ -913,15 +820,9 @@ def build() -> None:
     lead = None
     other_stories: list[dict] = []
     if use_ai:
-        print("Reporter agent: drafting Hindi coverage...")
-        ai, used = groq_analyze(keys, clusters, story)
+        print("Asking Groq for analysis...")
+        ai = groq_analyze(api_key, clusters, story)
         if ai:
-            print("Editor agent: verifying & expanding...")
-            edited = groq_edit(keys, ai, story, clusters, avoid_index=used)
-            if edited:
-                # Take the editor's improvements but keep any field it dropped/left empty,
-                # so a partial editor response never loses the reporter's sources/other-stories.
-                ai = {**ai, **{k: v for k, v in edited.items() if v not in (None, "", [])}}
             lead, other_stories = _lead_from_ai(ai, clusters)
 
     if lead is None:
@@ -960,10 +861,9 @@ def _lead_from_ai(ai: dict, clusters: list[dict]) -> tuple[dict | None, list[dic
     if severity not in CADENCE_MINUTES:
         severity = top["severity"]
     event_type = (ai.get("event_type") or "other").strip().lower()
-    anchor_intro = (ai.get("anchor_intro") or "").strip()
     analysis = (ai.get("analysis") or "").strip()
 
-    key_facts = [str(f).strip() for f in (ai.get("key_facts") or []) if str(f).strip()][:10]
+    key_facts = [str(f).strip() for f in (ai.get("key_facts") or []) if str(f).strip()][:8]
     police = (ai.get("police_accountability") or "").strip()
     what_next = (ai.get("what_next") or "").strip()
 
@@ -990,7 +890,6 @@ def _lead_from_ai(ai: dict, clusters: list[dict]) -> tuple[dict | None, list[dic
     lead = {
         "id": cluster_id(top),
         "headline": headline,
-        "anchor_intro": anchor_intro,
         "event_type": event_type,
         "severity": severity,
         "analysis": analysis,
@@ -1199,34 +1098,7 @@ def render(state: dict, now: datetime) -> None:
         )
     else:
         timeline_html = '<li class="tl-item"><p>घटनाक्रम अपडेट हो रहा है।</p></li>'
-    # Terminal "live" node — the developing/next-update tip. As the chain's :last-child it
-    # inherits the glowing pulse, signalling that fresh updates are on the way.
-    live_node = (
-        f'<li class="tl-item tl-live" style="--i:{len(developments)}">'
-        '<time>अभी · लाइव</time>'
-        '<p>यह खबर विकसित हो रही है — अगला अपडेट जल्द। नई जानकारी आते ही यहाँ अपने-आप जुड़ती रहेगी।</p></li>'
-    )
-    timeline_html = timeline_html + "\n          " + live_node
-    update_count = (f"{len(developments)} घटनाक्रम · लाइव" if developments
-                    else "लाइव · अपडेट हो रहा है")
-
-    # Anchor-style lead-in (TV-bulletin voice), shown above पूरी खबर when the AI provides it.
-    anchor_intro = (lead.get("anchor_intro") or "").strip()
-    anchor_intro_html = (
-        '<div class="anchor-lead fade-in">'
-        '<span class="anchor-tag"><span class="al-dot"></span>ब्रेकिंग</span>'
-        f'<p>{esc(anchor_intro)}</p>'
-        '</div>'
-    ) if anchor_intro else ""
-
-    # Scrolling breaking ticker — re-presents copy already on the page (headline + short key
-    # facts), no new/fabricated text. Duplicated once so the marquee loops seamlessly.
-    ticker_bits = [headline] + [f for f in key_facts if f]
-    if len(ticker_bits) < 2:
-        ticker_bits += [d.get("text", "")[:90] for d in developments[:3] if d.get("text")]
-    ticker_bits = [b for b in ticker_bits if b][:6]
-    ticker_one = "".join(f'<span class="tk-item">{esc(b)}</span>' for b in ticker_bits)
-    ticker_html = ticker_one * 2  # two copies → seamless -50% scroll
+    update_count = f"{len(developments)} घटनाक्रम" if developments else "अपडेट हो रहा है"
 
     # Secondary "अन्य ताज़ा खबरें" — Hindi, links in the same tab.
     if other_stories:
@@ -1282,8 +1154,6 @@ def render(state: dict, now: datetime) -> None:
     replacements = {
         "{{TITLE}}": esc(title),
         "{{HEADLINE}}": headline_html,
-        "{{TICKER}}": ticker_html,
-        "{{ANCHOR_INTRO}}": anchor_intro_html,
         "{{ANALYSIS}}": analysis_html,
         "{{KEY_FACTS}}": key_facts_html,
         "{{POLICE}}": police_html,
@@ -1811,8 +1681,9 @@ section.feed { margin-bottom: 36px; }
   width: 7px; height: 7px; border-radius: 50%; background: var(--accent);
   animation: pulse 1.4s infinite;
 }
-/* Meta strip under the red header: अंतिम अपडेट · रिफ्रेश · live "next update" chip, above the headline. */
+/* Meta strip under the red header: अंतिम अपडेट · रिफ्रेश · brand link, above the headline. */
 .livebar { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin: 6px 0 8px; }
+.livebar .brand-link { margin-left: auto; color: var(--brand); font-weight: 800; font-size: .9rem; }
 .updated { font-size: .82rem; color: var(--muted); }
 .editorial-card.fade-in { margin-bottom: 26px; }
 ul.timeline { list-style: none; margin: 0; padding: 0; max-width: 760px; }
@@ -1888,73 +1759,6 @@ ul.facts li { margin: 0 0 8px; line-height: 1.6; }
 .accountability p { margin: 0 0 10px; line-height: 1.7; }
 .accountability p:last-child { margin-bottom: 0; }
 .whatnext { max-width: 760px; line-height: 1.7; }
-
-/* Scrolling "ब्रेकिंग" ticker directly under the red banner */
-.ticker { display: flex; align-items: stretch; background: #111; color: #fff;
-  border-bottom: 2px solid var(--accent); overflow: hidden; }
-.ticker .tk-label { flex: 0 0 auto; background: var(--brand); color: #fff; font-weight: 900;
-  font-size: .78rem; text-transform: uppercase; letter-spacing: .06em; display: flex;
-  align-items: center; padding: 8px 14px; }
-.ticker .tk-viewport { flex: 1; overflow: hidden; display: flex; }
-.ticker .tk-track { display: inline-flex; white-space: nowrap; will-change: transform;
-  animation: ticker 40s linear infinite; }
-.ticker:hover .tk-track { animation-play-state: paused; }
-.ticker .tk-item { padding: 8px 30px 8px 4px; font-size: .86rem; position: relative; }
-.ticker .tk-item::after { content: "\\25C6"; position: absolute; right: 11px; top: 50%;
-  transform: translateY(-50%); color: var(--accent); font-size: .6rem; }
-@keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
-
-/* livebar live "next update" chip (fills the slot the brand link used to hold) */
-.next-chip { margin-left: auto; display: inline-flex; align-items: center; gap: 7px;
-  background: rgba(183,28,28,.10); color: var(--brand); border: 1px solid rgba(183,28,28,.30);
-  padding: 4px 12px; border-radius: 999px; font-weight: 800; font-size: .78rem; }
-.next-chip .nc-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--brand);
-  animation: pulse 1.2s infinite; }
-
-/* Anchor-style TV-bulletin lead-in above पूरी खबर */
-.anchor-lead { display: flex; gap: 12px; align-items: flex-start;
-  background: linear-gradient(90deg, rgba(224,17,43,.10), rgba(245,180,0,.06));
-  border: 1px solid var(--border); border-left: 5px solid var(--brand);
-  border-radius: var(--radius); padding: 14px 18px; margin: 0 0 18px; }
-.anchor-lead .anchor-tag { flex: 0 0 auto; display: inline-flex; align-items: center; gap: 6px;
-  background: var(--brand); color: #fff; font-weight: 900; font-size: .72rem;
-  text-transform: uppercase; letter-spacing: .06em; padding: 4px 10px; border-radius: 5px;
-  margin-top: 2px; }
-.anchor-lead .al-dot { width: 7px; height: 7px; border-radius: 50%; background: #fff;
-  animation: pulse 1.2s infinite; }
-.anchor-lead p { margin: 0; font-size: 1.08rem; font-weight: 700; line-height: 1.6; }
-
-/* घटनाक्रम "developing" pill + live timeline tip */
-.section-head .dev-live { display: inline-flex; align-items: center; gap: 6px; color: var(--brand);
-  font-weight: 800; font-size: .74rem; text-transform: uppercase; letter-spacing: .04em; }
-.section-head .dev-live .dl-dot { width: 8px; height: 8px; border-radius: 50%;
-  background: var(--brand); animation: pulse 1.2s infinite; }
-.section-head .count { margin-left: auto; }
-.tl-item.tl-live time { color: var(--brand); }
-.tl-item.tl-live p { font-weight: 700; }
-
-/* Subscribe / next-update CTA (RSS, static-safe) */
-.subscribe { background: linear-gradient(135deg, var(--brand), var(--brand-dark)); color: #fff;
-  border-radius: var(--radius); padding: 26px 24px; margin: 8px 0 36px; box-shadow: var(--shadow);
-  text-align: center; }
-.subscribe .sub-live { display: inline-flex; align-items: center; gap: 7px;
-  background: rgba(255,255,255,.16); border: 1px solid rgba(255,255,255,.30); padding: 5px 12px;
-  border-radius: 999px; font-weight: 800; font-size: .72rem; text-transform: uppercase;
-  letter-spacing: .06em; }
-.subscribe .sub-live .sl-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent);
-  animation: pulse 1.3s infinite; }
-.subscribe h2 { margin: 12px 0 8px; font-size: 1.4rem; font-weight: 900; color: #fff;
-  border: 0; padding: 0; }
-.subscribe p { margin: 0 auto 16px; max-width: 620px; font-size: .96rem; line-height: 1.7; opacity: .95; }
-.subscribe .sub-actions { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
-.subscribe .sub-btn { display: inline-flex; align-items: center; gap: 7px;
-  background: rgba(255,255,255,.14); color: #fff; border: 1px solid rgba(255,255,255,.35);
-  padding: 10px 20px; border-radius: 999px; font-family: inherit; font-size: .92rem;
-  font-weight: 700; cursor: pointer; text-decoration: none; }
-.subscribe .sub-btn:hover { background: rgba(255,255,255,.24); }
-.subscribe .sub-btn.primary { background: var(--accent); color: #3a2c00; border-color: var(--accent); }
-.subscribe .sub-btn.primary:hover { filter: brightness(1.05); }
-.subscribe .sub-hint { margin: 14px 0 0; font-size: .8rem; opacity: .85; }
 </style>
 
     <script type="application/ld+json">
@@ -1969,23 +1773,16 @@ ul.facts li { margin: 0 0 8px; line-height: 1.6; }
       </div>
     </header>
 
-    <div class="ticker" aria-hidden="true">
-      <span class="tk-label">ब्रेकिंग</span>
-      <div class="tk-viewport"><div class="tk-track">{{TICKER}}</div></div>
-    </div>
-
     <main>
       <div class="livebar">
         <span class="updated">अंतिम अपडेट {{UPDATED_IST}}</span>
         <button class="refresh-btn" type="button" onclick="location.reload()" aria-label="रिफ्रेश">&#8635; रिफ्रेश</button>
-        <span class="next-chip"><span class="nc-dot"></span>लाइव &middot; अगला अपडेट जल्द</span>
+        <a class="brand-link" href="https://news.manzill.com">जयपुर न्यूज़</a>
       </div>
 
       <section class="hero">
         <h1>{{HEADLINE}}</h1>
       </section>
-
-      {{ANCHOR_INTRO}}
 
       <div class="editorial-card fade-in">
         <h2>पूरी खबर</h2>
@@ -1996,7 +1793,6 @@ ul.facts li { margin: 0 0 8px; line-height: 1.6; }
       <section class="feed">
         <div class="section-head">
           <h2>घटनाक्रम &mdash; शुरुआत से अब तक</h2>
-          <span class="dev-live"><span class="dl-dot"></span>विकसित हो रही है</span>
           <span class="count">{{UPDATE_COUNT}}</span>
         </div>
         <ul class="timeline">
@@ -2021,17 +1817,6 @@ ul.facts li { margin: 0 0 8px; line-height: 1.6; }
       </section>
 
       {{OTHER_STORIES}}
-
-      <section class="subscribe fade-in">
-        <div class="sub-live"><span class="sl-dot"></span>लाइव कवरेज जारी</div>
-        <h2>अगला अपडेट रास्ते में है</h2>
-        <p>यह खबर लगातार विकसित हो रही है और यह पेज हर कुछ मिनट में अपने-आप नई जानकारी के साथ अपडेट होता रहता है। कोई भी ताज़ा अपडेट मिस न करें &mdash; अभी सब्सक्राइब करें।</p>
-        <div class="sub-actions">
-          <a class="sub-btn primary" href="/breaking/rss.xml">&#128276; अपडेट सब्सक्राइब करें</a>
-          <button class="sub-btn" type="button" onclick="location.reload()">&#8635; अभी रिफ्रेश करें</button>
-        </div>
-        <p class="sub-hint">टिप: इस पेज को बुकमार्क कर लें ताकि हर बड़ी खबर सबसे पहले आप तक पहुँचे।</p>
-      </section>
     </main>
 
     <footer>

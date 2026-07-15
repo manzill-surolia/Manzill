@@ -30,34 +30,27 @@ an operator guide.
 ### Content depth (target ≥ 2 pages on a developed story)
 The page **header is the red "लाइव ब्रेकिंग न्यूज़" banner itself** — a slim, full-width red bar
 (it **scrolls with the page**, not sticky) carrying only a blinking `● लाइव` chip and the
-label, so it stays one line tall on mobile. Directly under it a **scrolling "ब्रेकिंग" ticker**
-loops the headline + short key facts (TV-bulletin feel; it re-presents copy already on the page,
-never new/fabricated text; pauses on hover, static under `prefers-reduced-motion`). The story
-body follows. Section order below the header:
+label, so it stays one line tall on mobile. There is no separate brand bar / date-strip above
+it; the story body follows directly. Section order below the header:
 1. **livebar** — a slim meta strip just above the headline: **अंतिम अपडेट** (Hindi date/time),
-   a **↻ रिफ्रेश** button, and a live **"● लाइव · अगला अपडेट जल्द"** chip at the right. (The
-   जयपुर न्यूज़ wordmark that used to sit here was **removed**.) No severity badge.
-2. **anchor lead-in** — a highlighted, TV-anchor-style opener (`इस वक्त की बड़ी खबर — …`) above
-   पूरी खबर, written by the AI (`anchor_intro`); factual, attributed, never sensational. Shown
-   only when the AI provides it.
-3. **पूरी खबर** — detailed analysis written as **flowing prose: 5–7 cohesive, multi-sentence
-   paragraphs** (background → full chronology from first report to now → current status →
-   असर/प्रभाव). Not many short one-line fragments.
-4. **घटनाक्रम — शुरुआत से अब तक** — dated developments as a top-to-bottom **dot-line-dot**
-   chain, **oldest at top → newest at bottom** (past → present), with a **"● विकसित हो रही है"**
-   pill in the heading. Each entry is labelled with its **Hindi date *and* time** (e.g.
-   `13 जुलाई, दोपहर 4:06 बजे`) from the archived point's real timestamp; for finer intra-event
-   steps the AI may add a relative Hindi label (`उसी दिन`, `इसके तुरंत बाद`) — **a clock time is
-   never fabricated**. A terminal **"अभी · लाइव"** node closes the chain as the developing/next-
-   update tip. The chain is animated (staggered reveal; the live tip pulses); motion is disabled
+   a **↻ रिफ्रेश** button, and the wordmark **जयपुर न्यूज़** (→ news.manzill.com) at the right.
+   No severity badge (removed).
+2. **पूरी खबर** — detailed analysis written as **flowing prose: 3–5 cohesive, multi-sentence
+   paragraphs** (background → full chronology from first report to now → current status).
+   Not many short one-line fragments.
+3. **घटनाक्रम — शुरुआत से अब तक** — dated developments as a top-to-bottom **dot-line-dot**
+   chain, **oldest at top → newest at bottom** (past → present). Each entry is labelled with its
+   **Hindi date *and* time** (e.g. `13 जुलाई, दोपहर 4:06 बजे`), taken from the archived point's
+   real timestamp — never fabricated. The chain is animated: each entry fades in with a staggered
+   reveal, and the newest (bottom) dot pulses as the "live/developing" point. Motion is disabled
    under `prefers-reduced-motion` (items stay visible).
-5. **मुख्य तथ्य** — 6–10 key-fact bullets.
-6. **पुलिस की जवाबदेही** — **mandatory** highlight of any **sourced** Jaipur/Rajasthan
+4. **मुख्य तथ्य** — 4–8 key-fact bullets.
+5. **पुलिस की जवाबदेही** — **mandatory** highlight of any **sourced** Jaipur/Rajasthan
    police incompetence, negligence, delay or lapse in an investigation. Shown only when
    the sources report it; **never fabricated**. Accent-styled card.
-7. **आगे क्या** — short outlook.
-8. **स्रोत** — source cards (Hindi titles, same-tab links).
-9. **यह भी ब्रेकिंग** ("is also breaking") — other current Jaipur stories, drawn from the feeds
+6. **आगे क्या** — short outlook.
+7. **स्रोत** — source cards (Hindi titles, same-tab links).
+8. **यह भी ब्रेकिंग** ("is also breaking") — other current Jaipur stories, drawn from the feeds
    and the 30-day archive. **Police-incompetence/misconduct stories are given high priority
    here** — they are pulled from the whole story list and placed first, so a sourced police
    lapse always surfaces in this section even when other stories outrank it on newsworthiness.
@@ -66,9 +59,6 @@ body follows. Section order below the header:
    suspension, dereliction, brutality…) or a force verb with the police as the subject/agent
    ("police beat…", "…beaten by police") counts. The **lead** story is still chosen purely on
    newsworthiness; a police story leads the page only when it genuinely is the top story.
-10. **सब्सक्राइब CTA** — a "अगला अपडेट रास्ते में है" card near the foot: it truthfully reflects
-    that the page re-renders ~every 20 min, and a primary button subscribes via the existing
-    **`/breaking/rss.xml`** feed (static, no backend), plus a bookmark hint.
 
 ### Multi-day tracking
 - A rolling **30-day archive** (`breaking/data/archive.json`) accumulates each ongoing
@@ -77,10 +67,8 @@ body follows. Section order below the header:
   Google News RSS alone only exposes ~24–48h, which is why the archive exists.
 
 ### Branding
-- The red live banner **is** the header, with the scrolling **ब्रेकिंग** ticker beneath it.
-  The जयपुर न्यूज़ wordmark that used to sit in the meta strip has been **removed** (the request
-  was that the top-right badge was not needed); a live "अगला अपडेट जल्द" chip takes that slot.
-- The **जयपुर न्यूज़** brand still appears in the `<title>`, the पूरी खबर byline and the footer.
+- The red live banner **is** the header; the **जयपुर न्यूज़** wordmark linking to
+  **news.manzill.com** sits in the meta strip below it (no separate brand bar).
 - Footer links only to news.manzill.com (anchor text **"जयपुर न्यूज़ हिंदी में"**) and the RSS feed.
 - **No links** to the manzill.com homepage or the `jaipur-news` / `jaipur-properties`
   stub pages — this page is independent of them.
@@ -105,7 +93,7 @@ Actions** and commits a static page that Pages serves.
 
 ```
 .github/workflows/breaking-news.yml   # cron (*/20) + manual "Run workflow"; commits the output
-scripts/build_breaking_news.py        # the generator (fetch → cluster → archive → reporter+editor → render)
+scripts/build_breaking_news.py        # the generator (fetch → cluster → archive → Groq → render)
 breaking/index.html                   # the rendered page (bot-committed)
 breaking/rss.xml, breaking/sitemap.xml
 breaking/favicon.svg                  # Hawa Mahal
@@ -116,29 +104,10 @@ breaking/data/override.json           # optional manual pin (force a chosen stor
 
 Each run: fetch Google News RSS for Jaipur/Rajasthan + event terms → cluster into the top
 story → match it to the archived ongoing story (or start one) and append new dated points →
-run the **two-pass Groq pipeline** (below) for the full Hindi package → render
-`breaking/index.html` (+ RSS + sitemap) → commit **only if something changed**.
-
-**Reporter → editor orchestration.** The AI step is two agents, not one:
-1. **Reporter** (`groq_analyze`) drafts the anchor-style Hindi package from the feed snippets +
-   archived history.
-2. **Editor / verify** (`groq_edit`) is a second Groq call that **fact-checks the draft against
-   the same sources** — dropping or soft-attributing anything unsourced (no fabrication) —
-   **deepens** the analysis and **enriches** the timeline. Its output replaces the draft field-
-   by-field, keeping any field it left empty. This is the "check your own work" self-verification
-   step; it is an internal quality pass and is **not** surfaced as a visible "verified" badge.
-
-Both calls go through `groq_chat`, which **rotates across all configured keys** (see the secret
-below) and, on a rate-limit/auth/5xx error, advances to the next key; the editor prefers a
-different key than the reporter used. With a single key both passes just share it. English feed
-queries are intentional — clustering/scoring runs on ASCII keywords, so English items are what
-group into one story and let a cluster carry several outlets; the AI translates to Hindi.
+call **Groq** (OpenAI-compatible) for the full Hindi package → render `breaking/index.html`
+(+ RSS + sitemap) → commit **only if something changed**.
 
 Notes learned along the way:
-- **More API keys do not fetch more news.** Stories come from Google News RSS; the AI only
-  writes Hindi from what the feeds supply. Extra keys buy the second (editor) pass and rate-
-  limit headroom, not more source material. To surface more sources for one story, broaden the
-  **English** `FEED_QUERIES`.
 - **Groq is behind Cloudflare**, which returns `403 error code 1010` to requests with a
   spoofed browser User-Agent. The generator sends Groq a **plain** User-Agent; the feeds
   keep a browser-like UA that Google News prefers.
@@ -151,12 +120,7 @@ Notes learned along the way:
 
 ### Required secret
 - Repo **Settings → Secrets and variables → Actions → `GROQ_API_KEY`**. Without it the page
-  shows a Hindi holding page (the AI is the translator). **One** Groq key is enough to run both
-  passes (they share it).
-- **Optional extra keys** for the reporter→editor rotation: `GROQ_API_KEY_2`, `GROQ_API_KEY_3`,
-  or a comma-separated `GROQ_API_KEYS`. The build de-dupes them and rotates on rate-limit/auth
-  errors, so the reporter and editor can run on separate keys and dodge per-key limits. All are
-  wired into the workflow already; absent secrets simply resolve to empty.
+  shows a Hindi holding page (the AI is the translator). Only **one** Groq key is needed.
 
 ### Publish now (don't wait for the cron)
 - **Actions → Breaking News Update → Run workflow → main.** GitHub throttles scheduled runs

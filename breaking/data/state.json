@@ -1,16 +1,68 @@
 {
   "ist_day": "2026-07-15",
   "lead": {
-    "id": "holding",
-    "headline": "जयपुर: ताज़ा खबरें अपडेट हो रही हैं",
-    "event_type": "other",
-    "severity": "low",
-    "analysis": "विस्तृत हिंदी कवरेज तैयार हो रहा है। कृपया कुछ ही देर में दोबारा देखें — यह पेज दिनभर अपने-आप अपडेट होता रहता है।",
-    "developments": [],
-    "sources": []
+    "id": "6452976f6b89",
+    "headline": "कलाबुर्गी जेल तोड़फोड़: पुलिस गोलीबारी के बाद एक अपराधी गिरफ्तार",
+    "event_type": "crime",
+    "severity": "high",
+    "analysis": "कलाबुर्गी जेल में अचानक हुई तोड़फोड़ ने स्थानीय प्रशासन को चौंका दिया। कई कैदी भागने की कोशिश में जेल के मुख्य द्वार को तोड़ने की कोशिश की, जिससे सुरक्षा कर्मियों को हस्तक्षेप करना पड़ा। पुलिस ने स्थिति को नियंत्रित करने के लिए गोलीबारी की, जिसके बाद कई कैदी को पुनः हिरासत में ले लिया गया।\n\nपुलिस की कार्रवाई के बाद, एक आरोपी को पहचान कर तुरंत गिरफ्तार किया गया। इस गिरफ्तारी से यह स्पष्ट हुआ कि जेल में सुरक्षा व्यवस्था में कुछ खामियां थीं, जिससे कैदी इस तरह की योजना बना सके। स्थानीय मीडिया ने इस घटना को व्यापक रूप से कवरेज किया और जनता में सुरक्षा के प्रति चिंता बढ़ी।\n\nवर्तमान में, जेल प्रशासन ने सभी सुरक्षा बिंदुओं की पुनः जाँच शुरू कर दी है और अतिरिक्त सुरक्षा कर्मियों को तैनात किया गया है। साथ ही, इस घटना की पूरी जांच के लिए एक विशेष टीम गठित की गई है, जो जेल के भीतर की निगरानी प्रणाली और कर्मचारियों की कार्यवाही की समीक्षा करेगी।",
+    "key_facts": [
+      "कलाबुर्गी जेल में दोपहर 12:38 बजे तोड़फोड़ की घटना घटी",
+      "पुलिस ने स्थिति को नियंत्रित करने के लिए गोलीबारी की",
+      "एक आरोपी को तुरंत गिरफ्तार किया गया",
+      "जेल की सुरक्षा व्यवस्था में खामियां उजागर हुईं",
+      "स्थानीय मीडिया ने घटना को व्यापक रूप से रिपोर्ट किया"
+    ],
+    "police_accountability": "",
+    "what_next": "जेल की सुरक्षा व्यवस्था की गहन जांच जारी रहेगी और दोषियों के खिलाफ कड़ी कार्रवाई की जाएगी।",
+    "developments": [
+      {
+        "label": "15 जुलाई, दोपहर 12:38 बजे",
+        "text": "कलाबुर्गी जेल में दोपहर 12:38 बजे कई कैदी मुख्य द्वार तोड़ने की कोशिश करते हुए पुलिस ने गोलीबारी की, जिसके बाद एक आरोपी को पहचान कर गिरफ्तार किया गया।"
+      }
+    ],
+    "sources": [
+      {
+        "title_hi": "कलाबुर्गी जेल तोड़फोड़: पुलिस गोलीबारी के बाद एक अपराधी गिरफ्तार",
+        "url": "https://news.google.com/rss/articles/CBMizgFBVV95cUxNZ1hZcEh1elp4LWFZVzBIcC1HeE9LWGs3ZURnN21EaHVQbGliU1lMWTJ4dThZUUlQbHNPWEk1NHowajNIOThQalk2cDFXS1RqWjVmWHBJUFltMzJTUFJPNzhjdjdQblZhcTFpal82UDZrVEloTmx6Y00yYml1cjBEc1BSUW5zSDdBZXVSVGtGcXdMNDgzbUY4TWR5Z1dnUjg2cUcweDM4RGk2blBmLURHNjB0a0hPZjJGTXctWUV3RGZBNUpsdjJMLUp2Ql9Dd9IBzgFBVV95cUxNZ1hZcEh1elp4LWFZVzBIcC1HeE9LWGs3ZURnN21EaHVQbGliU1lMWTJ4dThZUUlQbHNPWEk1NHowajNIOThQalk2cDFXS1RqWjVmWHBJUFltMzJTUFJPNzhjdjdQblZhcTFpal82UDZrVEloTmx6Y00yYml1cjBEc1BSUW5zSDdBZXVSVGtGcXdMNDgzbUY4TWR5Z1dnUjg2cUcweDM4RGk2blBmLURHNjB0a0hPZjJGTXctWUV3RGZBNUpsdjJMLUp2Ql9Ddw?oc=5",
+        "source": "The New Indian Express",
+        "published": "2026-07-15T07:08:00+00:00"
+      }
+    ]
   },
-  "other_stories": [],
+  "other_stories": [
+    {
+      "headline": "तीन प्रकाशक को अलगाववादी पुस्तकें प्रकाशित करने के लिए पुलिस हिरासत में रखा",
+      "summary": "स्थानीय पुलिस ने तीन प्रकाशकों को अलगाववादी विचारधारा को बढ़ावा देने वाली पुस्तकों के प्रकाशन के कारण हिरासत में ले लिया, जिससे प्रेस की स्वतंत्रता पर सवाल उठे।",
+      "url": "https://news.google.com/rss/articles/CBMitwFBVV95cUxPaEpuOEdWbmFJSDZRRkZISTBzanlVN1pNcjhJbkFzQ3dkaWZZUnJpMjRyNUs2N1Vhc2sxZUxBSmUwM3RaNHRZc1ZtTXNidzBRcXZTTFFycWNaVlhiMHpIQVc4WEwwVmlNSFdDVmlmWWx2bWdtTDBNTVkzVllQTWhSYm95T2YtalJXN2JKOVBjeTgtM25pN3ZHYnZvS0J6RFlxRFZYb0owUFRIS3FsS1VsMXB1YnFNbVHSAbcBQVVfeXFMT2hKbjhHVm5hSUg2UUZGSEkwc2p5VTdaTXI4SW5Bc0N3ZGlmWVJyaTI0cjVLNjdVYXNrMWVMQUplMDN0WjR0WXNWbU1zYncwUXF2U0xRcnFjWlZYYjB6SEFXOFhMMFZpTUhXQ1ZpZllsdm1nbUwwTU1ZM1ZZUE1oUmJveU9mLWpSVzdiSjlQY3k4LTNuaTd2R2J2b0tCekRZcURWWG9KMFBUSEtxbEtVbDFwdWJxTW1R?oc=5",
+      "source": "The Tribune"
+    },
+    {
+      "headline": "हिमाचल पुलिस के संगीत समूह के प्रमुख को सोशल मीडिया से आय के कारण निलंबित किया गया",
+      "summary": "हिमाचल पुलिस के संगीत समूह के इंचार्ज को सोशल मीडिया प्लेटफ़ॉर्म से आय अर्जित करने के कारण निलंबित किया गया, जिससे पुलिस के आंतरिक नियमों की कड़ाई पर प्रकाश पड़ा।",
+      "url": "https://news.google.com/rss/articles/CBMizAFBVV95cUxNMjdpU2FyeEtXWnYxWC1xbHFKWEFBdlhDdGJoNFc0S1oyT3Z6X1c3LUZTVVp3YWdONG9rQ196NThjOVFaaUU5ZEU1aHNvRHo0b3ZMV3JFeTBwRGxoS3ZvNTBzT2lWQ1VJZ0ZVQzJ2cmx1MU9NOERDZHA1MkVTUko4eW92RUlvQV9EX0trRm1HX19uOURaamRSY2R5dW03RmdjdHg3SEVlOEhiTXhCWVJRSEJpVEI0WkJvVkh3cENSLWlSUk45QzZ1SmNDd3XSAcwBQVVfeXFMTTI3aVNhcnhLV1p2MVgtcWxxSlhBQXZYQ3RiaDRXNEtaMk92el9XNy1GU1Vad2FnTjRva0NfejU4YzlRWmlFOWRFNWhzb0R6NG92TFdyRXkwcERsaEt2bzUwc09pVkNVSWdGVUMydnJsdTFPTThEQ2RwNTJFU1JKOHlvdkVJb0FfRF9La0ZtR19fbjlEWmpkUmNkeXVtN0ZnY3R4N0hFZThIYk14QllSUUhCaVRCNFpCb1ZId3BDUi1pUlJOOUM2dUpjQ3d1?oc=5",
+      "source": "The Tribune"
+    },
+    {
+      "headline": "सूरत में 15 जुलाई को लिम्बायत में आग, वकील की गिरफ्तारी और बाढ़ के बाद की स्थिति",
+      "summary": "सूरत के लिम्बायत में 15 जुलाई को एक बड़ी आग लगी, एक वकील को गिरफ्तार किया गया और बाढ़ के बाद की राहत कार्यों में चुनौतियों का सामना किया जा रहा है।",
+      "url": "https://news.google.com/rss/articles/CBMi1AFBVV95cUxPc0dHNzlESFA0R3pPYWtuM0tXYjlpUE9rZzBycUxVZzk5aUI0RktFblpndTBCLVppbzV5RVVsSjZhRmg5d0VRckhkYzB5RWtiWVlDZ0FpYkFZeXI0VDRibTRxUlNzY3ZSZGszcV8yb0J3dmlPUVh1NThWUDVCOE1aamdERVN5ZjdhbUU1dThjTTBXVGYwZ09CV202SWlFUnJocmNhdDY2SGZTa3FlQm8zNVpjeE9sc2plaVgzSHFwY2JjVlNCOW1CSEJnRXJLUk56cjl5Y9IB1AFBVV95cUxPc0dHNzlESFA0R3pPYWtuM0tXYjlpUE9rZzBycUxVZzk5aUI0RktFblpndTBCLVppbzV5RVVsSjZhRmg5d0VRckhkYzB5RWtiWVlDZ0FpYkFZeXI0VDRibTRxUlNzY3ZSZGszcV8yb0J3dmlPUVh1NThWUDVCOE1aamdERVN5ZjdhbUU1dThjTTBXVGYwZ09CV202SWlFUnJocmNhdDY2SGZTa3FlQm8zNVpjeE9sc2plaVgzSHFwY2JjVlNCOW1CSEJnRXJLUk56cjl5Yw?oc=5",
+      "source": "LatestLY"
+    },
+    {
+      "headline": "गुजरात के लिम्बायत में पुरानी वीडियो वायरल, स्री गंगानगर बलात्कार मामले के आरोपी को लेकर चर्चा",
+      "summary": "गुजरात के लिम्बायत में स्री गंगानगर बलात्कार मामले से जुड़े एक पुराने वीडियो ने सोशल मीडिया पर धूम मचा दी, जिससे मामले की पुनः जांच की मांग बढ़ी।",
+      "url": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxOaUN6UUYzQU1LZXNYVEJhRzF2Y2RmNFRja2h4QTdUQWxMV1BPUjMwVXFucl92b3lIb0h0ZjE4bDU3U2hBRkJjWndlZlRuQ2l2MkJVdFNGYUJvakpLbFlxSGtaZ0NRVzh4ZXA0ZzhabEpIcHB6eEptMm02ZVVlWDBmYnRaV0xLTFpWNFZxTk11MnY5U042MWNHVGZsSmptSl82UWpReUlJQW83dzA?oc=5",
+      "source": "english.factcrescendo.com"
+    },
+    {
+      "headline": "जैपुर स्कूल में छात्रा की मौत से पहले सीसीटीवी में दिखे बुलिंग के क्षण",
+      "summary": "जैपुर के एक स्कूल में एक छात्रा की मौत से पहले सीसीटीवी फुटेज में बुलिंग के दृश्य दिखे, जिससे स्कूल सुरक्षा और छात्र कल्याण पर नई चर्चा शुरू हुई।",
+      "url": "https://news.google.com/rss/articles/CBMizAFBVV95cUxOVE1vcEZ6WEdmVkxQUlF0VFE2T0lsdjFyX1Jvbk94M29vWGNNSW56cGV3ZFFhalRuVmRXa2Ria1pzOWdST1FwTnpDNnRQQmZlWFJkdDZvdXhkZkxpQk1RYzROSXRPa1VMVk1iRlBEbHAzUWstRC01ZmstV0V1RVhEakJKc0RhVUd3bGZJdnJWOC1nOXpwbUg5LVlNbFpDQ0lJTFFnSTR0MHJjVmsyQnNJQXNraHUyMng1MERfazlVWTFSZllvUUo0SjFfQXc?oc=5",
+      "source": "MSN"
+    }
+  ],
   "last_feed_hash": "5df6e08c9a9d2f05",
-  "last_updated": "2026-07-15T09:59:47.178281+00:00",
-  "render_version": "11"
+  "last_updated": "2026-07-15T08:36:40.001222+00:00",
+  "render_version": "10"
 }

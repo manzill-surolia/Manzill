@@ -17,8 +17,15 @@ an operator guide.
   picks the **breaking story of the day**, has the **AI write its own analysis** by
   synthesizing multiple news feeds, and **keeps updating through the day** as new
   developments arrive.
-- Never blank: when feeds have items there is always a lead story; a clean Hindi
-  holding page shows only if the AI is unreachable.
+- **Jaipur-city only:** a hard locality gate (`is_local` / `filter_local`) drops any
+  cluster that does not actually mention Jaipur (or a known Jaipur locality), so a national
+  item that leaks into a broad feed query — e.g. an Assam flood — can never lead the page.
+- **Police-incompetence priority:** on a day with **no major breaking event** (no
+  high/critical local story), the top sourced police-incompetence story is promoted to the
+  **lead**; on a busy day the lead is the top story by newsworthiness (see §1 item 8).
+- Never blank: when the feeds have Jaipur-local items there is always a lead story; if a run
+  finds none (or the AI is unreachable), the last good page is kept / a clean Hindi holding
+  page shows.
 
 ### Language — fully Hindi, no English
 - **All visible text is Hindi (Devanagari).** The AI translates English feed facts into
@@ -57,8 +64,11 @@ it; the story body follows directly. Section order below the header:
    Detection is precise: an ordinary crime story that merely quotes the police is **not** flagged;
    only strong police-context misconduct (lathicharge, custodial, negligence, misconduct,
    suspension, dereliction, brutality…) or a force verb with the police as the subject/agent
-   ("police beat…", "…beaten by police") counts. The **lead** story is still chosen purely on
-   newsworthiness; a police story leads the page only when it genuinely is the top story.
+   ("police beat…", "…beaten by police") counts. **Lead selection:** on a day with **no major
+   breaking event** — no high/critical local story (no disaster, terror, fatal accident, big
+   fire, murder, riot…) — the top police-incompetence story is **promoted to the lead**
+   (`apply_lead_policy`); otherwise the lead is the top story by newsworthiness and the police
+   story keeps its high-priority slot here in "यह भी ब्रेकिंग".
 
 ### Multi-day tracking
 - A rolling **30-day archive** (`breaking/data/archive.json`) accumulates each ongoing
@@ -102,10 +112,11 @@ breaking/data/archive.json            # rolling 30-day story history
 breaking/data/override.json           # optional manual pin (force a chosen story to lead)
 ```
 
-Each run: fetch Google News RSS for Jaipur/Rajasthan + event terms → cluster into the top
-story → match it to the archived ongoing story (or start one) and append new dated points →
-call **Groq** (OpenAI-compatible) for the full Hindi package → render `breaking/index.html`
-(+ RSS + sitemap) → commit **only if something changed**.
+Each run: fetch Google News RSS for Jaipur + event terms → cluster into stories → **keep only
+Jaipur-city stories (locality gate)** → **on a quiet day promote the top police-incompetence
+story to lead** (`apply_lead_policy`) → match the lead to the archived ongoing story (or start
+one) and append new dated points → call **Groq** (OpenAI-compatible) for the full Hindi package
+→ render `breaking/index.html` (+ RSS + sitemap) → commit **only if something changed**.
 
 Notes learned along the way:
 - **Groq is behind Cloudflare**, which returns `403 error code 1010` to requests with a

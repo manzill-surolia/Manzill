@@ -34,10 +34,13 @@ back into the repo, which Pages then serves) — everything else is hand-authore
   branch (`main`) at `www.manzill.com`. Editing an `.html` file and merging to `main` publishes it.
 - **Two generators run in CI and commit their output:**
   - `scripts/build_breaking_news.py` → `.github/workflows/breaking-news.yml` (cron `*/20` +
-    manual dispatch). Fetches Google News RSS, clusters stories, keeps only Jaipur-city ones
-    (locality gate) and promotes a police-incompetence story to lead on a quiet day, calls
-    **Groq** for a Hindi write-up, renders `breaking/index.html` (+ RSS + news sitemap), commits
-    only on change.
+    manual dispatch). Fetches Google News RSS (+ wider-window backfill), clusters stories, keeps
+    only Jaipur-city ones (locality gate), **leads with the burning issue of the day** (disorder /
+    misgovernance / accountability / deaths, `issue_rank` + severity — ceremonial/feel-good barred
+    from the lead unless nothing else qualifies), archives **every** local story so each keeps its
+    multi-week timeline, calls **Groq** for a Hindi write-up, renders `breaking/index.html` (+ RSS +
+    news sitemap), commits only on change. Only genuinely-sourced stories are ranked up; the AI
+    never fabricates (theme lists are top-of-file config).
     Needs the repo secret **`GROQ_API_KEY`** (without it, a Hindi holding page shows).
   - `scripts/build_sitemap.py` → `.github/workflows/sitemap.yml` (push to any `**/index.html`,
     daily cron, or dispatch). Auto-discovers routes (**any folder containing `index.html`**;

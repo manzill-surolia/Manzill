@@ -64,7 +64,7 @@ NEWS_SITE = "https://news.manzill.com"
 # Bump whenever the rendered output (template/RSS/sitemap format) changes. A mismatch
 # with the value stored in state forces a one-time re-render even when the feed is
 # unchanged, so a redesign rolls out on the next scheduled run without a manual push.
-RENDER_VERSION = "10"
+RENDER_VERSION = "11"
 
 # strftime has no Hindi locale, so map month names for the Hindi date/time strings.
 HINDI_MONTHS = [
@@ -102,13 +102,34 @@ FEED_QUERIES = [
     "Jaipur when:1d",
     "Jaipur breaking when:1d",
     "Rajasthan Jaipur police when:1d",
-    "Jaipur fire OR accident OR blast when:1d",
-    "Jaipur protest OR clash OR crime when:1d",
-    "Jaipur weather OR IMD OR rain warning when:1d",
+    # Event terms are parenthesised so they stay anchored to "Jaipur" and don't pull
+    # national stories; the Jaipur-locality gate (is_local) is the real safeguard.
+    "Jaipur (fire OR accident OR blast) when:1d",
+    "Jaipur (protest OR clash OR crime) when:1d",
+    "Jaipur (weather OR rain OR IMD) when:1d",
     # Police accountability / misconduct — surfaced with high priority in "यह भी ब्रेकिंग".
     "Jaipur OR Rajasthan police lathicharge OR beaten OR custodial OR negligence "
     "OR misconduct OR suspended when:2d",
 ]
+
+# --------------------------------------------------------------------------- #
+# Jaipur-city locality gate
+# --------------------------------------------------------------------------- #
+# The page is Jaipur-local: a story is kept only if it actually mentions Jaipur (or a
+# well-known Jaipur locality). Without this gate a national item that leaks into a broad
+# feed query (e.g. an Assam flood — "flood" is a critical keyword) can outscore every local
+# story and lead the page. Single-word tokens are matched against the item's token set (so
+# "camera" never matches "amer"); multi-word phrases are matched as substrings. `normalize()`
+# keeps "jaipur" — it is stripped only for clustering (STOPWORDS), not from the raw text.
+JAIPUR_TERMS = {
+    "jaipur", "jaipurite", "jaipurites", "sanganer", "sitapura", "jhotwara",
+    "mansarovar", "vidyadhar", "amer", "amber", "chomu", "bagru", "chaksu",
+    "shahpura", "kotputli",
+}
+JAIPUR_PHRASES = (
+    "pink city", "walled city", "malviya nagar", "vaishali nagar",
+    "tonk road", "sindhi camp", "jln marg", "bani park",
+)
 
 # Facts about police incompetence/misconduct are a standing priority: flagged clusters are
 # pulled to the front of the "यह भी ब्रेकिंग" section (see order_secondary). Precision matters —
@@ -337,8 +358,10 @@ def cluster_items(items: list[dict], threshold: float = 0.28) -> list[dict]:
         age_h = max((now_utc() - newest).total_seconds() / 3600, 0.0)
         recency = max(0.0, 24.0 - age_h) / 24.0  # 1.0 = brand new, 0 = ~24h old
         cl["police_flag"] = is_police_misconduct(cl)
-        # The lead is chosen purely on newsworthiness; police-misconduct stories get their
-        # high priority inside "यह भी ब्रेकिंग" (see order_secondary), not by hijacking the lead.
+        # This score ranks stories by newsworthiness. On a day with a major event it also
+        # picks the lead; on a quiet day (no high/critical local story) apply_lead_policy
+        # promotes the top police-incompetency story to lead instead. Police stories always
+        # keep their high priority inside "यह भी ब्रेकिंग" (see order_secondary).
         cl["score"] = (
             severity_rank(cl["severity"]) * 3.0
             + min(len(cl["items"]), 6) * 1.0
@@ -374,6 +397,48 @@ def order_secondary(clusters: list[dict]) -> list[dict]:
     police = [c for c in pool if c.get("police_flag")]
     rest = [c for c in pool if not c.get("police_flag")]
     return (police + rest)[:5]
+
+
+def is_local(cluster: dict) -> bool:
+    """True if the cluster is about Jaipur city (or a known Jaipur locality). Reads the raw
+    item text — `jaipur` is only a clustering stopword, so it survives in `normalize()`."""
+    text = " ".join(
+        normalize(i["title"] + " " + i.get("summary", "")) for i in cluster["items"]
+    )
+    if set(text.split()) & JAIPUR_TERMS:
+        return True
+    return any(p in text for p in JAIPUR_PHRASES)
+
+
+def filter_local(clusters: list[dict]) -> list[dict]:
+    """Drop every cluster that is not a Jaipur-city story (keeps order)."""
+    return [c for c in clusters if is_local(c)]
+
+
+# "Major event" bar: a police-incompetency story is promoted to lead only when the top local
+# story is NOT a major event, i.e. its severity is medium/low. Any high/critical story
+# (disaster, terror, fatal accident, big fire, murder, rape, riot) keeps the newsworthiness
+# lead. severity_rank: critical=3, high=2, medium=1, low=0.
+MAJOR_MIN_RANK = 2  # 'high'
+
+
+def apply_lead_policy(clusters: list[dict]) -> list[dict]:
+    """On a day with no major breaking event, promote the top police-incompetency story to
+    the lead (standing priority); otherwise keep the newsworthiness lead. `clusters` is
+    already sorted by score, so `police[0]` is the strongest police-incompetency cluster."""
+    if not clusters:
+        return clusters
+    police = [c for c in clusters if c.get("police_flag")]
+    if not police:
+        return clusters
+    major = (
+        severity_rank(clusters[0]["severity"]) >= MAJOR_MIN_RANK
+        or any(c["severity"] == "critical" for c in clusters)
+    )
+    if major:
+        return clusters
+    lead = police[0]
+    return [lead] + [c for c in clusters if c is not lead]
 
 
 def cluster_id(cluster: dict) -> str:
@@ -455,6 +520,8 @@ def groq_analyze(api_key: str, clusters: list[dict], story: dict) -> dict | None
         "अनिवार्य संपादकीय नियम: यदि स्रोतों में जयपुर/राजस्थान पुलिस की जाँच में किसी भी तरह की "
         "लापरवाही, देरी, चूक, नाकामी या आलोचना का ज़िक्र हो, तो उसे 'police_accountability' में "
         "स्पष्ट व प्रमुखता से, तथ्यों के साथ उजागर करें — लेकिन कभी मनगढ़ंत आरोप न लगाएँ। "
+        "यदि प्रमुख खबर (lead_story) स्वयं पुलिस की लापरवाही/नाकामी से जुड़ी हो, तो उसे मुख्य खबर मानकर "
+        "analysis में उसका पूरा, तथ्यपरक विवरण दें। "
         "सभी टेक्स्ट फ़ील्ड पूरी तरह देवनागरी हिंदी में हों — कोई अंग्रेज़ी वाक्य नहीं; केवल event_type "
         "और severity अंग्रेज़ी enum में रहें। सिर्फ़ मान्य JSON लौटाएँ।"
     )
@@ -787,11 +854,19 @@ def build() -> None:
         return
 
     clusters = cluster_items(items)
+    clusters = filter_local(clusters)  # Jaipur-city only — drop national/out-of-area stories
+    print(f"  {len(clusters)} Jaipur-local cluster(s) after locality gate")
 
     # A manual pin (override.json / FORCE_* inputs) can force a chosen story to lead.
     override = load_override()
     if override:
         clusters = _force_lead(clusters, items, override)
+        # Honour the explicit pin as the lead, but keep the secondary pool Jaipur-local.
+        if clusters:
+            clusters = [clusters[0]] + filter_local(clusters[1:])
+    else:
+        # Quiet day (no high/critical local story) → lead with the top police-incompetency story.
+        clusters = apply_lead_policy(clusters)
     if not clusters:
         print("No clusters to render; keeping existing page (no commit).")
         return

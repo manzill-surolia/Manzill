@@ -10,6 +10,7 @@
         "claims",
         "death",
         "examine",
+        "expands",
         "faces",
         "father",
         "include",
@@ -25,6 +26,30 @@
         "widens"
       ],
       "points": [
+        {
+          "date": "2026-07-11",
+          "time_ist": "15:57",
+          "iso": "2026-07-11T10:27:34+00:00",
+          "text_en": "Jaipur murder probe expands to examine father’s suspicious death",
+          "source": "MSN",
+          "url": "https://news.google.com/rss/articles/CBMi-wFBVV95cUxNTjBaMGlhazRXLTNNYmNFN29ZTkpJY1UyV2VySFRsbkN6MFUzcjhZLTNlcE96aXJzRnpmWmQwamh1dzJFbEUzT3JicTY3YXNyRzloOEJWMHpiV1ZJWWRLSi11NWNxbjcyTi1VWVVxeDJqTGpBdXk0bncyTXRTOHZLN0daSlFpYV9od0gtZXBnMTJYWjduUDN0UjVxOTR6NDdGbXU5c3pneUp1QmZqVk5ua3VoMHczd0tmRmVMbEZhWF81Q0laWWoyN2NsWTl6RlFIN2M5M3F4VUJaY1RxM2FoLUJmUzE4Yjd0TjdWWkl4V2hvaGVGZEE2M1AySQ?oc=5"
+        },
+        {
+          "date": "2026-07-11",
+          "time_ist": "15:57",
+          "iso": "2026-07-11T10:27:34+00:00",
+          "text_en": "Jaipur murder probe widens to include father’s suspicious death",
+          "source": "MSN",
+          "url": "https://news.google.com/rss/articles/CBMi-AFBVV95cUxPak0yTS0yQ0taZkcxamlQRFF4MkMzcElkaUlheWFyLU0xNnBmY0w5R2ZJVkE0ZjJFangyLTdhUWZ2YUhONEwyR2kyV3pQQklxRFVxRElwYnRGb0J5WWhMVlNBUEZTQlNMZzBxVVQ3Ti1yaDVaREZwVzFUY1g1OHhsY2taeV8tZHl2NDFRTi1HUmhhWmlUZnQxREl2cGNTQUhxOEdmVG9Vd0g0Y21IQm82UHhodmVULVFfWHJEVTNpTW1rNFAtdC05MjNvQ2hyU3hSX1hHLVlXc0JqV01zdTN3eWJ6M1Rzcmo5QlRBMUE4dkZjczZGWndWdQ?oc=5"
+        },
+        {
+          "date": "2026-07-12",
+          "time_ist": "08:59",
+          "iso": "2026-07-12T03:29:26+00:00",
+          "text_en": "Jaipur murder probe widens to examine father’s death",
+          "source": "MSN",
+          "url": "https://news.google.com/rss/articles/CBMi6gFBVV95cUxPbTBnb21fUmJLUFMwaVBmd1hhZWhGUmJoWUhBLTJLYTVqaU8wcW1PX3pOLWJjZ0NLNG5KWHdzZWtjZTF4MTBPTXFuMTF0eDJFZlgyb2Vac1hIMjVCNlFJS3BHS1RkMVE2SXgwdUlrMWpBR0dqZXFidVltWFNxYjJXU3Z0WHptYk95cVJoWHY4ekJhelU2c3Q3S3ZjNDlPVXVFeE1pMGZQSVFseW5JaWtkRmRBbS1xSG9qWUxjSENhc2hQNUpOeU4zWi1CR1pFYVN5R3RzUmJzR2ZkWU9obHlTR1BPY1QzUV9xcVE?oc=5"
+        },
         {
           "date": "2026-07-12",
           "time_ist": "16:27",
@@ -82,7 +107,7 @@
           "url": "https://news.google.com/rss/articles/CBMi-AFBVV95cUxPOWVYeG0yeEowXzNOT1puTUJES010cnAxVTZ5LWhLV1RPc2RmQUNORDJoSmlEcW9lTXF2RFZ6OGQyYnVFNUVCY1MxbUF4dkpEbno5aWNZTjF1NjBwLUl6M01HVFdpMUZPLTRISFdSOFhuSlRCcmhCdmkyOVBzUkZsWllvWHBYNEpuV2p6RTZiQlZpV1JkMTRIZHdwVFdyR0tSWEVlcWpXRVdmN1czZDc4NmhXNUh3Q2RUMFVOU0V5RFFmYTZOLXFRdERnUXNKNnRnOTVtS084cnE4OFdhejdxRmVFal9hOUtfTzNULVA1WXA0UjYzV1YyOQ?oc=5"
         }
       ],
-      "last_seen": "2026-07-13T08:05:47.831742+00:00"
+      "last_seen": "2026-07-16T18:55:59.175245+00:00"
     },
     {
       "id": "00f4bb777548",
@@ -433,7 +458,7 @@
           "url": "https://news.google.com/rss/articles/CBMiwAFBVV95cUxNZ1EyblJuaDd3aUVyanZmYVp1eEthMVQtQlExbFdkc3ZmWk8xbmNTX3ZFOHhJM0RoWF9KY25yTWVVaUk4Y2R4R09MRGR6ZHFuTEd0SDdneEF5cGpNQjd1b3o0bHZLLUdVNEF2SXFMZWhrOUVaYVI2TkUtOTBKRThmWFpBNUlMLTN0anV4aHFGUWJWcjRhY201akQzOVRnUmhaUzBtdVl4NnhtSldxRDZGSVE3ZzExLVNqZUZfd3Q5UHk?oc=5"
         }
       ],
-      "last_seen": "2026-07-16T09:00:05.155213+00:00"
+      "last_seen": "2026-07-16T18:55:59.175245+00:00"
     },
     {
       "id": "0ae7dc9dc057",
@@ -473,7 +498,7 @@
           "url": "https://news.google.com/rss/articles/CBMiiwJBVV95cUxNTmpKMUlYSThtRmhkTEI2T2lfZF82QVdwc3RoLS1qTGU4VkluRUgyajhqelk3ZENBc2V0VXQwU0xEaG9xY2poNnV1UkdPTjk3MTdobXlUWkhqa2ZLb054dUZ6MllJTGs5RXNxZlN5dkEzUzNqWmpVVkYwbGdBME5Ndzl4WUpmQ3p2dUlyVjNWb2pmYlJqUERUa1pzZXBzMGhjNEVyREIyUm5VM2RLdkxSdlJKQ1JBcHV3YVc1RGljNkx2SU0wLTVrYTFoaGFnbXg4T0Utbll0TlZhSTFWWHhQajRsRkltUjU3dHRsN0phSm5mbU54VmlqYVJLbUFiSkRiRldjNEJRdXdyblnSAZACQVVfeXFMT21VdWEzV25TX2c4bEdiOTZjdU9rclFlR2IyX3phUEpXa1hJV25QSi1KSjJXNUZkUlNZMDVnaUEyZ21sVHZ5a1p2UEprQmVNdGxnRUR1c244b2FRRm1qLXdXaUE0ODhEbmpydjFqeXBVQ2JjZk5lWEFhcG03UzlYWVliaUxNYmtwYTU0MTQyRjBVZ1h5SlVIbGh6YnRCbGZTM1BiS25Nbnd1eVZ3NEd3N3hhU2pZNXBFMWo2MWVJclFNaDBsSEdOa3hSczhJMFZrRktQRWlfRXJLVGV3Qjd3N0o5V0RaMGUxaHppYXNzcER2UENlZGJqV1RFYS04MnZPRmpDY052RW1fSi1pYTd1TWk?oc=5"
         }
       ],
-      "last_seen": "2026-07-16T09:29:56.783258+00:00"
+      "last_seen": "2026-07-16T18:55:59.175245+00:00"
     },
     {
       "id": "567edd1272af",
@@ -512,7 +537,1897 @@
           "url": "https://news.google.com/rss/articles/CBMi4wFBVV95cUxQQ2dER1hmaUNvMUhaRDRkcGptc3hHcEZub3VVT2pxTHhxMHhQMEtQS3RxSm1LRmZVaTZHUHNKeDlxRWZyeE0xcGFOcG5UU3Yxd2M3Yzhjd1c5cmNHUENQcDE2dzA1bVFWZlZ1QjRIZ0tUOFRGSno3VVRKZ3hJYmRPRmJRZ2RHM3IzOXNub0RuUmRIRklzeVFSSnlPN3hNMEpIdTAwZDNFYjVsa042SHM0WnBFVDhtRVBOdjNJNmlLSkRrR1ZVSTc2aHFGSmU3clhEaEd4bnJvRXM4NXRCZUtMU1lwcw?oc=5"
         }
       ],
-      "last_seen": "2026-07-16T12:53:48.723598+00:00"
+      "last_seen": "2026-07-16T18:55:59.175245+00:00"
+    },
+    {
+      "id": "8f62031f57db",
+      "first_seen": "2026-07-16T18:55:59.175245+00:00",
+      "keywords": [
+        "000",
+        "accepting",
+        "arrested",
+        "bribe",
+        "corporation",
+        "jamadar",
+        "mill",
+        "municipal"
+      ],
+      "points": [
+        {
+          "date": "2026-07-09",
+          "time_ist": "08:12",
+          "iso": "2026-07-09T02:42:09+00:00",
+          "text_en": "Jaipur Municipal Corporation Jamadar arrested for accepting Rs 50,000 bribe",
+          "source": "The News Mill",
+          "url": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxON3ZYdzZGSnJfQk4xTVJUaUwzd2F2ell2SHpMY1pBcTJQcmdNaWVpdHZJZHY5OHlaQmZybUR5S1A3YWFCWFlmaDJ4QnpXNkRDcGduX25VOGh3Tk1JVC1BT0Q2S2FmTG9BdUtLckJRT3FjYVh5emdMREdVYkh6M091a3MxazlNVEtpWV8wWjZLd0V1eTVmVEtnUkowQ2JKdlZQd1NuM3FQcGc4ODQ?oc=5"
+        }
+      ],
+      "last_seen": "2026-07-16T18:55:59.175245+00:00"
+    },
+    {
+      "id": "a5a1274733a9",
+      "first_seen": "2026-07-16T18:55:59.175245+00:00",
+      "keywords": [
+        "bullying",
+        "cctv",
+        "death",
+        "fresh",
+        "msn",
+        "negligence",
+        "reignites",
+        "row",
+        "school"
+      ],
+      "points": [
+        {
+          "date": "2026-07-11",
+          "time_ist": "00:44",
+          "iso": "2026-07-10T19:14:42+00:00",
+          "text_en": "Fresh CCTV reignites bullying, negligence row in Jaipur school death",
+          "source": "MSN",
+          "url": "https://news.google.com/rss/articles/CBMi_gFBVV95cUxORGhIUXNkRm9YMEZpYU9CSGpkM0RzOUxsazBVWGRqRXNnX1VxTkYwTnNoVDNiVlZYaU1DNTkwZGozUWMxNzlBRVB3NDNuTm1Ua29GQnFCWmJzR0ZtTFI1dWVlM2YyVDF3djZBTktvNm9EWXpLRjA4U1RPZ2FYVFdWYXAteWR3YkY3MVRRenphNUNxX0FCLXpBUC1zd0Job3lINkt6aGp6aFQ4LXczMV9QS0plTTIwMFhCZmNCZFhyOV9IdnRGSXQzSTRxcXd2TjZMRXNiZVRuejRiSWhaS1JkRUwyQjJFNFU2alhqNGIxSWVtc01yZ1FCMlV6UVRMdw?oc=5"
+        }
+      ],
+      "last_seen": "2026-07-16T18:55:59.175245+00:00"
+    },
+    {
+      "id": "5e9717459aa2",
+      "first_seen": "2026-07-16T18:55:59.175245+00:00",
+      "keywords": [
+        "against",
+        "association",
+        "august",
+        "court",
+        "daily",
+        "defers",
+        "delhi",
+        "eviction",
+        "ground",
+        "hear",
+        "hearing",
+        "high",
+        "hindu",
+        "indian",
+        "law",
+        "pioneer",
+        "plea",
+        "polo",
+        "trend"
+      ],
+      "points": [
+        {
+          "date": "2026-07-14",
+          "time_ist": "15:43",
+          "iso": "2026-07-14T10:13:51+00:00",
+          "text_en": "Delhi High Court to hear Indian Polo Association's plea over eviction from Jaipur Polo Ground on August 12",
+          "source": "The Hindu",
+          "url": "https://news.google.com/rss/articles/CBMi_AFBVV95cUxQUkVZb0JrcXRVTldjcWRSNU81VVlBQnY2YkxLOFpTaUExdjVPZW1ocUh5a0d3YW5xNk9YQ0Y1TjFMdHpHM1U3MERhMzhtQnNrRU56dU1BWUYtb011d1F6bkVWa1k1bzhzbzlpUjNmNkRENnVrZ09iRmdNTUV2OTB1MC1RRjNob1gtbUItUEJQamtOR3AyZG92dGNBeW1MdmxhOS1KNjhXMk1YaS16dzJrUHZPNmJpZzhWR3pTNFUxSmprZG54MDdTYUdSY21zel9FNEFqQzlIZXVJTlhSQnl6ZWtHejJnal8ybFNLMFZGYWc0QXZ1aXc4TG9nYUvSAYMCQVVfeXFMUC1nT2JXaElqOG4wNjU1Y1ZrTnh3T3E4OGZpN19PUTZFMXpiSVJ6YnpzMW5iLXh6YW93aElFS21nY2JQaGNYU2xqdXVZcjc2Qlh0OVB6U2psaFVGNS10cS1HSFEySnJzYlFLa1loOTdWN245dXhHMlRWN2g2d1pRejc0UWx6bWk2QmVaRExRVnJGZTRpQ2U1TjBxSDZtajgzX0hudjRNUVRGbmtvMlo4MUJob3hrc2lrc1Nxd1dxYmNPQU9iNW9hcHkwUHcwN3dzbEFVQ0xhb3FaM1NSYy1NV2c3eFA1cHlkajlpQkFfQldYVmlaUWdoTllwbTdfdHo2NkdRRQ?oc=5"
+        },
+        {
+          "date": "2026-07-14",
+          "time_ist": "18:56",
+          "iso": "2026-07-14T13:26:22+00:00",
+          "text_en": "Delhi High Court Defers Jaipur Polo Ground Eviction Hearing To August 12",
+          "source": "Law Trend",
+          "url": "https://news.google.com/rss/articles/CBMimAFBVV95cUxPbjNYV2JxZmlVNTd5VmgzUDFfem5KczlWOUMyZl9mZGNaem1Gemt4WVpBSDJPZWtYTGFyWm44cHZsN2N5OFRyNm52LTkwU2JGUnd1Mmx1ZUdPUEpNUEgzVW5tRGJ4eXNGdDFMcW03b3RIUGxjLWNoQy0wdzBlYzMwdzZPT1VGQnZSOE5SZWZZTnZrTEdJQ2otNQ?oc=5"
+        },
+        {
+          "date": "2026-07-15",
+          "time_ist": "03:12",
+          "iso": "2026-07-14T21:42:15+00:00",
+          "text_en": "Delhi High Court Defers Indian Polo Association Plea Against Jaipur Polo Ground Eviction to August 12",
+          "source": "Daily Pioneer",
+          "url": "https://news.google.com/rss/articles/CBMimwFBVV95cUxOUHFuSnVUQ245MXBfYkljSFRlUFJicU53a1hFYnVrWkFSWE93SE0zVUxEUzhGenlybUx1RVYzNU5Oai0ya0o1SEdTY3UwcUpqU0VWbkdwTWV6c01rbVlSMUtzZzdmM3AwQ3VkaWJreVVHenJJZlBCM3J3MFMzRmF6Q2FWRkNjajQzNzJNSVVMYnVyQVZ1Nk5xODYtbw?oc=5"
+        }
+      ],
+      "last_seen": "2026-07-16T18:55:59.175245+00:00"
+    },
+    {
+      "id": "7433a851d378",
+      "first_seen": "2026-07-16T18:55:59.175245+00:00",
+      "keywords": [
+        "alleges",
+        "amaira",
+        "bullying",
+        "case",
+        "cctv",
+        "death",
+        "family",
+        "footage",
+        "fresh",
+        "girl",
+        "ignored",
+        "ndtv",
+        "ptc",
+        "questions",
+        "raises",
+        "releases",
+        "school",
+        "sparks",
+        "tragedy",
+        "video",
+        "wion"
+      ],
+      "points": [
+        {
+          "date": "2026-07-09",
+          "time_ist": "19:34",
+          "iso": "2026-07-09T14:04:17+00:00",
+          "text_en": "New CCTV footage in Jaipur school girl's death case sparks fresh questions; family alleges bullying was ignored",
+          "source": "PTC News",
+          "url": "https://news.google.com/rss/articles/CBMinwFBVV95cUxOdmsxUkJlczRwSlJ2a1dWSXo4aFFndUhtZHlRZ3BGY2FRVG5XOXF2RlAxOTBNYTlmTE1tSnJ5ZmFLU0pGQzJfZjN4RWpyOElvVUNMaGppNmltNTQxNDhFUG5pU2lJaVpkNW00MlJWb2Y3TFhHQTFxZ1o1UDhPWTVSa3dXeVJfTHY1UzZpd24xNzFTejAxMlV5X0VnYk1nTm_SAaQBQVVfeXFMTjk0M3p0TThlSU9CWjlwY2phaGJOdmdDYUs3cEVOMUM0SHo4RlNaVnRmQk0zQUNueEczSWxSaTVyWVViRHZWVWdRRHYzM1BFaXMzYk8yMk01TTl2NGdjRGNYX2Vfb1JmMnh2OEQ3NGFMUGRQMXBrcnFXVEUxQ1ZUVndzUnZBcnFDRG9vRko5cnJ1QzNrRGJkT0tZVWRnSzlfdFEybUI?oc=5"
+        },
+        {
+          "date": "2026-07-10",
+          "time_ist": "21:46",
+          "iso": "2026-07-10T16:16:37+00:00",
+          "text_en": "Video | Jaipur School Tragedy: CCTV Raises Fresh Questions In 9-Year-Old Amaira's Death",
+          "source": "NDTV",
+          "url": "https://news.google.com/rss/articles/CBMiswFBVV95cUxNYVFzYTJ2dlZoV2FpTFdiMnlweWwzVUFCd21ETHM2T1ZxZEZJQ0thdldqeTFtQ3RKR1ltWVlUbHJzaWVmaHB5RW9iYmozV09nUUs0ek1rSS1uM1dyeUEyRWxCdjF0Y1YzaV9ValpLTG1KVFI5NXF1ZmlDR2ZSNmZ1Y2NlcGxXYTIxeVowWWN3S1dRSXBaaTUxMnZRYTh5ZEU0YjdFN3lwMlMyX0VnbFVPZWN2UQ?oc=5"
+        },
+        {
+          "date": "2026-07-11",
+          "time_ist": "18:42",
+          "iso": "2026-07-11T13:12:00+00:00",
+          "text_en": "Jaipur school girl death: New CCTV footage releases questions over 9-year old's death",
+          "source": "WION",
+          "url": "https://news.google.com/rss/articles/CBMiyAFBVV95cUxPbU83dHQ3YjVuLWs3a2dGeThoUzgyNWRnQWFqeUlFb2pxVS1KanljUjNqa3hEeTliWW1qaUZJc0JUX1RJcFV1QXN3SVZ4N1hPaXRFeGwwdmItdDl2MGw2Q3pZR1VXS0kxbHZKNHl4Zm5BUXlTLS1lSC1ncUZFNERaallsU1ljTmc2WVpHZndPbG5ud2EweUNSQktmaG1GZkgzdkNIX3daWndXUk9RSkZERkVhSm9lTy1naUFkM0ZiVW5DSmFWeDdPMtIBzgFBVV95cUxNOUtTbXl1WXpwUmhxU21lQzVQeHFVbV96Wkp6QkdzVkJxQjd3MWZOaFZ4d3c3NjlPMmpLT2NNOG82OW5LVGtockp4LTIwenBIVDhwbkZueGhILU1uaXdNQ1RLY3BsVUl1cGVQLVlTaC10YTRKcGR3ZDJVeWt3T2UtUnl3Vlg3Z25JNHBwQUNMdEd4dGRraGU1elAybHZpb3I1TmRLQVBPOVBnbUFEdjMyUzlNOExKSUoySkk5VnVudVBadWRnd25jMTJFQUhDUQ?oc=5"
+        },
+        {
+          "date": "2026-07-11",
+          "time_ist": "20:58",
+          "iso": "2026-07-11T15:28:30+00:00",
+          "text_en": "Jaipur News | Jaipur School Tragedy: CCTV Raises Fresh Questions In 9-Year-Old Amaira's Death",
+          "source": "NDTV",
+          "url": "https://news.google.com/rss/articles/CBMixAFBVV95cUxOaEZVeWZ0Y0hxN2tLN3pJV1BZSVhzQ3lxMVlZTDB4dVhKanMtMzBGTEdvakNxLU92Q2F5Nkx2ck53ME5yLTFiLUlPWXBUUC1PQl9fcmt6MzE3M0x6SXlLcDBfRXY4dWlRZlZXS0YwUXF6SlhaODdQbnc1cktiemY4SmlRVkdjN3RQS21pU2NkZFVHUkpoakw5MG1EVUlYbHNhWE5pWVpPc1ZXbGQ4MUJEMmRUUHpzWXNYcm8yQWV2TVplUjZ4?oc=5"
+        }
+      ],
+      "last_seen": "2026-07-16T18:55:59.175245+00:00"
+    },
+    {
+      "id": "4a92eb7b8433",
+      "first_seen": "2026-07-16T18:55:59.175245+00:00",
+      "keywords": [
+        "car",
+        "catches",
+        "delhi",
+        "drive",
+        "escapes",
+        "expressway",
+        "fire",
+        "gurugram",
+        "moving",
+        "theprint",
+        "tribune",
+        "unhurt"
+      ],
+      "points": [
+        {
+          "date": "2026-07-16",
+          "time_ist": "20:18",
+          "iso": "2026-07-16T14:48:54+00:00",
+          "text_en": "​Moving car catches fire in Gurugram",
+          "source": "The Tribune",
+          "url": "https://news.google.com/rss/articles/CBMiigFBVV95cUxOSHVHMDhhX3RmcEU3eFV3YVFMcVE1b1k0ZkcxcE5SZTRqakR6TlllNHI5Z0VjWXhSelZndjBVUVYtRjcwcVV6YnBFUmJLQkMtYnFZZV9saVA5WXRUQVRROW44RjZJYjJpTFIycGFnOFlXeGlBdWZmcmptUjRyVFdzUWExeGNMY1hiR2fSAYoBQVVfeXFMTkh1RzA4YV90ZnBFN3hVd2FRTHFRNW9ZNGZHMXBOUmU0ampEek5ZZTRyOWdFY1l4UnpWZ3YwVVFWLUY3MHFVemJwRVJiS0JDLWJxWWVfbGlQOVl0VEFUUTluOEY2SWIyaUxSMnBhZzhZV3hpQXVmZnJqbVI0clRXc1FhMXhjTGNYYkdn?oc=5"
+        },
+        {
+          "date": "2026-07-16",
+          "time_ist": "21:21",
+          "iso": "2026-07-16T15:51:50+00:00",
+          "text_en": "Moving car catches fire on Delhi-Jaipur Expressway, drive escapes unhurt",
+          "source": "ThePrint",
+          "url": "https://news.google.com/rss/articles/CBMirwFBVV95cUxNVlRNbEdJSmllYVB3em82NTE4N05nbHNKR3o2dlpNR3JZZllQUk9YbHJ3TUNVMmg1Vlpoamd0Z0ExRWVSVEdFRWlpa0xqYmFSdUVaVWFHTkhfVHRGckFpM2xDU0ZSZkNONHBKWGdncllRaGNxNVBDc1pZNzNGYnp3WnlCZFBpb1JHcjlJNDdmVllQZThtV3dtSnlMLVlqbTc4cE9vcmhaRjJaMUpIcHJN0gGvAUFVX3lxTE1WVE1sR0lKaWVhUHd6bzY1MTg3Tmdsc0pHejZ2Wk1HcllmWVBST1hscndNQ1UyaDVWWmhqZ3RnQTFFZVJUR0VFaWlrTGpiYVJ1RVpVYUdOSF9UdEZyQWkzbENTRlJmQ040cEpYZ2dyWVFoY3E1UENzWlk3M0ZiendaeUJkUGlvUkdyOUk0N2ZWWVBlOG1Xd21KeUwtWWptNzhwT29yaFpGMloxSkhwck0?oc=5"
+        }
+      ],
+      "last_seen": "2026-07-16T18:55:59.175245+00:00"
+    },
+    {
+      "id": "8584cfe36b38",
+      "first_seen": "2026-07-16T18:55:59.175245+00:00",
+      "keywords": [
+        "busted",
+        "chicago",
+        "girl",
+        "interstate",
+        "minor",
+        "racket",
+        "rescued",
+        "spa",
+        "trafficking",
+        "tribune"
+      ],
+      "points": [
+        {
+          "date": "2026-07-16",
+          "time_ist": "03:42",
+          "iso": "2026-07-15T22:12:03+00:00",
+          "text_en": "Minor girl rescued from Jaipur spa; interstate trafficking racket busted",
+          "source": "India Tribune - Chicago",
+          "url": "https://news.google.com/rss/articles/CBMiogFBVV95cUxNTDgtT3RHd29jM25aamV3STRDRzlCeXJ5ZTYwQ0ZPcWotS2dXS0xCdUllRmN4UDQwbWRDZkhCNnk3dEVIWVd3Y04zN2Z5SEo2eFB2R3hwRlBZblBSSjB3S25OYVQwNFEzMFd5MHZ4cnVGVW1MYzh4YlNoWTRCVm51WTN0OGZOOEp1eWR6SGhSQ2swUDdld2diVVFpWDNNMkNPbXc?oc=5"
+        }
+      ],
+      "last_seen": "2026-07-16T18:55:59.175245+00:00"
+    },
+    {
+      "id": "6e8d7b02aa63",
+      "first_seen": "2026-07-16T18:55:59.175245+00:00",
+      "keywords": [
+        "ani",
+        "association",
+        "court",
+        "dispute",
+        "eviction",
+        "ground",
+        "house",
+        "indian",
+        "interim",
+        "patiala",
+        "polo",
+        "refuses",
+        "relief"
+      ],
+      "points": [
+        {
+          "date": "2026-07-07",
+          "time_ist": "21:22",
+          "iso": "2026-07-07T15:52:00+00:00",
+          "text_en": "Patiala House Court refuses interim relief to Indian Polo Association in Jaipur Polo Ground eviction dispute",
+          "source": "ANI News",
+          "url": "https://news.google.com/rss/articles/CBMiggJBVV95cUxOM2NIeXh4OUpsRllmOTFCbDlQNlBzREh6RXF0VTdLOVBSaUlWRENBMTlnOXpYWERPS1pIRjF6MjE1LXAwUFhtMjk5SnVxNy0yMnd1WVVwdFFXM1liejNuZ09kRlpoaUZKMnd6X3phTmNMdzRvMU0zLVY3TTN3dl9DQzJCeG1ObXhaTG05cjZVdm1pejZLek96SXM3WU94amZJN1NXNHhYemtoR0Vtd01tUHZlQWFkajhQb0ozNGtGeEdRS3NnTlhNdnBLLWY3MUNwODc4RkpuTWJZVk1Lb1V4djFhRWd4bG1oQU9NMFk2OUR5ajE3U3VVMXdTWFZPVHVfNkE?oc=5"
+        }
+      ],
+      "last_seen": "2026-07-16T18:55:59.175245+00:00"
+    },
+    {
+      "id": "03e8dbf1b74b",
+      "first_seen": "2026-07-16T18:55:59.175245+00:00",
+      "keywords": [
+        "15th",
+        "16th",
+        "2026",
+        "accused",
+        "city",
+        "conference",
+        "controversy",
+        "health",
+        "inmates",
+        "jail",
+        "july",
+        "key",
+        "latestly",
+        "minister",
+        "murder",
+        "police",
+        "reshuffle",
+        "row"
+      ],
+      "points": [
+        {
+          "date": "2026-07-15",
+          "time_ist": "08:56",
+          "iso": "2026-07-15T03:26:05+00:00",
+          "text_en": "Jaipur Latest News Today on July 15th, 2026: Health Minister Row, Jail Inmates Accused of Murder & City's",
+          "source": "LatestLY",
+          "url": "https://news.google.com/rss/articles/CBMi-wFBVV95cUxQME9fZzF1b0FKU3VRUlNCczVuRC1qOG1TQWJyUEtURHZ0dXltUFA0elhCcFR4UmZ1MGNXMFRTajY2NUZSbnVQcnRMbzZyXzMwWHlzYlh6Rk0tWV8zY1gxcHBjZjVIVGNNMk1mVGd2VHRHUEtlQjFtMG5fLVNVcWVkaWxvMDFzZFhZa2syM2JQQ3VBUVVTU0RLQVJsTG45RFhrU3BPdmV3RjMwTGs1eXAzN3hVQ3k2U3c0REEybGNMM1lSZWRUQ1pKanVMTEJlbmdWZmIyZXVUV1lRMG5fckZNQzFwbmVRX01pcFI2eHI3SklzVXNjRTlablhtTdIBgAJBVV95cUxNQ0JIS1ZyaGtqTlp5YXAtTHVNY2hCYjh2Ny1OWk03Sjd6eFpXQnQyYmFmYjZqb19lUjdHa05BXzkzX3VTYXB2OTlkVVY3RlJTQ0J0eGxkX1BvV015NE1LNVNUSzNyaUJRT2hBNTQyVFVJWURQa20tN1NaT2l5djZSSnNaSkUwc2Z2cEs3V3pCZzhVbTVUaE5DcnY3MmtIa1NfUXUwV05Ya3BGTEJiamhQNGdtSUZsMTNZaUxuMWVMeU9DZDJQS2tRRHFzczNTZmV5cEFxNlA2SUtka0QzaGRVcURQRWJITlZaUDlfSkp5QUFkR0J3SE9Uc0xlMGpYekFQ?oc=5"
+        },
+        {
+          "date": "2026-07-16",
+          "time_ist": "08:28",
+          "iso": "2026-07-16T02:58:22+00:00",
+          "text_en": "Jaipur Latest News Today on July 16th, 2026: Police Reshuffle, Health Minister Controversy & Key Conference",
+          "source": "LatestLY",
+          "url": "https://news.google.com/rss/articles/CBMi6wFBVV95cUxNUDNsOWZOQmswS19waWtUdEJYeWk5Uk5nOHg2R2FBNnNCTWstOHBTS1hqLUZ3QUU5NFlRUEdXb0dIOWV6aDNDN2RSejFKU3BrVVpWV0dMY216RHIwb0s2dDRaV2Z4c2dqckNZY1ROLTFsY0IxNmhsUTlhWkJjQl9NWnlmbXd1TVlLNzFWWURxNkw4LTJXT2xhcmp0NDUtdGUyMlhFSEV4NnNtaHllZGRHUFFzQ1V2ckp0MVNSZldMLTVDekR2NTNOa3loaHpFQlJQaUZTaTVXRUxjWVZ2U1pEUnk2NFRnSmJNa2Jn0gHrAUFVX3lxTE1QM2w5Zk5CazBLX3Bpa1R0Qlh5aTlSTmc4eDZHYUE2c0JNay04cFNLWGotRndBRTk0WVFQR1dvR0g5ZXpoM0M3ZFJ6MUpTcGtVWlZXR0xjbXpEcjBvSzZ0NFpXZnhzZ2pyQ1ljVE4tMWxjQjE2aGxROWFaQmNCX01aeWZtd3VNWUs3MVZZRHE2TDgtMldPbGFyanQ0NS10ZTIyWEVIRXg2c21oeWVkZEdQUXNDVXZySnQxU1JmV0wtNUN6RHY1M05reWhoekVCUlBpRlNpNVdFTGNZVnZTWkRSeTY0VGdKYk1rYmc?oc=5"
+        }
+      ],
+      "last_seen": "2026-07-16T18:55:59.175245+00:00"
+    },
+    {
+      "id": "8318bb9a2ca3",
+      "first_seen": "2026-07-16T18:55:59.175245+00:00",
+      "keywords": [
+        "accused",
+        "alleges",
+        "brut",
+        "chargesheet",
+        "death",
+        "demands",
+        "family",
+        "fresh",
+        "investigation",
+        "key",
+        "left",
+        "schoolgirl"
+      ],
+      "points": [
+        {
+          "date": "2026-07-13",
+          "time_ist": "12:30",
+          "iso": "2026-07-13T07:00:00+00:00",
+          "text_en": "Jaipur Schoolgirl Death: Family Alleges Chargesheet Left Out Key Accused, Demands Fresh Investigation",
+          "source": "Brut",
+          "url": "https://news.google.com/rss/articles/CBMi4gFBVV95cUxQSFlNWGNFbDFaTzJsNnpDSGFfVU5mQkVZa3Y0bXZtQVo4RVAtS21SeER6LWpnUTlHdG9wWE16My1KUHBQeVdfTXdxS2hIRmF3YlByS0NKTU5xUjJfYndLTlpKczhhRUoxVmtUZmxGSTBRWm5YQlVaVU91dUptMElJTTJrZ1RkQlk1b0g4dk9LZXlFS1VaS0llZm9uTWpqRHFHZ1VlcVR2eE1Ca0pnT1JwUzU5VTBQUnAxWE9YNWFFQ181M2FFS2pNcldyWjVXNFc1cjRuaTg2RzFrTXVXQlNLd0hB?oc=5"
+        }
+      ],
+      "last_seen": "2026-07-16T18:55:59.175245+00:00"
+    },
+    {
+      "id": "abbfd834991a",
+      "first_seen": "2026-07-16T18:55:59.175245+00:00",
+      "keywords": [
+        "allegedly",
+        "brut",
+        "contract",
+        "hired",
+        "killers",
+        "killing",
+        "lakh",
+        "mother",
+        "murder",
+        "plot"
+      ],
+      "points": [
+        {
+          "date": "2026-07-13",
+          "time_ist": "12:30",
+          "iso": "2026-07-13T07:00:00+00:00",
+          "text_en": "Jaipur Woman Allegedly Hired Killers To Murder Mother In Rs. 7 Lakh Contract Killing Plot",
+          "source": "Brut",
+          "url": "https://news.google.com/rss/articles/CBMi0wFBVV95cUxNM2xvb0xwMFpFODNKWGEzY2wycTNkWlRxSWZOQ1ZkSDA5dFZXeVQxdjI5VjZTODBrY0t1TTNmSTh5dDBUQVB5R3NtYWphOUtGWXIwcmVpOFZackZGdVdvVS1xY3lMOG9YZWg3VTBXUzV3WnlGZVFoOC1PcFdabHVDT2lIUFFTWXBZSTZWY1BfcnVncHM5T0FqWnBFODUtY1RiM0ktSjZVSHBpX2YxT3lJcnkxN2FDcUcxdUloYnF1NGExbUpJU2VLcTlmb25FOWRYVVcw?oc=5"
+        }
+      ],
+      "last_seen": "2026-07-16T18:55:59.175245+00:00"
+    },
+    {
+      "id": "f6ecfc7a9d80",
+      "first_seen": "2026-07-16T18:55:59.175245+00:00",
+      "keywords": [
+        "case",
+        "death",
+        "deepens",
+        "doubts",
+        "family",
+        "father",
+        "federal",
+        "murder",
+        "raises"
+      ],
+      "points": [
+        {
+          "date": "2026-07-11",
+          "time_ist": "14:40",
+          "iso": "2026-07-11T09:10:14+00:00",
+          "text_en": "Jaipur murder case deepens as family raises doubts over father's death",
+          "source": "The Federal",
+          "url": "https://news.google.com/rss/articles/CBMiyAFBVV95cUxQdS1JVnV1b0FQdFowbDRrandPRFNKc3pUZnZlQmluWDV4Smd1Qi1uNVhIemdaQS13clltemlqbVNjQVNSZU9mbTZDU1lJQ3hpWW1VRDNKaHRQdmc5V0tnMl9ocExwVkg4aWlYYXpCNkRDN2dBTU4xbHh6ZVBiVHdZemljV3dMb0l3bWtxaktLZFZSbFAyd2pGVEdNTExYelBLZ0pqYW5DV1FmRUdFWEVlWkw2T1VqZ2NsVmZLNDNEbUl5ZkZzS2NlTA?oc=5"
+        }
+      ],
+      "last_seen": "2026-07-16T18:55:59.175245+00:00"
+    },
+    {
+      "id": "417e7dedc25e",
+      "first_seen": "2026-07-16T18:55:59.175245+00:00",
+      "keywords": [
+        "accused",
+        "alleged",
+        "bust",
+        "daughter",
+        "hire",
+        "job",
+        "killing",
+        "lawbeat",
+        "mother",
+        "murder",
+        "plot",
+        "police",
+        "property"
+      ],
+      "points": [
+        {
+          "date": "2026-07-10",
+          "time_ist": "14:20",
+          "iso": "2026-07-10T08:50:17+00:00",
+          "text_en": "Jaipur Police Bust Alleged Murder-For-Hire Plot, Daughter Accused Of Killing Mother For Job, Property",
+          "source": "LawBeat",
+          "url": "https://news.google.com/rss/articles/CBMi1gFBVV95cUxNNWVKTHZFVnVNX1F2Szh6eVVnaHJsUkNiWDNlQjVySUlTLTM5dmw2c19QTGp6Y0hLVktZMHhsanlkeFNVbzR4ZWdBWEZIcDVSUDFBcnI4eFdnTnFiVnduN1JrMzZvbjVoSjFRQ05mdmN2OHBySG53bDlPd001cmFadUcycFFlaW5IeERGUTRFNmxrandkVzloYk1iZDBpVEw0dFJoM3B4NjBaWUhGa2pqVWF2UU9UUkxhTlVMdm5ueGk1MkZPQ3BHa1lpZzkxeEx5MlUwZjRB0gHbAUFVX3lxTE41NVRUZzZwQTJzdmNTWW9wblBBZ2NTNHVtejhRUU9QdE9aZXVfaG1LdUpfLXNZYjJsS1ZyS1Q3MVpLWE9pdUJRemhRbThhSGU3WXBzWWp6NGtzYW43TFJRSjl3eVBnb0djUlQ4dkQyWUFtYXZpdW92T0E2emlveEhlOFpZUU5tNHFnaGFFUnhyTE85WlltZ0U1UGNJNFBEcnI1SE8xN3hDUmt5ZlRKZm1oeGp3YmFobzQ3S3I0eW84emROa2NmUkhkb1d6aloyWmVUeDF0LTNXalFGcw?oc=5"
+        }
+      ],
+      "last_seen": "2026-07-16T18:55:59.175245+00:00"
+    },
+    {
+      "id": "0b9aa420b087",
+      "first_seen": "2026-07-16T18:55:59.175245+00:00",
+      "keywords": [
+        "before",
+        "bullying",
+        "call",
+        "cctv",
+        "cobrapost",
+        "death",
+        "help",
+        "moments",
+        "schoolgirl",
+        "shows"
+      ],
+      "points": [
+        {
+          "date": "2026-07-10",
+          "time_ist": "12:37",
+          "iso": "2026-07-10T07:07:55+00:00",
+          "text_en": "Bullying, Call For Help: CCTV Shows Moments Before Jaipur Schoolgirl's Death",
+          "source": "Cobrapost",
+          "url": "https://news.google.com/rss/articles/CBMiogFBVV95cUxPTDRPVUJ2bExKUURlWDFBZ091XzhLazhVYkpmcW5TSnFtZ1VYUE9GbFFTS1NzcWhrYzEyNjJseU9rd0dqMktRMHMzcVp1UVBUWEF1aGU1R0dtblVzZlNFaVlMMGlMUjJGTkJVbUxRRmRMczFyMXlkRFh6bWtqb1VfdXdISjRKakZnTnpuSHNuMW8yckFPa05zOWhjZlZERHFDOWc?oc=5"
+        }
+      ],
+      "last_seen": "2026-07-16T18:55:59.175245+00:00"
+    },
+    {
+      "id": "1b6b0a92d2d8",
+      "first_seen": "2026-07-16T18:55:59.175245+00:00",
+      "keywords": [
+        "but",
+        "cctv",
+        "cried",
+        "death",
+        "deccan",
+        "footage",
+        "girl",
+        "heard",
+        "help",
+        "herald",
+        "one",
+        "outrage",
+        "reignites",
+        "she"
+      ],
+      "points": [
+        {
+          "date": "2026-07-10",
+          "time_ist": "10:43",
+          "iso": "2026-07-10T05:13:15+00:00",
+          "text_en": "'She cried for help, but no one heard': CCTV footage reignites outrage over 9-year-old girl's death in Jaipur",
+          "source": "Deccan Herald",
+          "url": "https://news.google.com/rss/articles/CBMi7gFBVV95cUxPd3lKMjI5V2l3c2dmYTQyZ3Y4V2NZSmNVRVB5MUtQbDZmRVNnS3ZUX0VHQnhWTmZjWGM4NDZlb0g0UlhFQVRqaVkxY0lwcjBIemZYUmJHbUhuUHVEdHRHZkhtRXhLY2JiMlF2dldJazJYZlBBYmxGOXNsb2NLWTl0NGFsLXBVc0VwMW16QzVxRFhSU3RCZGFmWVZXZUtlU2tUUzJESEFqcy1FUG9fSGUzR0MxS2hoSktFOVZWS2dWSnFseTBfcWFhVkRpTG5JbFF3dmlnbkEwMmRXZkl4OUc4UjBPVFVkMHpudkRUTWNn?oc=5"
+        }
+      ],
+      "last_seen": "2026-07-16T18:55:59.175245+00:00"
+    },
+    {
+      "id": "36ac4ed7aee9",
+      "first_seen": "2026-07-16T18:55:59.175245+00:00",
+      "keywords": [
+        "allegedly",
+        "angle",
+        "bharat",
+        "black",
+        "contract",
+        "daughter",
+        "etv",
+        "killed",
+        "magic",
+        "murder",
+        "orchestrated",
+        "police",
+        "probe"
+      ],
+      "points": [
+        {
+          "date": "2026-07-09",
+          "time_ist": "18:41",
+          "iso": "2026-07-09T13:11:11+00:00",
+          "text_en": "Jaipur Woman Allegedly Killed In Contract Murder Orchestrated By Daughter; Police Probe Black Magic Angle",
+          "source": "ETV Bharat",
+          "url": "https://news.google.com/rss/articles/CBMi6gFBVV95cUxNejRIQWVfOWdLWlN5Ynl6VjQ4bmV1WWJ4WEdEQXMyTm5lZ3RNZHFkTWlCR0t0SnVmLUxiUE4zV1BpTXctN2JrYWxZUzFaOUJPZHBuNTNlR181UjV4bkRfb2JfU08yWXdLVlVDYzliSFpCMVM5VDZob2hwc3JyNUlVaHpQazNScTlhMEJsNVBqRUhjOXhSLVlUM2dsMDRqeDg0THhfU3YtNVAwdU9KQVFxb1JkWFpiV2hnSXVZcTBCMWdoMFhQMVBLUGdmV09PcFFQYzNXSkl0RWstVXhGMlVrUkNEUDlyMzRtZkHSAe8BQVVfeXFMTVVLaW1iSGl5N2dqSjU4QTVOeEV5Z1RpRnppM0o3Mmo2VVNpX2JwR1VVcmNZbTNrLTVjd0RiLWh5T01LZ1laZjZCZ1VyNFFWWXZXVWNwNTIwTkxrUnJwcXdvb3k1alRya0Q1OGhfdUZvOXBLVFZnOHhlcy1IT1o1eXdyZGg3LXJ0djg4TGZmUmRHRlltaGU3SDRiazVyVm9vTmhCZ3dMbEZrQzM3d2ZhTzBNY2ZnMzJ4LU9obkZEc1ZZZkhXUFdkMXNxRTFtdlRpTDdibEduNlpSU3RqR2pRSGF4ejJ1THVLNEFYT1Q3c0E?oc=5"
+        }
+      ],
+      "last_seen": "2026-07-16T18:55:59.175245+00:00"
+    },
+    {
+      "id": "ab8e2a51a736",
+      "first_seen": "2026-07-16T18:55:59.175245+00:00",
+      "keywords": [
+        "abetment",
+        "against",
+        "amaira",
+        "case",
+        "charges",
+        "father",
+        "mill",
+        "owner",
+        "principal",
+        "school",
+        "schoolgirl",
+        "seeks",
+        "suicide"
+      ],
+      "points": [
+        {
+          "date": "2026-07-15",
+          "time_ist": "19:50",
+          "iso": "2026-07-15T14:20:17+00:00",
+          "text_en": "Jaipur school suicide: Amaira's father seeks charges against school owner, principal",
+          "source": "India Today",
+          "url": "https://news.google.com/rss/articles/CBMi9gFBVV95cUxPaEdjQ3lqd2V3NFJyT1NPbjA3bjRqNWMyNkhDd3NlWjFPZ2RCbWRXQU03TzdScDRfTzN5Y18tdlRsVjdxMWVhdS1oQ0gwR08xdGRTQS1GQm92ZllsX2hGMTA5cldNcjhYX0pxd1cyVFRrQURPeTBWSFhVaVdGWFd5MC1sTlhqdHJWMUN1RktrUFJzclhsMWtRWXBXQnhmR1Q4TVhPeDVGVjZsSDg5XzZ1dkdaX3E2RlRWcEpfYnVIaUlxQVlZQkpYTFlFZEFOczRYUHFBeEtQc0p5SDBubDVCWlZ5WUF4NE4tMGhiN2lOVEtCbTAzTVHSAfYBQVVfeXFMT2hHY0N5andldzRSck9TT24wN240ajVjMjZIQ3dzZVoxT2dkQm1kV0FNN083UnA0X08zeWNfLXZUbFY3cTFlYXUtaENIMEdPMXRkU0EtRkJvdmZZbF9oRjEwOXJXTXI4WF9KcXdXMlRUa0FET3kwVkhYVWlXRlhXeTAtbE5YanRyVjFDdUZLa1BSc3JYbDFrUVlwV0J4ZkdUOE1YT3g1RlY2bEg4OV82dXZHWl9xNkZUVnBKX2J1SGlJcUFZWUJKWExZRWRBTnM0WFBxQXhLUHNKeUgwbmw1QlpWeVlBeDROLTBoYjdpTlRLQm0wM01R?oc=5"
+        },
+        {
+          "date": "2026-07-16",
+          "time_ist": "10:27",
+          "iso": "2026-07-16T04:57:08+00:00",
+          "text_en": "Father seeks abetment to suicide charges in Jaipur schoolgirl case",
+          "source": "The News Mill",
+          "url": "https://news.google.com/rss/articles/CBMirAFBVV95cUxPVVZCdXAtbHRwVWc2WjIxbF9Fb0FmUG5tdEZXcXR2WFlHV2I1NElvZnJ3d2I2ZldSMTFEQl82V3k5bk9zQkxGYkh3VTZ3Ry0tQ21QZzF0a09zcWZ1aThVOUdEcWtOeUtPQlJjaW9aTjZrdERPaGYzZmVCYVRTZVlCNHRVLUVoMWlJODQydDYtMmJzUmZ3SXhBVmJhb1VMcFFUR2xOdkllMHJLNld0?oc=5"
+        }
+      ],
+      "last_seen": "2026-07-16T18:55:59.175245+00:00"
+    },
+    {
+      "id": "2b51f6803094",
+      "first_seen": "2026-07-16T18:55:59.175245+00:00",
+      "keywords": [
+        "ambulance",
+        "clears",
+        "help",
+        "hospital",
+        "light",
+        "reach",
+        "red",
+        "traffic",
+        "watch"
+      ],
+      "points": [
+        {
+          "date": "2026-07-16",
+          "time_ist": "15:11",
+          "iso": "2026-07-16T09:41:21+00:00",
+          "text_en": "Jaipur man clears traffic at red light to help ambulance reach hospital. Watch",
+          "source": "India Today",
+          "url": "https://news.google.com/rss/articles/CBMi0gFBVV95cUxNM2tuY0F0RGVTeFJhbHVSa0ppZW9XZDdGM0VXN0JiWmtQdFlFdEw2c05xNVZOd2RuVjBLMjdvam9lTlQ1OThOUzB6N2tJTHY1c05LVmh6UmtuUXFXOXBqYlU3bEJzSHRHM05ybkc2WnhLVC1CWjZvcTJDdDdHLXc1UmVFY2VBaDVkazB2TDExZ0tCZDJYQmpFMHg0VklkaVN1QTJUZl9JZGFBRHRUa3g0MjMta21oamxPeDBFT0xNQTBmNWVUbnVsY1hpN2tMTC03a3fSAdcBQVVfeXFMTW9HZk14bjFDdFBHRFgwdWhiR3RtWEhtSnhQcWhMT19vdVJQeVZDWDg2UFZGMVRVMHJVTHAtc09YRllVZFotMDRmZ1BqNWkxUW9uUUR0RnlUYnFCQW1KYjEyd3p6VnBsWERsci1FazNxVDA1RVNHZHZRdGpQRlBsRU54NlNiNHJpMW9CSkFWUmYzZGxWTi1ZcE44NUhhME53RWhCZkl0V0ZDbG1YOFRYSnNBeDk2VjFhX1hGY2NDN0ktM1lXQjBycXZMbGtCZjNqSHFyVEZGVUk?oc=5"
+        }
+      ],
+      "last_seen": "2026-07-16T18:55:59.175245+00:00"
+    },
+    {
+      "id": "5177b399f434",
+      "first_seen": "2026-07-16T18:55:59.175245+00:00",
+      "keywords": [
+        "allege",
+        "australia",
+        "ban",
+        "girl",
+        "media",
+        "minors",
+        "more",
+        "msn",
+        "negligence",
+        "parents",
+        "praises",
+        "school",
+        "social"
+      ],
+      "points": [
+        {
+          "date": "2026-07-11",
+          "time_ist": "07:51",
+          "iso": "2026-07-11T02:21:23+00:00",
+          "text_en": "Jaipur girl's parents allege negligence by school; PM praises Australia's social media ban for minors; more",
+          "source": "MSN",
+          "url": "https://news.google.com/rss/articles/CBMi-gFBVV95cUxQNDdINHh3ZjNVRmp1elE4aFRNU1NiS1Rlb0tQU2stcGxqN01YTUtjYWk1ejVlT1FWRWI1S2Y3d09fdjFRaUhZdDRMRndRYkVZVmg1RE5rUHduOFluekVvTjFDUDV4WWh0OWZyVkNxTGpiS29SeGZibU5ORWg1VEplWGFpXzA0RnJ2NkJjTVFoWkpyS0ZDdHZHUTBnQW8yeTMtLXpKazlhcnJsVGc0UXdFcDN4OWh3Z1JIWkdZWkdKWm9IOEt5WFFMdmJmY25sbGVwMUxrRG9QaTBqVzNOaVlQODkzY2xRZEVHQ2o0cG5uWTdyZUN6dm45eEJB?oc=5"
+        }
+      ],
+      "last_seen": "2026-07-16T18:55:59.175245+00:00"
+    },
+    {
+      "id": "26a1226d9248",
+      "first_seen": "2026-07-16T18:55:59.175245+00:00",
+      "keywords": [
+        "cleared",
+        "encroachment",
+        "gaushala",
+        "pastureland",
+        "shahpura",
+        "times"
+      ],
+      "points": [
+        {
+          "date": "2026-07-11",
+          "time_ist": "00:46",
+          "iso": "2026-07-10T19:16:00+00:00",
+          "text_en": "‘Gaushala’ encroachment on pastureland cleared in Shahpura",
+          "source": "The Times of India",
+          "url": "https://news.google.com/rss/articles/CBMiygFBVV95cUxOU0o3T3I1T0I3RTdhUnRkRVkwYjB1bXR3Q2U2ZUVQZkpKWmY0eHduTWFPMDJCbUJhdmJNMkhJczlpb2RHYWhHRnJEZkdpZ3V5TF9ScnlHVDl2akVUeFRHbXBxczgwT2pwM0w5M1ktU0xUN3BORkE4VkpidV96QkxTOEJZVmRlMmc0Yk8tRkViZkEycTJaU2dGNThNcEhzUVNGVXR3REh0N1VKZkZpcFkzYllGNFUzN2UzSTJnT0hMbW9hU0k3RzNpTElB0gHPAUFVX3lxTE5ZSW9KakgwYVI4Qk5CMkJWRzJ3WVI3V25JOGk2R1o4RktadFE3bDh0Z25veWRVWVBma1FSZ2xYM2h4YjY1aXRuUWwyY2d6YmZJZGRTMzRkMmExQUx5amsyRmVhRzJZTGQxa2tuZ3NWNUZYQTVYcmY5TDZYb1BUWl96cFNkUy1uT2I5enh4cWszWUVXcllmQ0ZYTl9rdHlUc01LV2VMQ0VrMUNFTVBzdFFhWEVUeXRXME5TUWw2MzlxS1Fqa1hNOU1aQXdjWk5USQ?oc=5"
+        }
+      ],
+      "last_seen": "2026-07-16T18:55:59.175245+00:00"
+    },
+    {
+      "id": "272e42e48ef5",
+      "first_seen": "2026-07-16T18:55:59.175245+00:00",
+      "keywords": [
+        "case",
+        "centre",
+        "court",
+        "delhi",
+        "dispute",
+        "ground",
+        "high",
+        "legal",
+        "mill",
+        "polo",
+        "possession",
+        "rules",
+        "takes"
+      ],
+      "points": [
+        {
+          "date": "2026-07-08",
+          "time_ist": "05:07",
+          "iso": "2026-07-07T23:37:40+00:00",
+          "text_en": "Delhi High Court rules on Jaipur Polo Ground possession case",
+          "source": "The News Mill",
+          "url": "https://news.google.com/rss/articles/CBMitAFBVV95cUxNRUNKcGE5RTVpS3BXTU1SdV9iM0J6SWV4bUNWSG5jekVqa1Eycy1uME5QenVCRnRlT1NsbUFTUHRfUWpVUVJJbGRyQlhGU0ZhUDUwY1dqNnl4eTdUdENteW0yMTFtZkJHSEJLMWw3MFFkVjRWUWRPRWJGYTJzM3N5MF83OE5HWVhPSHdKOUk1TTJmbVJjM2FmOUoxbGM5OUlTOHFFOHlXZGZ3WVZJVGo2Q2NPYzk?oc=5"
+        },
+        {
+          "date": "2026-07-09",
+          "time_ist": "20:27",
+          "iso": "2026-07-09T14:57:11+00:00",
+          "text_en": "Centre takes possession of Jaipur Polo Ground in Delhi amid legal dispute",
+          "source": "The News Mill",
+          "url": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxPdU5ud3Z0c1ZMeE05dHF0V1h1ZHdNalNNRlVlbzlXd3FqdnNJdVViV2dkMF90cnloMU9KSFNLUVNJWHUtWEdJRkFxM2ZUTFR1ZVNHOXRhM3lYR0FjdjMwOVh0MXhxRjI4MUg2bTFvcVlfRWd1ckFKdnEzalotaHFpV0ZCY3hid0JWVUdFZk9yMUlJWUt1c0RoUnphMnJmTk5MQktJeUlPQ3VYUQ?oc=5"
+        }
+      ],
+      "last_seen": "2026-07-16T18:55:59.175245+00:00"
+    },
+    {
+      "id": "40adfe93b60e",
+      "first_seen": "2026-07-16T18:55:59.175245+00:00",
+      "keywords": [
+        "act",
+        "ambulance",
+        "asianet",
+        "biker",
+        "escorts",
+        "hearts",
+        "newsable",
+        "own",
+        "risks",
+        "safety",
+        "selfless",
+        "through",
+        "traffic",
+        "watch",
+        "wins"
+      ],
+      "points": [
+        {
+          "date": "2026-07-16",
+          "time_ist": "11:59",
+          "iso": "2026-07-16T06:29:58+00:00",
+          "text_en": "Jaipur Biker Risks Own Safety, Escorts Ambulance Through Traffic; Selfless Act Wins Hearts (WATCH)",
+          "source": "Asianet Newsable",
+          "url": "https://news.google.com/rss/articles/CBMixwFBVV95cUxPN1NoM1l5VUFWM3diWlpTNE1ROGpFOE9ib3hVNmZFRVpWNkhPUUZIcmhKN0U5Z0hwS1pBYy1IcW1ZQWlpM2VEVjVaT1E0dnp1N2gzMDdkdDdXS1dRd1BkMVlGQUhfemdNMnNId3VVOFJaWENJOUVDbXRkX0VTQkJOeHhSVHEyeXJpUFB4ME90WlpQSnZwMjVqaGtoNUR5WVRlTzFsZ1VkT0o0S29FYVZuNW82bVlLQ0JuRGp5dFlpamFrWDV6a3BZ0gHMAUFVX3lxTE03em1iN2Z5Tlc1dlhDaFRDTlJDTW90alJfTTY3Y1dCenJBOE9UdDcwQnE5STR5aGs3ZkJXMFJZZ2twQ3J3S3hlNmRkMXdnZ0ZWRjBxdXAwWDFGWTQ3UUhHVnVIdXQyUXdHdE90YzJUaVZ2blVFVVZ1TFIxdi03dmtOVGhCblp2UjEzaklPUzRjLURZbWhhejZpR2N2Yk1jQ2x6VUhkQkpRYkZNZG5IMW9naTdiYmE4Vk5Rd25fcWM3TzJVQVVvZm9fczFvVg?oc=5"
+        }
+      ],
+      "last_seen": "2026-07-16T18:55:59.175245+00:00"
+    },
+    {
+      "id": "024110c8fb70",
+      "first_seen": "2026-07-16T18:55:59.175245+00:00",
+      "keywords": [
+        "ceta",
+        "exports",
+        "first",
+        "flag",
+        "joins",
+        "nationwide",
+        "social",
+        "under",
+        "xyz"
+      ],
+      "points": [
+        {
+          "date": "2026-07-16",
+          "time_ist": "05:13",
+          "iso": "2026-07-15T23:43:53+00:00",
+          "text_en": "Jaipur joins nationwide flag-off of first exports to UK under India-UK CETA",
+          "source": "Social News XYZ",
+          "url": "https://news.google.com/rss/articles/CBMitAFBVV95cUxNdFpreHRnM3B2dFlZSUdwWHM2MmpqemNZS3JGVXE2ZV9mYUw0Smw2SGduMm9UV2kyZVFLTTZqUW9hOXlaV2pQNHBlSzF1bVhWNG84RDR3bHJwV3VCcHRuNTFfajc3MFpUcmc5cEJEZ2ltRWJ4R29LMVlBVGxkR0VrX01sSmJ1UUdDZ2xzQVVJR2x1cHB4d2ZyT0IzOXB1dk05VklYSjRSeGFEb2FDVkJwTWprX2nSAbQBQVVfeXFMTXRaa3h0ZzNwdnRZWUlHcFhzNjJqanpjWUtyRlVxNmVfZmFMNEpsNkhnbjJvVFdpMmVRS002alFvYTl5WldqUDRwZUsxdW1YVjRvOEQ0d2xycFd1QnB0bjUxX2o3NzBaVHJnOXBCRGdpbUVieEdvSzFZQVRsZEdFa19NbEpidVFHQ2dsc0FVSUdsdXBweHdmck9CMzlwdXZNOVZJWEo0UnhhRG9hQ1ZCcE1qa19p?oc=5"
+        }
+      ],
+      "last_seen": "2026-07-16T18:55:59.175245+00:00"
+    },
+    {
+      "id": "9acb60640c59",
+      "first_seen": "2026-07-16T18:55:59.175245+00:00",
+      "keywords": [
+        "case",
+        "class",
+        "ignore",
+        "never",
+        "parents",
+        "should",
+        "signs",
+        "student",
+        "suicide",
+        "teachers",
+        "theweek",
+        "warning"
+      ],
+      "points": [
+        {
+          "date": "2026-07-10",
+          "time_ist": "18:49",
+          "iso": "2026-07-10T13:19:22+00:00",
+          "text_en": "Jaipur class 4 student suicide case: Warning signs parents and teachers should never ignore",
+          "source": "theweek.in",
+          "url": "https://news.google.com/rss/articles/CBMi2AFBVV95cUxPSnJuM09wdGN1WnJCUjgzV09aZDdMbV9MRHBkOUROY1dsS0o0UnRBcHBQQ3FETkJ4Q0dESlo3UmxWYThpQnYwRVVqck12NnVTV3YzY1NPNDJVRDZjaGdWYnMwb3lNdGNkZ1RKc0w0LUtLQnl1SGtPR2R6NFdXSnVBTjRVTmE1N3ctak5OZjZNV0E0eTRjVW9DSGdyVFNEcG1xVkVGNTFhMHYwdjR0aEJDZWtaSmpVVnExdUlpYnRlS3BoQzJOTWdRUXBpNHA2MHRTZ1JtZ0ZNZ1rSAd4BQVVfeXFMTlRwbGtNX3M2TS1MM0MyZGp5UmE5YVlqNnQwbnhkbkJ5WW1lU25YWm9WVVUta3NfVk5mRjBZcHRZblZ0VC1PaXdkMXZKbUpHZU1nc1JlZUpFb1BaaHIyTlJmMm0yeFdWYXF4bzdBR0dEaEd4cFVkNmpVT21wLVAwM1lUdW0yNVZSWlBoeHliUGtFYjRob3dFOGpTWlI5SnZvQ09IT1dhbEdEMkZtTWV0U0VoUTFMNlFYZExKVE9iWWg0T2YtNHl1M0tQSGxZV1I2LXliYzhPV2JKNE1CYm13?oc=5"
+        }
+      ],
+      "last_seen": "2026-07-16T18:55:59.175245+00:00"
+    },
+    {
+      "id": "12f88c63679d",
+      "first_seen": "2026-07-16T18:55:59.175245+00:00",
+      "keywords": [
+        "assam",
+        "beta",
+        "booking",
+        "bookings",
+        "faster",
+        "features",
+        "irctc",
+        "latestly",
+        "mnit",
+        "next",
+        "promising",
+        "repeated",
+        "students",
+        "suggestions",
+        "tribune",
+        "unveils",
+        "website"
+      ],
+      "points": [
+        {
+          "date": "2026-07-16",
+          "time_ist": "11:12",
+          "iso": "2026-07-16T05:42:56+00:00",
+          "text_en": "IRCTC Unveils New Beta Website With Faster Booking After MNIT Jaipur Students’ Suggestions, No Repeated",
+          "source": "LatestLY",
+          "url": "https://news.google.com/rss/articles/CBMi8AFBVV95cUxOMWtlR1ZWQkVfT1VSQ2sxYzJIdkZteUI4YkpDQzB5NW44TjY3RUZQSFo0alkweEczVG13N3Y0TEV0VVhPRDh2UUhBWk1KalBGRjE5QXJsOEJrRzBrMzJkcURReGNVSlVjV2QxNkVmRFA2Sy1JNWt2UXRyV1dUR0lVVHNuLVJSZ3M0a3pmeEw4dUZKOV9qdnI0VmFVSm5tM2c0dUxwS3V6dVJVUllFdzZKbHF3OGZEYlAzd3hoWkFnY2NfazVYWm9laGdXNkFkYkhzaGtJaDRBbklOY05fWU8zVGRKSF9OSUhjelQ3MkZ2bzXSAfYBQVVfeXFMUFd0S0g2LXBJOVJKUlZzRFlFanUwUFdiY1Bhem1GRmkzMVNzSWVqVjJEbDBnSkRmYzMxZlNYNU5zcFJHMmFsaDRfVV9zbmxMckdZa2t2aVJDakk5MmY4UnlUOHFIVjNTaHkycktDRVpvck5XQ0RUd2lUcWh6bWhrQ0h2Rjd3ZThvRVpYVkUta0Y1a2VELWpQbm9iei1aYmFmSjNSektTVy1UZGZzQlBzbUlvalV2c3dGOGpTbDhMY1JqazdsNlVMWlF5ZWVvUW9YY3VTaG0xUTRQaWdlOHd2VURXeEw5N3RpR0VTYnI4TzZUa2xJSGJn?oc=5"
+        },
+        {
+          "date": "2026-07-16",
+          "time_ist": "12:07",
+          "iso": "2026-07-16T06:37:00+00:00",
+          "text_en": "IRCTC unveils new beta website after MNIT Jaipur students' suggestions promising faster bookings",
+          "source": "DT Next",
+          "url": "https://news.google.com/rss/articles/CBMi2AFBVV95cUxOdWJjdVlEbjUtQTBya3pyR0F6VnotWmVOaXllZTBHLXBhRWdNYUxsZEUtN0JNZ2Ftd3ZNcklMMGZvTWhFT0o1dmtZZ0xtWTdPMjNxb2RyZjE4ZllwVHE2Vzk3OFQwZC1DbFhpLUpKQ0NmSkx4SzFORG4wakZxRDhMdElNOUZMLUIzbjBNcmtfNFRvdDNrZXBRVXlOTTVxcVpVYXRPYXVGQVpmaVFMSktIVWYzMjZtOGp3RVliVWs3T1kxM3lDTmh0ODJNVTdHdzVZT3VsSnpkOUzSAdgBQVVfeXFMTnViY3VZRG41LUEwcmt6ckdBelZ6LVplTml5ZWUwRy1wYUVnTWFMbGRFLTdCTWdhbXd2TXJJTDBmb01oRU9KNXZrWWdMbVk3TzIzcW9kcmYxOGZZcFRxNlc5NzhUMGQtQ2xYaS1KSkNDZkpMeEsxTkRuMGpGcUQ4THRJTTlGTC1CM24wTXJrXzRUb3Qza2VwUVV5Tk01cXFaVWF0T2F1RkFaZmlRTEpLSFVmMzI2bThqd0VZYlVrN09ZMTN5Q05odDgyTVU3R3c1WU91bEp6ZDlM?oc=5"
+        },
+        {
+          "date": "2026-07-16",
+          "time_ist": "12:13",
+          "iso": "2026-07-16T06:43:40+00:00",
+          "text_en": "IRCTC unveils beta website with faster booking features",
+          "source": "The Assam Tribune",
+          "url": "https://news.google.com/rss/articles/CBMingFBVV95cUxPZmhWNUMxYTBwd05yQzFNNFZjZFZicTVMeDhGOUg0ZXdIRlF4bk1pZDRiMllySmVPM3hxUUdfNkFTNWs3SmhucnpkQWpqQ0tGakl2V1R0VU95Vnp4Z0pZSHRvUHlyVnZJM293dUM2SXZzQVd6T21YRkVPSWxTLU1wRXlFanhHTnNWUFZQb1hacDIyNGJqOUpEUnVTT3NJQdIBowFBVV95cUxOV1dJNlJVZ3RPb25xenJuakRzVVN6Nzk0aXFqQUphZXgyckc3UkYyZGNZZzNNVXRwZnZYRFJXTWZfaVFZY1VjRi0zN0xzZElrZy1RWWU3WjVYdWNKWXlnbUJyb3QtY2ItZUotVFl3MjZwMWFxWi1rVmd1YVpBYlZINEs2d09OaTRLNGpVZ1BhWkJDbXN2VWZ6T2F3TTlpbzNidmRv?oc=5"
+        }
+      ],
+      "last_seen": "2026-07-16T18:55:59.175245+00:00"
+    },
+    {
+      "id": "5794adcdec77",
+      "first_seen": "2026-07-16T18:55:59.175245+00:00",
+      "keywords": [
+        "2026",
+        "afternoon",
+        "clear",
+        "drizzle",
+        "forecast",
+        "friday",
+        "high",
+        "july",
+        "late",
+        "latestly",
+        "light",
+        "mainly",
+        "shimla",
+        "skies",
+        "sky",
+        "weather"
+      ],
+      "points": [
+        {
+          "date": "2026-07-17",
+          "time_ist": "00:06",
+          "iso": "2026-07-16T18:36:52+00:00",
+          "text_en": "Jaipur Weather Forecast & Update for Today, Friday, 17 July 2026: Clear Sky with Light Afternoon Drizzle, High of 36°C",
+          "source": "LatestLY",
+          "url": "https://news.google.com/rss/articles/CBMi8gFBVV95cUxQTVNyVEpCTVgxX1hNdDZ6TVdGbFhOSXpxQWFSbHF1dU54Ml85SDY2TlhpamYxdE1pQ0w5SGI3R3ludHpfVk1qUTlWQ1VWMV9IM2dKQThvMjFvQlBfT3VyZkoxNTlLWG5jYldJaGpXUER4Q0dwbjdNelh3TG0ycVRsNTJNQlRNZUk0U0FQVTA1ZnRYVm56MVdldEtYQ1hiNVJuVGtCamMyWlpVUUVWQmVad19rS2pXdi0wMzlvZ3RuQ292UFlKbFZ0eEczblhLUlN1bWEtNndnQmliLU9IUXdfNUQ3dTZWQ1hlOG1ZdTh3VGNhdw?oc=5"
+        },
+        {
+          "date": "2026-07-17",
+          "time_ist": "00:06",
+          "iso": "2026-07-16T18:36:59+00:00",
+          "text_en": "Shimla Weather Forecast & Update for Today, Friday, 17 July 2026: Mainly Clear Skies with Late Afternoon",
+          "source": "LatestLY",
+          "url": "https://news.google.com/rss/articles/CBMi_AFBVV95cUxPN19oUmZjNHpyN0lqcFc0SExTWUdNZ1g1M2Z4T0tITjFKYkJ2cEpNNElYYkFyUW5TUTk2czZGbDFqTDdydXBhdWVDNkdIZzRrMGR4X1dJOEJKV050ZkpXZjViOHQtR1BMMTY0dkhBcHVMQ2hpTmQ3clAzT2xDYkdBeUw1aDRyWHpSdFlybFlvQlFBc2tKU2RIdmNqMEdfY3FsSjgwMVVMajRoN21ENHltbUdBX2N4VjZKNWtfTEc1cDNBQTlxbXpPYWJkOTlJT2dYWnNkRi1QN2ZnanAyOE9LcnBacnNJR0NrYkt3Y0dlY3lvd1JiODI4Ym55REjSAYICQVVfeXFMTkhBVXlDSjBJU3ltOEEtN1VLMFVKUktUUVJKSWstT3h1bm10dFJrVkdUNnotd2V1TzFoampDSFRpaWxZM204eTNWQ1Q2dlZNcFVJSDNMZTA1aGxkcTUwVDB2SG11XzREVlN5Mmc2NjdDMEF5QlpUa21jSlNyZV9wQUx0Unl4bzdfZjFxRnRiLUdra1RGWGo1LUstWXEzYmhsc3k1aDZrNTRXLVY5YnBBQ2Y0ME15ZXJ6S3B3Z1FjWS00QVRKRlo4Q2ROdTlPZkIzdW42WmhkRjQtZHdoU3RfUXpsajRmZXpNVjNhWkEwcWV1Q1FGVkRvQUN1RDhrRHZJRTF3?oc=5"
+        }
+      ],
+      "last_seen": "2026-07-16T18:55:59.175245+00:00"
+    },
+    {
+      "id": "032652fca7c3",
+      "first_seen": "2026-07-16T18:55:59.175245+00:00",
+      "keywords": [
+        "16th",
+        "2026",
+        "business",
+        "carat",
+        "gold",
+        "july",
+        "price",
+        "rate",
+        "silver"
+      ],
+      "points": [
+        {
+          "date": "2026-07-16",
+          "time_ist": "09:27",
+          "iso": "2026-07-16T03:57:44+00:00",
+          "text_en": "Silver Rate Today in Jaipur 16th July 2026 : 1 KG, Silver Price in Jaipur",
+          "source": "Business Today",
+          "url": "https://news.google.com/rss/articles/CBMidEFVX3lxTFBVTHI1T0l2Q0tZckQ5bHBsWEhJaFhHV3VLY0dvZHJqbGhkRE1DNEk3eFpzX29ZVGp0RV8xRXRWOEpzOFNxU3o1VDBrTDN0eU8tU0FPalliLUs1NERJTXUzMGVlVl84RUdUS2JDSVUwb1k1QVpn?oc=5"
+        },
+        {
+          "date": "2026-07-16",
+          "time_ist": "21:00",
+          "iso": "2026-07-16T15:30:56+00:00",
+          "text_en": "Gold Rate Today in Jaipur 16th July 2026 : 22 & 24 Carat, Gold Price in Jaipur",
+          "source": "Business Today",
+          "url": "https://news.google.com/rss/articles/CBMickFVX3lxTE1Ja2Z6LVF1NWpYUDBIV3VGdmo1N1lHY3ZrcjIzRzVOeko0NzRmZjcyMXoweWNuNTllOXdyLWd1SFlXaWRselZJQVFFck5ydk01SlhrWFBvRXpXTEdUX283RUxkM3B3THAzMnk1bEZxdzNQUQ?oc=5"
+        }
+      ],
+      "last_seen": "2026-07-16T18:55:59.175245+00:00"
+    },
+    {
+      "id": "d6311495a297",
+      "first_seen": "2026-07-16T18:55:59.175245+00:00",
+      "keywords": [
+        "6mw",
+        "center",
+        "centre",
+        "data",
+        "dynamics",
+        "enterprise",
+        "gdc",
+        "inaugurates",
+        "indiatimes",
+        "launches",
+        "ready",
+        "stt",
+        "telecompaper"
+      ],
+      "points": [
+        {
+          "date": "2026-07-16",
+          "time_ist": "07:34",
+          "iso": "2026-07-16T02:04:15+00:00",
+          "text_en": "STT GDC inaugurates 6MW enterprise data center in Jaipur, India",
+          "source": "Data Center Dynamics",
+          "url": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxNcnlMMGFHNmtkdnZkbThwY1dyRTh0dUlxMGtWSXo3WXd1U0hfRGE0RHA0LTlSU3Btck9aYmxEZjE0VmdmT193U0dOWURORG1UOGVqbWRxSHAtZDRubGgtMVVsNnB3bVhsZnl0ei1taXRFZi15bUtCVG4wZzM0RXhhMWtnYS1zc0lWbVc1ejV3ejk0VkhXbHhKV3Qta1o3RnFEQU4yUlV0eS14Zw?oc=5"
+        },
+        {
+          "date": "2026-07-16",
+          "time_ist": "07:49",
+          "iso": "2026-07-16T02:19:27+00:00",
+          "text_en": "STT GDC India Launches 6 MW AI-Ready Data Center in Jaipur",
+          "source": "Indiatimes",
+          "url": "https://news.google.com/rss/articles/CBMi1wFBVV95cUxPdlRNclM1UmVmRE5uSTNESkFIV1RoSXpTSi1jdkxPVHJmbDRrVGduMFZQTUtrM1NnYnBIQmZzazVXb2M2WkJwdkNPNVFlTG53UnBGYlNuMzY5ZFg2ZEJkbl9WU2FpM3hqaGc1czllNkxwQ1ZpbjBtQVp0aGhDVnE2c0RvallJVXNpbV9tSGlwZGtQVzA3QVFzSmlybm4tbW9IQmxNNHVnbGZPMW1sd2pEUllHek5oSm5lUmxsV1RmejRkNGZVN2NvaWRCc0VFaU02ajdiMkNRUQ?oc=5"
+        },
+        {
+          "date": "2026-07-16",
+          "time_ist": "14:28",
+          "iso": "2026-07-16T08:58:10+00:00",
+          "text_en": "STT GDC India launches STT Jaipur 1 data centre",
+          "source": "Telecompaper",
+          "url": "https://news.google.com/rss/articles/CBMilAFBVV95cUxNbHNMa1NQSXM3QkM3SnJsamdvOXc1YV9FOUg2TUREMGVZUUZRak8zNFVrZ24xRW90T3pDcG9XRWVGRnBMczNWM2ZPaGdZX0VhTGEyQ1U3QXhWR1VZX01XbXdUX2xSaWZIVFJUdkJJNTFzTlozbXE4djc2a3dnUkoyTFRpXzU4enNLclpDWDNlb3FUUlQ2?oc=5"
+        },
+        {
+          "date": "2026-07-16",
+          "time_ist": "18:13",
+          "iso": "2026-07-16T12:43:39+00:00",
+          "text_en": "STT Jaipur 1",
+          "source": "Data Center Dynamics",
+          "url": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTE83bGpzT0V6YlpIU1BVS3F1a2Z3OHR6bDBXTmYxdVBZcVkxRXRsMV81R3o2eFhheEtGQkpXbnNmMV9VRHdFWkZhU3dPc2pxTEZ4LUhUT3dSTEQ1WjJGcGhtSzJoVk95UGs?oc=5"
+        }
+      ],
+      "last_seen": "2026-07-16T18:55:59.175245+00:00"
+    },
+    {
+      "id": "3adb1f89ff9b",
+      "first_seen": "2026-07-16T18:55:59.175245+00:00",
+      "keywords": [
+        "arun",
+        "buckstopper",
+        "dies",
+        "dugar",
+        "former",
+        "ips"
+      ],
+      "points": [
+        {
+          "date": "2026-07-16",
+          "time_ist": "23:42",
+          "iso": "2026-07-16T18:12:49+00:00",
+          "text_en": "Former IPS Arun Dugar dies in Jaipur",
+          "source": "The BuckStopper",
+          "url": "https://news.google.com/rss/articles/CBMid0FVX3lxTE9pX2s5NHF3OC1PSlB0My0tYl9VT2t0azN3VExHRGlOV3RxSWd5SndYTnVOVVl0ZnJwTm56ajNwek1iZjVFYXpzZ21hSDh4NlF0TmlXQzVadUpydFpDcnlIbUtNUE1rcDVtX1piYm5CUVpSOTJ0TVJJ?oc=5"
+        }
+      ],
+      "last_seen": "2026-07-16T18:55:59.175245+00:00"
+    },
+    {
+      "id": "a47f55bac7e2",
+      "first_seen": "2026-07-16T18:55:59.175245+00:00",
+      "keywords": [
+        "bipvpw6su3",
+        "eulmmstqww",
+        "glow",
+        "heavy",
+        "johnson",
+        "keldon",
+        "mshale",
+        "rain",
+        "storm",
+        "weather",
+        "wind"
+      ],
+      "points": [
+        {
+          "date": "2026-07-16",
+          "time_ist": "02:04",
+          "iso": "2026-07-15T20:34:51+00:00",
+          "text_en": "Heavy Rain In Jaipur : जयपुर में तेज आंधी ने कहर बरपाया, कई पेड़ उखड़ गए! | Wind Storm | Weather Glow (EUlmMstQWw)",
+          "source": "Mshale",
+          "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE1lRzlSVFpjcDZ6NnBZSnN5TzVFUzJlMEdYSDJEeEVSamZXd3VSU2UybnVIN1BmQ1l1TmZYTDYtR003d0FuT3J2c2p6dk9zNkwyUTRmX1JNdlJxcVU?oc=5"
+        },
+        {
+          "date": "2026-07-16",
+          "time_ist": "11:01",
+          "iso": "2026-07-16T05:31:43+00:00",
+          "text_en": "Heavy Rain In Jaipur: बदला मौसम का मिजाज, जयपुर में शुरू हुई तेज बारिश | Rajasthan Weather Update Keldon Johnson (BipvPW6SU3)",
+          "source": "Mshale",
+          "url": "https://news.google.com/rss/articles/CBMiYEFVX3lxTE1lXzRKZFBTNjRZZU1Cd0FrWXhCUHlBQnZGOTNRbUpYQVlPX0xXVldvQ3RzM2tpRVZfVTI2OGJHY1lDTVRqNEIyMXFGdVBaOVpRM1ZQa1Y5d3JVRnpfS1VybA?oc=5"
+        }
+      ],
+      "last_seen": "2026-07-16T18:55:59.175245+00:00"
+    },
+    {
+      "id": "7855e2d9bcab",
+      "first_seen": "2026-07-16T18:55:59.175245+00:00",
+      "keywords": [
+        "badminton",
+        "claims",
+        "double",
+        "fageriya",
+        "gold",
+        "golden",
+        "miraya",
+        "north",
+        "shuttlers",
+        "singles",
+        "times",
+        "zone"
+      ],
+      "points": [
+        {
+          "date": "2026-07-16",
+          "time_ist": "22:59",
+          "iso": "2026-07-16T17:29:00+00:00",
+          "text_en": "North Zone Badminton: Golden double for Jaipur shuttlers; Miraya Fageriya claims gold in U-13 singles; Pe",
+          "source": "The Times of India",
+          "url": "https://news.google.com/rss/articles/CBMiyAJBVV95cUxPWHNScUtOS1ZEYkd0TFVvR240N0czeUZyV0NSb2dUWEJyYUJoX2FiYUJFcVJOODJzM2E4NEl4bXJvZEZDUkFISXhzNzltX0FCcmdtSzUwWndHN2tOd1NLdWVUaEFsOF9GSGhtSHdUX0w3UmZucFpaelhueXJmNS1IcFVrU0FhdmpLM0d1LWN6RVpUaXJWREhCbE5nOU4yOXJPSkU0SlFUMGhZSi0zNmRkNFhoVUxLSHNjU0U4bnN5YnZIZkFGU3E3TXB2MXNSUWxZRXU5eEVQZF9oVXN0Zk90c3pJX1BPMUxhRV9FWUNoRWJEUlVYR1RxZkJmZzd4cXJXZFpxd2NGZ0FEMjYwLVhZVnUwbmFQUkVlOTRGOV9QLWkxc3VNd1U2T09rRVdGUkxIYXJvaE1WbThONTVqcWpIX1FTVEVnXzFk0gHOAkFVX3lxTE5wekQ1Qk01Zkc1U2pkOEtMTnVrZFRPV1NKcXpEMnUtODViMmp2dXRPbEVNcmpILWxSMWRDZmc4SnJlOHlPcXVBNUpSQjZIcC1udGt2dXRrMDIyNmtMUlQxLVB6eFpnRWVuelZ6dUpMN1dhYVVPOWFsOU5haWdqaC1ITU9vNmEwX2pvc3BPOWZZMk85Sm1WbWhES1FYenhNUkFQMS13N2YyeGJOYjh0SWVrbzdzckU2MHRzMkJ1cFlCZlp4M19WZ296OW1kNHRub2VpWFZ5Wm9TQUJBeE9mN21jSVI0cU5vQktkdUNrLVRzUlR0OG5PcW5oX1Q0LXJjNDR2VXI0aUlKOV94NllCVEg3ZU9lanJsT2NSWHJyaUVhcXlUSTNUZHd1c3VISTEtN3ppUnE5VWtscXV5WTdsQVpUd0JCLWZlYVhXZFR3WEE?oc=5"
+        }
+      ],
+      "last_seen": "2026-07-16T18:55:59.175245+00:00"
+    },
+    {
+      "id": "138ac75abe15",
+      "first_seen": "2026-07-16T18:55:59.175245+00:00",
+      "keywords": [
+        "2026",
+        "22k",
+        "24k",
+        "check",
+        "chennai",
+        "cities",
+        "cng",
+        "delhi",
+        "gold",
+        "july",
+        "latestly",
+        "lpg",
+        "msn",
+        "mumbai",
+        "other",
+        "png",
+        "prices",
+        "rate",
+        "rates"
+      ],
+      "points": [
+        {
+          "date": "2026-07-16",
+          "time_ist": "08:34",
+          "iso": "2026-07-16T03:04:51+00:00",
+          "text_en": "Gold Rate Today, July 16, 2026: Check 22K and 24K Gold Prices in Delhi, Mumbai, Chennai and Other Cities",
+          "source": "LatestLY",
+          "url": "https://news.google.com/rss/articles/CBMi5AFBVV95cUxQSUNPNFNrNWpUWGpqZ19pVm0yc1pJdkNYeEFHYzJIZkx0SjlfdHdhTUdoVWlwS2kzZDdjNnA2bXpMcDQ3eTUwN2pWSmU3aDhtcnVWbEdDQnFDb2ExYlp0Ni04aXN0NFg4dlF1VFI5QkxDNFNwRGNibnFHOHJudkM4dGZodURod3E5X1poYTlZUWE4VTJpU3BhUjBpTi12WmRnYVp1RFBIUURmZ09yS1hTQmdWVUpXWEF3YlZIU1dhNi1XUUhYZFZaNHktNC1TVEFialdCNnRRVDNQM2V5RWNVQV9jVFXSAeQBQVVfeXFMUElDTzRTazVqVFhqamdfaVZtMnNaSXZDWHhBR2MySGZMdEo5X3R3YU1HaFVpcEtpM2Q3YzZwNm16THA0N3k1MDdqVkplN2g4bXJ1VmxHQ0JxQ29hMWJadDYtOGlzdDRYOHZRdVRSOUJMQzRTcERjYm5xRzhybnZDOHRmaHVEaHdxOV9aaGE5WVFhOFUyaVNwYVIwaU4tdlpkZ2FadURQSFFEZmdPcktYU0JnVlVKV1hBd2JWSFNXYTYtV1FIWGRWWjR5LTQtU1RBYmpXQjZ0UVQzUDNleUVjVUFfY1RV?oc=5"
+        },
+        {
+          "date": "2026-07-16",
+          "time_ist": "09:41",
+          "iso": "2026-07-16T04:11:48+00:00",
+          "text_en": "LPG, CNG, PNG prices today, July 16: Check latest rates in Delhi, Mumbai, Jaipur, other cities",
+          "source": "MSN",
+          "url": "https://news.google.com/rss/articles/CBMi_AFBVV95cUxOYmNvUTFkTnlnS1VzSHZlSlFBVFlVdFVqNkp0enh4bW1GWi1KbTlFR2QtUXlTcWlLLXE3U19UUXlmT000eFFzVmx0dXBjZGhvMGNzTGh2bDJxTWxUR2xLdlB6ajFzMV95a2tnZG80MFFlOUI5cWhuSElwTFpVQVNMa0ViUjUwbFYxb2wtSUw0aFpXYkFHTk13blE5MlpXRXhrdWtwbjVrZEdUWWN6NUlHZlZxdXY2OGVJT0Q2azMtYThucWZ2U1c1QWZjYXEwRnV5VEE4a0JybmdZZnk5RG5BQXEwYWdOTDRHUWszSVFCTTNrS2NBN3pCZWM2aDg?oc=5"
+        }
+      ],
+      "last_seen": "2026-07-16T18:55:59.175245+00:00"
+    },
+    {
+      "id": "6752ae3759e5",
+      "first_seen": "2026-07-16T18:55:59.175245+00:00",
+      "keywords": [
+        "advisory",
+        "disrupted",
+        "flights",
+        "indigo",
+        "mill",
+        "travel"
+      ],
+      "points": [
+        {
+          "date": "2026-07-16",
+          "time_ist": "21:27",
+          "iso": "2026-07-16T15:57:11+00:00",
+          "text_en": "IndiGo travel advisory for disrupted flights in Jaipur",
+          "source": "The News Mill",
+          "url": "https://news.google.com/rss/articles/CBMingFBVV95cUxOMm9GQ0pDOUJialRwdGt6VXZOZThGQW5rZzliMkhOdklfUzJHUEdWWVlNU3VjaGY1S1dfNThNMWF4anhSYXc2dHh2UDBkVWVoUk92NHRFbnI5b0xadEZsTzhBTDhZZVBfSW9BbzFHeklfSWJyeTBSMGhGUEN3TVpXcTlWeFV4Q1FSTlB4NUdCTHNMRDZ4NnozYWliMkFfZw?oc=5"
+        }
+      ],
+      "last_seen": "2026-07-16T18:55:59.175245+00:00"
+    },
+    {
+      "id": "fc75526510ba",
+      "first_seen": "2026-07-16T18:55:59.175245+00:00",
+      "keywords": [
+        "50bestdiscovery",
+        "best",
+        "hotel",
+        "raffles",
+        "world"
+      ],
+      "points": [
+        {
+          "date": "2026-07-16",
+          "time_ist": "19:25",
+          "iso": "2026-07-16T13:55:13+00:00",
+          "text_en": "Raffles Jaipur-Jaipur-Hotel-50BestDiscovery",
+          "source": "The World’s 50 Best",
+          "url": "https://news.google.com/rss/articles/CBMikwFBVV95cUxNQVpBbHQ4MjU1SHI2Z19fbGhCc1A2Mm1GNDJJTHhPUmFQOG1oRXlkb1BFMFk2bEUzY0h6MVRLeUlxYUN3c3k2UjVYWHFvOVl0TjAtcGdBck9PMGVHaTBOUm5XMU5GLUZZeF82Ml90U1UzdjN5Z0lSOU1PMEo0MUZESU9lWFNDb0xMQ0ZlV0xOLU1ycFk?oc=5"
+        }
+      ],
+      "last_seen": "2026-07-16T18:55:59.175245+00:00"
+    },
+    {
+      "id": "7b419bd40408",
+      "first_seen": "2026-07-16T18:55:59.175245+00:00",
+      "keywords": [
+        "announces",
+        "experiential",
+        "grid",
+        "malone",
+        "packages",
+        "retreat",
+        "savista",
+        "stepping",
+        "telegram",
+        "travellers"
+      ],
+      "points": [
+        {
+          "date": "2026-07-16",
+          "time_ist": "18:51",
+          "iso": "2026-07-16T13:21:00+00:00",
+          "text_en": "Stepping Off the Grid: Savista Retreat Announces New Experiential Packages in Jaipur for Travellers",
+          "source": "The Malone Telegram",
+          "url": "https://news.google.com/rss/articles/CBMitwJBVV95cUxQZExURXdBbWFBaWhtT2JfdDJUUVYxMXh6YmlYeXRoc2tObnJRekVmaHZiU0N4OFhvWmtxenc0VzMxWVpiMkx2ZmgyRGhWVnZsNDFlY0l3eEMwNHNXa21PRmtnQXFQckdLZ3NfUHUzNG5UYmVlaVpzQktJY0ZOeG5RTnN3RVo3djFXSHNvRHZlT1lkeDJwaldmd2pjbF8zbG1JZDA3WXVGcWJvVnNIQm9Fb3Q1UG5Eb1RjaUpPRG5LdTB0blY0R3NuSWxicFRJMzRGbG5qTEdORkpHdHl6MUFoZDFYMlhoVkNvZWI1QU5uSjJ1ZGxkeGthRTRZRHBHQ3dUaWxPYTNDT2M3Mzhhd3dXTloxSlgzVU82M2g0dlY1RFVFUW4zZmZlNnFlRm1Zd25VVUJSVGlBVQ?oc=5"
+        }
+      ],
+      "last_seen": "2026-07-16T18:55:59.175245+00:00"
+    },
+    {
+      "id": "4ccb345ed82a",
+      "first_seen": "2026-07-16T18:55:59.175245+00:00",
+      "keywords": [
+        "2026",
+        "career",
+        "education",
+        "fees",
+        "jaro",
+        "manipal",
+        "mba",
+        "online",
+        "review",
+        "scope",
+        "university"
+      ],
+      "points": [
+        {
+          "date": "2026-07-16",
+          "time_ist": "18:10",
+          "iso": "2026-07-16T12:40:44+00:00",
+          "text_en": "Manipal University Jaipur Online MBA HR 2026: Review, Fees & Career Scope",
+          "source": "Jaro Education",
+          "url": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTFA5OHItSTlINFN2NFRTOXZOazFqU1RDZktuVUVkb1VQX1JNblVHdi1pRFAyUFNVYVpDYlJTS09qYWdiQUNMYnlrV2JpREplZmI5dzc1TTUybTMybEJsY2RSTTI2WlpLSHc?oc=5"
+        }
+      ],
+      "last_seen": "2026-07-16T18:55:59.175245+00:00"
+    },
+    {
+      "id": "35caaca50754",
+      "first_seen": "2026-07-16T18:55:59.175245+00:00",
+      "keywords": [
+        "acquisition",
+        "clears",
+        "depot",
+        "land",
+        "metro",
+        "msn"
+      ],
+      "points": [
+        {
+          "date": "2026-07-16",
+          "time_ist": "16:52",
+          "iso": "2026-07-16T11:22:49+00:00",
+          "text_en": "SC clears land acquisition for Jaipur metro depot",
+          "source": "MSN",
+          "url": "https://news.google.com/rss/articles/CBMinwFBVV95cUxNdmd6NTlocWd2MkJMNDNodEUxaGY0dGEzWTRiTXRlbHhyNWxlSnBneGNyeld5X1d2ME5UdGhyR2E2eHQ4OVZQaVhyaW1MR2dyc2VEUi1xT2Z3X1ZCSVpDX2tubTA5bl9vQmp5YTFuYko4RUVBYmxKOW5BOUFZdzB4eGt3b3hOMEdWWmNnODIzaTB5WkJMNmQwSDdTWDhzcE0?oc=5"
+        }
+      ],
+      "last_seen": "2026-07-16T18:55:59.175245+00:00"
+    },
+    {
+      "id": "d4329c5c5576",
+      "first_seen": "2026-07-16T18:55:59.175245+00:00",
+      "keywords": [
+        "2fbyym7l8b",
+        "mshale",
+        "svizzera",
+        "weather"
+      ],
+      "points": [
+        {
+          "date": "2026-07-16",
+          "time_ist": "13:04",
+          "iso": "2026-07-16T07:34:42+00:00",
+          "text_en": "Weather Update: राजधानी Jaipur में बदला मौसम का मिजाज, बारिश और आंधी का अलर्ट! | Rajasthan News Svizzera (2fbyYm7L8b)",
+          "source": "Mshale",
+          "url": "https://news.google.com/rss/articles/CBMiYEFVX3lxTE1QenozY3BVcmppQVFET2ZtdG03dU9Ga2x5U3FUZGVld0NwbTlBS1pOVExSdXNORU5ubllVR2JDWnh2NTRuRHVOV25HNURrd1IySTlnR2t6N0M4ZjJiVzg0YQ?oc=5"
+        }
+      ],
+      "last_seen": "2026-07-16T18:55:59.175245+00:00"
+    },
+    {
+      "id": "ab238753516d",
+      "first_seen": "2026-07-16T18:55:59.175245+00:00",
+      "keywords": [
+        "infrastructure",
+        "khatipura",
+        "mega",
+        "mill",
+        "railway",
+        "supports",
+        "terminal"
+      ],
+      "points": [
+        {
+          "date": "2026-07-16",
+          "time_ist": "12:58",
+          "iso": "2026-07-16T07:28:40+00:00",
+          "text_en": "Khatipura mega terminal supports Jaipur's railway infrastructure",
+          "source": "The News Mill",
+          "url": "https://news.google.com/rss/articles/CBMivgFBVV95cUxNUUU3cHBvZFJSUmg5QVgwS0U3UXBFWnBlSEdmUHB4UzBOSmJsbG00M0Ftc1d1M3FROFlsNVRQQ0dBVFNjMEVUbFk2N21hNlo2SFpMUjFDN0k5cEw5eWROQ29tX280Xy1ZM294Nkh2bks2TnQ2MWNsU1FJS0dzeEpiUk5pa2FCS1pZblFaNzNNTVhhU05nVGdsYUNtd2hmc3N3dEU3blhYalp4TVRhR0R5Nmd2NmFYbkdRUzhTdV93?oc=5"
+        }
+      ],
+      "last_seen": "2026-07-16T18:55:59.175245+00:00"
+    },
+    {
+      "id": "7def9be24a18",
+      "first_seen": "2026-07-16T18:55:59.175245+00:00",
+      "keywords": [
+        "bus",
+        "children",
+        "fault",
+        "injured",
+        "msn",
+        "overturns",
+        "school",
+        "steering",
+        "suspected"
+      ],
+      "points": [
+        {
+          "date": "2026-07-10",
+          "time_ist": "17:57",
+          "iso": "2026-07-10T12:27:45+00:00",
+          "text_en": "Over 10 children injured as school bus overturns in Jaipur",
+          "source": "India Today",
+          "url": "https://news.google.com/rss/articles/CBMi0wFBVV95cUxOdkRhOEdaS0RpQS1veVN4a29DMnNXcXJ3OXFDSFh6UHgxNW9xS2pCcHhxV1NLTkFsWXByOWhQdGRVLTJXTFg5aGlFTm16elNmd0FEeUtBZFhwd0RlRGlxcXBMVndPMHA3c0hHMFlTNzZNaGl4YVc0ZlpHUnZ6NkRGNEs1aHAyZ0tmTUdXVm9mVVAySm1lMVNUbUFoVEhLT0xzY0pFMmIzOU96Q2FYbG5CMjlicVFlSWtndWhwOUJ2ODVYRFI5NzV5c21Wdm1qejFKUlU00gHYAUFVX3lxTE5fOVFMbENrRlpWWVJvQWNUNFh2dW91eTBoTlI5ZUM4MHdRcV9EN0dtWnhvaklhbEtzQ0tLWU5fZDI5VzZHWGRrN2xiRWJxWHgwYzB6SU42NmFmc000VG9lbVNITHdGdlNSRzFXdGh3cVJCMkR5WWlSd09EUkNydE5WWTdBVEZ4SnZvUk1ReU1YY0N1STVNaVhnLTZya2tkMUN1U2REMHpGOXpGVHRhZjAzbk9IV1ctRkRhY2I3TFRpRkJiT2c3UnBURjFncUZlNHh1TmlCVWltaQ?oc=5"
+        },
+        {
+          "date": "2026-07-11",
+          "time_ist": "00:57",
+          "iso": "2026-07-10T19:27:25+00:00",
+          "text_en": "Steering fault suspected as Jaipur school bus overturns",
+          "source": "MSN",
+          "url": "https://news.google.com/rss/articles/CBMi7gFBVV95cUxOSmg2TURpSXJjS09PQ2NGY05FU0NvYlZGeGVIWHQ3U1FPSF9jRVF5clJKVFRBTk9RSF9rakd6UzlKRlNzYUJPNThQaUxvN1lrekE1WW1rWGl6allmczNYNHpzWjlCRTFCR2dwMzFmeU9aR3RfVEx1Z2MzNG9xX1hVdDlXVlhkTUxuUVkxSWwyY0loWHJrVXN5dF9TRVhOTFB0T1VWdUdQNlhMWlZraDZSQ3NxMzRyaG1weGp3NmdORHN5WXlObVc0aWJ3TjBPRzlQTm1kRnBjc3hKRWlEb2pLeWp3djdPQURCRWhqcS1R?oc=5"
+        }
+      ],
+      "last_seen": "2026-07-16T18:55:59.175245+00:00"
+    },
+    {
+      "id": "1d7dc3305ba8",
+      "first_seen": "2026-07-16T18:55:59.175245+00:00",
+      "keywords": [
+        "david",
+        "jan",
+        "mshale",
+        "savard",
+        "smsg4k5xnn"
+      ],
+      "points": [
+        {
+          "date": "2026-07-16",
+          "time_ist": "11:56",
+          "iso": "2026-07-16T06:26:53+00:00",
+          "text_en": "Jaipur News | राजस्थानी जयपुर में बदला मौसम, शहर में तेज हवाओं के साथ बारिश | JAN TV David Savard (Smsg4K5XnN)",
+          "source": "Mshale",
+          "url": "https://news.google.com/rss/articles/CBMiYEFVX3lxTE5HRjJHNHIxNEhvcWxacVJtQ3BVbC1SMjhwQVRpTERmcmticDFTbFlPZlRrZHJKV0ZuS2I4SkpyQlBRX0F6T1FfMkpuSG1ycVRVX2xSQng1azcxUDJQazkyVw?oc=5"
+        }
+      ],
+      "last_seen": "2026-07-16T18:55:59.175245+00:00"
+    },
+    {
+      "id": "eb1afb61a8a3",
+      "first_seen": "2026-07-16T18:55:59.175245+00:00",
+      "keywords": [
+        "2026",
+        "76l",
+        "com",
+        "jul",
+        "price",
+        "road",
+        "sierra",
+        "tata",
+        "zigwheels"
+      ],
+      "points": [
+        {
+          "date": "2026-07-16",
+          "time_ist": "11:08",
+          "iso": "2026-07-16T05:38:19+00:00",
+          "text_en": "Tata Sierra EV On Road Price Jaipur Jul 2026 - ₹19.76L",
+          "source": "ZigWheels.com",
+          "url": "https://news.google.com/rss/articles/CBMidkFVX3lxTE9uOVliZFJjS3RWT0ZUenlCS1laWFhpdDJUa1d3ckJfaUNXbkpha0V3X2I0eU5oLTM4TWFYY3dsTDgyREl3d1IwUHRCZnZLajlzTURhZV9NYWtlamlZQmkwdm5xM3lYRkxkMUl3cVgzbmFqVWlrY1E?oc=5"
+        }
+      ],
+      "last_seen": "2026-07-16T18:55:59.175245+00:00"
+    },
+    {
+      "id": "6153ddd2ec37",
+      "first_seen": "2026-07-16T18:55:59.175245+00:00",
+      "keywords": [
+        "beta",
+        "booking",
+        "fulfilled",
+        "goes",
+        "input",
+        "irctc",
+        "live",
+        "minister",
+        "mnit",
+        "portal",
+        "promise",
+        "railway",
+        "redesign",
+        "sangri",
+        "streamlined"
+      ],
+      "points": [
+        {
+          "date": "2026-07-16",
+          "time_ist": "10:13",
+          "iso": "2026-07-16T04:43:02+00:00",
+          "text_en": "Railway Minister's IRCTC Redesign Promise Fulfilled: Beta Portal Goes Live With MNIT Jaipur Input and Streamlined Booking",
+          "source": "Sangri Today",
+          "url": "https://news.google.com/rss/articles/CBMi7gFBVV95cUxPUnJvU0ZEZmxtLTgzT2t2NFdjdk9nSlFESVBfTlpYUGFlM1JrejhlckN4eEViN3M4c1g2ZVFESTNsNG12S1lFNUt3SDlsVnA4UldadU1zOWpIeTMtMXBMa0RYQlppdGtlTjZJa05GNE5oX2c0NllFcWxlaFQwaW9ZUlFJQndkcTZTUUJKcmNlRlFJdlp6a0I2d0dleEdPbzlYeG9telhmemkycllKQVdsWFBBdGw2Tm1fT0dNdEd4M191eW9NT2NBWWpfZnVMWTJHVFg3eWxJQ2tiSWxndWVQbFNEV24zdVNueVVRR1RR0gHzAUFVX3lxTE4yLVFqWnhZR2Z1RHc5LW5hRVFsWTJZRmVEWjMxdTJ4MzNicnRYdWRrY21sbXF1QmRJVlBKYVdzNVBwMXc1VUtOdl9Eblpsbml3OEhYNW9OM0Q5eFJxbTBURXFzc1FmNXBHQ2xQUWdNaUp0RnBQNF9yY2ZpNWtab1Z6Snk4MkxxMWdDQjNBdHpkZ1FncUx2UmFzVVZlZjF0aUVGMGVuZUhoQWx1NEpwNUEzQnN1SmhhZ2d0dDdHblBRR0cxeDhVWWEzZWxkb1ZBZkxjSW4ya0hyQzNSNWY0ZTJfaDRaNllSU0luQVJ3d3JqanUzOA?oc=5"
+        }
+      ],
+      "last_seen": "2026-07-16T18:55:59.175245+00:00"
+    },
+    {
+      "id": "e68047d7d60f",
+      "first_seen": "2026-07-16T18:55:59.175245+00:00",
+      "keywords": [
+        "2022",
+        "august",
+        "fdbg5zcost",
+        "indore",
+        "mshale",
+        "rainy",
+        "rebel",
+        "road",
+        "trip",
+        "weather",
+        "wilson"
+      ],
+      "points": [
+        {
+          "date": "2026-07-16",
+          "time_ist": "09:17",
+          "iso": "2026-07-16T03:47:34+00:00",
+          "text_en": "Jaipur Indore Road Trip | Rainy Weather | August 2022 Rebel Wilson (FdBG5ZcoSt)",
+          "source": "Mshale",
+          "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE45VmhJS2puaVpndDFWb1hRSlBRYUdmSER4WC1GLV9uWUJtTlVNLUZjUm1LZHdiZ2R5cHNrc3NOeU52ZkRYOHZMM3FHS21YT2pGbE1QRjViekxZYlk?oc=5"
+        }
+      ],
+      "last_seen": "2026-07-16T18:55:59.175245+00:00"
+    },
+    {
+      "id": "d0b90d22c634",
+      "first_seen": "2026-07-16T18:55:59.175245+00:00",
+      "keywords": [
+        "000",
+        "hiking",
+        "maps",
+        "mid",
+        "safer",
+        "sahyadri",
+        "trails",
+        "trekker"
+      ],
+      "points": [
+        {
+          "date": "2026-07-16",
+          "time_ist": "09:08",
+          "iso": "2026-07-16T03:38:00+00:00",
+          "text_en": "Jaipur trekker maps over 2,000 km of Sahyadri trails for safer hiking",
+          "source": "Mid-day",
+          "url": "https://news.google.com/rss/articles/CBMixwFBVV95cUxNZWhxbnlveFNGNFNjaDNPTm8yR0JLVW1oM2VVTHAwUmE2LXRWZXE5LUU0WEF5ZmFmcmlIZ05GYkUxMFZfTWtoM29RcGhqNW4zZFl1OEpMU2VpUDlqX3h3cGlFejRMbGVtT2VsMjktUU9CQXNqWGJCMnpTX25vdjI5QUJDUU5VakZZTjhEM25RTmVLekdEb3NvRzRUMHZ4U2NXRlRscm1ibXVLTDhLRWFwcFVielMzVnNFbWpZNlpDTmxwV3REU2530gHMAUFVX3lxTE5GSWJRR2p3TWxYWmt5RnBRbmgzbWU1T3Bib05idFBDNGRfMXhaYmwxdjc4RDd4VTlzbGVVaU9GZFJmZWxDRE04MG9oZ3VCclJERWVuVFdzSUNLcXYtQkZVd1M2ZG10VXF2MzY2S3daazc0SEFHbTBvQzJMLUtSdThfQ0tfTEpIN0ZVeEtoUGE0MUpJYmpYeC0tRWxkekRmMkVOTFJjbDNTVlhYYS12ZWx4aGZSVE5hSDAwLUFRd3R4RGY5Ul9ncktlMU01Yg?oc=5"
+        }
+      ],
+      "last_seen": "2026-07-16T18:55:59.175245+00:00"
+    },
+    {
+      "id": "17c0ea229fed",
+      "first_seen": "2026-07-16T18:55:59.175245+00:00",
+      "keywords": [
+        "brics",
+        "chief",
+        "completion",
+        "directs",
+        "industry",
+        "meetings",
+        "ministers",
+        "preparations",
+        "raj",
+        "secy",
+        "social",
+        "timely",
+        "trade",
+        "xyz"
+      ],
+      "points": [
+        {
+          "date": "2026-07-16",
+          "time_ist": "08:26",
+          "iso": "2026-07-16T02:56:40+00:00",
+          "text_en": "Raj Chief Secy directs timely completion of preparations for BRICS Industry and Trade Ministers’ meetings in Jaipur",
+          "source": "Social News XYZ",
+          "url": "https://news.google.com/rss/articles/CBMi6AFBVV95cUxQSDN0RlhwdDlJY0F2b2pQTEFZTjJfeDdfakNDU3c2ZG80dDcyZ0twS001RWFlMzdUR21WYmxSU1pMVmtNUkhyMUJaZmY5TUN2LTlDcmNvX1hOUVNyOVl3NGJwSVM3Yk1EbU8zal91bGVkVDYyenM0alQxczJZV3NRTDJfRUkxY0dzUE5sMFFuNWlzd1NNTmhnYzhvNWdMdEhrWFgwbHM5THBMY2pKSXVRZWZOYmJ4eDVIRllUR21mWVFjOHFRTkRjdnpUUjhGTW1iLVYtNlhRWGpNR3E2aXVwTHZCUXlXQ2M20gHoAUFVX3lxTFBIM3RGWHB0OUljQXZvalBMQVlOMl94N19qQ0NTdzZkbzR0NzJnS3BLTTVFYWUzN1RHbVZibFJTWkxWa01SSHIxQlpmZjlNQ3YtOUNyY29fWE5RU3I5WXc0YnBJUzdiTURtTzNqX3VsZWRUNjJ6czRqVDFzMllXc1FMMl9FSTFjR3NQTmwwUW41aXN3U01OaGdjOG81Z0x0SGtYWDBsczlMcExjakpJdVFlZk5iYnh4NUhGWVRHbWZZUWM4cVFORGN2elRSOEZNbWItVi02WFFYak1HcTZpdXBMdkJReVdDYzY?oc=5"
+        }
+      ],
+      "last_seen": "2026-07-16T18:55:59.175245+00:00"
+    },
+    {
+      "id": "64aa7dbe162d",
+      "first_seen": "2026-07-16T18:55:59.175245+00:00",
+      "keywords": [
+        "bharat",
+        "bhaskar",
+        "board",
+        "cities",
+        "drivers",
+        "elections",
+        "english",
+        "launch",
+        "more",
+        "registrations",
+        "taxi",
+        "vote"
+      ],
+      "points": [
+        {
+          "date": "2026-07-16",
+          "time_ist": "07:32",
+          "iso": "2026-07-16T02:02:45+00:00",
+          "text_en": "'Bharat Taxi' to launch in 3 more cities after Jaipur: Drivers to vote in board elections; registrations be...",
+          "source": "Bhaskar English",
+          "url": "https://news.google.com/rss/articles/CBMizgFBVV95cUxNM2tMOUlueFNnZ0ZvclJJck1jWUk5LXd2bENXYl81RkNZQjdNX3JOQTR2bE5OREd2UTVvblpHRTdjdGVtTllxVGIwOFBiajhEWE9uOWdsTnJ0ZFJocEdFNWh2RVZEdVk4VjI5a0g3bFZFOFNKSGZqUW9wNGNXVTlBQ0FVeGcwekJJWGh2aGVoSlVkbmY1VGlvTmtrZ3M4UHFfZmFLZ3g1Y3lMZTZVNDJleU1uOG9DVk9sdW1nQ1VXVWdwTE1lTG1hMDhDVGdnZ9IB0wFBVV95cUxNZG5fZ3FScXZyZGpPeXA5MGxXZUk3dXN6RXA3bERLVUx1RUpRdjBzcVlKajRZOGo1d0tkTzJXb3JaZ1V2OHNYRF93eUdBdXpGTG9fWE1iVF95cjdzZ2JuNWktajFSbzJzT3J4VTRrTUhJc3lFaEk2THZIeVpIN0hjSnUwMXBWWmZNZldXZ1E0d1pHMW94ZUE5QnQ3NVZvdm15REsyTHFheVVtdktNc0tRb2dENFNQSjNpalVmN2Nyd083R1FyWFFpclh4aVg2Vngtc3lv?oc=5"
+        }
+      ],
+      "last_seen": "2026-07-16T18:55:59.175245+00:00"
+    },
+    {
+      "id": "fc5cfb024950",
+      "first_seen": "2026-07-16T18:55:59.175245+00:00",
+      "keywords": [
+        "bhajanlal",
+        "birla",
+        "chief",
+        "minister",
+        "msn",
+        "residence",
+        "sharma",
+        "speaker",
+        "welcomes"
+      ],
+      "points": [
+        {
+          "date": "2026-07-16",
+          "time_ist": "02:02",
+          "iso": "2026-07-15T20:32:05+00:00",
+          "text_en": "Rajasthan CM Bhajanlal Sharma welcomes LS Speaker Om Birla at Chief Minister Residence in Jaipur",
+          "source": "MSN",
+          "url": "https://news.google.com/rss/articles/CBMi3gFBVV95cUxQSmoyS1VEd0lWRTVYMkJySVpyLTNVWmFLSE5BQUNuNTJMdlFGSlJWSURUanpyOGgyellEdHBIX0lDMGowWVFQZFR1VlRSbWI1Qk9SdzhFbUQyeUN0eGIyaTNyMk9CSGxVdU9rYjhSQXFrZ3NRVFhpTUJ3NkV5TUR4d2lxbkRXb3libVdjcEstUkV3MEZuV0JUQkluaW9ZOVhkNTk3dERYSFI0TGxiTkFvU3hNTnhJRHdVZHRZdHl6OXFsMDhEN2JLVXdmVHpubkxIX3ktS3VDa3QycWo4Unc?oc=5"
+        }
+      ],
+      "last_seen": "2026-07-16T18:55:59.175245+00:00"
+    },
+    {
+      "id": "d83d980e63f3",
+      "first_seen": "2026-07-16T18:55:59.175245+00:00",
+      "keywords": [
+        "10mn",
+        "1st",
+        "exports",
+        "jewellery",
+        "marks",
+        "msn",
+        "pact",
+        "under"
+      ],
+      "points": [
+        {
+          "date": "2026-07-16",
+          "time_ist": "01:58",
+          "iso": "2026-07-15T20:28:27+00:00",
+          "text_en": "Jaipur marks 1st jewellery exports of $10mn under India–UK pact",
+          "source": "MSN",
+          "url": "https://news.google.com/rss/articles/CBMixwJBVV95cUxNZUZSMVlCdGgyeTdibDN1dXJOZnhfeUgzT2M2cTVGY0JET2V0LXpKVDN0WUZ5RnVMaEtmRGUxaHlfTk14QlNuSUZLUEpCWkdEazZtUnF3clQyd2swbUhYLTlEZDNoem1GRzNpdnkwNXVuUFIyMGZBV1BNUTVhMGhSNWNuTHloR2EzSTNsVUh1U3llRmF0cjYweWhLNmFHMXExRkRHV0xxeURTSl9CdmdjbTB3OU0xMVVoVl96b3VxOWlnYzBwcWNsRDdHX194NFFLQlVtS1JIbWhSekdPWmxBQTlHS013eW1QZ0ZhdTFyMGl1YnJvS1ZoR2FqVDNUVFRiT19lbUZqXzFVcTFYYTJxdmpLakRrSTA3X0lrXzFrUDR4WEg2dFJhVF9aRTcwQlplbTUtUTdMT1l3a2xhelZNREM3cHA1RGM?oc=5"
+        }
+      ],
+      "last_seen": "2026-07-16T18:55:59.175245+00:00"
+    },
+    {
+      "id": "014e37c652f0",
+      "first_seen": "2026-07-16T18:55:59.175245+00:00",
+      "keywords": [
+        "037",
+        "approves",
+        "boost",
+        "cabinet",
+        "connectivity",
+        "crore",
+        "metro",
+        "phase",
+        "project",
+        "urban"
+      ],
+      "points": [
+        {
+          "date": "2026-07-16",
+          "time_ist": "00:48",
+          "iso": "2026-07-15T19:18:57+00:00",
+          "text_en": "Cabinet approves Rs 13,037 crore Jaipur Metro Phase-2 project to boost urban connectivity",
+          "source": "DD News",
+          "url": "https://news.google.com/rss/articles/CBMitAFBVV95cUxNblViUlduelBROTVHNHUyWGpOb3NnNkszZGJ0d1JEcGlPTnNsc3dKY2F4dm1sZmllbVZsdlNkZlFzeGRPbUZHSTk4N0NoVXZ5TVZqVXZjR2lyYTN5eWFPTHJYMV9QUzFCNTBvUmxLdEhmQS02cFNSN2ZOZ2NtUXVsNnpWR29qNlRnOEc5TE9rbk90QVFpWHBDN1NpODROaDZIdWN5R3FWRzJmR280cDVfNXNlOFU?oc=5"
+        }
+      ],
+      "last_seen": "2026-07-16T18:55:59.175245+00:00"
+    },
+    {
+      "id": "a2b15d614a07",
+      "first_seen": "2026-07-16T18:55:59.175245+00:00",
+      "keywords": [
+        "brut",
+        "bullying",
+        "student"
+      ],
+      "points": [
+        {
+          "date": "2026-07-12",
+          "time_ist": "18:34",
+          "iso": "2026-07-12T13:04:06+00:00",
+          "text_en": "Jaipur student bullying",
+          "source": "Brut",
+          "url": "https://news.google.com/rss/articles/CBMiekFVX3lxTE41Q2IzdUszZUZTbldMTjlWUGF2TUt5TXBzWDNDMFl1YldXYTU0eTZ3clpKN0lTOFNubW80RXNjWDNVV0xzYm5JT0ZBTDlMNlA4NExaSTdtTzN1Z1RtM1VMMW85X3lFZVB3cHpSclNaeEl2YU9obzhIaEVR?oc=5"
+        }
+      ],
+      "last_seen": "2026-07-16T18:55:59.175245+00:00"
+    },
+    {
+      "id": "16dffd5be76b",
+      "first_seen": "2026-07-16T18:55:59.175245+00:00",
+      "keywords": [
+        "approached",
+        "before",
+        "claim",
+        "class",
+        "classroom",
+        "com",
+        "fatal",
+        "girl",
+        "jump",
+        "last",
+        "mins",
+        "moments",
+        "moneycontrol",
+        "photos",
+        "school",
+        "student",
+        "suicide",
+        "teacher",
+        "times"
+      ],
+      "points": [
+        {
+          "date": "2026-07-10",
+          "time_ist": "15:38",
+          "iso": "2026-07-10T10:08:32+00:00",
+          "text_en": "Jaipur school suicide: Girl's last classroom moments before fatal jump — in photos",
+          "source": "The Times of India",
+          "url": "https://news.google.com/rss/articles/CBMi5gFBVV95cUxPLUIxcFBDM0xkcHJoNFRtYzloT0dvMjVOQVVzeV9TV1pmY1FiTk9lRHc1WUpaQW5WSS01aE82b3pkSUJNRWtCRnBrSGtBY2M4WVZPUTY3MGxpUGdjSjNHYU5CQWVocFBZT25EMHM4RHlQalRpVXBZYTFsMTJjMUVWWGgxNzBVenRwcVY5RzZVVkhaY1ZpOW55cTItV1hSQ0x2UTAtVS1xUWFIUDJ4TUJzX3I4RmdtVUVrU1Q3UjNIbjdQZ2R6RlZwd0dub0ZZd2dsZ1VBT29UVFFTS1htWjM1S1RGbGc0d9IB7gFBVV95cUxPSlBfbGUxbHBwZUVlN3ZMUEhpRldLMEtkaHF6dVJ3RjJKU09NcGlWeFZzTUVUV09DVU9UUVZZVFRORWdRR2QxMm5tZi1mSUhSS05KbWZWRlV3Q0xmYkpDQ2JBTXIwMGc1STQzMVFGVGg2UU1xckhhQkVzeHpKYXJjUzR0eHhlc2VoN0xZTUViVTdkV0R3U2o0RC0yemlYaEtiLVpNSVoxNVRiMmpVcG52UV8yemtJeHdvLWg4Z0g2VlBwMnE1YlNpWm5YVndjMHpBQkJNRnRGVjNuTGFrLWVtcF9ZQXhFbTRtN0JkakhB?oc=5"
+        },
+        {
+          "date": "2026-07-11",
+          "time_ist": "06:49",
+          "iso": "2026-07-11T01:19:56+00:00",
+          "text_en": "Jaipur student suicide: Class 4 student approached teacher 5 times in 25 mins before fatal jump, claim...",
+          "source": "Moneycontrol.com",
+          "url": "https://news.google.com/rss/articles/CBMi6wFBVV95cUxOdXU0ajJ0S1BWbGFTcWtFUXJGbnh1NWlQQmE5bjd1d2U0ZUFYZTVaTUd4YWVnT3FuOXEwUC1xdmstV3czMFV4SEJqTTFiUkFVN1FBU0hRRnVxOTliSnNjNE1zZFlWR0IyaHpoWnVTUWw5Y2Z6X3IxZkN4azBqR0ctcDQ5OHdXN0FBOTRzVWpJbVFMaGVhVXIxR1dxN2hTS1ZvTmMtTWh6djFFZC1qa3g1RHlHdmlQUFJHaWcxTEx0Ujh6SHF3Z0RkUm9nRHQ0LXNXRHBFWUZick9heHlSZzlFSnN5NlRmbnNVaExR0gHwAUFVX3lxTE1FWUhPbWhyb0ZTM3FaUDNGVENaNV9LODJNY09LMU4tV0VqRFdEbndCbFVPMFlDYzBqMmFNRWN1bk5fZy0wWlRDeHBiclFmTU14SVhKeTRad2lYeGp5TVdVTjJQR05tT19NVTdfV1Rvbi1PSTl0MWdJcEVHVE9nNTY2TGFseTNPblNlSFlmblV5NlRha2xwbWlYMlI2YWNuNjd6N1VHdmF3RmNFamkxbWJqY0RNS1NSWEFEeXBFdzdFaktXRGdOWkVUUG5CaWc0NkFuSXdIMWJKS3Z6cElxUlpHQll3cGxpSDNhLUQ1ZTZtQg?oc=5"
+        }
+      ],
+      "last_seen": "2026-07-16T18:55:59.175245+00:00"
+    },
+    {
+      "id": "192c82d839c2",
+      "first_seen": "2026-07-16T18:55:59.175245+00:00",
+      "keywords": [
+        "before",
+        "cctv",
+        "fall",
+        "fatal",
+        "girl",
+        "ignored",
+        "msn",
+        "pleas",
+        "shows"
+      ],
+      "points": [
+        {
+          "date": "2026-07-11",
+          "time_ist": "00:44",
+          "iso": "2026-07-10T19:14:42+00:00",
+          "text_en": "New CCTV shows Jaipur girl’s ignored pleas before fatal fall",
+          "source": "MSN",
+          "url": "https://news.google.com/rss/articles/CBMi9AFBVV95cUxNS2l0NnM0YThBdnhGUzFIR2xyd3d3TG9RM0I3c3Ata3BOMk5yMjV4OUxnaHpJZ2kyUktFMkdxX2hBaklZNHE3dHJkTGdxZ05qSVhnLWNwMnA4X0xHeWFGSjBFSjVFc1ZmRW9HNFNreGttNU1pbzA0bmhCNnVONWplZmdkelg1UDNDQmhtdGJhc0c4dG5icE9HVmVKWnhhRFVWZEY1Y0JSZ2ZsS2U4cUVyR2xrYi1wMGdqa2lxNlRENl9JX3BMUWI5emU4YTNRMjZpQ01yUG5fTzdfemNmek9LTi1XOFJfUWljdWVuOVhDemJrMzl0?oc=5"
+        }
+      ],
+      "last_seen": "2026-07-16T18:55:59.175245+00:00"
+    },
+    {
+      "id": "653239dcf25d",
+      "first_seen": "2026-07-16T18:55:59.175245+00:00",
+      "keywords": [
+        "allegations",
+        "bullying",
+        "cctv",
+        "daily",
+        "footage",
+        "fresh",
+        "pioneer",
+        "raises",
+        "student",
+        "suicide"
+      ],
+      "points": [
+        {
+          "date": "2026-07-10",
+          "time_ist": "12:33",
+          "iso": "2026-07-10T07:03:20+00:00",
+          "text_en": "Jaipur Student Suicide: CCTV Footage Raises Fresh Bullying Allegations",
+          "source": "Daily Pioneer",
+          "url": "https://news.google.com/rss/articles/CBMi4gFBVV95cUxNQ0REbG5sS2l6M0NCc3ZvZDR1b3BWOWk3VFBBa2lhRnpZSWVxLWE1LXN0MS1XQTY5RkJ4dkZFRzB3a1dtT0VodmFqa09wdzNDbEhCQkI4dUhpZWdBcUdOQW9CcnRZbnk5UXNWMXNublBlc3NUd3hvTTFqUWdfV2ZSRlZCeGlLeUk0RWhjczYySHVVaUZwNEFwVWdJQzIwTGVBVjdMWlB1alExdnItZzRBOTFBY1RpVl9YcGt0LXl2LWtHdm1ndXhRM09ENTQ3Z3VDeXVXZ1htRVRDeXQtQ3I3bWx3?oc=5"
+        }
+      ],
+      "last_seen": "2026-07-16T18:55:59.175245+00:00"
+    },
+    {
+      "id": "23697ece922f",
+      "first_seen": "2026-07-16T18:55:59.175245+00:00",
+      "keywords": [
+        "alleged",
+        "bullied",
+        "cctv",
+        "class",
+        "clip",
+        "help",
+        "hindustan",
+        "shocking",
+        "student",
+        "suicide",
+        "teachers",
+        "times"
+      ],
+      "points": [
+        {
+          "date": "2026-07-10",
+          "time_ist": "10:14",
+          "iso": "2026-07-10T04:44:05+00:00",
+          "text_en": "‘Bullied’, ‘no help from teachers’: Shocking CCTV clip in Class 4 Jaipur student's alleged suicide | India News",
+          "source": "Hindustan Times",
+          "url": "https://news.google.com/rss/articles/CBMi6AFBVV95cUxPNmhJTDFxYjZFR1A3eTNhUTVfbTRQLTg5Z05LZXNLNmdWUDJXek5iVENUd2Jvb1JlTGtTVzZYSm9qQWxwS1BuRzNYb2hvNlhxcGJpeklSdTdGanp0TFFJZ1Q0X05PaXZyMkVPT1QxYWt3SGIyb2ltZHVuY3pWQW13VW1VRk1pa1Nya3JjTzhtbVpueWdRaGg1WmJJYm1DeXdMYm42OE1STmZ5YlgwUGxTX0FnS0FjZ2Y2ay0tVGVkSVVTendncHpmeEJOY2dLM21BeU9XdVRkLUxSVmVuaGpBdDRrNDZvYm5N0gHuAUFVX3lxTE9VWUoyVkYySXJwbFVGNF9LQ2NuUE1XNUowUXdhSDZDREpGaW9JR3RZeVpqZDVVTDBuRzA4Nlg0bXNLZEduUThmNVFWU2d6UFNtWUx0dVVKZTB2Nm9IQnV4WGtmNWxaeDhvMmRWQ1BGMFQwZ1dnRzNQTHhtQjJFWE1ZS1Z3WVg5MGI2dWR3ZEFJTTFCQkcydktGa3BIb3p1T3Y5V0pXbWpjTXNpeTJoS0pfMzJGYk5DcUtqaTRPX01LU3hzMkFaQ2Z3ZGx6ejhaU01fVDhCTGp6UTVLQWtmbGRuYzVFTmxjb2pTTjZ3ZFE?oc=5"
+        }
+      ],
+      "last_seen": "2026-07-16T18:55:59.175245+00:00"
+    },
+    {
+      "id": "67cb37b2f1a7",
+      "first_seen": "2026-07-16T18:55:59.175245+00:00",
+      "keywords": [
+        "bullying",
+        "cctv",
+        "claim",
+        "classroom",
+        "clip",
+        "faced",
+        "parents",
+        "release",
+        "relentless",
+        "school",
+        "suicide",
+        "times"
+      ],
+      "points": [
+        {
+          "date": "2026-07-09",
+          "time_ist": "21:49",
+          "iso": "2026-07-09T16:19:00+00:00",
+          "text_en": "Jaipur school suicide: Parents release classroom CCTV clip, claim 9-year-old faced relentless bullying be",
+          "source": "The Times of India",
+          "url": "https://news.google.com/rss/articles/CBMipAJBVV95cUxOTWx5ZXlNZ2p1elNldUxiZFk4bl9ONmYxUzZqbTFRclJXRURvbXlMcjM4UFRwWktudEJEdjg2czQxdjBxa3U1S0x6UGt1UW04ckxZWkJremNybUFlWXBHOEMzckxJbHE3aGxBNUdIeFZhcmQteDdMVW45SXltVVdkY09LYzBPZlF6MHQzMlFfcVBRVmxmb3N4SUV6MmhxQk1SLXhhQWctX0ZfS3NUczRNYml2NGgwbl9wQUtmb2hLVTZqVkFRQXR1Z2dEcnpyWVQ4a3RiVjhFUEwtc3lUUUxWVXJZX1YxQ2piaU5qOUphREZ0NzlZX2ROZlJVQXkzdXMzVy14QmczX01hM19mZ3NhWV91QmdwZnBGUDY3ajZoVXZQYTNG0gGqAkFVX3lxTE15bk5xTzJhek50STIxb21WcEQ5OTZ6RjVHb1dLajFUSkstRzljcGRlZ1V2UFN4WVVCLTY0cG5lQWNvbEVyNHByZjlwbE5fQXFOdVlYXzBGeG1BYUlOYkZ4bDhweW5MM2RIeWFqTndfZnNXTy1PZHAzOUIzWkNBdFJjWkZQSjhCclB0NU05bHR4NnFieHpQX3kxNjhxXzlKZmpVNTRMeTRlWF9ubEF3dnhNenFPblk0RXlXUEIwNUk3bF9RY0ZuQ2ZCUEpKTVBlWU9SeXhiRmh2UnpwMUkySXdUZ1RtMGhqbWlrY1dkMmFFbGxRbW11SGlaR1FxQnk1dTVqRW10ZFplVG53blhJNDFxVnN6WUdQd3kzRThKeVFfV2V4Zmo5Z2xaYUE?oc=5"
+        }
+      ],
+      "last_seen": "2026-07-16T18:55:59.175245+00:00"
+    },
+    {
+      "id": "b133ff8c9ee7",
+      "first_seen": "2026-07-16T18:55:59.175245+00:00",
+      "keywords": [
+        "263500",
+        "acb",
+        "agriculture",
+        "department",
+        "officials",
+        "recovers",
+        "rupees",
+        "vehicle",
+        "zoomnews"
+      ],
+      "points": [
+        {
+          "date": "2026-07-03",
+          "time_ist": "12:30",
+          "iso": "2026-07-03T07:00:00+00:00",
+          "text_en": "ACB Recovers 263500 Rupees From Agriculture Department Officials Vehicle In Jaipur",
+          "source": "zoomnews.in",
+          "url": "https://news.google.com/rss/articles/CBMixAFBVV95cUxQTEEtZDg3M3M4bmpiMzA0X01ON3prd3NwcVNLalk0dFdUUGpybHdyWHFFaDVzdDQ3UTdRbGVlVHZ4RTlaMzhSM21CQjJuU3FJQU9lQTg2TjcxSkwtMS1BbmtPRGJvd2stbFJjcEVqbnRoSXE0bGFKdXBUN3hxaFU0NkdINUp3UEVvdTZDTkhjbFNBY3d4NmRkOHYzcG1BTnNhRS0zYjB0bnZkRnVqR2RFWVZGNmM3NndoVE81TDB4X0E3TjlN0gHKAUFVX3lxTE5SOWVFekVYeXZUUHJkczlGbGVKUGlTeWEweHhvQm1fdExwMnI3Z2hpQkdrdEVsdkI4LV9rd1Z6cGJXYVhoek9TWDR2TW1nRmhsSWlkOFRheEs4aVlJZ3pFbFZFcm9PS2hrckp1eUF4QklQWmhEamJVZUJpUFlPVTI5SzZMMnV1RG9ueDJaUlZyQkN3bGlzVW12bUJ0bml0RHBYeGE0eXZqWmtCQVFCQS1YeWg1ak83TlBQM0syRU1NT1J4RC00S3M0bUE?oc=5"
+        }
+      ],
+      "last_seen": "2026-07-16T18:55:59.175245+00:00"
+    },
+    {
+      "id": "9de113d4d640",
+      "first_seen": "2026-07-16T18:55:59.175245+00:00",
+      "keywords": [
+        "2026",
+        "bhajanlal",
+        "gallery",
+        "jagannath",
+        "radhakrishnan",
+        "rath",
+        "social",
+        "welcomes",
+        "xyz",
+        "yatra"
+      ],
+      "points": [
+        {
+          "date": "2026-07-16",
+          "time_ist": "05:10",
+          "iso": "2026-07-15T23:40:13+00:00",
+          "text_en": "Jaipur: CM Bhajanlal welcomes C.P. Radhakrishnan #Gallery",
+          "source": "Social News XYZ",
+          "url": "https://news.google.com/rss/articles/CBMimAFBVV95cUxQd2tubWxKRm8ycVFiT3FyRWZISzlpMFhsX3hsZElwNG1Pb1ZHcnhKMlU3SUpFM09uYkpEWGM2OThxN3lPV2VrSmpqQk5KSVpLNlNRZFFGV3NKTElkd0JYVkd0UjVybXJpMEFTaUc2UTloaXl4eU9abk9TdTZ3RXpxcU41c3dQWHdYRTBodFRrRE5MOFNpdENuONIBmAFBVV95cUxQd2tubWxKRm8ycVFiT3FyRWZISzlpMFhsX3hsZElwNG1Pb1ZHcnhKMlU3SUpFM09uYkpEWGM2OThxN3lPV2VrSmpqQk5KSVpLNlNRZFFGV3NKTElkd0JYVkd0UjVybXJpMEFTaUc2UTloaXl4eU9abk9TdTZ3RXpxcU41c3dQWHdYRTBodFRrRE5MOFNpdENuOA?oc=5"
+        },
+        {
+          "date": "2026-07-16",
+          "time_ist": "20:03",
+          "iso": "2026-07-16T14:33:57+00:00",
+          "text_en": "Jaipur: Jagannath Rath Yatra 2026 #Gallery",
+          "source": "Social News XYZ",
+          "url": "https://news.google.com/rss/articles/CBMihgFBVV95cUxNdUotb3hycmh6X05tbGVXejdJSjliZUF5SXoyN1BrWGFQYzlvb3VHSW5ibXNSTVRUTUhGRXktR1VEaFgwemJtMjRmNkl6bHkwRFlTQm1pVzhCeThrUnZiSXkxOE1JRFVfeHJQdkFCaUhidjR4QkZoOVBCbnRWNXdCLW9tYzhOUdIBhgFBVV95cUxNdUotb3hycmh6X05tbGVXejdJSjliZUF5SXoyN1BrWGFQYzlvb3VHSW5ibXNSTVRUTUhGRXktR1VEaFgwemJtMjRmNkl6bHkwRFlTQm1pVzhCeThrUnZiSXkxOE1JRFVfeHJQdkFCaUhidjR4QkZoOVBCbnRWNXdCLW9tYzhOUQ?oc=5"
+        }
+      ],
+      "last_seen": "2026-07-16T18:55:59.175245+00:00"
+    },
+    {
+      "id": "7bf9d09292cf",
+      "first_seen": "2026-07-16T18:55:59.175245+00:00",
+      "keywords": [
+        "000",
+        "2026",
+        "across",
+        "during",
+        "face2news",
+        "mahotsav",
+        "military",
+        "planted",
+        "plants",
+        "pressnote",
+        "saplings",
+        "station",
+        "van"
+      ],
+      "points": [
+        {
+          "date": "2026-07-16",
+          "time_ist": "16:24",
+          "iso": "2026-07-16T10:54:47+00:00",
+          "text_en": "Jaipur Military Station plants 42,000 saplings during Van Mahotsav 2026 India",
+          "source": "Pressnote.in",
+          "url": "https://news.google.com/rss/articles/CBMiT0FVX3lxTE5zbEllYk12Q2hlWUZ1TEhhRVUzQkpjazRXel9vd2hYQmJiMVBzVVpzaDlWQXBxZHJkazQ3VVdLYVJRZTZaS3FKQmJyYjRXUTA?oc=5"
+        },
+        {
+          "date": "2026-07-16",
+          "time_ist": "16:58",
+          "iso": "2026-07-16T11:28:21+00:00",
+          "text_en": "42,000 SAPLINGS PLANTED ACROSS JAIPUR MILITARY STATION",
+          "source": "Face2News -",
+          "url": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxOa3NEZ1llMXItdVROc2V6SEt2czV4RFBMRjB3QmlDVmlOaDVxVVotNHZDOHRYRDJkUE9HUGNRQi1nMWdCcG5qVUFFVlVJcl9EMnNiRUJzdi00TzdvQWtXblUwOTdWVWxSTHlfU01QWEtHWkI3RXhoN3BzQ2Z5VUM1Q0c3R1VIYlNR?oc=5"
+        }
+      ],
+      "last_seen": "2026-07-16T18:55:59.175245+00:00"
+    },
+    {
+      "id": "59f8e9b31865",
+      "first_seen": "2026-07-16T18:55:59.175245+00:00",
+      "keywords": [
+        "academic",
+        "celebration",
+        "grand",
+        "kicks",
+        "manipal",
+        "orientation",
+        "thewire",
+        "university"
+      ],
+      "points": [
+        {
+          "date": "2026-07-16",
+          "time_ist": "17:58",
+          "iso": "2026-07-16T12:28:35+00:00",
+          "text_en": "Manipal University Jaipur Kicks Off Three-Day Orientation with Grand Academic Celebration",
+          "source": "TheWire.in",
+          "url": "https://news.google.com/rss/articles/CBMizAFBVV95cUxPQndYZ2NxZnZhdUx6aHZjakJoNURUUHl1amc5WklZRzE5M25hZ0dadHg2VUVGSkRySk1kVE0ycmNHaXRSMFhDTTE3Q0VndE9OM0NYOURWQlUzUTlOYTFXS0Z3M0k0M0V4aFVNcV9lZl9yd045V3pIQnhWcl9aelI0MWVYcko0OWJsR0ZYc3Zhd1dMdi03LW1laGJ1LThYVVVhNFRwdi1aS0xoNWtDMXFIYTgzbzhMU3gxRzA3RElscUk0dW40S09VQkR2UWvSAcwBQVVfeXFMT0J3WGdjcWZ2YXVMemh2Y2pCaDVEVFB5dWpnOVpJWUcxOTNuYWdHWnR4NlVFRkpEckpNZFRNMnJjR2l0UjBYQ00xN0NFZ3RPTjNDWDlEVkJVM1E5TmExV0tGdzNJNDNFeGhVTXFfZWZfcndOOVd6SEJ4VnJfWnpSNDFlWHJKNDlibEdGWHN2YXdXTHYtNy1tZWhidS04WFVVYTRUcHYtWktMaDVrQzFxSGE4M284TFN4MUcwN0RJbHFJNHVuNEtPVUJEdlFr?oc=5"
+        }
+      ],
+      "last_seen": "2026-07-16T18:55:59.175245+00:00"
+    },
+    {
+      "id": "136d2e01a98f",
+      "first_seen": "2026-07-16T18:55:59.175245+00:00",
+      "keywords": [
+        "75th",
+        "anniversary",
+        "arrives",
+        "assembly",
+        "event",
+        "gallery",
+        "president",
+        "social",
+        "vice",
+        "xyz"
+      ],
+      "points": [
+        {
+          "date": "2026-07-16",
+          "time_ist": "01:40",
+          "iso": "2026-07-15T20:10:11+00:00",
+          "text_en": "Jaipur: Rajasthan Assembly’s 75th anniversary event #Gallery",
+          "source": "Social News XYZ",
+          "url": "https://news.google.com/rss/articles/CBMinAFBVV95cUxOTHR4Q1ZLejFueXMtekNKRWd4dnhnNExJVTN0dDZXVExRSU54RHBKTENPSjJtUFhxTGQ0bXh2X29nNmN1WS1BWE56Z2JFRWlSNWJQbldmVlp3bzM0aU5tNlRHVkVKbm9rNms5WTE0ZTFrVHBIc0I5OVUxT3FQOUdJdThhT1p2WDMxQTk5VWJ0SW5XcFItWTVPNmlJcUzSAZwBQVVfeXFMTkx0eENWS3oxbnlzLXpDSkVneHZ4ZzRMSVUzdHQ2V1RMUUlOeERwSkxDT0oybVBYcUxkNG14dl9vZzZjdVktQVhOemdiRUVpUjViUG5XZlZad28zNGlObTZUR1ZFSm5vazZrOVkxNGUxa1RwSHNCOTlVMU9xUDlHSXU4YU9adlgzMUE5OVVidEluV3BSLVk1TzZpSXFM?oc=5"
+        },
+        {
+          "date": "2026-07-16",
+          "time_ist": "05:10",
+          "iso": "2026-07-15T23:40:11+00:00",
+          "text_en": "Jaipur: Vice President Arrives at Rajasthan Assembly #Gallery",
+          "source": "Social News XYZ",
+          "url": "https://news.google.com/rss/articles/CBMinwFBVV95cUxOZ3BodU92SWF4WmtlYWcybU1YbmpQUU9naEhJbGNKQnBKclNzaG9OQ1ZranM3ZzNROXVaRmxJanhvZUM0YlZoRHg0dm1RYWpoQ3VoNl9GZzcwNEw2R1dkeEVyUVZoeEowalFuVWFEbXlfdFEzWGtiLWZUMlE4R1MtenpZcGxXMWtwRmhxNGktQ3I2bXpTbzdOU0ZIT05FaEHSAZ8BQVVfeXFMTmdwaHVPdklheFprZWFnMm1NWG5qUFFPZ2hISWxjSkJwSnJTc2hvTkNWa2pzN2czUTl1WkZsSWp4b2VDNGJWaER4NHZtUWFqaEN1aDZfRmc3MDRMNkdXZHhFclFWaHhKMGpRblVhRG15X3RRM1hrYi1mVDJROEdTLXp6WXBsVzFrcEZocTRpLUNyNm16U283TlNGSE9ORWhB?oc=5"
+        }
+      ],
+      "last_seen": "2026-07-16T18:55:59.175245+00:00"
+    },
+    {
+      "id": "f9025504adf4",
+      "first_seen": "2026-07-16T18:55:59.175245+00:00",
+      "keywords": [
+        "bazaar",
+        "diya",
+        "dycm",
+        "everything",
+        "great",
+        "inaugurating",
+        "indian",
+        "kumari",
+        "needs",
+        "tourist",
+        "travel"
+      ],
+      "points": [
+        {
+          "date": "2026-07-16",
+          "time_ist": "01:01",
+          "iso": "2026-07-15T19:31:31+00:00",
+          "text_en": "“Rajasthan has everything a tourist needs”: DyCM Diya Kumari after inaugurating Great Indian Travel Bazaar in Jaipur",
+          "source": "DD News",
+          "url": "https://news.google.com/rss/articles/CBMi1gFBVV95cUxQNFl0OGdGX0sweExfU0M4WVhOQ0t2OVEySUw1bkxTZ0pZOERBVEE2SWhtZ0dJLXJaQ2x2VjJEOV9KUm1rYlVHdUlndmNLWmFnU01sdVFjZVZDdUV0dWtxc0ZhaFVzMFdfcjFtZW9CdTRfTW5xUnlteVRRYVI0azFGUlh1QWZDS0owYVN4SDQ3eG9wU0RKVVFFM0xfTW9zRFVLQlNmRGdTWDhpODF3SV9ldXdaSWJ2TzJKUVBtakhKRGRHdVJoVTJjcE1VX0MtOUF6VDk1bmNn?oc=5"
+        }
+      ],
+      "last_seen": "2026-07-16T18:55:59.175245+00:00"
     }
   ]
 }

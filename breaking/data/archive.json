@@ -410,6 +410,30 @@
         }
       ],
       "last_seen": "2026-07-16T07:15:31.012832+00:00"
+    },
+    {
+      "id": "459b42f9aab3",
+      "first_seen": "2026-07-16T09:00:05.155213+00:00",
+      "keywords": [
+        "ajmer",
+        "children",
+        "collision",
+        "killed",
+        "mill",
+        "road",
+        "trailer"
+      ],
+      "points": [
+        {
+          "date": "2026-07-16",
+          "time_ist": "06:07",
+          "iso": "2026-07-16T00:37:09+00:00",
+          "text_en": "Three children killed in trailer collision on Ajmer Road, Jaipur",
+          "source": "The News Mill",
+          "url": "https://news.google.com/rss/articles/CBMiwAFBVV95cUxNZ1EyblJuaDd3aUVyanZmYVp1eEthMVQtQlExbFdkc3ZmWk8xbmNTX3ZFOHhJM0RoWF9KY25yTWVVaUk4Y2R4R09MRGR6ZHFuTEd0SDdneEF5cGpNQjd1b3o0bHZLLUdVNEF2SXFMZWhrOUVaYVI2TkUtOTBKRThmWFpBNUlMLTN0anV4aHFGUWJWcjRhY201akQzOVRnUmhaUzBtdVl4NnhtSldxRDZGSVE3ZzExLVNqZUZfd3Q5UHk?oc=5"
+        }
+      ],
+      "last_seen": "2026-07-16T09:00:05.155213+00:00"
     }
   ]
 }

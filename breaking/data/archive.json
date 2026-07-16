@@ -373,6 +373,39 @@
         }
       ],
       "last_seen": "2026-07-15T19:40:59.247896+00:00"
+    },
+    {
+      "id": "5b49d98d9ba7",
+      "first_seen": "2026-07-16T04:51:53.334927+00:00",
+      "keywords": [
+        "affected",
+        "alert",
+        "arun",
+        "assam",
+        "bhaskar",
+        "during",
+        "english",
+        "floods",
+        "heavy",
+        "hit",
+        "lakh",
+        "odisha",
+        "rain",
+        "rath",
+        "villages",
+        "yatra"
+      ],
+      "points": [
+        {
+          "date": "2026-07-16",
+          "time_ist": "08:05",
+          "iso": "2026-07-16T02:35:50+00:00",
+          "text_en": "Heavy rain alert during Rath Yatra in Odisha: Floods hit 99 villages in Assam, over 1 lakh affected in Arun...",
+          "source": "Bhaskar English",
+          "url": "https://news.google.com/rss/articles/CBMitwFBVV95cUxOYVBUQUdrZmcwaERrQkpaY0tTQUNkNVdkbzlVaGEtNGlOY0h3NFVoaUh5aEhZOXVLSWYzSnk4LV9zMTJnQVpkbmNTci1zRXhkMGVWcFpha1M5SUxFNjctSERHb0J5cjJRNlJNV3FYT1UyT1dJT0RpWkFlODRtYzRVeUxBUFJUSjdETGtLY29RTXFRc3lDeTl3dHBOUlJpTnJsUmRRQ2ExOVZjR0ZPN1M0YXNVYWNFQTDSAbwBQVVfeXFMTnNyQS1aLXd0VS1rS3VkbDJ0NlBPZjF0TTV3aTBNSUZUaHBLaGxGUGtzRjZBV08xdjRoX25mYTBTcVUzX0pQbWtYYmpMZXlYYlg3ZFJSTldzbzhVWlJRd3VodGpxNWpiNzJLcTNEYldyUnBzM2lpMW9sOFBDWElHVUEyVDlsR2ZZMW9jMDNaRnJFU0NZU2h6OTNCZ1VReXNma0djd1lGTnl3VE1sNUsxeUFOdVdmME92a3J0elc?oc=5"
+        }
+      ],
+      "last_seen": "2026-07-16T04:51:53.334927+00:00"
     }
   ]
 }

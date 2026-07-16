@@ -64,7 +64,7 @@ NEWS_SITE = "https://news.manzill.com"
 # Bump whenever the rendered output (template/RSS/sitemap format) changes. A mismatch
 # with the value stored in state forces a one-time re-render even when the feed is
 # unchanged, so a redesign rolls out on the next scheduled run without a manual push.
-RENDER_VERSION = "11"
+RENDER_VERSION = "12"
 
 # strftime has no Hindi locale, so map month names for the Hindi date/time strings.
 HINDI_MONTHS = [
@@ -110,6 +110,23 @@ FEED_QUERIES = [
     # Police accountability / misconduct — surfaced with high priority in "यह भी ब्रेकिंग".
     "Jaipur OR Rajasthan police lathicharge OR beaten OR custodial OR negligence "
     "OR misconduct OR suspended when:2d",
+    # Burning-issue / accountability beat (fresh) — disorder, misgovernance, economic distress,
+    # rights, elections, civic breakdown. Anchored to Jaipur/Rajasthan; is_local() is the gate.
+    "Jaipur OR Rajasthan (unemployment OR hunger OR starvation OR corruption OR scam "
+    "OR negligence OR mismanagement) when:2d",
+    "Jaipur OR Rajasthan (EVM OR \"human rights\" OR custodial OR eviction OR encroachment "
+    "OR bulldozer OR waterlogging OR \"power cut\") when:2d",
+]
+
+# Wider-window BACKFILL queries. Items from these seed a story's multi-week timeline (the archive)
+# but are tagged archival and — being older than FRESH_LEAD_HOURS — can never become the "breaking"
+# lead or a visible "यह भी ब्रेकिंग" card. They exist so a story that becomes prominent today can
+# show the weeks of coverage that preceded it, instead of starting the timeline at "today".
+ARCHIVAL_QUERIES = [
+    "Jaipur OR Rajasthan (corruption OR scam OR negligence OR unemployment OR starvation "
+    "OR EVM OR custodial OR \"human rights\" OR eviction OR encroachment) when:14d",
+    "Jaipur OR Rajasthan (school OR student OR bullying OR death OR probe OR investigation "
+    "OR court OR petition) when:30d",
 ]
 
 # --------------------------------------------------------------------------- #
@@ -173,6 +190,91 @@ SEVERITY_KEYWORDS = {
         "power cut", "water", "civic", "strike", "alert", "warning",
     ],
 }
+
+# --------------------------------------------------------------------------- #
+# Burning-issue / जन-सरोकार beat (editorial priority)
+# --------------------------------------------------------------------------- #
+# This page is an accountability-first outlet: it leads with the *burning issue* of the day —
+# disorder, misgovernance, economic distress, rights violations, civic breakdown — over
+# ceremonial / feel-good news. These keyword sets steer ranking ONLY; they never change what is
+# true. The pipeline still surfaces only stories that actually appear in the feeds, and the Groq
+# prompt keeps its hard rules (attribute unconfirmed facts, never fabricate). Boosting a theme
+# raises a *real, sourced* story's rank — it never invents allegations about any person, party or
+# company. All three lists below are plain config: edit them to tune the beat, no logic changes.
+#
+# ISSUE_KEYWORDS is grouped so a story that touches several *distinct* groups scores higher than
+# one that merely repeats a single theme (see issue_rank()). English terms, because the feeds are
+# English (severity_of already covers crime/deaths via SEVERITY_KEYWORDS[high]).
+ISSUE_KEYWORDS = {
+    "disorder": [
+        "chaos", "anarchy", "mayhem", "lawlessness", "lawless", "unrest", "disorder",
+        "mismanagement", "mismanaged", "breakdown", "collapse", "haphazard", "disarray",
+    ],
+    "governance": [
+        "corruption", "corrupt", "scam", "bribe", "bribery", "kickback", "scandal",
+        "negligence", "negligent", "apathy", "lapse", "dereliction", "inaction",
+        "cover up", "cover-up", "coverup", "red tape", "irregularit", "embezzl",
+        "misappropriat", "policy failure", "governance failure", "government failure",
+        "encroachment", "illegal", "flouting", "violation", "bulldozer", "demolition",
+        "demolished", "eviction", "evicted",
+    ],
+    "economy": [
+        "unemployment", "unemployed", "jobless", "job loss", "layoff", "lay-off",
+        "retrenchment", "hunger", "starvation", "starve", "malnutrition", "malnourish",
+        "poverty", "destitute", "inflation", "price rise", "price hike", "farmer distress",
+        "farmers protest", "msp", "crop loss", "debt",
+    ],
+    "rights": [
+        "human rights", "custodial", "atrocity", "atrocities", "caste violence",
+        "dalit", "adivasi", "minorit", "hate crime", "discrimination", "harassment",
+        "trafficking", "bonded labour", "child labour",
+    ],
+    "democracy": [
+        "evm", "electoral roll", "voter list", "booth capturing", "voter fraud",
+        "poll irregularit", "vote rigging", "electoral fraud", "voter suppression",
+    ],
+    "civic": [
+        "waterlogging", "water logging", "sewage", "garbage", "sanitation", "pothole",
+        "power cut", "outage", "blackout", "water crisis", "gridlock", "shortage",
+        "crumbling", "dilapidated", "stranded", "overflow",
+    ],
+}
+
+# Named public-accountability subjects — governments, offices and big-business houses whose
+# conduct is a matter of public interest. Public figures/entities, NOT private individuals. A
+# subject term only lifts a story's rank when it co-occurs with a failure/wrongdoing signal
+# (see issue_rank) — a bare mention is not enough, and framing always comes from the sourced facts.
+ACCOUNTABILITY_SUBJECTS = [
+    "government", "govt", "sarkar", "administration", "minister", "mantri", "cabinet",
+    "chief minister", "cm ", "bhajanlal", "bhajan lal", "bjp", "modi", "mla", "mp ",
+    "municipal", "nagar nigam", "jda", "jaipur development authority", "collector",
+    "corporation", "state government", "rajasthan government", "adani", "ambani", "reliance",
+]
+
+# Ceremonial / feel-good news that must not lead the "breaking" slot (see is_ceremonial &
+# apply_lead_policy). Only demoted when the cluster carries no serious severity and no issue
+# signal — a stampede or death *at* a procession is never treated as ceremonial.
+CEREMONIAL_KEYWORDS = [
+    "yatra", "rath", "procession", "shobha", "festival", "mela", "fair ", "celebration",
+    "celebrat", "tradition", "heritage", "inaugurat", "foundation stone", "felicitat",
+    "cultural", "jubilee", "anniversary", "devotees", "pilgrim", "temple event", "utsav",
+    "mahotsav", "ribbon", "launch event", "felicitation",
+]
+
+# Scoring weights (tunable). Recency is deliberately no longer the heaviest term — a burning
+# issue must outrank a merely-fresh ceremonial item. See cluster_items().
+W_ISSUE = 4.0             # weight on issue_rank (0-3) — the accountability boost
+W_RECENCY = 2.0           # was 4.0; freshness is now a tiebreaker, not the dominant term
+CEREMONIAL_PENALTY = 4.0  # subtracted from a ceremonial cluster's score
+# A cluster may LEAD ("breaking now") only if its newest item is this fresh. Older clusters
+# (e.g. pulled by the wider-window backfill queries) still seed the archive/timeline but are
+# never presented as breaking. See cluster_items()/apply_lead_policy().
+FRESH_LEAD_HOURS = 36.0
+
+# Max timeline points narrated per story. A weeks-long arc is down-sampled to this many points
+# (keeping the first and last, see _arc_sample) so the "घटनाक्रम" still spans शुरुआत → अब while the
+# Groq request stays within the TPM budget.
+TIMELINE_MAX = 30
 
 # Severity -> minimum minutes between *forced* (feed-changed) timeline updates.
 CADENCE_MINUTES = {"critical": 20, "high": 30, "medium": 60, "low": 120}
@@ -245,6 +347,38 @@ def severity_rank(level: str) -> int:
     return {"critical": 3, "high": 2, "medium": 1, "low": 0}.get(level, 0)
 
 
+def _cluster_text(cluster: dict) -> str:
+    return " ".join(
+        normalize(i["title"] + " " + i.get("summary", "")) for i in cluster["items"]
+    )
+
+
+def issue_rank(cluster: dict) -> int:
+    """0-3 'burning issue' score: how many DISTINCT accountability/disorder themes the story
+    touches (ISSUE_KEYWORDS groups), +1 when a named accountability subject (government/BJP/
+    Modi/Bhajanlal/Adani/Ambani…) co-occurs with an issue signal. Purely lexical, like
+    severity_of — it lifts the rank of a real, sourced story; it never invents one."""
+    text = " " + _cluster_text(cluster) + " "
+    groups = sum(1 for terms in ISSUE_KEYWORDS.values() if any(t in text for t in terms))
+    rank = groups
+    if groups and any(s in text for s in ACCOUNTABILITY_SUBJECTS):
+        rank += 1  # a public-accountability subject named alongside a failure/wrongdoing signal
+    return min(rank, 3)
+
+
+def is_ceremonial(cluster: dict) -> bool:
+    """True for feel-good / ceremonial news (yatra, festival, inauguration…) that must not lead
+    the breaking slot — but ONLY when the story carries no serious severity and no issue signal,
+    so a stampede or death *at* a procession is never demoted. Expects `severity` and `issue_rank`
+    already set on the cluster (see cluster_items)."""
+    text = " " + _cluster_text(cluster) + " "
+    if not any(c in text for c in CEREMONIAL_KEYWORDS):
+        return False
+    if cluster.get("severity", "low") in ("high", "critical"):
+        return False
+    return cluster.get("issue_rank", 0) == 0
+
+
 # --------------------------------------------------------------------------- #
 # Feed fetching
 # --------------------------------------------------------------------------- #
@@ -274,7 +408,7 @@ def clean_summary(raw: str | None) -> str:
     return re.sub(r"\s+", " ", text).strip()[:400]
 
 
-def fetch_feed(query: str) -> list[dict]:
+def fetch_feed(query: str, archival: bool = False) -> list[dict]:
     url = GNEWS.format(q=urllib.request.quote(query))
     try:
         raw = http_get(url)
@@ -309,6 +443,9 @@ def fetch_feed(query: str) -> list[dict]:
                 "source": source,
                 "published": parse_pubdate(item.findtext("pubDate")),
                 "summary": clean_summary(item.findtext("description")),
+                # archival=True items come from the wider-window backfill queries: they seed the
+                # timeline/archive but are too old to lead or show as a "breaking" card.
+                "archival": archival,
             }
         )
     return items
@@ -316,14 +453,25 @@ def fetch_feed(query: str) -> list[dict]:
 
 def gather_items() -> list[dict]:
     seen: dict[str, dict] = {}
-    for query in FEED_QUERIES:
-        for it in fetch_feed(query):
-            key = normalize(it["title"])[:80]
-            if not key:
-                continue
-            prev = seen.get(key)
-            if prev is None or it["published"] > prev["published"]:
-                seen[key] = it
+
+    def consider(it: dict) -> None:
+        key = normalize(it["title"])[:80]
+        if not key:
+            return
+        prev = seen.get(key)
+        # Prefer a fresh (non-archival) sighting over a backfill duplicate; otherwise the newest.
+        # A tuple compare: (is_fresh, published) — True sorts above False, then newer wins.
+        if prev is None or (not it.get("archival", False), it["published"]) > (
+            not prev.get("archival", False), prev["published"]
+        ):
+            seen[key] = it
+
+    for query in FEED_QUERIES:          # fresh sightings first (when:1d/2d)
+        for it in fetch_feed(query, archival=False):
+            consider(it)
+    for query in ARCHIVAL_QUERIES:      # then wider-window backfill (when:14d/30d)
+        for it in fetch_feed(query, archival=True):
+            consider(it)
     items = list(seen.values())
     items.sort(key=lambda x: x["published"], reverse=True)
     return items
@@ -358,14 +506,19 @@ def cluster_items(items: list[dict], threshold: float = 0.28) -> list[dict]:
         age_h = max((now_utc() - newest).total_seconds() / 3600, 0.0)
         recency = max(0.0, 24.0 - age_h) / 24.0  # 1.0 = brand new, 0 = ~24h old
         cl["police_flag"] = is_police_misconduct(cl)
-        # This score ranks stories by newsworthiness. On a day with a major event it also
-        # picks the lead; on a quiet day (no high/critical local story) apply_lead_policy
-        # promotes the top police-incompetency story to lead instead. Police stories always
-        # keep their high priority inside "यह भी ब्रेकिंग" (see order_secondary).
+        cl["issue_rank"] = issue_rank(cl)          # burning-issue / accountability strength (0-3)
+        cl["ceremonial"] = is_ceremonial(cl)       # feel-good item that must not lead
+        cl["fresh"] = age_h <= FRESH_LEAD_HOURS    # lead/secondary eligibility (vs archive-only)
+        # Newsworthiness score. The page leads with the BURNING ISSUE, not merely the newest item:
+        # importance (severity) and the accountability/disorder signal (issue_rank) dominate;
+        # recency is a tiebreaker (W_RECENCY, was 4.0); ceremonial/feel-good stories are penalised.
+        # apply_lead_policy then enforces the lead rules; order_secondary front-loads issue stories.
         cl["score"] = (
             severity_rank(cl["severity"]) * 3.0
+            + cl["issue_rank"] * W_ISSUE
             + min(len(cl["items"]), 6) * 1.0
-            + recency * 4.0
+            + recency * W_RECENCY
+            - (CEREMONIAL_PENALTY if cl["ceremonial"] else 0.0)
         )
     clusters.sort(key=lambda c: c["score"], reverse=True)
     return clusters
@@ -388,15 +541,16 @@ def is_police_misconduct(cluster: dict) -> bool:
 
 
 def order_secondary(clusters: list[dict]) -> list[dict]:
-    """The 'यह भी ब्रेकिंग' pool (max 5), excluding the lead. Police-misconduct stories
-    are pulled from the whole list and placed first (standing high priority), so they are
-    guaranteed a slot even when many other stories outrank them on newsworthiness; the
-    remaining slots go to the next most newsworthy stories. `clusters` is already sorted by
-    score, so each group keeps its score order."""
-    pool = clusters[1:]
+    """The 'यह भी ब्रेकिंग' pool (max 5), excluding the lead. Only fresh (current) clusters show —
+    archive-only backfill items never appear as breaking cards. Police-accountability and
+    burning-issue stories are pulled to the front (standing priority) so they keep a slot even when
+    other stories outrank them; the rest follow by score. `clusters` is already sorted by score, so
+    each group keeps its order."""
+    pool = [c for c in clusters[1:] if c.get("fresh", True)]
     police = [c for c in pool if c.get("police_flag")]
-    rest = [c for c in pool if not c.get("police_flag")]
-    return (police + rest)[:5]
+    issue = [c for c in pool if not c.get("police_flag") and c.get("issue_rank", 0) > 0]
+    rest = [c for c in pool if not c.get("police_flag") and c.get("issue_rank", 0) == 0]
+    return (police + issue + rest)[:5]
 
 
 def is_local(cluster: dict) -> bool:
@@ -415,29 +569,45 @@ def filter_local(clusters: list[dict]) -> list[dict]:
     return [c for c in clusters if is_local(c)]
 
 
-# "Major event" bar: a police-incompetency story is promoted to lead only when the top local
-# story is NOT a major event, i.e. its severity is medium/low. Any high/critical story
-# (disaster, terror, fatal accident, big fire, murder, rape, riot) keeps the newsworthiness
-# lead. severity_rank: critical=3, high=2, medium=1, low=0.
+# "Major event" bar: severity high/critical (disaster, terror, fatal accident, big fire, murder,
+# rape, riot). Used to decide when a genuine disaster outranks the standing police-accountability
+# promotion. severity_rank: critical=3, high=2, medium=1, low=0.
 MAJOR_MIN_RANK = 2  # 'high'
 
 
 def apply_lead_policy(clusters: list[dict]) -> list[dict]:
-    """On a day with no major breaking event, promote the top police-incompetency story to
-    the lead (standing priority); otherwise keep the newsworthiness lead. `clusters` is
-    already sorted by score, so `police[0]` is the strongest police-incompetency cluster."""
+    """Choose the lead (clusters[0]) under the burning-issue-first editorial policy.
+
+    - Only a FRESH cluster can lead — archive-only backfill items seed the timeline but are never
+      presented as "breaking now".
+    - A ceremonial / feel-good story leads ONLY on a day with no disorder / accountability / serious
+      (injury-death) story at all; otherwise the burning issue leads.
+    - Standing priority: on a day with no MAJOR event (high/critical), a police-accountability story
+      is promoted to lead; a genuine disaster still leads when present.
+
+    `clusters` is already score-sorted (issue-boosted, ceremonial-penalised), so each filtered list
+    keeps its order and `[0]` is the strongest of its kind."""
     if not clusters:
         return clusters
-    police = [c for c in clusters if c.get("police_flag")]
-    if not police:
-        return clusters
-    major = (
-        severity_rank(clusters[0]["severity"]) >= MAJOR_MIN_RANK
-        or any(c["severity"] == "critical" for c in clusters)
-    )
-    if major:
-        return clusters
-    lead = police[0]
+    fresh = [c for c in clusters if c.get("fresh", True)]
+    if not fresh:
+        return clusters  # nothing current; build() keeps the last good page rather than lead stale
+
+    def qualifies(c: dict) -> bool:  # a burning issue / accountability / serious story
+        return bool(
+            c.get("police_flag")
+            or c.get("issue_rank", 0) > 0
+            or severity_rank(c.get("severity", "low")) >= MAJOR_MIN_RANK
+        )
+
+    serious = [c for c in fresh if qualifies(c) and not c.get("ceremonial")]
+    if serious:
+        police = [c for c in serious if c.get("police_flag")]
+        major = any(severity_rank(c.get("severity", "low")) >= MAJOR_MIN_RANK for c in serious)
+        lead = police[0] if (police and not major) else serious[0]
+    else:
+        lead = fresh[0]  # quiet day — nothing but ceremonial/neutral news; never blank
+
     return [lead] + [c for c in clusters if c is not lead]
 
 
@@ -492,23 +662,22 @@ def groq_pick_model(api_key: str) -> str:
     return env_model or MODEL_PREFERENCE[0]
 
 
-def groq_analyze(api_key: str, clusters: list[dict], story: dict) -> dict | None:
-    """Ask Groq for a deep HINDI package covering the story's full multi-day arc:
-    long analysis, key facts, dated developments, police accountability, what-next,
-    Hindi source titles and Hindi secondary stories."""
+def groq_analyze(api_key: str, clusters: list[dict], points: list[dict]) -> dict | None:
+    """Ask Groq for a deep HINDI package covering the story's full multi-week arc: long analysis,
+    key facts, dated developments (one per archived timeline point, oldest→newest), police
+    accountability, what-next, Hindi source titles and Hindi secondary stories. `points` is the
+    already down-sampled archived arc (oldest first) — see _arc_sample()/TIMELINE_MAX."""
     model = groq_pick_model(api_key)
     lead = clusters[0]
-    others = order_secondary(clusters)  # police-misconduct stories first
+    others = order_secondary(clusters)  # police + burning-issue stories first
     lead_sources = [s["title"] for s in cluster_sources(lead, limit=6)]
     lead_snippets = [i["summary"] for i in lead["items"][:5] if i["summary"]][:5]
-    # The archived arc: every dated development point we have gathered for this story.
-    # `when` carries the exact Hindi date+time so the AI can label each development with a
-    # real timestamp instead of a bare date.
+    # The archived arc, oldest→newest. `when` carries the exact Hindi date+time so the AI labels
+    # each development with a real timestamp; the payload is kept lean to respect the Groq TPM cap.
     history = [
-        {"when": _hindi_point_label(p), "date": p.get("date", ""),
-         "report": p.get("text_en", ""), "source": p.get("source", "")}
-        for p in story.get("points", [])
-    ][-40:]
+        {"when": _hindi_point_label(p), "report": p.get("text_en", "")}
+        for p in points
+    ]
 
     system = (
         "आप जयपुर (राजस्थान, भारत) की एक हिंदी न्यूज़ वेबसाइट के वरिष्ठ समाचार संपादक हैं। "
@@ -536,14 +705,15 @@ def groq_analyze(api_key: str, clusters: list[dict], story: dict) -> dict | None
             "event_type": "one of: terror, fire, earthquake, flood, accident, "
                           "crime, investigation, protest, civic, weather, other",
             "severity": "one of: critical, high, medium, low",
-            "analysis": "3-5 सुसंगत, बहु-वाक्य पैराग्राफ की विस्तृत हिंदी रिपोर्ट (प्रवाहमय गद्य, "
+            "analysis": "3-4 सुसंगत, बहु-वाक्य पैराग्राफ की विस्तृत हिंदी रिपोर्ट (प्रवाहमय गद्य, "
                         "टुकड़ों में नहीं) — पृष्ठभूमि, शुरुआत से अब तक का पूरा घटनाक्रम, मौजूदा स्थिति; "
                         "हर पैराग्राफ में कई वाक्य हों; पैराग्राफ \\n\\n से अलग करें",
             "key_facts": "4-8 हिंदी बिंदुओं की array (छोटे तथ्य)",
-            "developments": "objects की array [{date_label, text}] — घटनाक्रम पुराने से नए क्रम में "
-                            "(oldest first), story_history के अनुसार; date_label = उसी बिंदु का हिंदी "
-                            "दिनांक व समय, story_history के 'when' से (जैसे '13 जुलाई, दोपहर 4:06 बजे'); "
-                            "समय ज्ञात न हो तो केवल तिथि; समय कभी न गढ़ें; text = विस्तृत हिंदी वाक्य",
+            "developments": "objects की array [{date_label, text}] — story_history के हर बिंदु के लिए "
+                            "ठीक एक प्रविष्टि, उसी क्रम में (oldest→newest; कोई बिंदु न छोड़ें, न जोड़ें); "
+                            "date_label = उसी बिंदु के story_history 'when' से हूबहू (जैसे "
+                            "'13 जुलाई, दोपहर 4:06 बजे'); समय ज्ञात न हो तो केवल तिथि; समय कभी न गढ़ें; "
+                            "text = 1 संक्षिप्त, सुस्पष्ट हिंदी वाक्य",
             "police_accountability": "हिंदी पैराग्राफ — जयपुर/राजस्थान पुलिस की लापरवाही/देरी/चूक/"
                                      "आलोचना के प्रमाणित तथ्य; यदि स्रोतों में कुछ नहीं तो खाली स्ट्रिंग",
             "what_next": "1-2 हिंदी वाक्य — आगे क्या संभावित/अपेक्षित है",
@@ -560,7 +730,10 @@ def groq_analyze(api_key: str, clusters: list[dict], story: dict) -> dict | None
                 {"role": "user", "content": json.dumps(user, ensure_ascii=False)},
             ],
             "temperature": 0.35,
-            "max_tokens": 4500,
+            # TPM-safe: the archived arc is down-sampled (TIMELINE_MAX) and the history payload is
+            # lean, so prompt + max_tokens stays comfortably under Groq's 8000 TPM cap. Do NOT raise
+            # this past ~5500 on this tier — see AGENTS.md "Groq TPM gotcha".
+            "max_tokens": 5000,
             "response_format": {"type": "json_object"},
         }
     ).encode()
@@ -635,27 +808,36 @@ def _days_ago(iso: str, now: datetime) -> float:
     return (now - dt).total_seconds() / 86400.0
 
 
-def update_archive(archive: dict, cluster: dict, now: datetime) -> dict:
-    """Match the lead cluster to an existing archived story (or start one), append
-    any new source items as dated development points, prune >30-day data, and return
-    the matched story (with its full multi-day history)."""
+# Cross-run "same story" matching. A slightly looser threshold and larger keyword memory than the
+# same-run clustering keep a weeks-long arc mapped to ONE archive entry, instead of fragmenting into
+# several one-day stories as the headline wording drifts day to day.
+ARCHIVE_MATCH_MIN = 0.24   # was 0.30
+ARCHIVE_KW_CAP = 40        # was 24
+
+
+def ingest_cluster(archive: dict, cluster: dict, now: datetime) -> dict:
+    """Match one cluster to an existing archived story (or start a new one) and append its items as
+    new dated development points. Called for EVERY Jaipur-local cluster each run — not just the lead
+    — so an ongoing story keeps gaining timeline points even on days it is not the headline, and the
+    wider-window backfill items seed the weeks that preceded it. Returns the matched story. Does not
+    prune — call prune_archive() once after all clusters are ingested."""
     kw = set(cluster["keywords"])
     best, best_sim = None, 0.0
     for story in archive["stories"]:
         sim = jaccard(kw, set(story.get("keywords", [])))
         if sim > best_sim:
             best, best_sim = story, sim
-    if best is None or best_sim < 0.30:
+    if best is None or best_sim < ARCHIVE_MATCH_MIN:
         best = {
             "id": cluster_id(cluster),
             "first_seen": now.isoformat(),
-            "keywords": sorted(kw)[:24],
+            "keywords": sorted(kw)[:ARCHIVE_KW_CAP],
             "points": [],
         }
         archive["stories"].append(best)
     else:
         # keep the keyword set fresh as the story evolves
-        best["keywords"] = sorted(set(best.get("keywords", [])) | kw)[:24]
+        best["keywords"] = sorted(set(best.get("keywords", [])) | kw)[:ARCHIVE_KW_CAP]
 
     best["last_seen"] = now.isoformat()
     seen_urls = {p.get("url") for p in best["points"]}
@@ -674,19 +856,20 @@ def update_archive(archive: dict, cluster: dict, now: datetime) -> dict:
         })
         seen_urls.add(it["link"])
         seen_titles.add(key)
+    # Chronological history, oldest first.
+    best["points"].sort(key=lambda p: p.get("iso", ""))
+    return best
 
-    # Prune old points, then old stories.
+
+def prune_archive(archive: dict, now: datetime) -> None:
+    """Drop development points older than ARCHIVE_DAYS, then drop stories with no recent activity
+    or no points. Run ONCE, after every cluster has been ingested."""
     for story in archive["stories"]:
         story["points"] = [p for p in story.get("points", [])
                            if _days_ago(p.get("iso", ""), now) <= ARCHIVE_DAYS]
     archive["stories"] = [s for s in archive["stories"]
                           if _days_ago(s.get("last_seen", ""), now) <= ARCHIVE_DAYS
                           and s.get("points")]
-    if best not in archive["stories"]:
-        archive["stories"].append(best)
-    # Chronological history, oldest first.
-    best["points"].sort(key=lambda p: p.get("iso", ""))
-    return best
 
 
 def minutes_since(iso: str | None) -> float:
@@ -771,6 +954,9 @@ def _build_cluster(items: list[dict]) -> dict:
         key=severity_rank,
     )
     cl["police_flag"] = is_police_misconduct(cl)
+    cl["issue_rank"] = issue_rank(cl)
+    cl["ceremonial"] = is_ceremonial(cl)
+    cl["fresh"] = True  # a manual pin is always eligible to lead
     cl["score"] = 1e6  # pinned to the front regardless of the usual newsworthiness score
     return cl
 
@@ -865,13 +1051,20 @@ def build() -> None:
         if clusters:
             clusters = [clusters[0]] + filter_local(clusters[1:])
     else:
-        # Quiet day (no high/critical local story) → lead with the top police-incompetency story.
+        # Burning-issue-first lead policy: the disorder/accountability/serious story of the day
+        # leads; ceremonial/feel-good items are kept out of the lead unless nothing else qualifies.
         clusters = apply_lead_policy(clusters)
     if not clusters:
         print("No clusters to render; keeping existing page (no commit).")
         return
 
     top = clusters[0]
+    # Never headline a stale item as "breaking now": if the auto-picked lead isn't fresh (e.g. only
+    # the wider-window backfill produced clusters), keep the last good page. Manual pins are exempt.
+    if not override and not top.get("fresh", True):
+        print("No fresh Jaipur-local lead; keeping existing page (no commit).")
+        return
+
     feed_hash = hashlib.sha1(
         "|".join(normalize(i["title"]) for i in top["items"]).encode()
     ).hexdigest()[:16]
@@ -886,17 +1079,24 @@ def build() -> None:
         print("No change in top-story feed; skipping update (no commit).")
         return
 
-    # Accumulate the story's multi-day history so the AI can narrate the full arc.
+    # Accumulate EVERY local story's multi-day history — not just the lead — so ongoing stories keep
+    # building their arc even on days they aren't the headline, and the wider-window backfill seeds
+    # the weeks that preceded today. Then narrate the lead's full arc.
     archive = load_archive()
-    story = update_archive(archive, top, now)
-    print(f"  archive: lead story carries {len(story['points'])} dated point(s) "
-          f"(≤{ARCHIVE_DAYS}d)")
+    story = ingest_cluster(archive, top, now)   # the lead — capture its arc for the AI
+    for cl in clusters[1:]:
+        ingest_cluster(archive, cl, now)
+    prune_archive(archive, now)
+    # Down-sample a weeks-long arc so the timeline still spans शुरुआत → अब within the TPM budget.
+    arc = _arc_sample(story.get("points", []), TIMELINE_MAX)
+    print(f"  archive: {len(archive['stories'])} story(ies); lead carries "
+          f"{len(story['points'])} dated point(s) (≤{ARCHIVE_DAYS}d), narrating {len(arc)}")
 
     lead = None
     other_stories: list[dict] = []
     if use_ai:
         print("Asking Groq for analysis...")
-        ai = groq_analyze(api_key, clusters, story)
+        ai = groq_analyze(api_key, clusters, arc)
         if ai:
             lead, other_stories = _lead_from_ai(ai, clusters)
 
@@ -906,7 +1106,7 @@ def build() -> None:
         lead, other_stories = _holding_lead(), []
 
     # Stamp the timeline with real archived date+time where the mapping is unambiguous.
-    attach_dev_times(lead, story)
+    attach_dev_times(lead, arc)
 
     state.update(
         {
@@ -943,7 +1143,7 @@ def _lead_from_ai(ai: dict, clusters: list[dict]) -> tuple[dict | None, list[dic
     what_next = (ai.get("what_next") or "").strip()
 
     developments = []
-    for d in (ai.get("developments") or [])[:14]:
+    for d in (ai.get("developments") or [])[:TIMELINE_MAX]:
         if isinstance(d, dict):
             text = (d.get("text") or "").strip()
             label = (d.get("date_label") or d.get("label") or "").strip()
@@ -1077,13 +1277,22 @@ def _hindi_point_label(point: dict) -> str:
         return label
 
 
-def attach_dev_times(lead: dict, story: dict) -> None:
-    """Give each timeline development a real archived timestamp when the mapping is
-    unambiguous. The AI narrates story points oldest-first, so when the counts match we
-    align by index and use the point's exact IST date+time (never fabricated). Otherwise
+def _arc_sample(points: list[dict], n: int) -> list[dict]:
+    """Down-sample a long point list to <=n items while keeping chronological order and always the
+    first and last points, so a weeks-long arc narrated to the AI still spans शुरुआत → अब."""
+    if len(points) <= n or n <= 0:
+        return points
+    step = (len(points) - 1) / (n - 1)
+    idxs = sorted({round(i * step) for i in range(n)})  # includes 0 and len-1 (first & last)
+    return [points[i] for i in idxs]
+
+
+def attach_dev_times(lead: dict, points: list[dict]) -> None:
+    """Give each timeline development a real archived timestamp when the mapping is unambiguous. The
+    AI narrates the (down-sampled) arc oldest-first, one development per point, so when the counts
+    match we align by index and use the point's exact IST date+time (never fabricated). Otherwise
     the AI's own `date_label` is left untouched."""
     devs = lead.get("developments") or []
-    points = story.get("points") or []
     if devs and len(devs) == len(points):
         for dev, point in zip(devs, points):
             label = _hindi_point_label(point)

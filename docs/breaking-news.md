@@ -20,9 +20,20 @@ an operator guide.
 - **Jaipur-city only:** a hard locality gate (`is_local` / `filter_local`) drops any
   cluster that does not actually mention Jaipur (or a known Jaipur locality), so a national
   item that leaks into a broad feed query — e.g. an Assam flood — can never lead the page.
-- **Police-incompetence priority:** on a day with **no major breaking event** (no
-  high/critical local story), the top sourced police-incompetence story is promoted to the
-  **lead**; on a busy day the lead is the top story by newsworthiness (see §1 item 8).
+- **Burning-issue / accountability beat (lead priority):** the page leads with the *burning
+  issue* of the day — disorder (अराजकता / अव्यवस्था / गड़बड़ी), misgovernance, economic distress
+  (unemployment, hunger), crime, human-rights violations, election-integrity concerns, crony-
+  capitalism (Adani / Ambani) and government/administration failure — **over ceremonial /
+  feel-good news**, which is barred from the lead unless nothing else qualifies. A sourced
+  police-incompetence story keeps its standing promotion on a quiet day. The lead is scored by
+  `issue_rank` + severity, **not recency alone** (see §1 item 8).
+- **Guardrail (never fabricate):** only stories that **actually appear in the feeds** are ever
+  ranked up, and the AI never invents facts — boosting a theme changes the *ranking of real,
+  sourced news*, never its truth. No allegation is manufactured about any person, party or
+  company; the named accountability subjects (government / BJP / Modi / Bhajanlal / Adani /
+  Ambani…) only raise a story's rank **when a real story names them**, and framing comes from the
+  sourced facts. The theme lists (`ISSUE_KEYWORDS`, `ACCOUNTABILITY_SUBJECTS`, `CEREMONIAL_KEYWORDS`)
+  are top-of-file config in `build_breaking_news.py` — edit them to tune the beat.
 - Never blank: when the feeds have Jaipur-local items there is always a lead story; if a run
   finds none (or the AI is unreachable), the last good page is kept / a clean Hindi holding
   page shows.
@@ -57,24 +68,37 @@ it; the story body follows directly. Section order below the header:
    the sources report it; **never fabricated**. Accent-styled card.
 6. **आगे क्या** — short outlook.
 7. **स्रोत** — source cards (Hindi titles, same-tab links).
-8. **यह भी ब्रेकिंग** ("is also breaking") — other current Jaipur stories, drawn from the feeds
-   and the 30-day archive. **Police-incompetence/misconduct stories are given high priority
-   here** — they are pulled from the whole story list and placed first, so a sourced police
-   lapse always surfaces in this section even when other stories outrank it on newsworthiness.
-   Detection is precise: an ordinary crime story that merely quotes the police is **not** flagged;
-   only strong police-context misconduct (lathicharge, custodial, negligence, misconduct,
-   suspension, dereliction, brutality…) or a force verb with the police as the subject/agent
-   ("police beat…", "…beaten by police") counts. **Lead selection:** on a day with **no major
-   breaking event** — no high/critical local story (no disaster, terror, fatal accident, big
-   fire, murder, riot…) — the top police-incompetence story is **promoted to the lead**
-   (`apply_lead_policy`); otherwise the lead is the top story by newsworthiness and the police
-   story keeps its high-priority slot here in "यह भी ब्रेकिंग".
+8. **यह भी ब्रेकिंग** ("is also breaking") — other **current** Jaipur stories (only fresh clusters;
+   archive-only backfill items never show here). **Police-incompetence and burning-issue stories are
+   front-loaded** (`order_secondary`: police first, then `issue_rank>0`, then the rest by score), so
+   a sourced police lapse or accountability story always surfaces here even when other stories
+   outrank it. Police detection stays precise: an ordinary crime story that merely quotes the police
+   is **not** flagged; only strong police-context misconduct (lathicharge, custodial, negligence,
+   misconduct, suspension, dereliction, brutality…) or a force verb with the police as subject/agent
+   ("police beat…", "…beaten by police") counts. **Lead selection (`apply_lead_policy`):** only a
+   **fresh** cluster can lead; a ceremonial / feel-good story leads **only** on a day with no
+   disorder / accountability / serious (injury-death) story at all; otherwise the burning issue of
+   the day leads. On a day with no **major** event (high/critical), a police-accountability story is
+   promoted; a genuine disaster still leads when present. Score:
+   `severity×3 + issue_rank×4 + min(sources,6)×1 + recency×2 − ceremonial_penalty`.
 
 ### Multi-day tracking
 - A rolling **30-day archive** (`breaking/data/archive.json`) accumulates each ongoing
-  story's dated development points, so the AI can narrate a week-long arc end-to-end
+  story's dated development points, so the AI can narrate a multi-week arc end-to-end
   (e.g. *daughter accused of mother's murder → probe widens to father's 2025 death*).
   Google News RSS alone only exposes ~24–48h, which is why the archive exists.
+- **Every Jaipur-local story is archived each run — not just the lead** (`ingest_cluster` for all
+  clusters, then a single `prune_archive`), so an ongoing story keeps gaining points even on days
+  it isn't the headline, instead of the timeline collapsing to one day.
+- **Wider-window backfill:** `ARCHIVAL_QUERIES` (`when:14d`/`when:30d`, accountability-themed) pull
+  the weeks of coverage that preceded today so a newly-prominent story shows a real multi-week
+  timeline immediately. These items are tagged `archival` and — being older than `FRESH_LEAD_HOURS`
+  — seed the archive/timeline only; they can never become the "breaking" lead or a visible card.
+- **Cross-run matching** is a little looser (`ARCHIVE_MATCH_MIN = 0.24`, keyword memory 40) so a
+  weeks-long arc stays **one** archive entry instead of fragmenting into several one-day stories.
+- The narrated timeline is **down-sampled to `TIMELINE_MAX` points** (keeping the first and last,
+  `_arc_sample`) so a month-long arc still spans शुरुआत → अब while the single Groq request stays
+  within the 8000-TPM budget; each point keeps its **real** archived Hindi date+time.
 
 ### Branding
 - The red live banner **is** the header; the **जयपुर न्यूज़** wordmark linking to
@@ -112,11 +136,13 @@ breaking/data/archive.json            # rolling 30-day story history
 breaking/data/override.json           # optional manual pin (force a chosen story to lead)
 ```
 
-Each run: fetch Google News RSS for Jaipur + event terms → cluster into stories → **keep only
-Jaipur-city stories (locality gate)** → **on a quiet day promote the top police-incompetence
-story to lead** (`apply_lead_policy`) → match the lead to the archived ongoing story (or start
-one) and append new dated points → call **Groq** (OpenAI-compatible) for the full Hindi package
-→ render `breaking/index.html` (+ RSS + sitemap) → commit **only if something changed**.
+Each run: fetch Google News RSS for Jaipur + event/issue terms (plus wider-window backfill) →
+cluster into stories → **keep only Jaipur-city stories (locality gate)** → **lead with the burning
+issue of the day; keep ceremonial out of the lead** (`apply_lead_policy`) → **archive every local
+story** (`ingest_cluster` for all clusters, then `prune_archive`), so each ongoing story keeps its
+multi-week arc → call **Groq** (OpenAI-compatible) for the full Hindi package over the lead's
+down-sampled arc → render `breaking/index.html` (+ RSS + sitemap) → commit **only if something
+changed**.
 
 Notes learned along the way:
 - **Groq is behind Cloudflare**, which returns `403 error code 1010` to requests with a

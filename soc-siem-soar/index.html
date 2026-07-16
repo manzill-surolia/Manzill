@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#0e3a5f">
+
+    <title>SOC · SIEM · SOAR: What Each Layer Actually Does | Manzill Surolia</title>
+    <meta name="description" content="SIEM sees, SOAR acts, the SOC decides. A facts-first breakdown of the detection-to-response pipeline — SOC roles, SIEM capabilities and limits, SOAR playbooks, the MTTD/MTTR clocks, and why the three are converging into XDR. By Manzill Surolia.">
+    <meta name="keywords" content="SOC, SIEM, SOAR, security operations center, MTTD, MTTR, incident response, threat hunting, SOAR playbooks, XDR, alert triage, security automation">
+    <meta name="author" content="Manzill Surolia">
+
+    <link rel="canonical" href="https://www.manzill.com/soc-siem-soar">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="icon" type="image/png" sizes="512x512" href="/icon.png">
+    <link rel="apple-touch-icon" href="/icon.png">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Manzill Surolia">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:title" content="SOC · SIEM · SOAR: What Each Layer Actually Does">
+    <meta property="og:description" content="SIEM sees, SOAR acts, the SOC decides. The detection-to-response pipeline — roles, capabilities, limits, and the MTTD/MTTR clocks — mapped.">
+    <meta property="og:url" content="https://www.manzill.com/soc-siem-soar">
+    <meta property="og:image" content="https://www.manzill.com/manzill-og.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:alt" content="Manzill Surolia &mdash; SOC, SIEM, SOAR">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="SOC · SIEM · SOAR: What Each Layer Actually Does">
+    <meta name="twitter:description" content="SIEM sees, SOAR acts, the SOC decides. The detection-to-response pipeline, mapped. By Manzill Surolia.">
+    <meta name="twitter:image" content="https://www.manzill.com/manzill-og.png">
+    <meta name="twitter:image:alt" content="Manzill Surolia &mdash; SOC, SIEM, SOAR">
+
+    <!-- Fonts: Inter (modern UI) with system fallback -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap">
+
+    <script>document.documentElement.classList.add('js');</script>
+
+    <style>
+:root {
+  --brand: #0e3a5f;
+  --brand-dark: #082438;
+  --link: #0d5d92;
+  --accent: #12a5b8;
+  --bg: #f6f8fa;
+  --surface: #ffffff;
+  --text: #0f1a24;
+  --muted: #55636e;
+  --border: #dde4ea;
+  --shadow: 0 1px 3px rgba(0,0,0,.06), 0 4px 12px rgba(0,0,0,.04);
+  --radius: 12px;
+  --maxw: 1100px;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --link: #5cb3e0;
+    --bg: #0d1117;
+    --surface: #161b22;
+    --text: #e6edf3;
+    --muted: #8b98a5;
+    --border: #26303b;
+    --shadow: 0 1px 3px rgba(0,0,0,.4), 0 4px 12px rgba(0,0,0,.3);
+  }
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: inherit; text-decoration: none; }
+img { display: block; max-width: 100%; height: auto; }
+
+header.site { background: var(--brand); color: #fff; border-bottom: 3px solid var(--accent); box-shadow: var(--shadow); }
+.bar { max-width: var(--maxw); margin: 0 auto; padding: 12px 16px; display: flex; align-items: center; gap: 12px; }
+.brand { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 1.4rem; }
+.brand .logo { width: 34px; height: 34px; background: #fff; color: var(--brand); border-radius: 8px; display: grid; place-items: center; font-weight: 900; font-size: 1.15rem; font-family: system-ui, sans-serif; }
+
+main { max-width: var(--maxw); margin: 0 auto; padding: 20px 16px 60px; }
+
+.section-head { display: flex; align-items: baseline; gap: 12px; margin: 8px 0 14px; }
+.section-head h2 { font-size: 1.25rem; margin: 0; padding-left: 12px; border-left: 4px solid var(--brand); font-weight: 800; }
+
+.tabs { display: flex; gap: 6px; overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: thin; background: var(--surface); border: 1px solid var(--border); border-radius: 999px; padding: 6px; margin: 4px 0 22px; position: sticky; top: 8px; z-index: 10; box-shadow: var(--shadow); }
+.tabs::-webkit-scrollbar { height: 4px; }
+.tab { flex: 0 0 auto; background: transparent; border: 0; color: var(--text); text-decoration: none; padding: 8px 14px; border-radius: 999px; font-family: inherit; font-size: .92rem; font-weight: 600; cursor: pointer; white-space: nowrap; display: inline-flex; align-items: center; gap: 6px; transition: background .15s ease, color .15s ease; }
+.tab:hover { background: rgba(14,58,95,.08); }
+.tab[aria-selected="true"] { background: var(--brand); color: #fff; }
+@media (prefers-color-scheme: dark) { .tab:hover { background: rgba(255,255,255,.06); } }
+
+.editorial-card { background: var(--surface); border: 1px solid var(--border); border-left: 4px solid var(--accent); border-radius: var(--radius); padding: 18px 20px; margin-bottom: 18px; box-shadow: var(--shadow); }
+.editorial-card h2 { margin: 0 0 10px; font-size: 1.1rem; font-weight: 800; color: var(--link); }
+.editorial-card p { margin: 0 0 12px; font-size: .95rem; line-height: 1.7; }
+.editorial-card .byline { margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--border); font-size: .85rem; color: var(--muted); }
+.editorial-card .byline strong { color: var(--text); }
+
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
+
+.hero { margin: 26px 0 6px; }
+.hero .eyebrow { margin: 0 0 6px; font-size: .8rem; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; color: var(--link); }
+.hero h1 { font-size: clamp(1.5rem, 3.2vw, 2.05rem); line-height: 1.12; letter-spacing: -.015em; margin: 0; font-weight: 800; }
+.hero .sub { margin: .5rem 0 0; color: var(--muted); font-size: clamp(1rem, 2.2vw, 1.18rem); max-width: 62ch; }
+
+.layout { display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: 30px; align-items: start; }
+article.content, aside.sidebar { min-width: 0; }
+article.content > section { margin-bottom: 40px; scroll-margin-top: 64px; }
+article.content > section:first-child { margin-top: 6px; }
+article.content p { margin: 0 0 14px; }
+.lede { font-size: 1.06rem; line-height: 1.72; }
+.note { font-size: .88rem; color: var(--muted); margin: 6px 0 0; }
+.reading { color: var(--muted); }
+
+.stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin: 18px 0 22px; }
+.stat { background: linear-gradient(135deg, var(--brand), var(--brand-dark)); color: #fff; border-radius: var(--radius); padding: 16px 16px 14px; box-shadow: var(--shadow); display: flex; flex-direction: column; gap: 4px; border-top: 3px solid var(--accent); }
+.stat .num { font-size: 2rem; font-weight: 900; line-height: 1; letter-spacing: -.02em; }
+.stat .lbl { font-size: .82rem; opacity: .95; line-height: 1.35; }
+
+.table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow); background: var(--surface); }
+table.data-table { border-collapse: collapse; width: 100%; font-size: .92rem; }
+table.data-table th, table.data-table td { text-align: left; padding: 11px 14px; vertical-align: top; border-bottom: 1px solid var(--border); }
+table.data-table thead th { background: var(--brand); color: #fff; font-weight: 700; font-size: .82rem; letter-spacing: .01em; white-space: nowrap; }
+table.data-table tbody tr:nth-child(even) { background: rgba(14,58,95,.035); }
+table.data-table tbody tr:last-child td { border-bottom: 0; }
+table.data-table tbody tr:hover { background: rgba(14,58,95,.07); }
+td.ref { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-weight: 700; color: var(--link); white-space: nowrap; }
+.tag { display: inline-block; font-size: .72rem; font-weight: 700; padding: 2px 8px; border-radius: 999px; white-space: nowrap; background: rgba(18,165,184,.14); color: var(--link); }
+@media (prefers-color-scheme: dark) {
+  table.data-table tbody tr:nth-child(even) { background: rgba(255,255,255,.03); }
+  table.data-table tbody tr:hover { background: rgba(14,58,95,.16); }
+}
+
+.callout { background: rgba(18,165,184,.10); border: 1px solid var(--border); border-left: 4px solid var(--accent); border-radius: var(--radius); padding: 14px 18px; margin: 16px 0 0; }
+.callout p { margin: 0; font-weight: 600; color: var(--text); }
+
+/* pipeline flow */
+.flow { display: flex; flex-wrap: wrap; align-items: stretch; gap: 10px; margin: 18px 0 4px; }
+.flow .step { flex: 1 1 150px; background: var(--surface); border: 1px solid var(--border); border-top: 3px solid var(--accent); border-radius: var(--radius); padding: 12px 14px; box-shadow: var(--shadow); }
+.flow .step .k { font-size: .74rem; font-weight: 800; letter-spacing: .04em; text-transform: uppercase; color: var(--link); }
+.flow .step .v { font-size: .9rem; margin-top: 4px; }
+.flow .arrow { align-self: center; color: var(--muted); font-weight: 900; }
+@media (max-width: 620px) { .flow .arrow { display: none; } }
+
+ul.takeaways { margin: 6px 0 0; padding-left: 0; list-style: none; }
+ul.takeaways li { position: relative; padding: 10px 0 10px 30px; border-bottom: 1px solid var(--border); font-size: .98rem; }
+ul.takeaways li:last-child { border-bottom: 0; }
+ul.takeaways li::before { content: "\25B8"; color: var(--link); position: absolute; left: 6px; top: 10px; font-weight: 900; }
+.method { margin-top: 22px; font-size: .86rem; color: var(--muted); background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px 16px; }
+.method strong { color: var(--text); }
+
+aside.sidebar { position: sticky; top: 64px; }
+.author-card p.name { font-size: 1.15rem; font-weight: 800; color: var(--text); margin-bottom: 10px; }
+.author-card .socials { font-size: .9rem; }
+.author-card .socials a { color: var(--link); font-weight: 700; }
+.author-card .socials a:hover { text-decoration: underline; }
+.author-card .tag-hash { color: var(--muted); }
+
+.more-card h2 { color: var(--link); }
+ul.more-list { margin: 4px 0 0; padding: 0; list-style: none; }
+ul.more-list li { padding: 9px 0; border-bottom: 1px solid var(--border); }
+ul.more-list li:last-child { border-bottom: 0; }
+ul.more-list a { font-weight: 700; color: var(--link); }
+ul.more-list a:hover { text-decoration: underline; }
+ul.more-list .m-desc { display: block; font-size: .82rem; color: var(--muted); font-weight: 400; margin-top: 2px; }
+
+footer.site-foot { border-top: 1px solid var(--border); background: var(--surface); color: var(--muted); font-size: .86rem; }
+footer.site-foot .foot-in { max-width: var(--maxw); margin: 0 auto; padding: 20px 16px; display: flex; flex-wrap: wrap; gap: 8px 18px; align-items: center; }
+footer.site-foot a { color: var(--link); font-weight: 700; }
+footer.site-foot a:hover { text-decoration: underline; }
+footer.site-foot .sep { opacity: .5; }
+
+@media (max-width: 860px) { .layout { grid-template-columns: minmax(0, 1fr); gap: 8px; } aside.sidebar { position: static; margin-top: 8px; } }
+
+.js .animate.stat-grid .stat { opacity: 0; transform: translateY(12px); transition: opacity .5s ease, transform .5s ease; }
+.js .animate.stat-grid.in-view .stat { opacity: 1; transform: none; }
+.js .animate.stat-grid.in-view .stat:nth-child(2){ transition-delay: .07s; }
+.js .animate.stat-grid.in-view .stat:nth-child(3){ transition-delay: .14s; }
+.js .animate.stat-grid.in-view .stat:nth-child(4){ transition-delay: .21s; }
+.js .animate.stat-grid.in-view .stat:nth-child(5){ transition-delay: .28s; }
+.js .animate table.data-table tbody tr { opacity: 0; transform: translateY(6px); transition: opacity .45s ease, transform .45s ease; }
+.js .animate.in-view table.data-table tbody tr { opacity: 1; transform: none; }
+.js .animate.in-view table.data-table tbody tr:nth-child(2){ transition-delay: .04s; }
+.js .animate.in-view table.data-table tbody tr:nth-child(3){ transition-delay: .08s; }
+.js .animate.in-view table.data-table tbody tr:nth-child(4){ transition-delay: .12s; }
+.js .animate.in-view table.data-table tbody tr:nth-child(5){ transition-delay: .16s; }
+.js .animate.in-view table.data-table tbody tr:nth-child(6){ transition-delay: .20s; }
+.js .animate.flow .step { opacity: 0; transform: translateY(10px); transition: opacity .5s ease, transform .5s ease; }
+.js .animate.flow.in-view .step { opacity: 1; transform: none; }
+.js .animate.flow.in-view .step:nth-child(3){ transition-delay: .08s; }
+.js .animate.flow.in-view .step:nth-child(5){ transition-delay: .16s; }
+.js .animate.flow.in-view .step:nth-child(7){ transition-delay: .24s; }
+    </style>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Manzill Surolia",
+      "url": "https://www.manzill.com/",
+      "image": "https://www.manzill.com/manzill-og.png",
+      "jobTitle": "Cyber Security & GRC Professional",
+      "knowsAbout": ["Cyber Security", "Security Operations", "SOC", "SIEM", "SOAR", "Incident Response", "Threat Hunting", "XDR"],
+      "sameAs": ["https://in.linkedin.com/in/manzill", "https://x.com/manzill", "https://www.facebook.com/manzill"]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": ["Article", "TechArticle"],
+      "headline": "SOC · SIEM · SOAR: What Each Layer Actually Does",
+      "description": "A facts-first breakdown of the detection-to-response pipeline: SOC roles, SIEM capabilities and limits, SOAR playbooks, the MTTD/MTTR clocks, and the convergence into XDR.",
+      "author": { "@type": "Person", "name": "Manzill Surolia", "url": "https://www.manzill.com/" },
+      "publisher": { "@type": "Person", "name": "Manzill Surolia" },
+      "datePublished": "2026-07-16",
+      "dateModified": "2026-07-16",
+      "articleSection": "Cyber Security",
+      "keywords": "SOC, SIEM, SOAR, security operations center, MTTD, MTTR, incident response, threat hunting, SOAR playbooks, XDR",
+      "image": "https://www.manzill.com/manzill-og.png",
+      "mainEntityOfPage": "https://www.manzill.com/soc-siem-soar",
+      "about": ["Security Operations Center", "SIEM", "SOAR", "Incident Response", "XDR"]
+    }
+    </script>
+</head>
+<body>
+    <header class="site">
+      <div class="bar">
+        <a class="brand" href="/">
+          <span class="logo">M</span>
+          <span>Manzill Surolia</span>
+        </a>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <p class="eyebrow">Analysis &middot; 16 Jul 2026</p>
+        <h1>SOC &middot; SIEM &middot; SOAR</h1>
+        <p class="sub">Three acronyms, one pipeline. The SIEM <em>sees</em>, the SOAR <em>acts</em>, and the SOC <em>decides</em> &mdash; here is exactly where each begins and ends.</p>
+      </section>
+
+      <nav class="tabs" aria-label="Sections">
+        <a class="tab" href="#overview">Overview</a>
+        <a class="tab" href="#layers">The three layers</a>
+        <a class="tab" href="#roles">SOC roles &amp; pipeline</a>
+        <a class="tab" href="#automation">Where SOAR pays</a>
+        <a class="tab" href="#convergence">Convergence</a>
+        <a class="tab" href="#bottom-line">Bottom line</a>
+      </nav>
+
+      <div class="layout">
+        <article class="content">
+
+          <section id="overview">
+            <div class="stat-grid animate">
+              <div class="stat"><span class="num">3</span><span class="lbl">layers: SOC · SIEM · SOAR</span></div>
+              <div class="stat"><span class="num">5</span><span class="lbl">SOC roles, T1 &rarr; manager</span></div>
+              <div class="stat"><span class="num">2</span><span class="lbl">clocks that grade you: MTTD &amp; MTTR</span></div>
+              <div class="stat"><span class="num">24&times;7</span><span class="lbl">the SOC never closes</span></div>
+              <div class="stat"><span class="num">XDR</span><span class="lbl">where the three are merging</span></div>
+            </div>
+            <p class="lede">People say &ldquo;SOC/SIEM/SOAR&rdquo; as if it were one thing. It&rsquo;s three, and they answer different questions. The <strong>SIEM</strong> is the sensor grid &mdash; it ingests logs and raises alerts. The <strong>SOAR</strong> is the reflex arc &mdash; it executes the repetitive response automatically. The <strong>SOC</strong> is the team and the judgement &mdash; the humans who triage, hunt and decide. Get the division of labour wrong and you drown analysts in alerts; get it right and you shrink the only two numbers that matter, <strong>MTTD</strong> and <strong>MTTR</strong>.</p>
+
+            <div class="flow animate">
+              <div class="step"><div class="k">Sources</div><div class="v">Firewalls, endpoints, cloud, apps, identity</div></div>
+              <div class="arrow">&rarr;</div>
+              <div class="step"><div class="k">SIEM</div><div class="v">Ingest &rarr; correlate &rarr; alert</div></div>
+              <div class="arrow">&rarr;</div>
+              <div class="step"><div class="k">SOC</div><div class="v">Triage &rarr; investigate &rarr; decide</div></div>
+              <div class="arrow">&rarr;</div>
+              <div class="step"><div class="k">SOAR</div><div class="v">Enrich &rarr; contain &rarr; close</div></div>
+            </div>
+          </section>
+
+          <section id="layers">
+            <div class="section-head"><h2>1 &middot; The Three Layers, Side by Side</h2></div>
+            <p>Each layer has a distinct input, job and output. The confusion in most teams is treating the SIEM as if it also does response, or expecting SOAR to make decisions it was never meant to make.</p>
+            <div class="table-wrap animate">
+              <table class="data-table">
+                <thead><tr><th>Layer</th><th>What it is</th><th>Its job</th><th>Where it stops</th></tr></thead>
+                <tbody>
+                  <tr><td><strong>SIEM</strong><br><span class="reading">Security Information &amp; Event Management</span></td><td class="reading">The log brain</td><td class="reading">Ingest &amp; normalise logs, correlate events, detect (rules + behaviour), alert, report for compliance</td><td class="reading">It <strong>sees</strong> and flags &mdash; it does not act</td></tr>
+                  <tr><td><strong>SOC</strong><br><span class="reading">Security Operations Center</span></td><td class="reading">The people &amp; process</td><td class="reading">Triage alerts, investigate, hunt, contain, run incident response 24&times;7</td><td class="reading">It <strong>decides</strong> &mdash; humans own judgement</td></tr>
+                  <tr><td><strong>SOAR</strong><br><span class="reading">Security Orchestration, Automation &amp; Response</span></td><td class="reading">The reflex arc</td><td class="reading">Automate enrichment, run playbooks, create tickets, disable accounts, block IPs, manage cases</td><td class="reading">It <strong>acts</strong> on decisions &mdash; within guardrails</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="callout"><p>&#9656; A one-line memory hook: <strong>SIEM sees, SOC decides, SOAR acts.</strong> Buying one and expecting the others&rsquo; value is the most common security-ops mistake.</p></div>
+          </section>
+
+          <section id="roles">
+            <div class="section-head"><h2>2 &middot; Inside the SOC: Roles &amp; the Escalation Pipeline</h2></div>
+            <p>The SOC is a tiered assembly line. An alert flows up only as far as it needs to &mdash; most die at Tier&nbsp;1; the interesting ones climb toward hunting and incident response, with the manager owning the numbers.</p>
+            <div class="table-wrap animate">
+              <table class="data-table">
+                <thead><tr><th>Role</th><th>Owns</th><th>Typical work</th></tr></thead>
+                <tbody>
+                  <tr><td><strong>Tier 1 &mdash; Analyst</strong></td><td class="reading">Triage</td><td class="reading">First look at every alert; dismiss false positives, escalate real ones</td></tr>
+                  <tr><td><strong>Tier 2 &mdash; Analyst</strong></td><td class="reading">Deep analysis</td><td class="reading">Investigate escalations, scope the impact, begin containment</td></tr>
+                  <tr><td><strong>Threat Hunter</strong></td><td class="reading">Proactive detection</td><td class="reading">Search for threats that never raised an alert; write new detections</td></tr>
+                  <tr><td><strong>Incident Responder</strong></td><td class="reading">Containment &rarr; recovery</td><td class="reading">Contain, eradicate and recover from confirmed incidents</td></tr>
+                  <tr><td><strong>SOC Manager</strong></td><td class="reading">Strategy &amp; KPIs</td><td class="reading">Coordinate the team, own MTTD/MTTR, report to leadership</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="callout"><p>&#9656; The whole machine is graded on two clocks: <strong>MTTD</strong> (mean time to detect) and <strong>MTTR</strong> (mean time to respond). Every tool and tier exists to pull those numbers down.</p></div>
+          </section>
+
+          <section id="automation">
+            <div class="section-head"><h2>3 &middot; Where SOAR Automation Actually Pays</h2></div>
+            <p>A SIEM&rsquo;s weakness is what it hands the SOC: high false-positive volume and investigations that are still manual, which slows response. SOAR earns its keep by automating the <em>repetitive, deterministic</em> parts &mdash; the steps an analyst does the same way every time &mdash; and leaving judgement to people.</p>
+            <div class="table-wrap animate">
+              <table class="data-table">
+                <thead><tr><th>SOAR playbook</th><th>Automates</th><th>Analyst time saved on</th></tr></thead>
+                <tbody>
+                  <tr><td>Phishing response</td><td class="reading">Parse report, detonate URL/attachment, pull related mail, quarantine</td><td class="reading">Repetitive triage of look-alike reports</td></tr>
+                  <tr><td>Credential-compromise response</td><td class="reading">Disable account, revoke sessions, force reset, notify</td><td class="reading">Manual identity clean-up</td></tr>
+                  <tr><td>Malware containment</td><td class="reading">Isolate endpoint, block hash, open ticket</td><td class="reading">Swivel-chair between EDR &amp; ITSM</td></tr>
+                  <tr><td>Suspicious-login handling</td><td class="reading">Enrich geo/IP, check risk, step-up or block</td><td class="reading">Copy-paste threat-intel lookups</td></tr>
+                  <tr><td>IP / domain blocking</td><td class="reading">Push indicators to firewall/proxy, log the change</td><td class="reading">Manual control-plane edits</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="callout"><p>&#9656; Automate the deterministic, escalate the ambiguous. SOAR&rsquo;s payoff is faster, more consistent response and lower human error &mdash; not replacing the analyst&rsquo;s judgement.</p></div>
+          </section>
+
+          <section id="convergence">
+            <div class="section-head"><h2>4 &middot; The Convergence: It&rsquo;s Becoming XDR</h2></div>
+            <p>The classic SIEM + SOAR + EDR + NDR stack is fusing into a single detection-and-response plane branded <strong>XDR</strong>. The driver is the same pain this article describes: separate consoles mean analysts swivel between tools, correlation is manual, and MTTR suffers. XDR pre-correlates across endpoint, network and cloud and ships response actions in the box &mdash; folding much of what a bolt-on SIEM+SOAR did into one product.</p>
+            <div class="callout"><p>&#9656; See <a href="/security-tooling-landscape">The Cybersecurity Tooling Landscape</a> for how XDR (and CNAPP, and the identity fabric) are absorbing the point tools around them.</p></div>
+          </section>
+
+          <section id="bottom-line">
+            <div class="section-head"><h2>Bottom line</h2></div>
+            <ul class="takeaways">
+              <li><strong>SIEM sees, SOC decides, SOAR acts</strong> &mdash; three layers, three jobs; don&rsquo;t buy one expecting another&rsquo;s value.</li>
+              <li><strong>The SOC is tiered</strong> &mdash; alerts climb T1 &rarr; T2 &rarr; hunt/IR only as far as they must; most die at triage.</li>
+              <li><strong>Two clocks grade everything</strong> &mdash; MTTD and MTTR; every tier and tool exists to lower them.</li>
+              <li><strong>Automate the deterministic</strong> &mdash; SOAR&rsquo;s value is repeatable playbooks, not judgement.</li>
+              <li><strong>The stack is converging</strong> &mdash; SIEM + SOAR + EDR + NDR are collapsing into XDR.</li>
+            </ul>
+            <p class="method"><strong>Sources &amp; method.</strong> The layer responsibilities, SOC roles, SIEM capabilities/limitations and SOAR playbooks reflect standard security-operations practice (e.g. the roles and MTTD/MTTR goals used across SOC programmes). This is an original synthesis for orientation; no third-party graphics or text are reproduced.</p>
+          </section>
+
+        </article>
+
+        <aside class="sidebar">
+          <div class="editorial-card author-card">
+            <h2>About the Author</h2>
+            <p class="name">Manzill Surolia</p>
+            <p><strong>Education:</strong> LL.B, MCA</p>
+            <p><strong>Experience:</strong> Cyber security professional with over 10 years of experience in cyber security, governance, risk management, and compliance. Strong background in governance, risk, and compliance (GRC), with hands-on experience in security auditing, regulatory compliance (HITRUST, PCI-DSS, FedRAMP, ISO 27001, NIST), and overseeing data protection measures. Adept in designing incident response plans, business continuity plans (BCP), and driving initiatives in security posture management.</p>
+            <p class="socials">
+              <a href="https://in.linkedin.com/in/manzill" rel="me">LinkedIn</a> &middot;
+              <a href="https://x.com/manzill" rel="me">X</a> &middot;
+              <a href="https://www.facebook.com/manzill" rel="me">Facebook</a>
+              <span class="tag-hash">&nbsp;&middot; #Manzill</span>
+            </p>
+            <div class="byline">&copy; 2026 <strong>Manzill Surolia</strong>. All rights reserved.</div>
+          </div>
+
+          <div class="editorial-card more-card">
+            <h2>More analysis</h2>
+            <ul class="more-list">
+              <li><a href="/security-tooling-landscape">The Security Tooling Landscape</a><span class="m-desc">~150 tools across 17 categories, mapped</span></li>
+              <li><a href="/">Regulatory Controls, Decoded</a><span class="m-desc">58 security &amp; privacy frameworks, vectorised</span></li>
+              <li><a href="/iso-27001-2022">ISO 27001:2013 &rarr; 2022</a><span class="m-desc">114 controls became 93 &mdash; what moved</span></li>
+            </ul>
+          </div>
+        </aside>
+      </div>
+    </main>
+
+    <footer class="site-foot">
+      <div class="foot-in">
+        <span>&copy; 2026 <strong>Manzill Surolia</strong></span>
+        <span class="sep">&middot;</span>
+        <a href="/">Home</a>
+        <a href="/security-tooling-landscape">Tooling landscape</a>
+        <a href="/india-cybercrime-it-act">India cyber law</a>
+        <span class="sep">&middot;</span>
+        <a href="https://in.linkedin.com/in/manzill" rel="me">LinkedIn</a>
+      </div>
+    </footer>
+
+    <script>
+    (function () {
+      var els = document.querySelectorAll('.animate');
+      var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (reduce || !('IntersectionObserver' in window)) {
+        els.forEach(function (el) { el.classList.add('in-view'); });
+        return;
+      }
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) { e.target.classList.add('in-view'); io.unobserve(e.target); }
+        });
+      }, { threshold: 0.15 });
+      els.forEach(function (el) { io.observe(el); });
+    })();
+    </script>
+</body>
+</html>

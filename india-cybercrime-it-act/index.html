@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#0e3a5f">
+
+    <title>Cyber Crime &amp; the Law in India: IT Act Sections &amp; Penalties | Manzill Surolia</title>
+    <meta name="description" content="A facts-first map of India's cybercrime law — the Information Technology Act 2000 (amended 2008), section by section with real penalties — and what the viral 'cyber crimes &amp; penalties' charts get wrong (Section 66A was struck down in 2015; BNS &amp; DPDP 2023 now carry big pieces). By Manzill Surolia.">
+    <meta name="keywords" content="IT Act 2000, Information Technology Act, Section 66, Section 66A, Section 66C, Section 66D, Section 66F, Section 67, cyber crime India, Shreya Singhal, Bharatiya Nyaya Sanhita, DPDP Act 2023, cyber law penalties">
+    <meta name="author" content="Manzill Surolia">
+
+    <link rel="canonical" href="https://www.manzill.com/india-cybercrime-it-act">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="icon" type="image/png" sizes="512x512" href="/icon.png">
+    <link rel="apple-touch-icon" href="/icon.png">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Manzill Surolia">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:title" content="Cyber Crime &amp; the Law in India: IT Act Sections &amp; Penalties">
+    <meta property="og:description" content="India's cybercrime law, section by section with real penalties — and what the viral charts get wrong (66A is void; BNS &amp; DPDP 2023 now carry big pieces).">
+    <meta property="og:url" content="https://www.manzill.com/india-cybercrime-it-act">
+    <meta property="og:image" content="https://www.manzill.com/manzill-og.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:alt" content="Manzill Surolia &mdash; India cyber law">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Cyber Crime &amp; the Law in India: IT Act Sections &amp; Penalties">
+    <meta name="twitter:description" content="India's cybercrime law by section &amp; penalty — and what the viral charts get wrong. By Manzill Surolia.">
+    <meta name="twitter:image" content="https://www.manzill.com/manzill-og.png">
+    <meta name="twitter:image:alt" content="Manzill Surolia &mdash; India cyber law">
+
+    <!-- Fonts: Inter (modern UI) with system fallback -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap">
+
+    <script>document.documentElement.classList.add('js');</script>
+
+    <style>
+:root {
+  --brand: #0e3a5f;
+  --brand-dark: #082438;
+  --link: #0d5d92;
+  --accent: #12a5b8;
+  --bg: #f6f8fa;
+  --surface: #ffffff;
+  --text: #0f1a24;
+  --muted: #55636e;
+  --border: #dde4ea;
+  --shadow: 0 1px 3px rgba(0,0,0,.06), 0 4px 12px rgba(0,0,0,.04);
+  --radius: 12px;
+  --maxw: 1100px;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --link: #5cb3e0;
+    --bg: #0d1117;
+    --surface: #161b22;
+    --text: #e6edf3;
+    --muted: #8b98a5;
+    --border: #26303b;
+    --shadow: 0 1px 3px rgba(0,0,0,.4), 0 4px 12px rgba(0,0,0,.3);
+  }
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: inherit; text-decoration: none; }
+img { display: block; max-width: 100%; height: auto; }
+
+header.site { background: var(--brand); color: #fff; border-bottom: 3px solid var(--accent); box-shadow: var(--shadow); }
+.bar { max-width: var(--maxw); margin: 0 auto; padding: 12px 16px; display: flex; align-items: center; gap: 12px; }
+.brand { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 1.4rem; }
+.brand .logo { width: 34px; height: 34px; background: #fff; color: var(--brand); border-radius: 8px; display: grid; place-items: center; font-weight: 900; font-size: 1.15rem; font-family: system-ui, sans-serif; }
+
+main { max-width: var(--maxw); margin: 0 auto; padding: 20px 16px 60px; }
+
+.section-head { display: flex; align-items: baseline; gap: 12px; margin: 8px 0 14px; }
+.section-head h2 { font-size: 1.25rem; margin: 0; padding-left: 12px; border-left: 4px solid var(--brand); font-weight: 800; }
+
+.tabs { display: flex; gap: 6px; overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: thin; background: var(--surface); border: 1px solid var(--border); border-radius: 999px; padding: 6px; margin: 4px 0 22px; position: sticky; top: 8px; z-index: 10; box-shadow: var(--shadow); }
+.tabs::-webkit-scrollbar { height: 4px; }
+.tab { flex: 0 0 auto; background: transparent; border: 0; color: var(--text); text-decoration: none; padding: 8px 14px; border-radius: 999px; font-family: inherit; font-size: .92rem; font-weight: 600; cursor: pointer; white-space: nowrap; display: inline-flex; align-items: center; gap: 6px; transition: background .15s ease, color .15s ease; }
+.tab:hover { background: rgba(14,58,95,.08); }
+.tab[aria-selected="true"] { background: var(--brand); color: #fff; }
+@media (prefers-color-scheme: dark) { .tab:hover { background: rgba(255,255,255,.06); } }
+
+.editorial-card { background: var(--surface); border: 1px solid var(--border); border-left: 4px solid var(--accent); border-radius: var(--radius); padding: 18px 20px; margin-bottom: 18px; box-shadow: var(--shadow); }
+.editorial-card h2 { margin: 0 0 10px; font-size: 1.1rem; font-weight: 800; color: var(--link); }
+.editorial-card p { margin: 0 0 12px; font-size: .95rem; line-height: 1.7; }
+.editorial-card .byline { margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--border); font-size: .85rem; color: var(--muted); }
+.editorial-card .byline strong { color: var(--text); }
+
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
+
+.hero { margin: 26px 0 6px; }
+.hero .eyebrow { margin: 0 0 6px; font-size: .8rem; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; color: var(--link); }
+.hero h1 { font-size: clamp(1.5rem, 3.2vw, 2.05rem); line-height: 1.12; letter-spacing: -.015em; margin: 0; font-weight: 800; }
+.hero .sub { margin: .5rem 0 0; color: var(--muted); font-size: clamp(1rem, 2.2vw, 1.18rem); max-width: 62ch; }
+
+.layout { display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: 30px; align-items: start; }
+article.content, aside.sidebar { min-width: 0; }
+article.content > section { margin-bottom: 40px; scroll-margin-top: 64px; }
+article.content > section:first-child { margin-top: 6px; }
+article.content p { margin: 0 0 14px; }
+.lede { font-size: 1.06rem; line-height: 1.72; }
+.note { font-size: .88rem; color: var(--muted); margin: 6px 0 0; }
+.reading { color: var(--muted); }
+
+.stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin: 18px 0 22px; }
+.stat { background: linear-gradient(135deg, var(--brand), var(--brand-dark)); color: #fff; border-radius: var(--radius); padding: 16px 16px 14px; box-shadow: var(--shadow); display: flex; flex-direction: column; gap: 4px; border-top: 3px solid var(--accent); }
+.stat .num { font-size: 2rem; font-weight: 900; line-height: 1; letter-spacing: -.02em; }
+.stat .lbl { font-size: .82rem; opacity: .95; line-height: 1.35; }
+
+.table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow); background: var(--surface); }
+table.data-table { border-collapse: collapse; width: 100%; font-size: .92rem; }
+table.data-table th, table.data-table td { text-align: left; padding: 11px 14px; vertical-align: top; border-bottom: 1px solid var(--border); }
+table.data-table thead th { background: var(--brand); color: #fff; font-weight: 700; font-size: .82rem; letter-spacing: .01em; white-space: nowrap; }
+table.data-table tbody tr:nth-child(even) { background: rgba(14,58,95,.035); }
+table.data-table tbody tr:last-child td { border-bottom: 0; }
+table.data-table tbody tr:hover { background: rgba(14,58,95,.07); }
+table.data-table tbody tr.void td { opacity: .72; }
+td.ref { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-weight: 700; color: var(--link); white-space: nowrap; }
+.tag { display: inline-block; font-size: .72rem; font-weight: 700; padding: 2px 8px; border-radius: 999px; white-space: nowrap; background: rgba(18,165,184,.14); color: var(--link); }
+.tag.void { background: rgba(183,28,28,.12); color: #b71c1c; }
+.tag.sev { background: rgba(183,28,28,.14); color: #b71c1c; }
+@media (prefers-color-scheme: dark) {
+  table.data-table tbody tr:nth-child(even) { background: rgba(255,255,255,.03); }
+  table.data-table tbody tr:hover { background: rgba(14,58,95,.16); }
+  .tag.void, .tag.sev { background: rgba(255,120,120,.16); color: #ff9b9b; }
+}
+
+.callout { background: rgba(18,165,184,.10); border: 1px solid var(--border); border-left: 4px solid var(--accent); border-radius: var(--radius); padding: 14px 18px; margin: 16px 0 0; }
+.callout p { margin: 0; font-weight: 600; color: var(--text); }
+.callout.warn { background: rgba(183,28,28,.08); border-left-color: #b71c1c; }
+
+ul.takeaways { margin: 6px 0 0; padding-left: 0; list-style: none; }
+ul.takeaways li { position: relative; padding: 10px 0 10px 30px; border-bottom: 1px solid var(--border); font-size: .98rem; }
+ul.takeaways li:last-child { border-bottom: 0; }
+ul.takeaways li::before { content: "\25B8"; color: var(--link); position: absolute; left: 6px; top: 10px; font-weight: 900; }
+.method { margin-top: 22px; font-size: .86rem; color: var(--muted); background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px 16px; }
+.method strong { color: var(--text); }
+
+aside.sidebar { position: sticky; top: 64px; }
+.author-card p.name { font-size: 1.15rem; font-weight: 800; color: var(--text); margin-bottom: 10px; }
+.author-card .socials { font-size: .9rem; }
+.author-card .socials a { color: var(--link); font-weight: 700; }
+.author-card .socials a:hover { text-decoration: underline; }
+.author-card .tag-hash { color: var(--muted); }
+
+.more-card h2 { color: var(--link); }
+ul.more-list { margin: 4px 0 0; padding: 0; list-style: none; }
+ul.more-list li { padding: 9px 0; border-bottom: 1px solid var(--border); }
+ul.more-list li:last-child { border-bottom: 0; }
+ul.more-list a { font-weight: 700; color: var(--link); }
+ul.more-list a:hover { text-decoration: underline; }
+ul.more-list .m-desc { display: block; font-size: .82rem; color: var(--muted); font-weight: 400; margin-top: 2px; }
+
+footer.site-foot { border-top: 1px solid var(--border); background: var(--surface); color: var(--muted); font-size: .86rem; }
+footer.site-foot .foot-in { max-width: var(--maxw); margin: 0 auto; padding: 20px 16px; display: flex; flex-wrap: wrap; gap: 8px 18px; align-items: center; }
+footer.site-foot a { color: var(--link); font-weight: 700; }
+footer.site-foot a:hover { text-decoration: underline; }
+footer.site-foot .sep { opacity: .5; }
+
+@media (max-width: 860px) { .layout { grid-template-columns: minmax(0, 1fr); gap: 8px; } aside.sidebar { position: static; margin-top: 8px; } }
+
+.js .animate.stat-grid .stat { opacity: 0; transform: translateY(12px); transition: opacity .5s ease, transform .5s ease; }
+.js .animate.stat-grid.in-view .stat { opacity: 1; transform: none; }
+.js .animate.stat-grid.in-view .stat:nth-child(2){ transition-delay: .07s; }
+.js .animate.stat-grid.in-view .stat:nth-child(3){ transition-delay: .14s; }
+.js .animate.stat-grid.in-view .stat:nth-child(4){ transition-delay: .21s; }
+.js .animate.stat-grid.in-view .stat:nth-child(5){ transition-delay: .28s; }
+.js .animate table.data-table tbody tr { opacity: 0; transform: translateY(6px); transition: opacity .45s ease, transform .45s ease; }
+.js .animate.in-view table.data-table tbody tr { opacity: 1; transform: none; }
+.js .animate.in-view table.data-table tbody tr:nth-child(2){ transition-delay: .03s; }
+.js .animate.in-view table.data-table tbody tr:nth-child(3){ transition-delay: .06s; }
+.js .animate.in-view table.data-table tbody tr:nth-child(4){ transition-delay: .09s; }
+.js .animate.in-view table.data-table tbody tr:nth-child(5){ transition-delay: .12s; }
+.js .animate.in-view table.data-table tbody tr:nth-child(6){ transition-delay: .15s; }
+.js .animate.in-view table.data-table tbody tr:nth-child(7){ transition-delay: .18s; }
+.js .animate.in-view table.data-table tbody tr:nth-child(8){ transition-delay: .21s; }
+    </style>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Manzill Surolia",
+      "url": "https://www.manzill.com/",
+      "image": "https://www.manzill.com/manzill-og.png",
+      "jobTitle": "Cyber Security & GRC Professional",
+      "knowsAbout": ["Cyber Security", "Cyber Law", "IT Act 2000", "Data Protection", "DPDP Act 2023", "GRC", "Compliance"],
+      "sameAs": ["https://in.linkedin.com/in/manzill", "https://x.com/manzill", "https://www.facebook.com/manzill"]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": ["Article", "TechArticle"],
+      "headline": "Cyber Crime & the Law in India: IT Act Sections & Penalties",
+      "description": "A facts-first map of India's cybercrime law — the IT Act 2000 (amended 2008) — section by section with penalties, plus corrections to popular charts (Section 66A struck down; BNS & DPDP 2023).",
+      "author": { "@type": "Person", "name": "Manzill Surolia", "url": "https://www.manzill.com/" },
+      "publisher": { "@type": "Person", "name": "Manzill Surolia" },
+      "datePublished": "2026-07-16",
+      "dateModified": "2026-07-16",
+      "articleSection": "Cyber Law",
+      "keywords": "IT Act 2000, Section 66, Section 66A, Section 66C, Section 66D, Section 66F, Section 67, cyber crime India, Shreya Singhal, Bharatiya Nyaya Sanhita, DPDP Act 2023",
+      "image": "https://www.manzill.com/manzill-og.png",
+      "mainEntityOfPage": "https://www.manzill.com/india-cybercrime-it-act",
+      "about": ["Information Technology Act 2000", "Section 66A", "Digital Personal Data Protection Act 2023", "Bharatiya Nyaya Sanhita 2023", "Cyber crime"]
+    }
+    </script>
+</head>
+<body>
+    <header class="site">
+      <div class="bar">
+        <a class="brand" href="/">
+          <span class="logo">M</span>
+          <span>Manzill Surolia</span>
+        </a>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <p class="eyebrow">Analysis &middot; 16 Jul 2026</p>
+        <h1>Cyber Crime &amp; the Law in India</h1>
+        <p class="sub">The IT Act 2000 is the spine of India&rsquo;s cyber law &mdash; but the viral &ldquo;crimes &amp; penalties&rdquo; charts are out of date. Here are the real sections, the real penalties, and the parts that have quietly changed.</p>
+      </section>
+
+      <nav class="tabs" aria-label="Sections">
+        <a class="tab" href="#overview">Overview</a>
+        <a class="tab" href="#offences">Offences &amp; penalties</a>
+        <a class="tab" href="#wrong">What charts get wrong</a>
+        <a class="tab" href="#changing">What&rsquo;s changing</a>
+        <a class="tab" href="#bottom-line">Bottom line</a>
+      </nav>
+
+      <div class="layout">
+        <article class="content">
+
+          <section id="overview">
+            <div class="stat-grid animate">
+              <div class="stat"><span class="num">2000</span><span class="lbl">IT Act enacted</span></div>
+              <div class="stat"><span class="num">2008</span><span class="lbl">amendment added 66A&ndash;F, 67A/B, 43A</span></div>
+              <div class="stat"><span class="num">Life</span><span class="lbl">max term (Sec 66F, cyber-terrorism)</span></div>
+              <div class="stat"><span class="num">66A</span><span class="lbl">the one section struck down (2015)</span></div>
+              <div class="stat"><span class="num">2023</span><span class="lbl">BNS + DPDP reshape the map</span></div>
+            </div>
+            <p class="lede">India prosecutes cyber crime mainly under the <strong>Information Technology Act, 2000</strong>, heavily expanded by the <strong>IT (Amendment) Act, 2008</strong>. Most &ldquo;cyber crimes and penalties&rdquo; graphics floating around social media copy each other &mdash; and copy the same errors: they still cite a section the Supreme Court <em>killed</em> in 2015, and they predate the 2023 laws that now carry data-protection and general-crime pieces the IT Act never did. This is the corrected map.</p>
+            <div class="callout warn"><p>&#9888; This is general information for security &amp; GRC context, <strong>not legal advice</strong>. Charges depend on facts and current law &mdash; consult a qualified lawyer.</p></div>
+          </section>
+
+          <section id="offences">
+            <div class="section-head"><h2>1 &middot; The Offences, by Section &amp; Penalty</h2></div>
+            <p>The core offences and their real punishments under the IT Act (as amended). &ldquo;And/or&rdquo; reflects the statute&rsquo;s wording; several sections allow imprisonment, a fine, or both.</p>
+            <div class="table-wrap animate">
+              <table class="data-table">
+                <thead><tr><th>Offence</th><th>Section</th><th>Punishment</th></tr></thead>
+                <tbody>
+                  <tr><td>Damage to a computer / data (unauthorised access, extraction, contaminant)</td><td class="ref">43</td><td class="reading"><span class="tag">Civil</span> Compensation to the affected person (adjudication)</td></tr>
+                  <tr><td>Body corporate&rsquo;s failure to protect sensitive personal data</td><td class="ref">43A</td><td class="reading"><span class="tag">Civil</span> Compensation for negligence</td></tr>
+                  <tr><td>Tampering with computer source documents</td><td class="ref">65</td><td class="reading">Up to 3 yrs and/or &#8377;2 lakh</td></tr>
+                  <tr><td>Computer-related offences / hacking (dishonest or fraudulent)</td><td class="ref">66</td><td class="reading">Up to 3 yrs and/or &#8377;5 lakh</td></tr>
+                  <tr><td>Dishonestly receiving a stolen computer resource or device</td><td class="ref">66B</td><td class="reading">Up to 3 yrs and/or &#8377;1 lakh</td></tr>
+                  <tr><td>Identity theft (fraudulent use of e-signature, password, unique ID)</td><td class="ref">66C</td><td class="reading">Up to 3 yrs + &#8377;1 lakh</td></tr>
+                  <tr><td>Cheating by personation using a computer resource (phishing, scams)</td><td class="ref">66D</td><td class="reading">Up to 3 yrs + &#8377;1 lakh</td></tr>
+                  <tr><td>Violation of privacy (capturing/publishing private images)</td><td class="ref">66E</td><td class="reading">Up to 3 yrs and/or &#8377;2 lakh</td></tr>
+                  <tr><td>Cyber terrorism</td><td class="ref">66F</td><td class="reading"><span class="tag sev">Severe</span> Imprisonment for life</td></tr>
+                  <tr><td>Publishing / transmitting obscene material</td><td class="ref">67</td><td class="reading">Up to 3 yrs + &#8377;5 lakh (first); 5 yrs + &#8377;10 lakh (repeat)</td></tr>
+                  <tr><td>Publishing sexually explicit material</td><td class="ref">67A</td><td class="reading">Up to 5 yrs + &#8377;10 lakh (first); 7 yrs (repeat)</td></tr>
+                  <tr><td>Child sexual abuse material (CSAM)</td><td class="ref">67B</td><td class="reading"><span class="tag sev">Severe</span> Up to 5 yrs + &#8377;10 lakh (first); 7 yrs (repeat)</td></tr>
+                  <tr><td>Breach of confidentiality &amp; privacy (by a person with official access)</td><td class="ref">72</td><td class="reading">Up to 2 yrs and/or &#8377;1 lakh</td></tr>
+                  <tr><td>Disclosure of information in breach of a lawful contract</td><td class="ref">72A</td><td class="reading">Up to 3 yrs and/or &#8377;5 lakh</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="callout"><p>&#9656; Two tracks run in parallel: <strong>Sec 43</strong> (civil compensation, no criminal intent needed) and <strong>Sec 66</strong> (criminal, requires dishonesty/fraud). The same hack can trigger both.</p></div>
+          </section>
+
+          <section id="wrong">
+            <div class="section-head"><h2>2 &middot; What the Popular Charts Get Wrong</h2></div>
+            <p>The most-shared &ldquo;cyber crime &amp; penalties&rdquo; infographics repeat four errors. If a chart shows any of these, it predates the law as it stands in 2026.</p>
+            <div class="table-wrap animate">
+              <table class="data-table">
+                <thead><tr><th>The claim you&rsquo;ll see</th><th>Reality</th></tr></thead>
+                <tbody>
+                  <tr class="void"><td>&ldquo;Offensive / defamatory posts &rarr; <span class="ref">Sec 66A</span>&rdquo;</td><td class="reading"><span class="tag void">Void</span> Section 66A was <strong>struck down</strong> in <em>Shreya Singhal v. Union of India</em> (2015) as unconstitutional under Article 19(1)(a). No one can be charged under it &mdash; yet police occasionally still do, which courts keep condemning.</td></tr>
+                  <tr><td>&ldquo;Online defamation is an IT Act offence&rdquo;</td><td class="reading">Defamation is <strong>not</strong> in the IT Act. Online defamation is prosecuted under general criminal law &mdash; now <strong>Bharatiya Nyaya Sanhita (BNS) 2023, s.356</strong> (which replaced IPC 499/500 from 1 July 2024).</td></tr>
+                  <tr><td>&ldquo;Cyberstalking &rarr; a dedicated IT Act section&rdquo;</td><td class="reading">There is no standalone cyberstalking section in the IT Act. It&rsquo;s charged under the <strong>BNS</strong> stalking provision (successor to IPC 354D), with Sec 67 / 66E added where the content is obscene or privacy-invading.</td></tr>
+                  <tr><td>&ldquo;Phishing / forgery each have their own section&rdquo;</td><td class="reading">Phishing is charged under <strong>Sec 66D</strong> (cheating by personation) plus BNS cheating/forgery provisions &mdash; not a single &ldquo;phishing law.&rdquo;</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="callout warn"><p>&#9888; The headline correction: <strong>Section 66A is dead law.</strong> Any 2026 chart still citing it is wrong, and any FIR under it is liable to be quashed.</p></div>
+          </section>
+
+          <section id="changing">
+            <div class="section-head"><h2>3 &middot; How the Ground Is Shifting (2022&ndash;2024)</h2></div>
+            <p>The IT Act is no longer the whole story. Three changes moved large pieces of &ldquo;cyber law&rdquo; outside it &mdash; and any current compliance or incident-response posture has to account for them.</p>
+            <div class="table-wrap animate">
+              <table class="data-table">
+                <thead><tr><th>Change</th><th>Year</th><th>What it does</th></tr></thead>
+                <tbody>
+                  <tr><td><strong>DPDP Act 2023</strong></td><td class="ref">2023</td><td class="reading">India&rsquo;s first standalone data-protection law. Shifts breach/privacy duties off Sec 43A onto a consent-and-fiduciary framework, with penalties up to <strong>&#8377;250 crore</strong> via the Data Protection Board. Rules still rolling out.</td></tr>
+                  <tr><td><strong>Bharatiya Nyaya Sanhita (BNS)</strong></td><td class="ref">2023</td><td class="reading">Replaced the IPC (effective 1 Jul 2024). Cyber-enabled crimes &mdash; fraud, defamation, stalking, forgery &mdash; now reference the BNS, often alongside IT Act sections.</td></tr>
+                  <tr><td><strong>CERT-In Directions</strong></td><td class="ref">2022</td><td class="reading">Mandatory <strong>6-hour</strong> incident reporting and log-retention duties for organisations &mdash; a compliance obligation, distinct from the criminal sections above.</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="callout"><p>&#9656; For a security team, the practical takeaway: the <strong>criminal</strong> exposure lives in the IT Act + BNS, while the <strong>regulatory</strong> exposure (breach fines, reporting) now lives in DPDP + CERT-In.</p></div>
+          </section>
+
+          <section id="bottom-line">
+            <div class="section-head"><h2>Bottom line</h2></div>
+            <ul class="takeaways">
+              <li><strong>66A is void</strong> &mdash; struck down in 2015; stop citing it, and challenge any charge under it.</li>
+              <li><strong>Penalties scale with harm</strong> &mdash; cyber-terrorism (66F) and CSAM (67B) carry the heaviest terms; most data offences cap at 3 years.</li>
+              <li><strong>Civil and criminal run in parallel</strong> &mdash; Sec 43 compensation is independent of a Sec 66 prosecution.</li>
+              <li><strong>The map now spans three statutes</strong> &mdash; IT Act (computer offences) + BNS (general crime) + DPDP (data protection).</li>
+              <li><strong>Breach exposure jumped</strong> &mdash; DPDP&rsquo;s &#8377;-crore penalties dwarf the old Sec 43A compensation route.</li>
+            </ul>
+            <p class="method"><strong>Sources &amp; method.</strong> Section references and penalties are from the <strong>Information Technology Act, 2000</strong> (as amended by the IT (Amendment) Act, 2008); the 66A holding is <em>Shreya Singhal v. Union of India</em>, (2015) 5 SCC 1. Current context is the <strong>Bharatiya Nyaya Sanhita, 2023</strong> (in force 1 Jul 2024), the <strong>Digital Personal Data Protection Act, 2023</strong>, and the <strong>CERT-In Directions, 2022</strong>. General information only, <strong>not legal advice</strong>. Original analysis; no third-party graphics or text reproduced.</p>
+          </section>
+
+        </article>
+
+        <aside class="sidebar">
+          <div class="editorial-card author-card">
+            <h2>About the Author</h2>
+            <p class="name">Manzill Surolia</p>
+            <p><strong>Education:</strong> LL.B, MCA</p>
+            <p><strong>Experience:</strong> Cyber security professional with over 10 years of experience in cyber security, governance, risk management, and compliance. Strong background in governance, risk, and compliance (GRC), with hands-on experience in security auditing, regulatory compliance (HITRUST, PCI-DSS, FedRAMP, ISO 27001, NIST), and overseeing data protection measures. Adept in designing incident response plans, business continuity plans (BCP), and driving initiatives in security posture management.</p>
+            <p class="socials">
+              <a href="https://in.linkedin.com/in/manzill" rel="me">LinkedIn</a> &middot;
+              <a href="https://x.com/manzill" rel="me">X</a> &middot;
+              <a href="https://www.facebook.com/manzill" rel="me">Facebook</a>
+              <span class="tag-hash">&nbsp;&middot; #Manzill</span>
+            </p>
+            <div class="byline">&copy; 2026 <strong>Manzill Surolia</strong>. All rights reserved.</div>
+          </div>
+
+          <div class="editorial-card more-card">
+            <h2>More analysis</h2>
+            <ul class="more-list">
+              <li><a href="/">Regulatory Controls, Decoded</a><span class="m-desc">58 security &amp; privacy frameworks, vectorised</span></li>
+              <li><a href="/choosing-a-security-framework">Choosing a Security Framework</a><span class="m-desc">10 frameworks, one decision</span></li>
+              <li><a href="/iso-27001-2022">ISO 27001:2013 &rarr; 2022</a><span class="m-desc">114 controls became 93 &mdash; what moved</span></li>
+            </ul>
+          </div>
+        </aside>
+      </div>
+    </main>
+
+    <footer class="site-foot">
+      <div class="foot-in">
+        <span>&copy; 2026 <strong>Manzill Surolia</strong></span>
+        <span class="sep">&middot;</span>
+        <a href="/">Home</a>
+        <a href="/soc-siem-soar">SOC · SIEM · SOAR</a>
+        <a href="/choosing-a-security-framework">Framework chooser</a>
+        <span class="sep">&middot;</span>
+        <a href="https://in.linkedin.com/in/manzill" rel="me">LinkedIn</a>
+      </div>
+    </footer>
+
+    <script>
+    (function () {
+      var els = document.querySelectorAll('.animate');
+      var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (reduce || !('IntersectionObserver' in window)) {
+        els.forEach(function (el) { el.classList.add('in-view'); });
+        return;
+      }
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) { e.target.classList.add('in-view'); io.unobserve(e.target); }
+        });
+      }, { threshold: 0.15 });
+      els.forEach(function (el) { io.observe(el); });
+    })();
+    </script>
+</body>
+</html>

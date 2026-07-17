@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#0e3a5f">
+
+    <title>Cybersecurity KPIs: A Measurement Framework | Manzill Surolia</title>
+    <meta name="description" content="24 cybersecurity KPIs across 8 domains — with what each measures and which direction is 'good' — plus the two north-star metrics (MTTD, MTTR), the leading-vs-lagging split, and the handful that belong on a board deck. A facts-first measurement framework by Manzill Surolia.">
+    <meta name="keywords" content="cybersecurity KPIs, security metrics, MTTD, MTTR, mean time to detect, mean time to respond, patch compliance, phishing click rate, security scorecard, leading indicators, lagging indicators">
+    <meta name="author" content="Manzill Surolia">
+
+    <link rel="canonical" href="https://www.manzill.com/cybersecurity-kpis">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="icon" type="image/png" sizes="512x512" href="/icon.png">
+    <link rel="apple-touch-icon" href="/icon.png">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Manzill Surolia">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:title" content="Cybersecurity KPIs: A Measurement Framework">
+    <meta property="og:description" content="24 KPIs across 8 domains, the two clocks that matter (MTTD, MTTR), leading vs lagging, and the few that belong on a board deck.">
+    <meta property="og:url" content="https://www.manzill.com/cybersecurity-kpis">
+    <meta property="og:image" content="https://www.manzill.com/manzill-og.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:alt" content="Manzill Surolia &mdash; cybersecurity KPIs">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Cybersecurity KPIs: A Measurement Framework">
+    <meta name="twitter:description" content="24 KPIs across 8 domains, the two clocks that matter, and the few that belong on a board deck. By Manzill Surolia.">
+    <meta name="twitter:image" content="https://www.manzill.com/manzill-og.png">
+    <meta name="twitter:image:alt" content="Manzill Surolia &mdash; cybersecurity KPIs">
+
+    <!-- Fonts: Inter (modern UI) with system fallback -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap">
+
+    <script>document.documentElement.classList.add('js');</script>
+
+    <style>
+:root {
+  --brand: #0e3a5f;
+  --brand-dark: #082438;
+  --link: #0d5d92;
+  --accent: #12a5b8;
+  --bg: #f6f8fa;
+  --surface: #ffffff;
+  --text: #0f1a24;
+  --muted: #55636e;
+  --border: #dde4ea;
+  --shadow: 0 1px 3px rgba(0,0,0,.06), 0 4px 12px rgba(0,0,0,.04);
+  --radius: 12px;
+  --maxw: 1100px;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --link: #5cb3e0;
+    --bg: #0d1117;
+    --surface: #161b22;
+    --text: #e6edf3;
+    --muted: #8b98a5;
+    --border: #26303b;
+    --shadow: 0 1px 3px rgba(0,0,0,.4), 0 4px 12px rgba(0,0,0,.3);
+  }
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: inherit; text-decoration: none; }
+img { display: block; max-width: 100%; height: auto; }
+
+header.site { background: var(--brand); color: #fff; border-bottom: 3px solid var(--accent); box-shadow: var(--shadow); }
+.bar { max-width: var(--maxw); margin: 0 auto; padding: 12px 16px; display: flex; align-items: center; gap: 12px; }
+.brand { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 1.4rem; }
+.brand .logo { width: 34px; height: 34px; background: #fff; color: var(--brand); border-radius: 8px; display: grid; place-items: center; font-weight: 900; font-size: 1.15rem; font-family: system-ui, sans-serif; }
+
+main { max-width: var(--maxw); margin: 0 auto; padding: 20px 16px 60px; }
+
+.section-head { display: flex; align-items: baseline; gap: 12px; margin: 8px 0 14px; }
+.section-head h2 { font-size: 1.25rem; margin: 0; padding-left: 12px; border-left: 4px solid var(--brand); font-weight: 800; }
+
+.tabs { display: flex; gap: 6px; overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: thin; background: var(--surface); border: 1px solid var(--border); border-radius: 999px; padding: 6px; margin: 4px 0 22px; position: sticky; top: 8px; z-index: 10; box-shadow: var(--shadow); }
+.tabs::-webkit-scrollbar { height: 4px; }
+.tab { flex: 0 0 auto; background: transparent; border: 0; color: var(--text); text-decoration: none; padding: 8px 14px; border-radius: 999px; font-family: inherit; font-size: .92rem; font-weight: 600; cursor: pointer; white-space: nowrap; display: inline-flex; align-items: center; gap: 6px; transition: background .15s ease, color .15s ease; }
+.tab:hover { background: rgba(14,58,95,.08); }
+.tab[aria-selected="true"] { background: var(--brand); color: #fff; }
+@media (prefers-color-scheme: dark) { .tab:hover { background: rgba(255,255,255,.06); } }
+
+.editorial-card { background: var(--surface); border: 1px solid var(--border); border-left: 4px solid var(--accent); border-radius: var(--radius); padding: 18px 20px; margin-bottom: 18px; box-shadow: var(--shadow); }
+.editorial-card h2 { margin: 0 0 10px; font-size: 1.1rem; font-weight: 800; color: var(--link); }
+.editorial-card p { margin: 0 0 12px; font-size: .95rem; line-height: 1.7; }
+.editorial-card .byline { margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--border); font-size: .85rem; color: var(--muted); }
+.editorial-card .byline strong { color: var(--text); }
+
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
+
+.hero { margin: 26px 0 6px; }
+.hero .eyebrow { margin: 0 0 6px; font-size: .8rem; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; color: var(--link); }
+.hero h1 { font-size: clamp(1.5rem, 3.2vw, 2.05rem); line-height: 1.12; letter-spacing: -.015em; margin: 0; font-weight: 800; }
+.hero .sub { margin: .5rem 0 0; color: var(--muted); font-size: clamp(1rem, 2.2vw, 1.18rem); max-width: 62ch; }
+
+.layout { display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: 30px; align-items: start; }
+article.content, aside.sidebar { min-width: 0; }
+article.content > section { margin-bottom: 40px; scroll-margin-top: 64px; }
+article.content > section:first-child { margin-top: 6px; }
+article.content p { margin: 0 0 14px; }
+.lede { font-size: 1.06rem; line-height: 1.72; }
+.note { font-size: .88rem; color: var(--muted); margin: 6px 0 0; }
+.reading { color: var(--muted); }
+
+.stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin: 18px 0 22px; }
+.stat { background: linear-gradient(135deg, var(--brand), var(--brand-dark)); color: #fff; border-radius: var(--radius); padding: 16px 16px 14px; box-shadow: var(--shadow); display: flex; flex-direction: column; gap: 4px; border-top: 3px solid var(--accent); }
+.stat .num { font-size: 2rem; font-weight: 900; line-height: 1; letter-spacing: -.02em; }
+.stat .lbl { font-size: .82rem; opacity: .95; line-height: 1.35; }
+
+.table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow); background: var(--surface); }
+table.data-table { border-collapse: collapse; width: 100%; font-size: .92rem; }
+table.data-table th, table.data-table td { text-align: left; padding: 11px 14px; vertical-align: top; border-bottom: 1px solid var(--border); }
+table.data-table thead th { background: var(--brand); color: #fff; font-weight: 700; font-size: .82rem; letter-spacing: .01em; white-space: nowrap; }
+table.data-table tbody tr:nth-child(even) { background: rgba(14,58,95,.035); }
+table.data-table tbody tr:last-child td { border-bottom: 0; }
+table.data-table tbody tr:hover { background: rgba(14,58,95,.07); }
+td.ref { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-weight: 700; color: var(--link); white-space: nowrap; }
+.tag { display: inline-block; font-size: .72rem; font-weight: 700; padding: 2px 8px; border-radius: 999px; white-space: nowrap; background: rgba(18,165,184,.14); color: var(--link); }
+.dir { font-weight: 800; white-space: nowrap; }
+.dir.down { color: #1a7f4b; }
+.dir.up { color: #1a7f4b; }
+.dir.ctx { color: var(--muted); }
+@media (prefers-color-scheme: dark) {
+  table.data-table tbody tr:nth-child(even) { background: rgba(255,255,255,.03); }
+  table.data-table tbody tr:hover { background: rgba(14,58,95,.16); }
+  .dir.down, .dir.up { color: #4ecb8a; }
+}
+
+.callout { background: rgba(18,165,184,.10); border: 1px solid var(--border); border-left: 4px solid var(--accent); border-radius: var(--radius); padding: 14px 18px; margin: 16px 0 0; }
+.callout p { margin: 0; font-weight: 600; color: var(--text); }
+
+ul.takeaways { margin: 6px 0 0; padding-left: 0; list-style: none; }
+ul.takeaways li { position: relative; padding: 10px 0 10px 30px; border-bottom: 1px solid var(--border); font-size: .98rem; }
+ul.takeaways li:last-child { border-bottom: 0; }
+ul.takeaways li::before { content: "\25B8"; color: var(--link); position: absolute; left: 6px; top: 10px; font-weight: 900; }
+.method { margin-top: 22px; font-size: .86rem; color: var(--muted); background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px 16px; }
+.method strong { color: var(--text); }
+
+aside.sidebar { position: sticky; top: 64px; }
+.author-card p.name { font-size: 1.15rem; font-weight: 800; color: var(--text); margin-bottom: 10px; }
+.author-card .socials { font-size: .9rem; }
+.author-card .socials a { color: var(--link); font-weight: 700; }
+.author-card .socials a:hover { text-decoration: underline; }
+.author-card .tag-hash { color: var(--muted); }
+
+.more-card h2 { color: var(--link); }
+ul.more-list { margin: 4px 0 0; padding: 0; list-style: none; }
+ul.more-list li { padding: 9px 0; border-bottom: 1px solid var(--border); }
+ul.more-list li:last-child { border-bottom: 0; }
+ul.more-list a { font-weight: 700; color: var(--link); }
+ul.more-list a:hover { text-decoration: underline; }
+ul.more-list .m-desc { display: block; font-size: .82rem; color: var(--muted); font-weight: 400; margin-top: 2px; }
+
+footer.site-foot { border-top: 1px solid var(--border); background: var(--surface); color: var(--muted); font-size: .86rem; }
+footer.site-foot .foot-in { max-width: var(--maxw); margin: 0 auto; padding: 20px 16px; display: flex; flex-wrap: wrap; gap: 8px 18px; align-items: center; }
+footer.site-foot a { color: var(--link); font-weight: 700; }
+footer.site-foot a:hover { text-decoration: underline; }
+footer.site-foot .sep { opacity: .5; }
+
+@media (max-width: 860px) { .layout { grid-template-columns: minmax(0, 1fr); gap: 8px; } aside.sidebar { position: static; margin-top: 8px; } }
+
+.js .animate.stat-grid .stat { opacity: 0; transform: translateY(12px); transition: opacity .5s ease, transform .5s ease; }
+.js .animate.stat-grid.in-view .stat { opacity: 1; transform: none; }
+.js .animate.stat-grid.in-view .stat:nth-child(2){ transition-delay: .07s; }
+.js .animate.stat-grid.in-view .stat:nth-child(3){ transition-delay: .14s; }
+.js .animate.stat-grid.in-view .stat:nth-child(4){ transition-delay: .21s; }
+.js .animate.stat-grid.in-view .stat:nth-child(5){ transition-delay: .28s; }
+.js .animate table.data-table tbody tr { opacity: 0; transform: translateY(6px); transition: opacity .45s ease, transform .45s ease; }
+.js .animate.in-view table.data-table tbody tr { opacity: 1; transform: none; }
+.js .animate.in-view table.data-table tbody tr:nth-child(2){ transition-delay: .03s; }
+.js .animate.in-view table.data-table tbody tr:nth-child(3){ transition-delay: .06s; }
+.js .animate.in-view table.data-table tbody tr:nth-child(4){ transition-delay: .09s; }
+.js .animate.in-view table.data-table tbody tr:nth-child(5){ transition-delay: .12s; }
+.js .animate.in-view table.data-table tbody tr:nth-child(6){ transition-delay: .15s; }
+    </style>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Manzill Surolia",
+      "url": "https://www.manzill.com/",
+      "image": "https://www.manzill.com/manzill-og.png",
+      "jobTitle": "Cyber Security & GRC Professional",
+      "knowsAbout": ["Cyber Security", "Security Metrics", "KPIs", "MTTD", "MTTR", "Risk Management", "GRC", "Security Operations"],
+      "sameAs": ["https://in.linkedin.com/in/manzill", "https://x.com/manzill", "https://www.facebook.com/manzill"]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": ["Article", "TechArticle"],
+      "headline": "Cybersecurity KPIs: A Measurement Framework",
+      "description": "24 cybersecurity KPIs across 8 domains with definitions and direction, the MTTD/MTTR north-stars, the leading-vs-lagging split, and the metrics that belong on a board deck.",
+      "author": { "@type": "Person", "name": "Manzill Surolia", "url": "https://www.manzill.com/" },
+      "publisher": { "@type": "Person", "name": "Manzill Surolia" },
+      "datePublished": "2026-07-17",
+      "dateModified": "2026-07-17",
+      "articleSection": "Cyber Security",
+      "keywords": "cybersecurity KPIs, security metrics, MTTD, MTTR, patch compliance, phishing click rate, leading indicators, lagging indicators, board reporting",
+      "image": "https://www.manzill.com/manzill-og.png",
+      "mainEntityOfPage": "https://www.manzill.com/cybersecurity-kpis",
+      "about": ["Security metrics", "MTTD", "MTTR", "Key performance indicators", "Security reporting"]
+    }
+    </script>
+</head>
+<body>
+    <header class="site">
+      <div class="bar">
+        <a class="brand" href="/">
+          <span class="logo">M</span>
+          <span>Manzill Surolia</span>
+        </a>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <p class="eyebrow">Analysis &middot; 17 Jul 2026</p>
+        <h1>Cybersecurity KPIs: A Measurement Framework</h1>
+        <p class="sub">Two dozen metrics across eight domains &mdash; but a KPI only earns its place if it changes a decision. Here is what each measures, which way is &ldquo;good,&rdquo; and the few that belong on a board deck.</p>
+      </section>
+
+      <nav class="tabs" aria-label="Sections">
+        <a class="tab" href="#overview">Overview</a>
+        <a class="tab" href="#scorecard">The scorecard</a>
+        <a class="tab" href="#clocks">Two clocks</a>
+        <a class="tab" href="#leading">Leading vs lagging</a>
+        <a class="tab" href="#bottom-line">Bottom line</a>
+      </nav>
+
+      <div class="layout">
+        <article class="content">
+
+          <section id="overview">
+            <div class="stat-grid animate">
+              <div class="stat"><span class="num">8</span><span class="lbl">measurement domains</span></div>
+              <div class="stat"><span class="num">24</span><span class="lbl">KPIs on the scorecard</span></div>
+              <div class="stat"><span class="num">2</span><span class="lbl">north-star clocks: MTTD &amp; MTTR</span></div>
+              <div class="stat"><span class="num">3&ndash;5</span><span class="lbl">that actually belong on a board deck</span></div>
+              <div class="stat"><span class="num">1</span><span class="lbl">counter-intuitive: more reports = better</span></div>
+            </div>
+            <p class="lede">Security teams either measure nothing or measure everything &mdash; and drowning leadership in forty numbers is its own failure. The discipline is picking metrics that <strong>change a decision</strong>. This framework organises the field into eight domains and two dozen KPIs, tags each with the direction that counts as improvement, and then strips it back to the handful that belong in front of a board. Two of them &mdash; how fast you <em>detect</em> and how fast you <em>respond</em> &mdash; sit above all the rest.</p>
+          </section>
+
+          <section id="scorecard">
+            <div class="section-head"><h2>1 &middot; The Scorecard: 24 KPIs, 8 Domains</h2></div>
+            <p>Each KPI, what it measures, and which direction is good. &ldquo;Good when&rdquo; matters more than people expect &mdash; some metrics you drive down (dwell time, click rate), some you drive up (patch compliance, reporting), and a few are context only.</p>
+            <div class="table-wrap animate">
+              <table class="data-table">
+                <thead><tr><th>Domain</th><th>KPI</th><th>What it measures</th><th>Good when</th></tr></thead>
+                <tbody>
+                  <tr><td rowspan="3"><span class="tag">Threat Detection</span></td><td><strong>MTTD</strong> (mean time to detect)</td><td class="reading">Average time to identify a security incident</td><td class="dir down">&darr; lower</td></tr>
+                  <tr><td>Security alerts volume</td><td class="reading">Number of alerts generated in a period</td><td class="dir ctx">&mdash; context</td></tr>
+                  <tr><td>False positive rate</td><td class="reading">% of alerts wrongly flagged as threats</td><td class="dir down">&darr; lower</td></tr>
+
+                  <tr><td rowspan="3"><span class="tag">Incident Response</span></td><td><strong>MTTR</strong> (mean time to respond)</td><td class="reading">Average time to contain and remediate</td><td class="dir down">&darr; lower</td></tr>
+                  <tr><td>Incident resolution rate</td><td class="reading">% of incidents successfully resolved</td><td class="dir up">&uarr; higher</td></tr>
+                  <tr><td>Escalation rate</td><td class="reading">% of incidents needing higher-tier help</td><td class="dir ctx">&mdash; context</td></tr>
+
+                  <tr><td rowspan="3"><span class="tag">Vulnerability Mgmt</span></td><td>Vulnerability remediation time</td><td class="reading">Average time to patch a found vuln</td><td class="dir down">&darr; lower</td></tr>
+                  <tr><td>Critical vulnerability count</td><td class="reading">Number of high-risk vulns open</td><td class="dir down">&darr; lower</td></tr>
+                  <tr><td>Patch compliance rate</td><td class="reading">% of systems fully patched</td><td class="dir up">&uarr; higher</td></tr>
+
+                  <tr><td rowspan="3"><span class="tag">Identity &amp; Access</span></td><td>Privileged access violations</td><td class="reading">Unauthorised privileged-access attempts</td><td class="dir down">&darr; lower</td></tr>
+                  <tr><td>Access review completion</td><td class="reading">% of periodic reviews done on time</td><td class="dir up">&uarr; higher</td></tr>
+                  <tr><td>Account compromise rate</td><td class="reading">% of user accounts compromised</td><td class="dir down">&darr; lower</td></tr>
+
+                  <tr><td rowspan="3"><span class="tag">Awareness &amp; Training</span></td><td>Phishing click rate</td><td class="reading">% who clicked a phishing simulation</td><td class="dir down">&darr; lower</td></tr>
+                  <tr><td>Training completion rate</td><td class="reading">% of staff completing training</td><td class="dir up">&uarr; higher</td></tr>
+                  <tr><td>Reported incidents (by staff)</td><td class="reading">Incidents employees flag themselves</td><td class="dir up">&uarr; higher</td></tr>
+
+                  <tr><td rowspan="3"><span class="tag">Governance &amp; Risk</span></td><td>Policy compliance rate</td><td class="reading">% adherence to security policies</td><td class="dir up">&uarr; higher</td></tr>
+                  <tr><td>Audit findings count</td><td class="reading">Number of audit issues identified</td><td class="dir down">&darr; lower</td></tr>
+                  <tr><td>Risk mitigation coverage</td><td class="reading">% of risks with a mitigation plan</td><td class="dir up">&uarr; higher</td></tr>
+
+                  <tr><td rowspan="3"><span class="tag">Cloud &amp; Infra</span></td><td>Misconfiguration rate</td><td class="reading">% of insecure configs detected</td><td class="dir down">&darr; lower</td></tr>
+                  <tr><td>Endpoint protection coverage</td><td class="reading">% of endpoints actively protected</td><td class="dir up">&uarr; higher</td></tr>
+                  <tr><td>System availability (uptime)</td><td class="reading">% of time systems stay operational</td><td class="dir up">&uarr; higher</td></tr>
+
+                  <tr><td rowspan="3"><span class="tag">Cyber Resilience</span></td><td>Backup success rate</td><td class="reading">% of successful system backups</td><td class="dir up">&uarr; higher</td></tr>
+                  <tr><td>RTO adherence</td><td class="reading">% of recoveries meeting defined RTOs</td><td class="dir up">&uarr; higher</td></tr>
+                  <tr><td>Business continuity readiness</td><td class="reading">Overall preparedness for disruption</td><td class="dir up">&uarr; higher</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="callout"><p>&#9656; The one people get backwards: <strong>staff-reported incidents rising is good.</strong> It signals a reporting culture, not more attacks &mdash; a falling number more often means people stopped telling you.</p></div>
+          </section>
+
+          <section id="clocks">
+            <div class="section-head"><h2>2 &middot; The Two Clocks Above All Others</h2></div>
+            <p>If you can only track two numbers, track these. Together <strong>MTTD</strong> and <strong>MTTR</strong> describe attacker <em>dwell time</em> &mdash; how long an intruder operates before you see them and before you stop them. Almost every other KPI on the scorecard exists to pull one of these two down.</p>
+            <div class="table-wrap animate">
+              <table class="data-table">
+                <thead><tr><th>Metric</th><th>The question it answers</th><th>What lowers it</th></tr></thead>
+                <tbody>
+                  <tr><td><strong>MTTD</strong></td><td class="reading">&ldquo;How long until we notice?&rdquo;</td><td class="reading">Better detection coverage &amp; tuning, lower false-positive rate, threat hunting</td></tr>
+                  <tr><td><strong>MTTR</strong></td><td class="reading">&ldquo;How long until we stop it?&rdquo;</td><td class="reading">Playbooks &amp; automation (SOAR), clear ownership, rehearsed incident response</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="callout"><p>&#9656; See <a href="/soc-siem-soar">SOC &middot; SIEM &middot; SOAR</a> for the machinery that moves these two clocks &mdash; the SIEM shortens MTTD, the SOAR shortens MTTR.</p></div>
+          </section>
+
+          <section id="leading">
+            <div class="section-head"><h2>3 &middot; Leading vs Lagging &mdash; and What the Board Sees</h2></div>
+            <p>Half these KPIs tell you what already happened (<em>lagging</em>); half predict what&rsquo;s coming (<em>leading</em>). A mature programme watches leading indicators to move the lagging ones &mdash; you cut breaches by fixing patch compliance and click rates, not by staring at the breach count.</p>
+            <div class="table-wrap animate">
+              <table class="data-table">
+                <thead><tr><th>Type</th><th>Examples</th><th>Use it to&hellip;</th></tr></thead>
+                <tbody>
+                  <tr><td><strong>Leading</strong> (predictive)</td><td class="reading">Patch compliance, phishing click rate, training completion, access-review completion, misconfiguration rate</td><td class="reading">Act early &mdash; these move before an incident does</td></tr>
+                  <tr><td><strong>Lagging</strong> (outcome)</td><td class="reading">MTTR, account compromise rate, audit findings, incidents</td><td class="reading">Judge results &mdash; the score after the game</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="callout"><p>&#9656; For the board, roll 24 down to ~5: <strong>MTTD, MTTR, patch compliance, phishing click rate, and business-continuity readiness.</strong> One detection clock, one response clock, one hygiene leading-indicator, one human leading-indicator, one resilience outcome.</p></div>
+          </section>
+
+          <section id="bottom-line">
+            <div class="section-head"><h2>Bottom line</h2></div>
+            <ul class="takeaways">
+              <li><strong>A KPI must change a decision</strong> &mdash; if a number wouldn&rsquo;t alter what you do, it&rsquo;s a vanity metric.</li>
+              <li><strong>Two clocks rule them all</strong> &mdash; MTTD and MTTR capture dwell time; most other KPIs feed one of them.</li>
+              <li><strong>Direction is the trap</strong> &mdash; reported incidents <em>up</em> is healthy; alert volume is context, not a score.</li>
+              <li><strong>Lead, don&rsquo;t just lag</strong> &mdash; move patch compliance and click rate to move the breach count.</li>
+              <li><strong>Five, not twenty-four, for the board</strong> &mdash; detection, response, hygiene, humans, resilience.</li>
+            </ul>
+            <p class="method"><strong>Sources &amp; method.</strong> The eight domains and their KPIs reflect common security-operations and GRC scorecards; definitions describe standard usage. &ldquo;Good when&rdquo; directions and the leading/lagging split are the author&rsquo;s analysis. No fixed benchmark values are asserted &mdash; targets depend on sector and maturity. Original analysis; no third-party graphics or text reproduced.</p>
+          </section>
+
+        </article>
+
+        <aside class="sidebar">
+          <div class="editorial-card author-card">
+            <h2>About the Author</h2>
+            <p class="name">Manzill Surolia</p>
+            <p><strong>Education:</strong> LL.B, MCA</p>
+            <p><strong>Experience:</strong> Cyber security professional with over 10 years of experience in cyber security, governance, risk management, and compliance. Strong background in governance, risk, and compliance (GRC), with hands-on experience in security auditing, regulatory compliance (HITRUST, PCI-DSS, FedRAMP, ISO 27001, NIST), and overseeing data protection measures. Adept in designing incident response plans, business continuity plans (BCP), and driving initiatives in security posture management.</p>
+            <p class="socials">
+              <a href="https://in.linkedin.com/in/manzill" rel="me">LinkedIn</a> &middot;
+              <a href="https://x.com/manzill" rel="me">X</a> &middot;
+              <a href="https://www.facebook.com/manzill" rel="me">Facebook</a>
+              <span class="tag-hash">&nbsp;&middot; #Manzill</span>
+            </p>
+            <div class="byline">&copy; 2026 <strong>Manzill Surolia</strong>. All rights reserved.</div>
+          </div>
+
+          <div class="editorial-card more-card">
+            <h2>More analysis</h2>
+            <ul class="more-list">
+              <li><a href="/soc-siem-soar">SOC &middot; SIEM &middot; SOAR</a><span class="m-desc">The machinery behind MTTD &amp; MTTR</span></li>
+              <li><a href="/security-tooling-landscape">The Security Tooling Landscape</a><span class="m-desc">~150 tools across 17 categories, mapped</span></li>
+              <li><a href="/">Regulatory Controls, Decoded</a><span class="m-desc">58 security &amp; privacy frameworks, vectorised</span></li>
+            </ul>
+          </div>
+        </aside>
+      </div>
+    </main>
+
+    <footer class="site-foot">
+      <div class="foot-in">
+        <span>&copy; 2026 <strong>Manzill Surolia</strong></span>
+        <span class="sep">&middot;</span>
+        <a href="/">Home</a>
+        <a href="/soc-siem-soar">SOC · SIEM · SOAR</a>
+        <a href="/cybersecurity-certifications">Certification map</a>
+        <span class="sep">&middot;</span>
+        <a href="https://in.linkedin.com/in/manzill" rel="me">LinkedIn</a>
+      </div>
+    </footer>
+
+    <script>
+    (function () {
+      var els = document.querySelectorAll('.animate');
+      var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (reduce || !('IntersectionObserver' in window)) {
+        els.forEach(function (el) { el.classList.add('in-view'); });
+        return;
+      }
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) { e.target.classList.add('in-view'); io.unobserve(e.target); }
+        });
+      }, { threshold: 0.15 });
+      els.forEach(function (el) { io.observe(el); });
+    })();
+    </script>
+</body>
+</html>

@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#0e3a5f">
+
+    <title>The Evolution of Cybersecurity: 2000 &rarr; 2035 | Manzill Surolia</title>
+    <meta name="description" content="Twenty-five years of cybersecurity in five eras — from the firewall to zero trust and AI — tracing how threats, technology and skills co-evolved, and the six forces (AI, identity, cloud-native, quantum, supply chain, OT/IoT) shaping the next decade. By Manzill Surolia.">
+    <meta name="keywords" content="evolution of cybersecurity, history of cybersecurity, firewall era, APT era, zero trust, AI security, post-quantum cryptography, ITDR, CNAPP, future cybersecurity jobs, cybersecurity 2035">
+    <meta name="author" content="Manzill Surolia">
+
+    <link rel="canonical" href="https://www.manzill.com/evolution-of-cybersecurity">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="icon" type="image/png" sizes="512x512" href="/icon.png">
+    <link rel="apple-touch-icon" href="/icon.png">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Manzill Surolia">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:title" content="The Evolution of Cybersecurity: 2000 &rarr; 2035">
+    <meta property="og:description" content="Five eras, one moving perimeter. How threats, tech and skills co-evolved from the firewall to zero trust and AI — and the six forces shaping the next decade.">
+    <meta property="og:url" content="https://www.manzill.com/evolution-of-cybersecurity">
+    <meta property="og:image" content="https://www.manzill.com/manzill-og.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:alt" content="Manzill Surolia &mdash; evolution of cybersecurity">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="The Evolution of Cybersecurity: 2000 &rarr; 2035">
+    <meta name="twitter:description" content="Five eras, one moving perimeter — firewall to zero trust to AI, and what's next. By Manzill Surolia.">
+    <meta name="twitter:image" content="https://www.manzill.com/manzill-og.png">
+    <meta name="twitter:image:alt" content="Manzill Surolia &mdash; evolution of cybersecurity">
+
+    <!-- Fonts: Inter (modern UI) with system fallback -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap">
+
+    <script>document.documentElement.classList.add('js');</script>
+
+    <style>
+:root {
+  --brand: #0e3a5f;
+  --brand-dark: #082438;
+  --link: #0d5d92;
+  --accent: #12a5b8;
+  --bg: #f6f8fa;
+  --surface: #ffffff;
+  --text: #0f1a24;
+  --muted: #55636e;
+  --border: #dde4ea;
+  --shadow: 0 1px 3px rgba(0,0,0,.06), 0 4px 12px rgba(0,0,0,.04);
+  --radius: 12px;
+  --maxw: 1100px;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --link: #5cb3e0;
+    --bg: #0d1117;
+    --surface: #161b22;
+    --text: #e6edf3;
+    --muted: #8b98a5;
+    --border: #26303b;
+    --shadow: 0 1px 3px rgba(0,0,0,.4), 0 4px 12px rgba(0,0,0,.3);
+  }
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: inherit; text-decoration: none; }
+img { display: block; max-width: 100%; height: auto; }
+
+header.site { background: var(--brand); color: #fff; border-bottom: 3px solid var(--accent); box-shadow: var(--shadow); }
+.bar { max-width: var(--maxw); margin: 0 auto; padding: 12px 16px; display: flex; align-items: center; gap: 12px; }
+.brand { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 1.4rem; }
+.brand .logo { width: 34px; height: 34px; background: #fff; color: var(--brand); border-radius: 8px; display: grid; place-items: center; font-weight: 900; font-size: 1.15rem; font-family: system-ui, sans-serif; }
+
+main { max-width: var(--maxw); margin: 0 auto; padding: 20px 16px 60px; }
+
+.section-head { display: flex; align-items: baseline; gap: 12px; margin: 8px 0 14px; }
+.section-head h2 { font-size: 1.25rem; margin: 0; padding-left: 12px; border-left: 4px solid var(--brand); font-weight: 800; }
+
+.tabs { display: flex; gap: 6px; overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: thin; background: var(--surface); border: 1px solid var(--border); border-radius: 999px; padding: 6px; margin: 4px 0 22px; position: sticky; top: 8px; z-index: 10; box-shadow: var(--shadow); }
+.tabs::-webkit-scrollbar { height: 4px; }
+.tab { flex: 0 0 auto; background: transparent; border: 0; color: var(--text); text-decoration: none; padding: 8px 14px; border-radius: 999px; font-family: inherit; font-size: .92rem; font-weight: 600; cursor: pointer; white-space: nowrap; display: inline-flex; align-items: center; gap: 6px; transition: background .15s ease, color .15s ease; }
+.tab:hover { background: rgba(14,58,95,.08); }
+.tab[aria-selected="true"] { background: var(--brand); color: #fff; }
+@media (prefers-color-scheme: dark) { .tab:hover { background: rgba(255,255,255,.06); } }
+
+.editorial-card { background: var(--surface); border: 1px solid var(--border); border-left: 4px solid var(--accent); border-radius: var(--radius); padding: 18px 20px; margin-bottom: 18px; box-shadow: var(--shadow); }
+.editorial-card h2 { margin: 0 0 10px; font-size: 1.1rem; font-weight: 800; color: var(--link); }
+.editorial-card p { margin: 0 0 12px; font-size: .95rem; line-height: 1.7; }
+.editorial-card .byline { margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--border); font-size: .85rem; color: var(--muted); }
+.editorial-card .byline strong { color: var(--text); }
+
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
+
+.hero { margin: 26px 0 6px; }
+.hero .eyebrow { margin: 0 0 6px; font-size: .8rem; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; color: var(--link); }
+.hero h1 { font-size: clamp(1.5rem, 3.2vw, 2.05rem); line-height: 1.12; letter-spacing: -.015em; margin: 0; font-weight: 800; }
+.hero .sub { margin: .5rem 0 0; color: var(--muted); font-size: clamp(1rem, 2.2vw, 1.18rem); max-width: 62ch; }
+
+.layout { display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: 30px; align-items: start; }
+article.content, aside.sidebar { min-width: 0; }
+article.content > section { margin-bottom: 40px; scroll-margin-top: 64px; }
+article.content > section:first-child { margin-top: 6px; }
+article.content p { margin: 0 0 14px; }
+.lede { font-size: 1.06rem; line-height: 1.72; }
+.note { font-size: .88rem; color: var(--muted); margin: 6px 0 0; }
+.reading { color: var(--muted); }
+
+.stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin: 18px 0 22px; }
+.stat { background: linear-gradient(135deg, var(--brand), var(--brand-dark)); color: #fff; border-radius: var(--radius); padding: 16px 16px 14px; box-shadow: var(--shadow); display: flex; flex-direction: column; gap: 4px; border-top: 3px solid var(--accent); }
+.stat .num { font-size: 2rem; font-weight: 900; line-height: 1; letter-spacing: -.02em; }
+.stat .lbl { font-size: .82rem; opacity: .95; line-height: 1.35; }
+
+.table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow); background: var(--surface); }
+table.data-table { border-collapse: collapse; width: 100%; font-size: .92rem; }
+table.data-table th, table.data-table td { text-align: left; padding: 11px 14px; vertical-align: top; border-bottom: 1px solid var(--border); }
+table.data-table thead th { background: var(--brand); color: #fff; font-weight: 700; font-size: .82rem; letter-spacing: .01em; white-space: nowrap; }
+table.data-table tbody tr:nth-child(even) { background: rgba(14,58,95,.035); }
+table.data-table tbody tr:last-child td { border-bottom: 0; }
+table.data-table tbody tr:hover { background: rgba(14,58,95,.07); }
+td.era { font-weight: 800; color: var(--link); white-space: nowrap; }
+.tag { display: inline-block; font-size: .72rem; font-weight: 700; padding: 2px 8px; border-radius: 999px; white-space: nowrap; background: rgba(18,165,184,.14); color: var(--link); }
+.tag.vhigh { background: rgba(18,165,184,.20); color: var(--link); }
+.tag.high { background: rgba(14,58,95,.12); color: var(--link); }
+.tag.emerging { background: rgba(85,99,110,.14); color: var(--muted); }
+@media (prefers-color-scheme: dark) {
+  table.data-table tbody tr:nth-child(even) { background: rgba(255,255,255,.03); }
+  table.data-table tbody tr:hover { background: rgba(14,58,95,.16); }
+}
+
+.callout { background: rgba(18,165,184,.10); border: 1px solid var(--border); border-left: 4px solid var(--accent); border-radius: var(--radius); padding: 14px 18px; margin: 16px 0 0; }
+.callout p { margin: 0; font-weight: 600; color: var(--text); }
+
+ul.takeaways { margin: 6px 0 0; padding-left: 0; list-style: none; }
+ul.takeaways li { position: relative; padding: 10px 0 10px 30px; border-bottom: 1px solid var(--border); font-size: .98rem; }
+ul.takeaways li:last-child { border-bottom: 0; }
+ul.takeaways li::before { content: "\25B8"; color: var(--link); position: absolute; left: 6px; top: 10px; font-weight: 900; }
+.method { margin-top: 22px; font-size: .86rem; color: var(--muted); background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px 16px; }
+.method strong { color: var(--text); }
+
+aside.sidebar { position: sticky; top: 64px; }
+.author-card p.name { font-size: 1.15rem; font-weight: 800; color: var(--text); margin-bottom: 10px; }
+.author-card .socials { font-size: .9rem; }
+.author-card .socials a { color: var(--link); font-weight: 700; }
+.author-card .socials a:hover { text-decoration: underline; }
+.author-card .tag-hash { color: var(--muted); }
+
+.more-card h2 { color: var(--link); }
+ul.more-list { margin: 4px 0 0; padding: 0; list-style: none; }
+ul.more-list li { padding: 9px 0; border-bottom: 1px solid var(--border); }
+ul.more-list li:last-child { border-bottom: 0; }
+ul.more-list a { font-weight: 700; color: var(--link); }
+ul.more-list a:hover { text-decoration: underline; }
+ul.more-list .m-desc { display: block; font-size: .82rem; color: var(--muted); font-weight: 400; margin-top: 2px; }
+
+footer.site-foot { border-top: 1px solid var(--border); background: var(--surface); color: var(--muted); font-size: .86rem; }
+footer.site-foot .foot-in { max-width: var(--maxw); margin: 0 auto; padding: 20px 16px; display: flex; flex-wrap: wrap; gap: 8px 18px; align-items: center; }
+footer.site-foot a { color: var(--link); font-weight: 700; }
+footer.site-foot a:hover { text-decoration: underline; }
+footer.site-foot .sep { opacity: .5; }
+
+@media (max-width: 860px) { .layout { grid-template-columns: minmax(0, 1fr); gap: 8px; } aside.sidebar { position: static; margin-top: 8px; } }
+
+.js .animate.stat-grid .stat { opacity: 0; transform: translateY(12px); transition: opacity .5s ease, transform .5s ease; }
+.js .animate.stat-grid.in-view .stat { opacity: 1; transform: none; }
+.js .animate.stat-grid.in-view .stat:nth-child(2){ transition-delay: .07s; }
+.js .animate.stat-grid.in-view .stat:nth-child(3){ transition-delay: .14s; }
+.js .animate.stat-grid.in-view .stat:nth-child(4){ transition-delay: .21s; }
+.js .animate.stat-grid.in-view .stat:nth-child(5){ transition-delay: .28s; }
+.js .animate table.data-table tbody tr { opacity: 0; transform: translateY(6px); transition: opacity .45s ease, transform .45s ease; }
+.js .animate.in-view table.data-table tbody tr { opacity: 1; transform: none; }
+.js .animate.in-view table.data-table tbody tr:nth-child(2){ transition-delay: .04s; }
+.js .animate.in-view table.data-table tbody tr:nth-child(3){ transition-delay: .08s; }
+.js .animate.in-view table.data-table tbody tr:nth-child(4){ transition-delay: .12s; }
+.js .animate.in-view table.data-table tbody tr:nth-child(5){ transition-delay: .16s; }
+.js .animate.in-view table.data-table tbody tr:nth-child(6){ transition-delay: .20s; }
+    </style>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Manzill Surolia",
+      "url": "https://www.manzill.com/",
+      "image": "https://www.manzill.com/manzill-og.png",
+      "jobTitle": "Cyber Security & GRC Professional",
+      "knowsAbout": ["Cyber Security", "Zero Trust", "AI Security", "Cloud Security", "Threat Landscape", "Post-Quantum Cryptography", "Security History"],
+      "sameAs": ["https://in.linkedin.com/in/manzill", "https://x.com/manzill", "https://www.facebook.com/manzill"]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": ["Article", "TechArticle"],
+      "headline": "The Evolution of Cybersecurity: 2000 → 2035",
+      "description": "Twenty-five years of cybersecurity in five eras, tracing how threats, technology and skills co-evolved, plus the six forces shaping the next decade.",
+      "author": { "@type": "Person", "name": "Manzill Surolia", "url": "https://www.manzill.com/" },
+      "publisher": { "@type": "Person", "name": "Manzill Surolia" },
+      "datePublished": "2026-07-17",
+      "dateModified": "2026-07-17",
+      "articleSection": "Cyber Security",
+      "keywords": "evolution of cybersecurity, firewall era, APT era, zero trust, AI security, post-quantum cryptography, ITDR, CNAPP, future cybersecurity jobs",
+      "image": "https://www.manzill.com/manzill-og.png",
+      "mainEntityOfPage": "https://www.manzill.com/evolution-of-cybersecurity",
+      "about": ["History of cybersecurity", "Zero Trust", "AI security", "Post-quantum cryptography", "Threat landscape"]
+    }
+    </script>
+</head>
+<body>
+    <header class="site">
+      <div class="bar">
+        <a class="brand" href="/">
+          <span class="logo">M</span>
+          <span>Manzill Surolia</span>
+        </a>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <p class="eyebrow">Analysis &middot; 17 Jul 2026</p>
+        <h1>The Evolution of Cybersecurity: 2000 &rarr; 2035</h1>
+        <p class="sub">Twenty-five years in five eras &mdash; firewall to zero trust to AI. One pattern runs through all of it: the perimeter never stopped moving, and defence kept chasing it.</p>
+      </section>
+
+      <nav class="tabs" aria-label="Sections">
+        <a class="tab" href="#overview">Overview</a>
+        <a class="tab" href="#eras">The five eras</a>
+        <a class="tab" href="#next">The next decade</a>
+        <a class="tab" href="#roles">Future roles</a>
+        <a class="tab" href="#bottom-line">Bottom line</a>
+      </nav>
+
+      <div class="layout">
+        <article class="content">
+
+          <section id="overview">
+            <div class="stat-grid animate">
+              <div class="stat"><span class="num">25</span><span class="lbl">years, 2000 &rarr; 2025</span></div>
+              <div class="stat"><span class="num">5</span><span class="lbl">distinct eras</span></div>
+              <div class="stat"><span class="num">3</span><span class="lbl">perimeters: network &rarr; identity &rarr; workload</span></div>
+              <div class="stat"><span class="num">6</span><span class="lbl">forces shaping 2025&ndash;2035</span></div>
+              <div class="stat"><span class="num">10</span><span class="lbl">roles that will define the next decade</span></div>
+            </div>
+            <p class="lede">Cybersecurity didn&rsquo;t advance in a straight line &mdash; it lurched, era by era, each time an attacker found the seam the last generation of tools ignored. Trace it and two throughlines emerge. First, the <strong>perimeter kept moving</strong>: from the network edge, to identity, to the workload itself &mdash; until &ldquo;zero trust&rdquo; conceded there is no edge left to defend. Second, the <strong>posture kept shifting</strong>: prevent &rarr; comply &rarr; detect &amp; respond &rarr; assume-breach &rarr; predict. Every era&rsquo;s &ldquo;advanced&rdquo; became the next era&rsquo;s baseline.</p>
+          </section>
+
+          <section id="eras">
+            <div class="section-head"><h2>1 &middot; The Five Eras (2000&ndash;2025)</h2></div>
+            <p>Each era is a package deal &mdash; the dominant threat pulled a wave of technology into being, which minted a new set of in-demand skills. Read across a row and you see how one shift rippled through the whole field.</p>
+            <div class="table-wrap animate">
+              <table class="data-table">
+                <thead><tr><th>Era</th><th>Focus</th><th>Signature threats</th><th>Key tech</th></tr></thead>
+                <tbody>
+                  <tr><td class="era">2000&ndash;05<br><span class="tag">Firewall</span></td><td class="reading">Perimeter security</td><td class="reading">Email viruses, network worms, script kiddies, defacement</td><td class="reading">Firewalls, antivirus, IDS/IPS, VPN</td></tr>
+                  <tr><td class="era">2005&ndash;10<br><span class="tag">Compliance</span></td><td class="reading">Governance &amp; controls</td><td class="reading">SQL injection, XSS, banking trojans, targeted phishing</td><td class="reading">SIEM, NAC, WAF, identity management</td></tr>
+                  <tr><td class="era">2010&ndash;15<br><span class="tag">APT</span></td><td class="reading">Detection &amp; response</td><td class="reading">APTs, early ransomware, zero-days, nation-state attacks</td><td class="reading">Threat intel, sandboxing, EDR, security analytics</td></tr>
+                  <tr><td class="era">2015&ndash;20<br><span class="tag">Cloud &amp; Identity</span></td><td class="reading">Cloud adoption &amp; mobility &mdash; identity becomes the perimeter</td><td class="reading">Mass ransomware, cloud misconfigs, credential theft, supply-chain</td><td class="reading">CASB, MFA/IAM, SOAR, UEBA</td></tr>
+                  <tr><td class="era">2020&ndash;25<br><span class="tag">Zero Trust &amp; AI</span></td><td class="reading">Resilience &amp; intelligence</td><td class="reading">Ransomware-as-a-service, AI-assisted attacks</td><td class="reading">Zero trust, AI-powered defence, automation</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="callout"><p>&#9656; The tell is in the &ldquo;Focus&rdquo; column: it walks from <em>keep them out</em> to <em>prove we&rsquo;re governed</em> to <em>catch them inside</em> to <em>assume they&rsquo;re already in</em>. Defence conceded the perimeter one era at a time.</p></div>
+          </section>
+
+          <section id="next">
+            <div class="section-head"><h2>2 &middot; The Next Decade (2025&ndash;2035)</h2></div>
+            <p>Six forces are already visible. None is speculative &mdash; each is an early-stage version of the next baseline, the way EDR was &ldquo;advanced&rdquo; in 2012 and table-stakes by 2020.</p>
+            <div class="table-wrap animate">
+              <table class="data-table">
+                <thead><tr><th>Force</th><th>What changes</th><th>Skills / tech it creates</th></tr></thead>
+                <tbody>
+                  <tr><td><strong>AI transforms security</strong></td><td class="reading">Agents automate SOC work; attackers weaponise AI for phishing &amp; malware; defensive AI improves detection</td><td class="reading">AI security, prompt security, secure AI dev, AI risk governance</td></tr>
+                  <tr><td><strong>Identity is the perimeter</strong></td><td class="reading">Passwords decline; continuous, behavioural authentication rises</td><td class="reading">Passkeys, continuous auth, behavioural biometrics, ITDR</td></tr>
+                  <tr><td><strong>Cloud-native by default</strong></td><td class="reading">Kubernetes, serverless, multi-cloud &amp; edge become the norm</td><td class="reading">IaC security, CNAPP, Kubernetes &amp; serverless security</td></tr>
+                  <tr><td><strong>Quantum hits crypto</strong></td><td class="reading">Quantum threatens today&rsquo;s encryption; migration begins</td><td class="reading">Post-quantum cryptography, crypto agility, quantum-resistant keys</td></tr>
+                  <tr><td><strong>Supply chain expands</strong></td><td class="reading">More attacks on software dependencies &amp; build pipelines</td><td class="reading">SBOM, code signing, dependency management, continuous verification</td></tr>
+                  <tr><td><strong>OT &amp; IoT grow</strong></td><td class="reading">Critical infrastructure, ICS/SCADA and health devices come online</td><td class="reading">OT security; safety + reliability + security aligned</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <section id="roles">
+            <div class="section-head"><h2>3 &middot; The Roles That Will Define It</h2></div>
+            <p>Where the demand goes next. The pattern mirrors the forces above &mdash; AI, cloud, identity and automation roles dominate; quantum is the emerging bet.</p>
+            <div class="table-wrap animate">
+              <table class="data-table">
+                <thead><tr><th>Future role</th><th>Growth outlook</th><th>Born from</th></tr></thead>
+                <tbody>
+                  <tr><td>AI Security Engineer</td><td><span class="tag vhigh">Very high</span></td><td class="reading">AI transforms security</td></tr>
+                  <tr><td>Cloud Security Architect</td><td><span class="tag vhigh">Very high</span></td><td class="reading">Cloud-native by default</td></tr>
+                  <tr><td>DevSecOps Engineer</td><td><span class="tag vhigh">Very high</span></td><td class="reading">Cloud + supply chain</td></tr>
+                  <tr><td>Security Automation Engineer</td><td><span class="tag vhigh">Very high</span></td><td class="reading">AI + automation</td></tr>
+                  <tr><td>Identity Security Engineer</td><td><span class="tag vhigh">Very high</span></td><td class="reading">Identity is the perimeter</td></tr>
+                  <tr><td>Zero Trust Architect</td><td><span class="tag high">High</span></td><td class="reading">Zero Trust &amp; AI era</td></tr>
+                  <tr><td>Threat Hunter</td><td><span class="tag high">High</span></td><td class="reading">APT era, still growing</td></tr>
+                  <tr><td>Digital Forensics Specialist</td><td><span class="tag high">High</span></td><td class="reading">Detection &amp; response</td></tr>
+                  <tr><td>OT / ICS Security Engineer</td><td><span class="tag high">High</span></td><td class="reading">OT &amp; IoT grow</td></tr>
+                  <tr><td>Quantum Security Specialist</td><td><span class="tag emerging">Emerging</span></td><td class="reading">Quantum hits crypto</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="callout"><p>&#9656; Core skills for the decade: cloud security, IAM &amp; <a href="/soc-siem-soar">zero trust</a>, AI/ML security, threat hunting &amp; IR, DevSecOps, Kubernetes security, automation (Python/APIs), <a href="/cybersecurity-certifications">GRC</a>, and post-quantum crypto fundamentals.</p></div>
+          </section>
+
+          <section id="bottom-line">
+            <div class="section-head"><h2>Bottom line</h2></div>
+            <ul class="takeaways">
+              <li><strong>The perimeter kept moving</strong> &mdash; network &rarr; identity &rarr; workload; zero trust is the admission there is no edge.</li>
+              <li><strong>Posture followed</strong> &mdash; prevent &rarr; comply &rarr; detect &amp; respond &rarr; assume-breach &rarr; predict.</li>
+              <li><strong>Yesterday&rsquo;s advanced is today&rsquo;s baseline</strong> &mdash; EDR, MFA and SIEM all made that journey.</li>
+              <li><strong>The attacker economy professionalised</strong> &mdash; script kiddies &rarr; organised crime &rarr; nation-states &rarr; ransomware-as-a-service &rarr; AI-augmented.</li>
+              <li><strong>The next edge is AI and identity</strong> &mdash; with quantum as the long fuse under all our cryptography.</li>
+            </ul>
+            <p class="method"><strong>Sources &amp; method.</strong> The era framing, threats, technologies and future-role outlooks synthesise widely documented industry history and forward-looking analyses. Era boundaries are approximate and overlap in practice. The two throughlines (moving perimeter; shifting posture) are the author&rsquo;s analysis. Original synthesis; no third-party graphics or text reproduced.</p>
+          </section>
+
+        </article>
+
+        <aside class="sidebar">
+          <div class="editorial-card author-card">
+            <h2>About the Author</h2>
+            <p class="name">Manzill Surolia</p>
+            <p><strong>Education:</strong> LL.B, MCA</p>
+            <p><strong>Experience:</strong> Cyber security professional with over 10 years of experience in cyber security, governance, risk management, and compliance. Strong background in governance, risk, and compliance (GRC), with hands-on experience in security auditing, regulatory compliance (HITRUST, PCI-DSS, FedRAMP, ISO 27001, NIST), and overseeing data protection measures. Adept in designing incident response plans, business continuity plans (BCP), and driving initiatives in security posture management.</p>
+            <p class="socials">
+              <a href="https://in.linkedin.com/in/manzill" rel="me">LinkedIn</a> &middot;
+              <a href="https://x.com/manzill" rel="me">X</a> &middot;
+              <a href="https://www.facebook.com/manzill" rel="me">Facebook</a>
+              <span class="tag-hash">&nbsp;&middot; #Manzill</span>
+            </p>
+            <div class="byline">&copy; 2026 <strong>Manzill Surolia</strong>. All rights reserved.</div>
+          </div>
+
+          <div class="editorial-card more-card">
+            <h2>More analysis</h2>
+            <ul class="more-list">
+              <li><a href="/12-pillars-of-cyber-defense">The 12 Pillars of Cyber Defense</a><span class="m-desc">The blueprint behind the eras</span></li>
+              <li><a href="/security-tooling-landscape">The Security Tooling Landscape</a><span class="m-desc">~150 tools across 17 categories, mapped</span></li>
+              <li><a href="/cybersecurity-certifications">The Certification Map</a><span class="m-desc">40+ certs &mdash; pick a lane</span></li>
+            </ul>
+          </div>
+        </aside>
+      </div>
+    </main>
+
+    <footer class="site-foot">
+      <div class="foot-in">
+        <span>&copy; 2026 <strong>Manzill Surolia</strong></span>
+        <span class="sep">&middot;</span>
+        <a href="/">Home</a>
+        <a href="/12-pillars-of-cyber-defense">12 Pillars</a>
+        <a href="/cybersecurity-certifications">Certification map</a>
+        <span class="sep">&middot;</span>
+        <a href="https://in.linkedin.com/in/manzill" rel="me">LinkedIn</a>
+      </div>
+    </footer>
+
+    <script>
+    (function () {
+      var els = document.querySelectorAll('.animate');
+      var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (reduce || !('IntersectionObserver' in window)) {
+        els.forEach(function (el) { el.classList.add('in-view'); });
+        return;
+      }
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) { e.target.classList.add('in-view'); io.unobserve(e.target); }
+        });
+      }, { threshold: 0.15 });
+      els.forEach(function (el) { io.observe(el); });
+    })();
+    </script>
+</body>
+</html>

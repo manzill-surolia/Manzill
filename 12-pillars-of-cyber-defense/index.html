@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#0e3a5f">
+
+    <title>The 12 Pillars of Cyber Defense | Manzill Surolia</title>
+    <meta name="description" content="Cybersecurity isn't one control — it's 12 interlocking pillars, from authentication and encryption to container, API and third-party security. Each mapped to what it protects, how to build it, and the framework capability and tool category behind it. By Manzill Surolia.">
+    <meta name="keywords" content="cyber defense, defense in depth, authentication, authorization, encryption, network security, endpoint security, API security, container security, third-party risk, incident response, security architecture">
+    <meta name="author" content="Manzill Surolia">
+
+    <link rel="canonical" href="https://www.manzill.com/12-pillars-of-cyber-defense">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="icon" type="image/png" sizes="512x512" href="/icon.png">
+    <link rel="apple-touch-icon" href="/icon.png">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Manzill Surolia">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:title" content="The 12 Pillars of Cyber Defense">
+    <meta property="og:description" content="Cybersecurity isn't one control — it's 12 interlocking pillars. Each mapped to what it protects, how to build it, and the capability and tool category behind it.">
+    <meta property="og:url" content="https://www.manzill.com/12-pillars-of-cyber-defense">
+    <meta property="og:image" content="https://www.manzill.com/manzill-og.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:alt" content="Manzill Surolia &mdash; 12 pillars of cyber defense">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="The 12 Pillars of Cyber Defense">
+    <meta name="twitter:description" content="Cybersecurity isn't one control — it's 12 interlocking pillars, mapped. By Manzill Surolia.">
+    <meta name="twitter:image" content="https://www.manzill.com/manzill-og.png">
+    <meta name="twitter:image:alt" content="Manzill Surolia &mdash; 12 pillars of cyber defense">
+
+    <!-- Fonts: Inter (modern UI) with system fallback -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap">
+
+    <script>document.documentElement.classList.add('js');</script>
+
+    <style>
+:root {
+  --brand: #0e3a5f;
+  --brand-dark: #082438;
+  --link: #0d5d92;
+  --accent: #12a5b8;
+  --bg: #f6f8fa;
+  --surface: #ffffff;
+  --text: #0f1a24;
+  --muted: #55636e;
+  --border: #dde4ea;
+  --shadow: 0 1px 3px rgba(0,0,0,.06), 0 4px 12px rgba(0,0,0,.04);
+  --radius: 12px;
+  --maxw: 1100px;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --link: #5cb3e0;
+    --bg: #0d1117;
+    --surface: #161b22;
+    --text: #e6edf3;
+    --muted: #8b98a5;
+    --border: #26303b;
+    --shadow: 0 1px 3px rgba(0,0,0,.4), 0 4px 12px rgba(0,0,0,.3);
+  }
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: inherit; text-decoration: none; }
+img { display: block; max-width: 100%; height: auto; }
+
+header.site { background: var(--brand); color: #fff; border-bottom: 3px solid var(--accent); box-shadow: var(--shadow); }
+.bar { max-width: var(--maxw); margin: 0 auto; padding: 12px 16px; display: flex; align-items: center; gap: 12px; }
+.brand { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 1.4rem; }
+.brand .logo { width: 34px; height: 34px; background: #fff; color: var(--brand); border-radius: 8px; display: grid; place-items: center; font-weight: 900; font-size: 1.15rem; font-family: system-ui, sans-serif; }
+
+main { max-width: var(--maxw); margin: 0 auto; padding: 20px 16px 60px; }
+
+.section-head { display: flex; align-items: baseline; gap: 12px; margin: 8px 0 14px; }
+.section-head h2 { font-size: 1.25rem; margin: 0; padding-left: 12px; border-left: 4px solid var(--brand); font-weight: 800; }
+
+.tabs { display: flex; gap: 6px; overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: thin; background: var(--surface); border: 1px solid var(--border); border-radius: 999px; padding: 6px; margin: 4px 0 22px; position: sticky; top: 8px; z-index: 10; box-shadow: var(--shadow); }
+.tabs::-webkit-scrollbar { height: 4px; }
+.tab { flex: 0 0 auto; background: transparent; border: 0; color: var(--text); text-decoration: none; padding: 8px 14px; border-radius: 999px; font-family: inherit; font-size: .92rem; font-weight: 600; cursor: pointer; white-space: nowrap; display: inline-flex; align-items: center; gap: 6px; transition: background .15s ease, color .15s ease; }
+.tab:hover { background: rgba(14,58,95,.08); }
+.tab[aria-selected="true"] { background: var(--brand); color: #fff; }
+@media (prefers-color-scheme: dark) { .tab:hover { background: rgba(255,255,255,.06); } }
+
+.editorial-card { background: var(--surface); border: 1px solid var(--border); border-left: 4px solid var(--accent); border-radius: var(--radius); padding: 18px 20px; margin-bottom: 18px; box-shadow: var(--shadow); }
+.editorial-card h2 { margin: 0 0 10px; font-size: 1.1rem; font-weight: 800; color: var(--link); }
+.editorial-card p { margin: 0 0 12px; font-size: .95rem; line-height: 1.7; }
+.editorial-card .byline { margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--border); font-size: .85rem; color: var(--muted); }
+.editorial-card .byline strong { color: var(--text); }
+
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
+
+.hero { margin: 26px 0 6px; }
+.hero .eyebrow { margin: 0 0 6px; font-size: .8rem; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; color: var(--link); }
+.hero h1 { font-size: clamp(1.5rem, 3.2vw, 2.05rem); line-height: 1.12; letter-spacing: -.015em; margin: 0; font-weight: 800; }
+.hero .sub { margin: .5rem 0 0; color: var(--muted); font-size: clamp(1rem, 2.2vw, 1.18rem); max-width: 62ch; }
+
+.layout { display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: 30px; align-items: start; }
+article.content, aside.sidebar { min-width: 0; }
+article.content > section { margin-bottom: 40px; scroll-margin-top: 64px; }
+article.content > section:first-child { margin-top: 6px; }
+article.content p { margin: 0 0 14px; }
+.lede { font-size: 1.06rem; line-height: 1.72; }
+.note { font-size: .88rem; color: var(--muted); margin: 6px 0 0; }
+.reading { color: var(--muted); }
+
+.stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin: 18px 0 22px; }
+.stat { background: linear-gradient(135deg, var(--brand), var(--brand-dark)); color: #fff; border-radius: var(--radius); padding: 16px 16px 14px; box-shadow: var(--shadow); display: flex; flex-direction: column; gap: 4px; border-top: 3px solid var(--accent); }
+.stat .num { font-size: 2rem; font-weight: 900; line-height: 1; letter-spacing: -.02em; }
+.stat .lbl { font-size: .82rem; opacity: .95; line-height: 1.35; }
+
+.table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow); background: var(--surface); }
+table.data-table { border-collapse: collapse; width: 100%; font-size: .92rem; }
+table.data-table th, table.data-table td { text-align: left; padding: 11px 14px; vertical-align: top; border-bottom: 1px solid var(--border); }
+table.data-table thead th { background: var(--brand); color: #fff; font-weight: 700; font-size: .82rem; letter-spacing: .01em; white-space: nowrap; }
+table.data-table tbody tr:nth-child(even) { background: rgba(14,58,95,.035); }
+table.data-table tbody tr:last-child td { border-bottom: 0; }
+table.data-table tbody tr:hover { background: rgba(14,58,95,.07); }
+td.num-cell { font-variant-numeric: tabular-nums; font-weight: 800; color: var(--link); text-align: center; width: 34px; }
+.tag { display: inline-block; font-size: .72rem; font-weight: 700; padding: 2px 8px; border-radius: 999px; white-space: nowrap; background: rgba(18,165,184,.14); color: var(--link); }
+@media (prefers-color-scheme: dark) {
+  table.data-table tbody tr:nth-child(even) { background: rgba(255,255,255,.03); }
+  table.data-table tbody tr:hover { background: rgba(14,58,95,.16); }
+}
+
+.callout { background: rgba(18,165,184,.10); border: 1px solid var(--border); border-left: 4px solid var(--accent); border-radius: var(--radius); padding: 14px 18px; margin: 16px 0 0; }
+.callout p { margin: 0; font-weight: 600; color: var(--text); }
+
+ul.takeaways { margin: 6px 0 0; padding-left: 0; list-style: none; }
+ul.takeaways li { position: relative; padding: 10px 0 10px 30px; border-bottom: 1px solid var(--border); font-size: .98rem; }
+ul.takeaways li:last-child { border-bottom: 0; }
+ul.takeaways li::before { content: "\25B8"; color: var(--link); position: absolute; left: 6px; top: 10px; font-weight: 900; }
+.method { margin-top: 22px; font-size: .86rem; color: var(--muted); background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px 16px; }
+.method strong { color: var(--text); }
+
+aside.sidebar { position: sticky; top: 64px; }
+.author-card p.name { font-size: 1.15rem; font-weight: 800; color: var(--text); margin-bottom: 10px; }
+.author-card .socials { font-size: .9rem; }
+.author-card .socials a { color: var(--link); font-weight: 700; }
+.author-card .socials a:hover { text-decoration: underline; }
+.author-card .tag-hash { color: var(--muted); }
+
+.more-card h2 { color: var(--link); }
+ul.more-list { margin: 4px 0 0; padding: 0; list-style: none; }
+ul.more-list li { padding: 9px 0; border-bottom: 1px solid var(--border); }
+ul.more-list li:last-child { border-bottom: 0; }
+ul.more-list a { font-weight: 700; color: var(--link); }
+ul.more-list a:hover { text-decoration: underline; }
+ul.more-list .m-desc { display: block; font-size: .82rem; color: var(--muted); font-weight: 400; margin-top: 2px; }
+
+footer.site-foot { border-top: 1px solid var(--border); background: var(--surface); color: var(--muted); font-size: .86rem; }
+footer.site-foot .foot-in { max-width: var(--maxw); margin: 0 auto; padding: 20px 16px; display: flex; flex-wrap: wrap; gap: 8px 18px; align-items: center; }
+footer.site-foot a { color: var(--link); font-weight: 700; }
+footer.site-foot a:hover { text-decoration: underline; }
+footer.site-foot .sep { opacity: .5; }
+
+@media (max-width: 860px) { .layout { grid-template-columns: minmax(0, 1fr); gap: 8px; } aside.sidebar { position: static; margin-top: 8px; } }
+
+.js .animate.stat-grid .stat { opacity: 0; transform: translateY(12px); transition: opacity .5s ease, transform .5s ease; }
+.js .animate.stat-grid.in-view .stat { opacity: 1; transform: none; }
+.js .animate.stat-grid.in-view .stat:nth-child(2){ transition-delay: .07s; }
+.js .animate.stat-grid.in-view .stat:nth-child(3){ transition-delay: .14s; }
+.js .animate.stat-grid.in-view .stat:nth-child(4){ transition-delay: .21s; }
+.js .animate.stat-grid.in-view .stat:nth-child(5){ transition-delay: .28s; }
+.js .animate table.data-table tbody tr { opacity: 0; transform: translateY(6px); transition: opacity .45s ease, transform .45s ease; }
+.js .animate.in-view table.data-table tbody tr { opacity: 1; transform: none; }
+.js .animate.in-view table.data-table tbody tr:nth-child(2){ transition-delay: .03s; }
+.js .animate.in-view table.data-table tbody tr:nth-child(3){ transition-delay: .06s; }
+.js .animate.in-view table.data-table tbody tr:nth-child(4){ transition-delay: .09s; }
+.js .animate.in-view table.data-table tbody tr:nth-child(5){ transition-delay: .12s; }
+.js .animate.in-view table.data-table tbody tr:nth-child(6){ transition-delay: .15s; }
+    </style>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Manzill Surolia",
+      "url": "https://www.manzill.com/",
+      "image": "https://www.manzill.com/manzill-og.png",
+      "jobTitle": "Cyber Security & GRC Professional",
+      "knowsAbout": ["Cyber Security", "Security Architecture", "Defense in Depth", "Access Control", "Encryption", "Incident Response", "API Security", "GRC"],
+      "sameAs": ["https://in.linkedin.com/in/manzill", "https://x.com/manzill", "https://www.facebook.com/manzill"]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": ["Article", "TechArticle"],
+      "headline": "The 12 Pillars of Cyber Defense",
+      "description": "A blueprint of 12 interlocking cyber-defense pillars — what each protects, how to build it, and the framework capability and tool category behind it.",
+      "author": { "@type": "Person", "name": "Manzill Surolia", "url": "https://www.manzill.com/" },
+      "publisher": { "@type": "Person", "name": "Manzill Surolia" },
+      "datePublished": "2026-07-17",
+      "dateModified": "2026-07-17",
+      "articleSection": "Cyber Security",
+      "keywords": "cyber defense, defense in depth, authentication, encryption, network security, endpoint security, API security, container security, third-party risk, incident response",
+      "image": "https://www.manzill.com/manzill-og.png",
+      "mainEntityOfPage": "https://www.manzill.com/12-pillars-of-cyber-defense",
+      "about": ["Defense in depth", "Security architecture", "Access control", "Encryption", "Incident response"]
+    }
+    </script>
+</head>
+<body>
+    <header class="site">
+      <div class="bar">
+        <a class="brand" href="/">
+          <span class="logo">M</span>
+          <span>Manzill Surolia</span>
+        </a>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <p class="eyebrow">Analysis &middot; 17 Jul 2026</p>
+        <h1>The 12 Pillars of Cyber Defense</h1>
+        <p class="sub">Security isn&rsquo;t one control you buy &mdash; it&rsquo;s twelve interlocking pillars. Each answers two questions: what am I protecting, and how? Skip one and the roof still falls in.</p>
+      </section>
+
+      <nav class="tabs" aria-label="Sections">
+        <a class="tab" href="#overview">Overview</a>
+        <a class="tab" href="#pillars">The 12 pillars</a>
+        <a class="tab" href="#layers">Five layers</a>
+        <a class="tab" href="#crosswalk">Capability &amp; tool crosswalk</a>
+        <a class="tab" href="#bottom-line">Bottom line</a>
+      </nav>
+
+      <div class="layout">
+        <article class="content">
+
+          <section id="overview">
+            <div class="stat-grid animate">
+              <div class="stat"><span class="num">12</span><span class="lbl">pillars of defense</span></div>
+              <div class="stat"><span class="num">5</span><span class="lbl">layers they group into</span></div>
+              <div class="stat"><span class="num">2</span><span class="lbl">questions each answers: what &amp; how</span></div>
+              <div class="stat"><span class="num">~10</span><span class="lbl">framework capabilities they reduce to</span></div>
+              <div class="stat"><span class="num">0</span><span class="lbl">that are truly optional</span></div>
+            </div>
+            <p class="lede">&ldquo;Are we secure?&rdquo; is the wrong question because security isn&rsquo;t a single thing to be. It&rsquo;s a structure &mdash; twelve pillars, each protecting a different failure surface, each needing its own design decisions. A firewall doesn&rsquo;t save you from a leaked API key; MFA doesn&rsquo;t save you from an unpatched container. This is the blueprint: what each pillar defends, the design points that make it real, and &mdash; connecting to the rest of this series &mdash; the framework capability and tool category each one maps to.</p>
+          </section>
+
+          <section id="pillars">
+            <div class="section-head"><h2>1 &middot; The Twelve Pillars</h2></div>
+            <p>Each pillar as a pairing: the scenarios it protects, and the design points that build it. Read it as a checklist &mdash; a gap in any row is an exposed surface.</p>
+            <div class="table-wrap animate">
+              <table class="data-table">
+                <thead><tr><th>#</th><th>Pillar</th><th>What it protects</th><th>Design points</th></tr></thead>
+                <tbody>
+                  <tr><td class="num-cell">1</td><td><strong>Authentication</strong></td><td class="reading">User logins, employee access to internal systems</td><td class="reading">Strong password policy; multi-factor authentication (MFA)</td></tr>
+                  <tr><td class="num-cell">2</td><td><strong>Authorization</strong></td><td class="reading">Data access, user roles</td><td class="reading">Least privilege; role-based access control; regular review</td></tr>
+                  <tr><td class="num-cell">3</td><td><strong>Encryption</strong></td><td class="reading">Sensitive data, secure communications</td><td class="reading">TLS in transit; encryption at rest; key management</td></tr>
+                  <tr><td class="num-cell">4</td><td><strong>Vulnerability</strong></td><td class="reading">Patch management, vulnerability assessment</td><td class="reading">Regular scanning; continuous monitoring; proactive patching</td></tr>
+                  <tr><td class="num-cell">5</td><td><strong>Network Security</strong></td><td class="reading">Cloud &amp; corporate network environments</td><td class="reading">Firewalls; network segregation; intrusion detection; secure DNS</td></tr>
+                  <tr><td class="num-cell">6</td><td><strong>Endpoint Security</strong></td><td class="reading">Employee laptops, point-of-sale systems</td><td class="reading">Antivirus/EDR; device management; encrypted drives</td></tr>
+                  <tr><td class="num-cell">7</td><td><strong>Audit &amp; Compliance</strong></td><td class="reading">Regulated records, compliance checks</td><td class="reading">Regular audit; GDPR/HIPAA alignment; comprehensive logging</td></tr>
+                  <tr><td class="num-cell">8</td><td><strong>Emergency Response</strong></td><td class="reading">DDoS attacks, data-breach response</td><td class="reading">Incident-response plan; SOC; regular drills</td></tr>
+                  <tr><td class="num-cell">9</td><td><strong>Disaster Recovery</strong></td><td class="reading">Attacks, data-center outages</td><td class="reading">DR plan; data backup; system redundancy</td></tr>
+                  <tr><td class="num-cell">10</td><td><strong>Container Security</strong></td><td class="reading">Microservice &amp; Kubernetes deployments</td><td class="reading">Scan images; trusted base images; runtime security</td></tr>
+                  <tr><td class="num-cell">11</td><td><strong>API Security</strong></td><td class="reading">Public APIs, internal API communication</td><td class="reading">OAuth; rate limiting; input validation; API-key management</td></tr>
+                  <tr><td class="num-cell">12</td><td><strong>Third-Party Management</strong></td><td class="reading">Vendor risk, secure integrations</td><td class="reading">Vendor assessment; secure data sharing; monitor third-party access</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="callout"><p>&#9656; The pillars interlock. Identity (1&ndash;2) gates everything; encryption (3) protects what identity lets through; the operational pillars (8&ndash;9) assume the others will occasionally fail &mdash; which is the point of defense in depth.</p></div>
+          </section>
+
+          <section id="layers">
+            <div class="section-head"><h2>2 &middot; Twelve Pillars, Five Layers</h2></div>
+            <p>The twelve aren&rsquo;t a flat list &mdash; they stack into five layers, from &ldquo;who gets in&rdquo; at the front to &ldquo;survive when it goes wrong&rdquo; at the back. Grouping them shows where a programme is thin.</p>
+            <div class="table-wrap animate">
+              <table class="data-table">
+                <thead><tr><th>Layer</th><th>Pillars</th><th>The job of the layer</th></tr></thead>
+                <tbody>
+                  <tr><td><span class="tag">Identity</span></td><td class="reading">Authentication, Authorization</td><td class="reading">Decide who is in and what they may touch</td></tr>
+                  <tr><td><span class="tag">Data</span></td><td class="reading">Encryption, Audit &amp; Compliance</td><td class="reading">Protect and account for the information itself</td></tr>
+                  <tr><td><span class="tag">Infrastructure</span></td><td class="reading">Network, Endpoint, Container, API</td><td class="reading">Harden the surfaces attackers actually reach</td></tr>
+                  <tr><td><span class="tag">Operations</span></td><td class="reading">Vulnerability, Emergency Response, Disaster Recovery</td><td class="reading">Find weaknesses, respond, and recover</td></tr>
+                  <tr><td><span class="tag">Ecosystem</span></td><td class="reading">Third-Party Management</td><td class="reading">Extend all of the above across your supply chain</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <section id="crosswalk">
+            <div class="section-head"><h2>3 &middot; From Pillar to Capability to Tool</h2></div>
+            <p>The pillars aren&rsquo;t a competing model &mdash; they&rsquo;re the same substance the frameworks demand and the tools deliver, in blueprint form. This crosswalk ties each pillar to the universal control capability behind it (from the <a href="/">58-framework analysis</a>) and the tool category that implements it (from the <a href="/security-tooling-landscape">tooling landscape</a>).</p>
+            <div class="table-wrap animate">
+              <table class="data-table">
+                <thead><tr><th>Pillar</th><th>Universal capability</th><th>Tool category</th></tr></thead>
+                <tbody>
+                  <tr><td>Authentication / Authorization</td><td class="reading">Access control &amp; least privilege</td><td class="reading">IAM &middot; PAM &middot; ZTNA</td></tr>
+                  <tr><td>Encryption</td><td class="reading">Encryption (transit &amp; rest)</td><td class="reading">DLP &middot; key management</td></tr>
+                  <tr><td>Vulnerability</td><td class="reading">Vulnerability &amp; patch management</td><td class="reading">Vuln mgmt &middot; ASM &middot; CSPM</td></tr>
+                  <tr><td>Network / Endpoint / Container / API</td><td class="reading">Logging &amp; monitoring; secure config</td><td class="reading">EDR &middot; NDR &middot; CNAPP</td></tr>
+                  <tr><td>Audit &amp; Compliance</td><td class="reading">Logging &amp; monitoring; awareness</td><td class="reading">SIEM &middot; GRC</td></tr>
+                  <tr><td>Emergency Response / Disaster Recovery</td><td class="reading">Incident response; backup &amp; recovery</td><td class="reading">SOAR &middot; <a href="/soc-siem-soar">SOC</a></td></tr>
+                  <tr><td>Third-Party Management</td><td class="reading">Third-party / supply-chain assurance</td><td class="reading">GRC &middot; ASM</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="callout"><p>&#9656; This is why &ldquo;build once, report many&rdquo; works: implement the twelve pillars and you&rsquo;ve satisfied the ~10 capabilities that answer most of 58 frameworks &mdash; the paperwork multiplies, the engineering doesn&rsquo;t.</p></div>
+          </section>
+
+          <section id="bottom-line">
+            <div class="section-head"><h2>Bottom line</h2></div>
+            <ul class="takeaways">
+              <li><strong>Security is a structure, not a control</strong> &mdash; twelve pillars, each a distinct failure surface.</li>
+              <li><strong>Identity is the front door</strong> &mdash; pillars 1&ndash;2 gate everything else; get them wrong and the rest barely matters.</li>
+              <li><strong>Assume failure</strong> &mdash; the operations pillars (response, recovery) exist because the others will sometimes lose.</li>
+              <li><strong>Modern surfaces are pillars too</strong> &mdash; container, API and third-party risk are not add-ons; they&rsquo;re where breaches now happen.</li>
+              <li><strong>Pillars = capabilities = tools</strong> &mdash; the blueprint, the frameworks and the market are describing one thing three ways.</li>
+            </ul>
+            <p class="method"><strong>Sources &amp; method.</strong> The twelve pillars and their scenario/design-point pairings reflect a widely shared defense-in-depth model; the five-layer grouping and the capability/tool crosswalk are the author&rsquo;s analysis, linked to the companion pieces <a href="/">Regulatory Controls, Decoded</a> and <a href="/security-tooling-landscape">The Cybersecurity Tooling Landscape</a>. Original analysis; no third-party graphics or text reproduced.</p>
+          </section>
+
+        </article>
+
+        <aside class="sidebar">
+          <div class="editorial-card author-card">
+            <h2>About the Author</h2>
+            <p class="name">Manzill Surolia</p>
+            <p><strong>Education:</strong> LL.B, MCA</p>
+            <p><strong>Experience:</strong> Cyber security professional with over 10 years of experience in cyber security, governance, risk management, and compliance. Strong background in governance, risk, and compliance (GRC), with hands-on experience in security auditing, regulatory compliance (HITRUST, PCI-DSS, FedRAMP, ISO 27001, NIST), and overseeing data protection measures. Adept in designing incident response plans, business continuity plans (BCP), and driving initiatives in security posture management.</p>
+            <p class="socials">
+              <a href="https://in.linkedin.com/in/manzill" rel="me">LinkedIn</a> &middot;
+              <a href="https://x.com/manzill" rel="me">X</a> &middot;
+              <a href="https://www.facebook.com/manzill" rel="me">Facebook</a>
+              <span class="tag-hash">&nbsp;&middot; #Manzill</span>
+            </p>
+            <div class="byline">&copy; 2026 <strong>Manzill Surolia</strong>. All rights reserved.</div>
+          </div>
+
+          <div class="editorial-card more-card">
+            <h2>More analysis</h2>
+            <ul class="more-list">
+              <li><a href="/">Regulatory Controls, Decoded</a><span class="m-desc">58 security &amp; privacy frameworks, vectorised</span></li>
+              <li><a href="/security-tooling-landscape">The Security Tooling Landscape</a><span class="m-desc">~150 tools across 17 categories, mapped</span></li>
+              <li><a href="/soc-siem-soar">SOC &middot; SIEM &middot; SOAR</a><span class="m-desc">The detection-to-response pipeline</span></li>
+            </ul>
+          </div>
+        </aside>
+      </div>
+    </main>
+
+    <footer class="site-foot">
+      <div class="foot-in">
+        <span>&copy; 2026 <strong>Manzill Surolia</strong></span>
+        <span class="sep">&middot;</span>
+        <a href="/">Home</a>
+        <a href="/evolution-of-cybersecurity">Evolution of cybersecurity</a>
+        <a href="/security-tooling-landscape">Tooling landscape</a>
+        <span class="sep">&middot;</span>
+        <a href="https://in.linkedin.com/in/manzill" rel="me">LinkedIn</a>
+      </div>
+    </footer>
+
+    <script>
+    (function () {
+      var els = document.querySelectorAll('.animate');
+      var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (reduce || !('IntersectionObserver' in window)) {
+        els.forEach(function (el) { el.classList.add('in-view'); });
+        return;
+      }
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) { e.target.classList.add('in-view'); io.unobserve(e.target); }
+        });
+      }, { threshold: 0.15 });
+      els.forEach(function (el) { io.observe(el); });
+    })();
+    </script>
+</body>
+</html>

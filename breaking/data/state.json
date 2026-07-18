@@ -1,69 +1,69 @@
 {
-  "ist_day": "2026-07-18",
+  "ist_day": "2026-07-19",
   "lead": {
-    "id": "7e3c0b6687b9",
-    "headline": "जैपुर में दीवार ढहने की त्रासदी: प्रशासनिक लापरवाही से हुई मौतें",
+    "id": "a217a0d8a4f7",
+    "headline": "सचिन पायलट ने राजस्थान BJP पर प्रशासनिक लापरवाही का आरोप, कागज़ लीक और अस्पताल मौतों की शिकायत",
     "event_type": "negligence",
     "severity": "high",
-    "analysis": "जैपुर के एक पुराने आवासीय क्षेत्र में 18 जुलाई, 2026 को सुबह 9:48 बजे एक बड़ी दीवार अचानक गिर गई, जिससे कई परिवारों के घरों में ध्वस्त हो गईं और पाँच लोगों की मौत हो गई। स्थानीय रिपोर्टों के अनुसार, इस दीवार की नियमित सुरक्षा जांच और मरम्मत का काम कई सालों से टाला गया था, जबकि नगर निगम ने कई बार इस संरचना को जोखिमपूर्ण घोषित किया था। इस लापरवाही के कारण न केवल नागरिकों की जान गई, बल्कि कई परिवारों को बेघर भी होना पड़ा।\n\nघटना के बाद पुलिस ने तुरंत मौके पर पहुंचकर बचाव कार्य शुरू किया, परन्तु कई पीड़ितों को समय पर अस्पताल नहीं पहुंचा पाई, जिससे मृत्यु दर बढ़ गई। पुलिस के अनुसार, बचाव दल की तैयारी में देरी और आवश्यक उपकरणों की कमी को प्रशासनिक अक्षम्यताओं के कारण माना गया है।\n\nनगर निगम के एक अधिकारी ने बताया कि दीवार की सुरक्षा जांच के लिए बजट आवंटन में कटौती की गई थी और ठेकेदारों को काम पूरा करने के लिए पर्याप्त समय नहीं दिया गया। इस कारण निर्माण सामग्री की गुणवत्ता घट गई और संरचना कमजोर हो गई। स्थानीय नागरिक संगठनों ने इस घटना को प्रशासनिक भ्रष्टाचार और अनियमित ठेकेदारी का परिणाम कहा है।\n\nवर्तमान में राज्य सरकार ने आपातकालीन जांच आदेश जारी किया है और घटना स्थल पर एक स्वतंत्र जांच समिति गठित की है। समिति को दीवार के निर्माण, रखरखाव और निरीक्षण के सभी दस्तावेज़ों की जांच करने का निर्देश दिया गया है, साथ ही जिम्मेदार अधिकारियों के खिलाफ अनुशासनात्मक कार्रवाई की सिफ़ारिश करने को कहा गया है।",
+    "analysis": "सचिन पायलट ने 18 जुलाई को सार्वजनिक मंच पर राजस्थान भाजपा सरकार पर कई गंभीर प्रशासनिक लापरवाहियों का आरोप लगाया। उन्होंने कहा कि पार्टी के शासनकाल में कागज़ों की लीक, सरकारी अस्पतालों में अनियंत्रित मौतें और शहरी सेवाओं में लापरवाही जैसी समस्याएँ लगातार बढ़ रही हैं। पायलट ने इन मुद्दों को एक ही मंच पर उठाते हुए कहा कि यह केवल व्यक्तिगत त्रुटि नहीं बल्कि प्रणालीगत विफलता का परिणाम है।\n\nपायलट ने विशेष रूप से स्वास्थ्य विभाग की नाकामी को उजागर किया, जहाँ कई सरकारी अस्पतालों में मरीजों की मौतें बिना उचित कारण के दर्ज की गईं। इसके अलावा, शहरी निकायों में कचरा प्रबंधन, जल आपूर्ति और सड़क रखरखाव जैसे बुनियादी सेवाओं में भी गंभीर चूक देखी गई, जिससे आम जनता को प्रतिकूल प्रभाव पड़ा। उन्होंने इन सभी मामलों को एक व्यापक भ्रष्टाचार और नीतिगत नाकामी के रूप में प्रस्तुत किया।\n\nराज्य सरकार ने अभी तक इन आरोपों पर कोई आधिकारिक बयान नहीं दिया, परंतु कई विपक्षी नेताओं ने इस पर जांच की मांग की है। कई नागरिक समूह और सामाजिक संगठनों ने भी इन मुद्दों को सार्वजनिक करने की आवश्यकता पर बल दिया है। वर्तमान में यह मामला राजनैतिक बहस का केंद्र बन चुका है और आगे की जांच या कार्रवाई की दिशा में कदम उठाने की प्रतीक्षा है।",
     "key_facts": [
-      "घटना: जैपुर के आवासीय क्षेत्र में दीवार का ढहना, 5 मौतें",
-      "तारीख व समय: 18 जुलाई, 2026, सुबह 9:48 बजे",
-      "जिम्मेदार विभाग: नगर निगम (सुरक्षा निरीक्षण) और स्थानीय पुलिस (रिस्क्यू)",
-      "मुख्य कारण: नियमित निरीक्षण न होना, बजट कटौती, ठेकेदारों को कम समय देना",
-      "पुलिस की प्रतिक्रिया: बचाव में देरी, उपकरणों की कमी",
-      "सरकारी कार्रवाई: स्वतंत्र जांच समिति का गठन, अनुशासनात्मक कार्रवाई की संभावना"
+      "सचिन पायलट ने 18 जुलाई को राजस्थान BJP पर प्रशासनिक लापरवाही का सार्वजनिक आरोप लगाया",
+      "कागज़ लीक, सरकारी अस्पतालों में अनियंत्रित मौतें और शहरी सेवाओं में लापरवाही को प्रमुख मुद्दे बताया",
+      "अभियोजन में स्वास्थ्य विभाग, शहरी निकाय और पार्टी के शासनकाल के निर्णय शामिल",
+      "पायलट ने यह आरोप विपक्षी मंच पर प्रस्तुत किया",
+      "राज्य सरकार ने अभी तक कोई आधिकारिक प्रतिक्रिया नहीं दी",
+      "विपक्षी नेताओं और नागरिक समूहों ने जांच की मांग की"
     ],
-    "police_accountability": "पुलिस ने बचाव कार्य में देरी की, आवश्यक बचाव उपकरणों की कमी और आपातकालीन प्रतिक्रिया में लापरवाही के कारण कई पीड़ितों की मौत हुई, जिसे नागरिक संगठनों ने प्रशासनिक लापरवाही के रूप में उजागर किया है।",
-    "what_next": "राज्य सरकार ने स्वतंत्र जांच समिति गठित की है; संभावित अनुशासनात्मक कार्रवाई और कानूनी जांच की उम्मीद है।",
+    "police_accountability": "",
+    "what_next": "विपक्षी ने तुरंत जांच की मांग की है; राज्य सरकार की प्रतिक्रिया और संभावित जांच प्रक्रिया की प्रतीक्षा है।",
     "developments": [
       {
-        "label": "18 जुलाई, सुबह 9:48 बजे",
-        "text": "स्थानीय रिपोर्टों के अनुसार, दीवार अचानक गिर गई, जिससे पाँच लोगों की मौत हुई; पुलिस ने मौके पर पहुंचकर बचाव किया, परन्तु देर से पहुंचने के कारण कई पीड़ितों को समय पर अस्पताल नहीं पहुंचा सका (स्थानीय रिपोर्टों के अनुसार)।"
+        "label": "18 जुलाई, शाम 4:10 बजे",
+        "text": "सचिन पायलट ने सार्वजनिक मंच पर राजस्थान BJP पर प्रशासनिक लापरवाही का आरोप लगाया, जिसमें कागज़ लीक, अस्पताल मौतें और सिविक लापरवाही शामिल हैं (लीड स्रोत)"
       }
     ],
     "sources": [
       {
-        "title_hi": "जैपुर आज की खबर 18 जुलाई 2026: दीवार ढहने की त्रासदी, माँ की हत्या मामला और अस्पताल",
-        "url": "https://news.google.com/rss/articles/CBMi7gFBVV95cUxPYmZYczNBRklWUVFaRWFHTXpYWlFBcndDOW5rREJZcWpMbEk5S0ZNdldBRFdnWVMwR0VnTXM2RnhUc1JkcldpZWVhN0luRjFJa0VPcC1tSlR5aTQwbE9ERnl4Uy1BUGhVTmk2TXloQWhGM0xUSHNYcU4yRGFudUJ5ZGZwbnNJcm1Id2tPRkRzbkh0YVVYRTgzMnFWeFBYRDVFRzVhbUJ3S2lkMTVhRm5mbWJ4Q29YemYyM0lEVFBQVks5NGdGbVZoRHk2TDlsSEZjWjE0M1gwT1dqNkd0ZnljWTg3dTliSk5MWEticEZn0gHuAUFVX3lxTE9iZlhzM0FGSVZRUVpFYUdNelhaUUFyd0M5bmtEQllxakxsSTlLRk12V0FEV2dZUzBHRWdNczZGeFRzUmRyV2llZWE3SW5GMUlrRU9wLW1KVHlpNDBsT0RGeXhTLUFQaFVOaTZNeWhBaEYzTFRIc1hxTjJEYW51QnlkZnBuc0lybUh3a09GRHNuSHRhVVhFODMycVZ4UFhENUVHNWFtQndLaWQxNWFGbmZtYnhDb1h6ZjIzSURUUFBWSzk0Z0ZtVmhEeTZMOWxIRmNaMTQzWDBPV2o2R3RmeWNZODd1OWJKTkxYS2JwRmc?oc=5",
-        "source": "LatestLY",
-        "published": "2026-07-18T04:18:46+00:00"
+        "title_hi": "सचिन पायलट ने राजस्थान BJP पर प्रशासनिक लापरवाही का आरोप, कागज़ लीक, अस्पताल मौतों और सिविक लापरवाही का उल्लेख",
+        "url": "https://news.google.com/rss/articles/CBMi6gFBVV95cUxPSVcyOW1jUDBqVlJFT3NtaVBDTGxDTXR2WTUyanhwWG9XSF9zNlJxc0h4VldwMnZwN0l4R21Hb2dyek14NjFwd1FOVktmUF9HcjdSbVBFMWhablNPUUdib3VHbl9hMHBDRDJDRmNQWk91b0R6SUtONUNHaF9mTTJqV2p0dzZvaXJHR2tLMkkxRjhURGN1bUUyNUlmWlBHVDBPeTRNbWlfM3BsM2NXanNfNHNvNWsxb2pjbW1rZ0NxMmtQSWw4Q3hRa25JSW01OS1CUGZkRVlZbFpWRkJJczh2ekNKMVVZSTFmRnfSAeoBQVVfeXFMT0lXMjltY1AwalZSRU9zbWlQQ0xsQ010dlk1Mmp4cFhvV0hfczZScXNIeFZXcDJ2cDdJeEdtR29ncnpNeDYxcHdRTlZLZlBfR3I3Um1QRTFoWm5TT1FHYm91R25fYTBwQ0QyQ0ZjUFpPdW9EeklLTjVDR2hfZk0yaldqdHc2b2lyR0drSzJJMUY4VERjdW1FMjVJZlpQR1QwT3k0TW1pXzNwbDNjV2pzXzRzbzVrMW9qY21ta2dDcTJrUElsOEN4UWtuSUltNTktQlBmZEVZWWxaVkZCSXM4dnpDSjFVWUkxZkZ3?oc=5",
+        "source": "EdexLive",
+        "published": "2026-07-18T10:40:22+00:00"
       }
     ]
   },
   "other_stories": [
     {
-      "headline": "सचिन पायलट ने राजस्थान भाजपा पर प्रशासनिक लापरवाही का आरोप लगाया",
-      "summary": "सचिन पायलट ने भाजपा सरकार पर कागज़ी लीक, अस्पताल में मौतें और नगर सेवाओं में चूक का आरोप लगाया, जिससे प्रशासनिक लापरवाही की गंभीरता उजागर हुई।",
-      "url": "https://news.google.com/rss/articles/CBMi6gFBVV95cUxPSVcyOW1jUDBqVlJFT3NtaVBDTGxDTXR2WTUyanhwWG9XSF9zNlJxc0h4VldwMnZwN0l4R21Hb2dyek14NjFwd1FOVktmUF9HcjdSbVBFMWhablNPUUdib3VHbl9hMHBDRDJDRmNQWk91b0R6SUtONUNHaF9mTTJqV2p0dzZvaXJHR2tLMkkxRjhURGN1bUUyNUlmWlBHVDBPeTRNbWlfM3BsM2NXanNfNHNvNWsxb2pjbW1rZ0NxMmtQSWw4Q3hRa25JSW01OS1CUGZkRVlZbFpWRkJJczh2ekNKMVVZSTFmRnfSAeoBQVVfeXFMT0lXMjltY1AwalZSRU9zbWlQQ0xsQ010dlk1Mmp4cFhvV0hfczZScXNIeFZXcDJ2cDdJeEdtR29ncnpNeDYxcHdRTlZLZlBfR3I3Um1QRTFoWm5TT1FHYm91R25fYTBwQ0QyQ0ZjUFpPdW9EeklLTjVDR2hfZk0yaldqdHc2b2lyR0drSzJJMUY4VERjdW1FMjVJZlpQR1QwT3k0TW1pXzNwbDNjV2pzXzRzbzVrMW9qY21ta2dDcTJrUElsOEN4UWtuSUltNTktQlBmZEVZWWxaVkZCSXM4dnpDSjFVWUkxZkZ3?oc=5",
-      "source": "EdexLive"
+      "headline": "ईडी ने बिहार, दिल्ली और राजस्थान में अवैध रेत खनन के मामले में आठ स्थानों पर छापेमार किया",
+      "summary": "आर्थिक अपराध जांच एजेंसी ने अवैध रेत खनन के संदिग्ध मामलों में कई जगहों पर तलाशी ली।",
+      "url": "https://news.google.com/rss/articles/CBMi0AFBVV95cUxQbWY2eHZBSTdybUhLRG43UjVsSW1xSUlvdFNvLVowdUpPYXI3OGswblRzRm5oVW5XSERYcTNOR2tRUndQVUlvb2h2YkktLUJLdUlFSzg2MkxKQkdWMExnLXlVOFpOTVRXMFRTNkd2THk0ZUdQdXN0blhQU1ZNVGtiQ1VhN0U0VHFjY1h3c2JnSkx3SW5mZ3FXQ1JqWEZjVk5jUmJiWEMwaTh2UGEzRmZaRHViMnZqNFRpekxqLWRlSE5wYlpZQ1pySFB3QkVraENw?oc=5",
+      "source": "India's News.Net"
     },
     {
-      "headline": "बिहार से राजस्थान तक 130 करोड़ रुपये की रेत खनन घोटाला",
-      "summary": "एक बड़े रेत खनन घोटाले में 130 करोड़ रुपये की धोखाधड़ी उजागर हुई, जिसमें कई राज्यों के अधिकारी और ठेकेदार शामिल थे।",
-      "url": "https://news.google.com/rss/articles/CBMizwFBVV95cUxNMy1xR3V5TmdhT0xvNENCS21OOFhseFZWSVN5U0phTlk2Q29IZUFIaXFDOVFzcmdlclZqcVUzZkxBaHJNam1mYk4yLWt0bWFhYW1QaXVZY0lsWnd3cUpydlg2cWJjVmFWNGk1YU16Nl9BX0N1b0lZU1FsUGdDU3JhWUZSX3dsRzV0VThFZUp0Y0dhRHMwdklvOE9YMUtteTd1Q00yR2YtQkR5UlBCSFcyNzVDbUROOEpkX3dUY2hFZk5IbzJVcTU1MUY5LUN0UkXSAdQBQVVfeXFMUEl6M1ZWMl9KemNKODRwdUlQeVNOTE1lbTZ1WVpxSWNDMXRlYUNuOGNtNWMwaGtRS2k5ZloteVZ0VWJtTTlJb1Q0Tm9MY3lyRVB0WVcyWlZLUVdpaVgxUXVoVkZSTkRuRnJ5blE4SVRJQWt4WkNDVnFmOThVLXRqc0RPbzV1MWo4TWJENnRVbzlnMzQyUTFzUEV4UEY1UHRHUnV1OTZodzcxU2ZzaGZVNHlqNWtPcHlMR3l0NnBCaGpkTy1FSC1OVm04SUkzbUZqMkZwSlo?oc=5",
-      "source": "Republic World"
+      "headline": "जैपुर पुलिस ने इंटरनेट बंदी के बीच अतिक्रमण विरोधी अभियान चलाया",
+      "summary": "इंटरनेट प्रतिबंध के दौरान जैपुर पुलिस ने अतिक्रमण हटाने के लिए कार्रवाई की।",
+      "url": "https://news.google.com/rss/articles/CBMitgFBVV95cUxNbVFmWDJ5ekQ4dnVlYU92NzhWdnYyTDdoT0RoMlBIU2lZMGs0amVTZHZIREhldVMwNFVRTE5NcDdGY0JKZ2gxaG43WjF4VWFMaDhrWWYwSXlwZEJqaDJablBPZ1hWSFZuLWE1MEtMNDB3Q3dWUzc1S0RWYWR4UEJkZjRhVXM2d0UyV0dCTmNORHc4UlRGbjR3QnE1QkM3UzBaSUpfTUR6Mzd4ekNfTUxoeHRYM1NOdw?oc=5",
+      "source": "The News Mill"
     },
     {
-      "headline": "राजस्थान सरकार ने RGHS अस्पतालों में अनियमितताओं के कारण 51 अस्पतालों को निलंबित किया",
-      "summary": "राजस्थान सरकार ने राजकीय स्वास्थ्य योजना (RGHS) के तहत 51 अस्पतालों को अनियमितताओं के कारण निलंबित किया, जिससे स्वास्थ्य सेवाओं में गंभीर व्यवधान आया।",
+      "headline": "राजस्थान सरकार ने आरजीएचएस में अनियमितताओं के कारण 51 अस्पतालों को निलंबित किया",
+      "summary": "आरजीएचएस योजना में अनियमितताओं पाई जाने पर 51 अस्पतालों को निलंबित किया गया।",
       "url": "https://news.google.com/rss/articles/CBMinwFBVV95cUxNQWxCdzFYRUh1UjRiVEVGWXhOc2x3REt0NjB3STZReHNlMGNuc1dnWmlTa1oxaUNfWXpOTmI1dGtjbE1OajNMQ1d6eWRfSDd2ZmdUWVAxWHlMLUItLXBySGstVzNoYjFnZjhMcFpYV3dpZjVHemFhVEhZcWl1dTl3amJxZGE1U3daSkxyZkdHNV9LN3NTcFdQdjhUSkpDUW8?oc=5",
       "source": "UdaipurTimes.com"
     },
     {
-      "headline": "राजस्थान के स्त्री रोग विशेषज्ञ को 3,500 रुपये की रिश्वत के मामले में गिरफ्तार किया गया",
-      "summary": "एक स्त्री रोग विशेषज्ञ पर 3,500 रुपये की रिश्वत लेने का आरोप लगा और उसे पुलिस ने हिरासत में ले लिया, जिससे चिकित्सा क्षेत्र में भ्रष्टाचार की लहर दौड़ी।",
-      "url": "https://news.google.com/rss/articles/CBMisAFBVV95cUxPb1c4U29SNXRqcXdOUS1nOEZNOVZJSjJqd1NDS21WRmNwOVFrSXNmNS1Uc0VIZl9YNS16anYtQ2w4c0U4ODhnaFRVOHp0c005Zkh2NUowWDg3RnFYZmg5LU1tbE1EVkxwc0h5R3VYWFhFeXZLaFpTWFZFMkszSVdXeWxqU1U3Rnkwd2gwVU9YRUJhTG0tZjRBMG9BT3RIT0Nkc2VCakkzYTNULW9JUllKQtIBtgFBVV95cUxNRkh3TlktNjRIemJRZlBwZEdFM2JfN2RKZlNyTGZFSUYyUjhNZUl2ZHJsdDhjVmFnV3ZQalhodzA0WVNKa3lrblpiRkxWMndteVdPX3hGcUxRcXlNVEhldVppRmpYUkpXbFk4WlBqTWlJbzVJTzFKU0pmWGltWVhwbVNMb3VQaFVDbzZvZG1KYlhNSDJRYzBVa1BDXzNXVHBzYU0yTUVYeVVjUDR6ZG5sMEw0aUR1Zw?oc=5",
-      "source": "Medical Dialogues"
+      "headline": "राजस्थान सरकार के स्वास्थ्य योजना पैनल से 69 फार्मेसियों को अनियमितताओं के कारण हटाया गया",
+      "summary": "स्वास्थ्य योजना में अनियमितताओं के कारण 69 फार्मेसियों को पैनल से बाहर किया गया।",
+      "url": "https://news.google.com/rss/articles/CBMi2gFBVV95cUxNY0JRbEFLZHNjOXA2M2pVeVR4ekhPSWJ5WHBfS0ZvbGZtX083OE5XUnpmUm50dUV3M3AyYnRHemYwUUJyMmtrNl9uTWJXa1MzLW1ETmdfVEFpcWJNTjh6VFYtTVNtbWFGZC0yRW1PRTI3LVF0aWtGdlk2RzFROEEzTjVvNFcySEY0aHMxcnktRGZkRG5BSTl4X3dyWWlVOWYxc3NwcHFpblJGVVJLZS12VHo3M0sxaGFsUkhEcEZtay1IdU5RenpKRmo0Z2g3ZEN3YzRjRUhYRXZzZ9IB3wFBVV95cUxQZGM5cWdIcXpXNEQtV203T3hua0Nudm5QRjJzNEI3dUdEcW5qQTVVX1dsMTdrX3A1cTd4MTBYWTA4dTQ2RmxHcndCWVFZSXVZaThuMzduT3JEWUtrMVFEUFNma1ZpVkVfLUowWVJxSTJTb0V4Q0tKZlFsdkVPUm5oNUdzcmVEaklVTmdjekdySkhDY1ZzSnl2NEZtYzNtbV9DaVk4NXhmQ1hNZEVXOG0tanQ1TXdMd2xReWFGV3NudWs1cmV1UVFtVktqclB3OHhIUV9EY0dMV3pnSzNOblpV?oc=5",
+      "source": "ETV Bharat"
     },
     {
-      "headline": "राजस्थान सरकार के स्वास्थ्य योजना पैनल से 69 फार्मेसियों को हटाया गया",
-      "summary": "राजस्थान सरकार ने स्वास्थ्य योजना पैनल से 69 फार्मेसियों को अनियमितताओं के कारण हटाया, जिससे सरकारी स्वास्थ्य सेवाओं में पारदर्शिता की मांग बढ़ी।",
-      "url": "https://news.google.com/rss/articles/CBMi2gFBVV95cUxNY0JRbEFLZHNjOXA2M2pVeVR4ekhPSWJ5WHBfS0ZvbGZtX083OE5XUnpmUm50dUV3M3AyYnRHemYwUUJyMmtrNl9uTWJXa1MzLW1ETmdfVEFpcWJNTjh6VFYtTVNtbWFGZC0yRW1PRTI3LVF0aWtGdlk2RzFROEEzTjVvNFcySEY0aHMxcnktRGZkRG5BSTl4X3dyWWlVOWYxc3NwcHFpblJGVVJLZS12VHo3M0sxaGFsUkhEcEZtay1IdU5RenpKRmo0Z2g3ZEN3YzRjRUhYRXZzZ9IB3wFBVV95cUxQZGM5cWdIcXpXNEQtV203T3hua0Nudm5QRjJzNEI3dUdEcW5qQTVVX1dsMTdrX3A1cTd4MTBYWTA4dTQ2RmxHcndCWVFZSXVZaThuMzduT3JEWUtrMVFEUFNma1ZpVkVfLUowWVJxSTJTb0V4Q0tKZlFsdkVPUm5oNUdzcmVEaklVTmdjekdySkhDY1ZzSnl2NEZtYzNtbV9DaVk4NXhmQ1hNZEVXOG0tanQ1TXdMd2xReWFGV3NudWs1cmV1UVFtVktqclB3OHhIUV9EY0dMV3pnSzNOblpV?oc=5",
+      "headline": "जैपुर के व्यक्ति ने दावा किया कि पुरानी हवेली के ध्वंस में छिपा खजाना मिला, ठेकेदार पर गबन का आरोप",
+      "summary": "हवेली ध्वंस के दौरान छिपा खजाना मिलने का दावा और ठेकेदार पर गबन का आरोप लगाया गया।",
+      "url": "https://news.google.com/rss/articles/CBMi-AFBVV95cUxNQXg2dzlOMzFPNnNBWnRwZEh5c1JBdEt2SldzSDFMaWotT2lKb19QZmFId0xuV1Z6bkp4LUx3c29fTUFULXRaenhkSURnUTI1NHRfQVBOa3BQNHpfNlMycjFvYU5CM2YtYThEbE1hVUFOek1NZTVUcHNPd2pnWmZsbEJMT3BWbGRzVzg4MUt1czZtSDg1UkVkMVgxMkR1M2J2ZFFCSGJrZ0FaUDA0cUFtTVA5NC1vV0JUMXVaazhlcHZ5QjV1VENHdWhMYmtlZ2VXcnlnTWZRRmNHMUptbjY4aW5OY2hwY21HUE42MnBKMGNkdGRsMzQ3UNIB_gFBVV95cUxPeUpWWGNPdU51WVFncTZncUphdkowNDhjOFdUajdITHJKNTRhcVFkV3Z1VjNpeVFZN0VXemNhUDdBd2FCaHEyekVrTWIzZ0dBeVhZdEF1UnVBSC1JM1pTbFg1cnZyeDFydWpJSDlWMWU1QTVXOFZoUVFsWEZRR0gydEdUNHY2YkNwU2pJSEhwT25jUGRLZTRaOEZXN25semI2ZXNoODN1YVVUamthTmdGYno3QmNOcnlzcFI4SG1uNTJOcjhfNl92eVNha0JXNEszZ0RpejhEek9pUnFXd21ZeW54Q3VDSnF4WGt5WTlSallhRzJyN25ZWm42U3hhdw?oc=5",
       "source": "ETV Bharat"
     }
   ],
-  "last_feed_hash": "3bd2c10740fd5849",
-  "last_updated": "2026-07-18T16:25:30.497093+00:00",
-  "render_version": "13"
+  "last_feed_hash": "2cc8bba98d89f5a9",
+  "last_updated": "2026-07-18T18:59:27.977367+00:00",
+  "render_version": "14"
 }

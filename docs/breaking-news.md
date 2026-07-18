@@ -31,10 +31,10 @@ an operator guide.
   source of fresh stories (`FEED_QUERIES`).
 - **Coverage — Rajasthan-wide, Jaipur-first:** the locality gate (`is_local` / `filter_local`)
   keeps stories anywhere in Rajasthan (Jaipur, the state, known cities/districts, ACB) and drops
-  out-of-state items. **Jaipur is a strict lead tier** (`is_jaipur` + `apply_policy_lead`): a
-  fresh Jaipur policy story always leads when one exists; only when Jaipur has nothing on the beat
-  that day does the strongest story from the rest of Rajasthan lead (the rest still appear under
-  "यह भी ब्रेकिंग").
+  out-of-state items. **Jaipur-first is a soft preference** (`is_jaipur` + `W_JAIPUR=3.0` in the
+  score): a Jaipur policy story usually leads, but a clearly bigger/stronger Rajasthan story can
+  still take the lead so the biggest accountability story of the day is never buried (the rest
+  appear under "यह भी ब्रेकिंग").
 - **Guardrail (never fabricate):** only stories that **actually appear in the feeds** are ever
   ranked up, and the AI never invents facts — boosting a theme changes the *ranking of real,
   sourced news*, never its truth. No allegation, bribe amount or name is manufactured about any
@@ -64,17 +64,19 @@ it; the story body follows directly. Section order below the header:
 2. **पूरी खबर** — detailed analysis written as **flowing prose: 3–5 cohesive, multi-sentence
    paragraphs** (background → full chronology from first report to now → current status).
    Not many short one-line fragments.
-3. **घटनाक्रम — शुरुआत से अब तक** — dated developments as a top-to-bottom **dot-line-dot**
-   chain, **oldest at top → newest at bottom** (past → present). Each entry is a **rich 2–3
-   sentence, sourced account** (what happened, which department/officer, amount/allegation, with
-   attribution) — **not a one-liner** — built from the story's own multi-day archive plus the
-   related coverage pulled in by `enrich_lead`. Each entry is labelled with its **Hindi date *and*
-   time** (e.g. `13 जुलाई, दोपहर 4:06 बजे`) and, when known, the **reporting outlet** (a small
-   Hindi source label), both taken from the aligned archived point — never fabricated
-   (`attach_dev_times`). The narrated arc is down-sampled to `TIMELINE_MAX` (14) points so entries
-   stay substantial within the Groq token budget; the archive still stores all 30 days. The chain
-   is animated: each entry fades in with a staggered reveal, and the newest (bottom) dot pulses as
-   the "live/developing" point. Motion is disabled under `prefers-reduced-motion`.
+3. **घटनाक्रम — शुरुआत से अब तक** — a **rich, multi-step** dated timeline as a top-to-bottom
+   **dot-line-dot** chain, **oldest at top → newest at bottom** (past → present). The AI narrates
+   **6–12 steps**: every dated archived point **plus** the case's process milestones (शिकायत → ACB
+   ट्रैप → गिरफ्तारी → एफआईआर → निलंबन → चार्जशीट → अदालत), so a story reads as a real arc, not a
+   one-liner. Each step is a **2–3 sentence, sourced account** (what happened, which
+   department/officer, amount/allegation, attribution). Labels: steps that map to a dated source
+   show the real **Hindi date *and* time** (e.g. `13 जुलाई, दोपहर 4:06 बजे`) and the reporting outlet
+   (small Hindi source label); process steps with no confirmed timestamp show a **relative Hindi
+   label** (e.g. `शिकायत के बाद`, `जाँच के दौरान`) — a clock time is **never fabricated**
+   (`attach_dev_times` stamps real time+outlet only on unambiguously-matched steps). The dated arc
+   fed to the AI is down-sampled to `TIMELINE_MAX` (14) points to respect the Groq token budget; the
+   archive still stores all 30 days. The chain is animated (staggered reveal; the newest/bottom dot
+   pulses as the "live/developing" point); motion is disabled under `prefers-reduced-motion`.
 4. **मुख्य तथ्य** — 6–8 key-fact bullets (who, department/post, amount, section, action).
 5. **पुलिस की जवाबदेही** — **mandatory** highlight of any **sourced** Rajasthan
    police/administration incompetence, negligence, delay or lapse in an investigation. Shown only
@@ -89,11 +91,12 @@ it; the story body follows directly. Section order below the header:
    flagged; only strong police-context misconduct (lathicharge, custodial, negligence, misconduct,
    suspension, dereliction, brutality…) or a force verb with the police as subject/agent counts.
    **Lead selection (`apply_policy_lead`):** only a **fresh** cluster that passes the policy/bribery
-   gate (`is_policy_beat`) and is not ceremonial can lead; **Jaipur is a strict tier** (a fresh
-   Jaipur policy story always leads when present, else the strongest elsewhere in Rajasthan); on a
-   day with no fresh policy story the list is empty and the last policy page is kept. Cluster score
-   (used for ordering within a tier and for `order_secondary`):
-   `severity×3 + issue_rank×4 + min(sources,6)×1 + recency×2 + jaipur×1.5 − ceremonial_penalty`.
+   gate (`is_policy_beat`) and is not ceremonial can lead; the highest-**score** such cluster wins.
+   **Jaipur-first is a soft preference** — `W_JAIPUR=3.0` gives a Jaipur story a strong edge, so it
+   usually leads, but a clearly bigger/stronger Rajasthan story (high `issue_rank`, many sources) can
+   still overtake a minor Jaipur one, so the biggest accountability story of the day is never buried.
+   On a day with no fresh policy story the list is empty and the last policy page is kept. Cluster
+   score: `severity×3 + issue_rank×4 + min(sources,6)×1 + recency×2 + jaipur×3 − ceremonial_penalty`.
 
 ### Multi-day tracking
 - A rolling **30-day archive** (`breaking/data/archive.json`) accumulates each ongoing
@@ -157,11 +160,11 @@ breaking/data/override.json           # optional manual pin (force a chosen stor
 
 Each run: fetch Google News RSS for bribery/ACB/policy-failure terms (plus wider-window backfill) →
 **drop digest/roundup items** (`is_roundup`) → cluster into stories → **keep only Rajasthan stories
-(locality gate, Jaipur-first)** → **pick one fresh policy/bribery lead** (`is_policy_beat` gate +
-`apply_policy_lead`; Jaipur is a strict tier) → **web-enrich** the chosen story with related
+(locality gate, soft Jaipur-first)** → **pick one fresh policy/bribery lead** (`is_policy_beat` gate +
+`apply_policy_lead`; highest score, Jaipur boosted) → **web-enrich** the chosen story with related
 coverage (`enrich_lead`) → **archive every story** (`ingest_cluster` for all clusters, then
 `prune_archive`), so each ongoing story keeps its multi-week arc → call **Groq** (OpenAI-compatible)
-for the full Hindi package (single-story, rich sourced timeline) over the lead's down-sampled arc →
+for the full Hindi package (single-story, rich multi-step sourced timeline) over the lead's arc →
 render `breaking/index.html` (+ RSS + sitemap) → commit **only if something changed**. On a day with
 no fresh policy story, the last policy page is kept (no drop to generic news).
 

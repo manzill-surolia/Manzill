@@ -39,11 +39,13 @@ back into the repo, which Pages then serves) — everything else is hand-authore
     Flow: fetch Google News RSS (bribery/ACB/policy-failure queries + wider-window backfill) → **drop
     digest/roundup items** (`is_roundup`, so unrelated stories never merge into one headline) →
     cluster → keep Rajasthan stories (`is_local`, Jaipur-first via `is_jaipur`) → pick a single fresh
-    **policy/bribery lead** (`is_policy_beat` gate + `apply_policy_lead`; Jaipur is a strict tier) →
+    **policy/bribery lead** (`is_policy_beat` gate + `apply_policy_lead`; **soft** Jaipur preference
+    via `W_JAIPUR` — a Jaipur story usually leads but a bigger statewide story can overtake it) →
     **web-enrich**: search related coverage of that one story and fold it in (`enrich_lead`) →
     archive **every** story's multi-day arc (rolling 30 days) → call **Groq** for a Hindi write-up
-    with a rich, timestamped, **sourced** timeline (2–3 sentence developments, not one-liners) →
-    render `breaking/index.html` (+ RSS + news sitemap), commit only on change. On a day with no fresh
+    with a rich, **multi-step, sourced** timeline — the case's process arc (शिकायत → ट्रैप →
+    गिरफ्तारी → एफआईआर → निलंबन → चार्जशीट → अदालत) as 2–3 sentence dated/relative-labelled steps, not
+    one-liners → render `breaking/index.html` (+ RSS + news sitemap), commit only on change. On a day with no fresh
     policy story the **last policy page is kept** — the page never drops to generic news. Only
     genuinely-sourced stories are ranked up; the AI never fabricates (theme lists are top-of-file
     config). Needs the repo secret **`GROQ_API_KEY`** (without it, a Hindi holding page shows).

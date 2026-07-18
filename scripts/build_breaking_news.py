@@ -66,7 +66,7 @@ NEWS_SITE = "https://news.manzill.com"
 # Bump whenever the rendered output (template/RSS/sitemap format) changes. A mismatch
 # with the value stored in state forces a one-time re-render even when the feed is
 # unchanged, so a redesign rolls out on the next scheduled run without a manual push.
-RENDER_VERSION = "13"
+RENDER_VERSION = "14"
 
 # strftime has no Hindi locale, so map month names for the Hindi date/time strings.
 HINDI_MONTHS = [
@@ -307,13 +307,24 @@ ROUNDUP_MARKERS = [
     "wrap up", "newswrap", "bulletin", "news bulletin", "aaj ki badi khabar", "aaj ki pramukh",
     "badi khabren", "badi khabar", "mukhya samachar", "surkhiyan", "surkhiyaan",
     "din bhar", "day in pics", "weekly wrap", "recap", "at a glance", "key events",
+    # "News Today / आज की खबर" digest family — the LatestLY-style "<City> News Today, <date>: A, B and
+    # C" bundles that slipped through in the first run and became the lead. Strong digest signals.
+    "news today", "today news", "aaj ki khabar", "aaj ka samachar", "aaj ki taaza khabar",
+    "aaj ki taza khabar", "taaza khabar", "taza khabar", "news update", "morning news",
+    "evening news", "day in pictures", "live updates", "live news",
 ]
+
+# Digest lead-in words: when one of these appears BEFORE a colon whose tail is a comma-list of
+# several topics ("<City> News Today, July 18: wall collapse, murder case and hospital"), the item is
+# a multi-story digest even if its exact phrasing isn't in ROUNDUP_MARKERS. See is_roundup().
+_ROUNDUP_LEADIN = ("news", "today", "khabar", "samachar", "roundup", "headline", "bulletin", "wrap")
 
 # Scoring weights (tunable). Recency is deliberately no longer the heaviest term — a burning
 # issue must outrank a merely-fresh ceremonial item. See cluster_items().
 W_ISSUE = 4.0             # weight on issue_rank (0-3) — the accountability boost
 W_RECENCY = 2.0           # was 4.0; freshness is now a tiebreaker, not the dominant term
-W_JAIPUR = 1.5            # Jaipur-first: small boost so a Jaipur story leads the rest of Rajasthan
+W_JAIPUR = 3.0            # Jaipur-first (soft): a Jaipur story usually leads, but a clearly bigger
+                         # Rajasthan story (high issue_rank, many sources) can still overtake it
 CEREMONIAL_PENALTY = 4.0  # subtracted from a ceremonial cluster's score
 # A cluster may LEAD ("breaking now") only if its newest item is this fresh. Older clusters
 # (e.g. pulled by the wider-window backfill queries) still seed the archive/timeline but are
@@ -380,10 +391,22 @@ def keywords(text: str) -> set[str]:
 
 
 def is_roundup(item: dict) -> bool:
-    """True if a feed item is a digest/roundup ("top news today: A, B and C") that bundles several
-    unrelated stories. Such items are dropped before clustering so the page stays single-story."""
-    title = normalize(item.get("title", ""))
-    return any(m in title for m in ROUNDUP_MARKERS)
+    """True if a feed item is a digest/roundup ("<City> News Today, <date>: A, B and C") that bundles
+    several unrelated stories. Such items are dropped before clustering so the page stays single-story.
+
+    Two detectors: (1) any ROUNDUP_MARKERS phrase in the normalized title; (2) a structural check on
+    the RAW title — a digest lead-in word (news/today/khabar/…) before a colon whose tail is a
+    comma-list of topics. The structural check catches new digest phrasings (e.g. the LatestLY
+    "Jaipur News Today, July 18, 2026: wall collapse, murder case and hospital") that (1) would miss,
+    while a plain single story ("ACB traps patwari: Rs 50,000 bribe recovered") has no lead-in word
+    before its colon and is not flagged."""
+    raw = item.get("title", "") or ""
+    if any(m in normalize(raw) for m in ROUNDUP_MARKERS):
+        return True
+    head, sep, tail = raw.lower().partition(":")
+    if sep and "," in tail and any(w in head for w in _ROUNDUP_LEADIN):
+        return True
+    return False
 
 
 def jaccard(a: set[str], b: set[str]) -> float:
@@ -670,11 +693,10 @@ def apply_policy_lead(clusters: list[dict]) -> list[dict]:
       policy-incompetence story. Nothing else is ever promoted to the lead slot — on a day with no
       qualifying story the list comes back empty and build() keeps the last policy page (no drop to
       generic news).
-    - Jaipur-first is a STRICT tier: whenever a fresh Jaipur policy story exists, the strongest one
-      leads; only when Jaipur has nothing on the beat that day does the strongest story from the rest
-      of Rajasthan lead. (A soft W_JAIPUR score nudge alone can't guarantee this — an incidental
-      high-severity word on a non-Jaipur item could otherwise outweigh it.) `clusters` is already
-      score-sorted, so `[0]` of each tier is the strongest of its kind; the rest of Rajasthan still
+    - Jaipur-first is a SOFT preference: `clusters` is already score-sorted with a strong Jaipur
+      boost baked in (W_JAIPUR=3.0), so a Jaipur policy story usually leads — but a clearly bigger /
+      stronger Rajasthan story (high issue_rank, many sources) can still overtake a minor Jaipur one,
+      so the biggest accountability story of the day is never buried. The rest of Rajasthan still
       appears under "यह भी ब्रेकिंग" via order_secondary.
 
     Returns the clusters reordered with the chosen lead first, or [] when nothing fresh qualifies."""
@@ -684,8 +706,7 @@ def apply_policy_lead(clusters: list[dict]) -> list[dict]:
                     if c.get("fresh", True) and c.get("policy_flag") and not c.get("ceremonial")]
     if not fresh_policy:
         return []  # no fresh policy/bribery story — build() keeps the last good policy page
-    jaipur = [c for c in fresh_policy if c.get("jaipur")]
-    lead = (jaipur or fresh_policy)[0]
+    lead = fresh_policy[0]  # already score-sorted (Jaipur boost baked in)
     return [lead] + [c for c in clusters if c is not lead]
 
 
@@ -766,7 +787,9 @@ def groq_analyze(api_key: str, clusters: list[dict], points: list[dict]) -> dict
         "या रिपोर्ट में कभी न मिलाएँ। यदि lead_story में कई असंबंधित घटनाएँ दिखें, तो केवल भ्रष्टाचार/"
         "रिश्वत/नीतिगत नाकामी वाली मुख्य घटना चुनकर उसी पर लिखें। "
         "story_history कई दिनों में फैला हो सकता है — उसी एक मामले की पूरी कहानी शुरुआत से अब तक क्रमवार "
-        "समझाएँ ताकि पाठक को end-to-end समझ मिले। अपुष्ट बातों का श्रेय दें ('पुलिस के अनुसार', "
+        "समझाएँ ताकि पाठक को end-to-end समझ मिले। developments को एक विस्तृत, बहु-चरणीय टाइमलाइन बनाएँ "
+        "(6-12 चरण): हर दिनांकित बिंदु + मामले के प्रक्रिया-चरण; बिना पुष्ट तिथि वाले चरणों पर सापेक्ष "
+        "हिंदी लेबल दें, मनगढ़ंत घड़ी-समय कभी नहीं। अपुष्ट बातों का श्रेय दें ('पुलिस के अनुसार', "
         "'एसीबी के मुताबिक', 'स्थानीय रिपोर्टों के अनुसार')। स्रोतों में मौजूद न होने वाले आँकड़े, नाम, "
         "रिश्वत की राशि या तथ्य कभी न गढ़ें; कभी मनगढ़ंत आरोप न लगाएँ। "
         "यदि स्रोतों में पुलिस/प्रशासन की लापरवाही, देरी, चूक, नाकामी या आलोचना हो, तो उसे "
@@ -791,11 +814,16 @@ def groq_analyze(api_key: str, clusters: list[dict], points: list[dict]) -> dict
                         "क्या आरोप/कितनी राशि, शुरुआत से अब तक का घटनाक्रम, मौजूदा स्थिति; "
                         "हर पैराग्राफ में कई वाक्य हों; पैराग्राफ \\n\\n से अलग करें",
             "key_facts": "6-8 हिंदी बिंदुओं की array (सटीक तथ्य: कौन, विभाग/पद, राशि, धारा, कार्रवाई)",
-            "developments": "objects की array [{date_label, text}] — story_history के हर बिंदु के लिए "
-                            "ठीक एक प्रविष्टि, उसी क्रम में (oldest→newest; कोई बिंदु न छोड़ें, न जोड़ें); "
-                            "date_label = उसी बिंदु के story_history 'when' से हूबहू (जैसे "
-                            "'13 जुलाई, दोपहर 4:06 बजे'); समय ज्ञात न हो तो केवल तिथि; समय कभी न गढ़ें; "
-                            "text = 2-3 सुस्पष्ट हिंदी वाक्य — उस दिन क्या हुआ, किसने/किस विभाग/अधिकारी ने, "
+            "developments": "objects की array [{date_label, text}] — मामले का विस्तृत, क्रमवार "
+                            "घटनाक्रम (oldest→newest), 6-12 चरण। इसमें (क) story_history का हर दिनांकित "
+                            "बिंदु शामिल करें — उसका date_label = 'when' से हूबहू; और (ख) मामले के प्रमुख "
+                            "प्रक्रिया-चरण जोड़ें जो स्रोतों/विश्लेषण में मौजूद हों (जैसे शिकायत, एसीबी ट्रैप, "
+                            "रंगे हाथ पकड़ना, गिरफ्तारी, एफआईआर/मुकदमा, निलंबन, जाँच, चार्जशीट, अदालत)। "
+                            "date_label नियम: जिस चरण की सही तिथि/समय स्रोत में हो वही दें (जैसे "
+                            "'13 जुलाई, दोपहर 4:06 बजे' या केवल तिथि); जहाँ सही तिथि न हो वहाँ सापेक्ष हिंदी "
+                            "लेबल दें (जैसे 'शिकायत के बाद', 'जाँच के दौरान', 'गिरफ्तारी के बाद') — मनगढ़ंत "
+                            "घड़ी-समय या तिथि कभी न दें। "
+                            "text = 2-3 सुस्पष्ट हिंदी वाक्य — उस चरण में क्या हुआ, किसने/किस विभाग/अधिकारी ने, "
                             "कितनी राशि या क्या आरोप/कार्रवाई, और स्रोत का हवाला (जैसे 'एसीबी के अनुसार')",
             "police_accountability": "हिंदी पैराग्राफ — पुलिस/प्रशासन की लापरवाही/देरी/चूक/"
                                      "आलोचना के प्रमाणित तथ्य; यदि स्रोतों में कुछ नहीं तो खाली स्ट्रिंग",
@@ -1054,9 +1082,13 @@ ENRICH_MIN_SHARED = 2
 
 
 def _lead_query_terms(cluster: dict, max_terms: int = 5) -> list[str]:
-    """The most distinctive keywords of the lead's headline, for a related-coverage web search.
-    Longer, more specific tokens first (a name / department / place), stopwords already removed."""
-    toks = sorted(keywords(cluster.get("headline", "")), key=lambda t: (len(t), t), reverse=True)
+    """The most distinctive keywords for a related-coverage web search. Uses the first non-digest
+    article title in the cluster (falling back to the headline) so the search terms describe ONE
+    story, not a muddled digest's many topics. Longer, more specific tokens first (a name / department
+    / place), stopwords already removed."""
+    rep = next((it["title"] for it in cluster.get("items", []) if not is_roundup(it)),
+               cluster.get("headline", ""))
+    toks = sorted(keywords(rep), key=lambda t: (len(t), t), reverse=True)
     return toks[:max_terms]
 
 
@@ -1444,13 +1476,20 @@ def _arc_sample(points: list[dict], n: int) -> list[dict]:
 
 
 def attach_dev_times(lead: dict, points: list[dict]) -> None:
-    """Give each timeline development a real archived timestamp AND its source outlet when the mapping
-    is unambiguous. The AI narrates the (down-sampled) arc oldest-first, one development per point, so
-    when the counts match we align by index and use the point's exact IST date+time (never fabricated)
-    plus the outlet that reported it (transliterated to Hindi, shown as a small source label under the
-    development). Otherwise the AI's own `date_label` is left untouched and no source is attached."""
+    """Stamp each timeline development with a real archived timestamp + source outlet where the mapping
+    is unambiguous — never fabricated.
+
+    Two cases:
+    - Counts match (devs == points): the AI narrated exactly one development per dated point in order,
+      so align by index and use each point's exact IST date+time and reporting outlet.
+    - Richer timeline (devs != points): the AI added process-milestone steps beyond the dated points
+      (relative labels like 'शिकायत के बाद' for undated ones). We can't align by index, so we attach
+      the outlet only to steps whose date_label exactly matches an archived point's Hindi label, and
+      leave the relative-label steps as the AI wrote them (text still shows; no invented time)."""
     devs = lead.get("developments") or []
-    if devs and len(devs) == len(points):
+    if not devs or not points:
+        return
+    if len(devs) == len(points):
         for dev, point in zip(devs, points):
             label = _hindi_point_label(point)
             if label:
@@ -1458,6 +1497,18 @@ def attach_dev_times(lead: dict, points: list[dict]) -> None:
             src_hi = hindi_source(point.get("source", ""))
             if src_hi:
                 dev["source_hi"] = src_hi
+        return
+    # Richer timeline: map each archived point's Hindi label -> its outlet, then stamp the outlet onto
+    # any development the AI dated to that exact label.
+    src_by_label: dict[str, str] = {}
+    for point in points:
+        label = _hindi_point_label(point)
+        if label:
+            src_by_label.setdefault(label, hindi_source(point.get("source", "")))
+    for dev in devs:
+        src_hi = src_by_label.get((dev.get("label") or "").strip())
+        if src_hi:
+            dev["source_hi"] = src_hi
 
 
 BRAND_SUFFIX = "ब्रेकिंग जयपुर न्यूज़"

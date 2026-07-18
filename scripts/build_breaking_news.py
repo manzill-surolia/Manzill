@@ -1,11 +1,13 @@
 #!/usr/bin/env python3
-"""Generate www.manzill.com/breaking-news — a live, AI-authored breaking-news
-page for Jaipur.
+"""Generate www.manzill.com/breaking — a live, AI-authored, single-story breaking-news page
+focused on ONE beat: government/police bribery and policy incompetence in Rajasthan (Jaipur-first).
 
-Pipeline: fetch Google News RSS -> rank/cluster into a lead "story of the day"
--> ask Groq (OpenAI-compatible) for editorial + a timeline development -> gate
-updates by severity-driven cadence -> render breaking-news/index.html and
-persist breaking-news/data/state.json.
+Pipeline: fetch Google News RSS (bribery/ACB/policy-failure queries) -> drop digest/roundup items
+-> cluster and keep Rajasthan stories -> pick a single fresh policy/bribery lead (Jaipur-first) ->
+search the web for RELATED coverage of that one story and fold it in (enrich_lead) -> archive every
+story's multi-day arc (rolling 30 days) -> ask Groq (OpenAI-compatible) for a Hindi write-up with a
+rich, timestamped, sourced timeline -> render breaking/index.html (+ RSS + news sitemap) and persist
+breaking/data/{state,archive}.json. On a day with no fresh policy story the last policy page is kept.
 
 Runs from GitHub Actions on a ~20 min cron. No server, no secrets in the page:
 the Groq key is read from the GROQ_API_KEY environment variable only.
@@ -64,7 +66,7 @@ NEWS_SITE = "https://news.manzill.com"
 # Bump whenever the rendered output (template/RSS/sitemap format) changes. A mismatch
 # with the value stored in state forces a one-time re-render even when the feed is
 # unchanged, so a redesign rolls out on the next scheduled run without a manual push.
-RENDER_VERSION = "12"
+RENDER_VERSION = "13"
 
 # strftime has no Hindi locale, so map month names for the Hindi date/time strings.
 HINDI_MONTHS = [
@@ -98,46 +100,50 @@ HINDI_SOURCE = {
 # Feeds & scoring
 # --------------------------------------------------------------------------- #
 GNEWS = "https://news.google.com/rss/search?q={q}&hl=en-IN&gl=IN&ceid=IN:en"
+# The beat is POLICY INCOMPETENCE & BRIBERY (government / police), Rajasthan-wide but Jaipur-first.
+# Queries are anchored to Jaipur/Rajasthan and to a corruption/bribery/misgovernance signal so the
+# feed skews to the beat; the Rajasthan-locality gate (is_local) + policy gate (is_policy_beat) are
+# the real safeguards, and Jaipur clusters get a ranking preference (is_jaipur) so Jaipur leads first.
 FEED_QUERIES = [
-    "Jaipur when:1d",
-    "Jaipur breaking when:1d",
-    "Rajasthan Jaipur police when:1d",
-    # Event terms are parenthesised so they stay anchored to "Jaipur" and don't pull
-    # national stories; the Jaipur-locality gate (is_local) is the real safeguard.
-    "Jaipur (fire OR accident OR blast) when:1d",
-    "Jaipur (protest OR clash OR crime) when:1d",
-    "Jaipur (weather OR rain OR IMD) when:1d",
-    # Police accountability / misconduct — surfaced with high priority in "यह भी ब्रेकिंग".
-    "Jaipur OR Rajasthan police lathicharge OR beaten OR custodial OR negligence "
-    "OR misconduct OR suspended when:2d",
-    # Burning-issue / accountability beat (fresh) — disorder, misgovernance, economic distress,
-    # rights, elections, civic breakdown. Anchored to Jaipur/Rajasthan; is_local() is the gate.
-    "Jaipur OR Rajasthan (unemployment OR hunger OR starvation OR corruption OR scam "
-    "OR negligence OR mismanagement) when:2d",
-    "Jaipur OR Rajasthan (EVM OR \"human rights\" OR custodial OR eviction OR encroachment "
-    "OR bulldozer OR waterlogging OR \"power cut\") when:2d",
+    # Rajasthan Anti-Corruption Bureau (ACB) traps — a near-daily source of fresh bribery arrests.
+    "Rajasthan ACB (trap OR bribe OR rishwat OR \"anti-corruption\" OR arrested OR caught) when:2d",
+    # Bribery / graft anywhere in the state.
+    "Jaipur OR Rajasthan (bribe OR bribery OR corruption OR kickback OR graft "
+    "OR \"disproportionate assets\" OR extortion OR embezzlement) when:2d",
+    # Government / administration policy failure & misgovernance.
+    "Jaipur OR Rajasthan (government OR administration OR department OR officer) "
+    "(negligence OR failure OR mismanagement OR lapse OR \"policy failure\" OR apathy OR scam) when:2d",
+    # Police corruption / accountability / misconduct — police bribery is squarely in scope.
+    "Jaipur OR Rajasthan police (bribe OR corruption OR \"demanding money\" OR lathicharge "
+    "OR custodial OR negligence OR misconduct OR suspended) when:2d",
+    # Jaipur civic-body (JDA / Nagar Nigam) corruption & maladministration — keeps Jaipur front.
+    "Jaipur (JDA OR \"nagar nigam\" OR municipal OR \"development authority\") "
+    "(corruption OR bribe OR illegal OR negligence OR encroachment OR demolition OR scam) when:2d",
+    # Broad Jaipur catch so a big Jaipur policy/bribery story is never missed by the narrow queries.
+    "Jaipur (corruption OR bribe OR scam OR negligence OR protest OR probe) when:1d",
 ]
 
 # Wider-window BACKFILL queries. Items from these seed a story's multi-week timeline (the archive)
 # but are tagged archival and — being older than FRESH_LEAD_HOURS — can never become the "breaking"
-# lead or a visible "यह भी ब्रेकिंग" card. They exist so a story that becomes prominent today can
-# show the weeks of coverage that preceded it, instead of starting the timeline at "today".
+# lead or a visible "यह भी ब्रेकिंग" card. They exist so a bribery/policy story that breaks today can
+# show the weeks of coverage (FIR, probe, charge-sheet, court) that preceded it.
 ARCHIVAL_QUERIES = [
-    "Jaipur OR Rajasthan (corruption OR scam OR negligence OR unemployment OR starvation "
-    "OR EVM OR custodial OR \"human rights\" OR eviction OR encroachment) when:14d",
-    "Jaipur OR Rajasthan (school OR student OR bullying OR death OR probe OR investigation "
-    "OR court OR petition) when:30d",
+    "Jaipur OR Rajasthan (corruption OR bribe OR scam OR ACB OR \"disproportionate assets\" "
+    "OR embezzlement OR kickback OR graft) when:14d",
+    "Jaipur OR Rajasthan (government OR department OR officer) (negligence OR \"policy failure\" "
+    "OR mismanagement OR probe OR investigation OR \"charge sheet\" OR court OR suspended) when:30d",
 ]
 
 # --------------------------------------------------------------------------- #
-# Jaipur-city locality gate
+# Rajasthan locality gate (Jaipur-first)
 # --------------------------------------------------------------------------- #
-# The page is Jaipur-local: a story is kept only if it actually mentions Jaipur (or a
-# well-known Jaipur locality). Without this gate a national item that leaks into a broad
-# feed query (e.g. an Assam flood — "flood" is a critical keyword) can outscore every local
-# story and lead the page. Single-word tokens are matched against the item's token set (so
+# Coverage is Rajasthan-wide but Jaipur-first: a story is kept only if it mentions Rajasthan,
+# Jaipur, or a well-known Rajasthan city/district (is_local). Without this gate a national item
+# that leaks into a broad feed query can outscore every state story and lead the page. Jaipur
+# clusters additionally pass is_jaipur() and get a small ranking boost so Jaipur leads whenever a
+# Jaipur story is available. Single-word tokens are matched against the item's token set (so
 # "camera" never matches "amer"); multi-word phrases are matched as substrings. `normalize()`
-# keeps "jaipur" — it is stripped only for clustering (STOPWORDS), not from the raw text.
+# keeps "jaipur"/"rajasthan" — they are stripped only for clustering (STOPWORDS), not the raw text.
 JAIPUR_TERMS = {
     "jaipur", "jaipurite", "jaipurites", "sanganer", "sitapura", "jhotwara",
     "mansarovar", "vidyadhar", "amer", "amber", "chomu", "bagru", "chaksu",
@@ -146,6 +152,19 @@ JAIPUR_TERMS = {
 JAIPUR_PHRASES = (
     "pink city", "walled city", "malviya nagar", "vaishali nagar",
     "tonk road", "sindhi camp", "jln marg", "bani park",
+)
+# Rest of Rajasthan — major cities/districts + the state/agency names. A story anywhere here is
+# in-coverage; is_jaipur() (JAIPUR_TERMS/PHRASES) decides the Jaipur-first ranking preference.
+RAJASTHAN_TERMS = {
+    "rajasthan", "acb", "jodhpur", "udaipur", "kota", "ajmer", "bikaner", "alwar",
+    "bharatpur", "sikar", "pali", "nagaur", "churu", "jhunjhunu", "jhunjhunun",
+    "barmer", "jaisalmer", "banswara", "bhilwara", "chittorgarh", "chittaurgarh",
+    "dausa", "dholpur", "hanumangarh", "jalore", "jhalawar", "karauli", "sirohi",
+    "tonk", "bundi", "baran", "dungarpur", "pratapgarh", "rajsamand", "sawai",
+    "madhopur", "ganganagar", "sriganganagar", "beawar", "kishangarh", "neemrana",
+}
+RAJASTHAN_PHRASES = (
+    "sawai madhopur", "sri ganganagar", "anti-corruption bureau", "anti corruption bureau",
 )
 
 # Facts about police incompetence/misconduct are a standing priority: flagged clusters are
@@ -251,8 +270,23 @@ ACCOUNTABILITY_SUBJECTS = [
     "corporation", "state government", "rajasthan government", "adani", "ambani", "reliance",
 ]
 
+# --------------------------------------------------------------------------- #
+# Policy-incompetence / bribery beat gate (the page's editorial focus)
+# --------------------------------------------------------------------------- #
+# The page leads ONLY with government/police bribery or policy-incompetence stories. A cluster
+# passes the gate (is_policy_beat) when it carries a bribery/corruption signal (BRIBE_TERMS) OR a
+# governance failure signal (ISSUE_KEYWORDS["governance"], which already covers scam/negligence/
+# policy failure/dereliction/…). Purely lexical, like severity_of — it never invents wrongdoing;
+# it only lets a real, sourced bribery/misgovernance story lead. Tune this list freely (config).
+BRIBE_TERMS = [
+    "bribe", "bribery", "bribes", "rishwat", "acb", "anti-corruption", "anti corruption",
+    "corrupt", "corruption", "kickback", "graft", "extortion", "extort", "embezzl",
+    "misappropriat", "disproportionate assets", "trap case", "caught taking",
+    "demanding money", "illegal gratification", "ghoos", "ghus",
+]
+
 # Ceremonial / feel-good news that must not lead the "breaking" slot (see is_ceremonial &
-# apply_lead_policy). Only demoted when the cluster carries no serious severity and no issue
+# apply_policy_lead). Only demoted when the cluster carries no serious severity and no issue
 # signal — a stampede or death *at* a procession is never treated as ceremonial.
 CEREMONIAL_KEYWORDS = [
     "yatra", "rath", "procession", "shobha", "festival", "mela", "fair ", "celebration",
@@ -261,20 +295,37 @@ CEREMONIAL_KEYWORDS = [
     "mahotsav", "ribbon", "launch event", "felicitation",
 ]
 
+# Digest / roundup articles ("Jaipur top news today: A, B and C") bundle several unrelated stories
+# into one item. Left in, they cluster as a strong "lead" and the AI reproduces the bundle — which is
+# exactly the merged-headline failure this page must avoid. Any item whose title matches one of these
+# markers is dropped in gather_items() so it can never seed a cluster or contaminate keywords. The
+# page is single-story: one incident per page. Matched as substrings against the normalized title.
+ROUNDUP_MARKERS = [
+    "top news", "top stories", "top 10", "top 5", "top ten", "top five", "news roundup",
+    "round up", "roundup", "in brief", "news brief", "briefs", "morning headlines",
+    "evening headlines", "headlines today", "today headlines", "top headlines", "news wrap",
+    "wrap up", "newswrap", "bulletin", "news bulletin", "aaj ki badi khabar", "aaj ki pramukh",
+    "badi khabren", "badi khabar", "mukhya samachar", "surkhiyan", "surkhiyaan",
+    "din bhar", "day in pics", "weekly wrap", "recap", "at a glance", "key events",
+]
+
 # Scoring weights (tunable). Recency is deliberately no longer the heaviest term — a burning
 # issue must outrank a merely-fresh ceremonial item. See cluster_items().
 W_ISSUE = 4.0             # weight on issue_rank (0-3) — the accountability boost
 W_RECENCY = 2.0           # was 4.0; freshness is now a tiebreaker, not the dominant term
+W_JAIPUR = 1.5            # Jaipur-first: small boost so a Jaipur story leads the rest of Rajasthan
 CEREMONIAL_PENALTY = 4.0  # subtracted from a ceremonial cluster's score
 # A cluster may LEAD ("breaking now") only if its newest item is this fresh. Older clusters
 # (e.g. pulled by the wider-window backfill queries) still seed the archive/timeline but are
-# never presented as breaking. See cluster_items()/apply_lead_policy().
+# never presented as breaking. See cluster_items()/apply_policy_lead().
 FRESH_LEAD_HOURS = 36.0
 
-# Max timeline points narrated per story. A weeks-long arc is down-sampled to this many points
-# (keeping the first and last, see _arc_sample) so the "घटनाक्रम" still spans शुरुआत → अब while the
-# Groq request stays within the TPM budget.
-TIMELINE_MAX = 30
+# Max timeline points NARRATED per story. A weeks-long arc is down-sampled to this many points
+# (keeping the first and last, see _arc_sample) so the "घटनाक्रम" still spans शुरुआत → अब. Kept
+# deliberately modest (was 30) so each development can be a rich 2-3 sentence, sourced entry instead
+# of a one-liner while the single Groq pass stays within the 8000 TPM budget. The archive still
+# stores ALL points for ARCHIVE_DAYS — this only limits how many are narrated in one render.
+TIMELINE_MAX = 14
 
 # Severity -> minimum minutes between *forced* (feed-changed) timeline updates.
 CADENCE_MINUTES = {"critical": 20, "high": 30, "medium": 60, "low": 120}
@@ -328,6 +379,13 @@ def keywords(text: str) -> set[str]:
     return {t for t in toks if len(t) > 2 and t not in STOPWORDS}
 
 
+def is_roundup(item: dict) -> bool:
+    """True if a feed item is a digest/roundup ("top news today: A, B and C") that bundles several
+    unrelated stories. Such items are dropped before clustering so the page stays single-story."""
+    title = normalize(item.get("title", ""))
+    return any(m in title for m in ROUNDUP_MARKERS)
+
+
 def jaccard(a: set[str], b: set[str]) -> float:
     if not a or not b:
         return 0.0
@@ -364,6 +422,20 @@ def issue_rank(cluster: dict) -> int:
     if groups and any(s in text for s in ACCOUNTABILITY_SUBJECTS):
         rank += 1  # a public-accountability subject named alongside a failure/wrongdoing signal
     return min(rank, 3)
+
+
+def is_policy_beat(cluster: dict) -> bool:
+    """True if the cluster is a government/police BRIBERY or POLICY-INCOMPETENCE story — the only
+    kind allowed to LEAD this page. Passes on a bribery/corruption signal (BRIBE_TERMS) or a
+    governance-failure signal (ISSUE_KEYWORDS["governance"]: scam, negligence, dereliction, policy
+    failure, embezzlement, …). Police-misconduct clusters (is_police_misconduct) also qualify, since
+    police accountability is in scope. Purely lexical — it never invents wrongdoing."""
+    text = " " + _cluster_text(cluster) + " "
+    if any(t in text for t in BRIBE_TERMS):
+        return True
+    if any(t in text for t in ISSUE_KEYWORDS["governance"]):
+        return True
+    return bool(cluster.get("police_flag"))
 
 
 def is_ceremonial(cluster: dict) -> bool:
@@ -455,6 +527,8 @@ def gather_items() -> list[dict]:
     seen: dict[str, dict] = {}
 
     def consider(it: dict) -> None:
+        if is_roundup(it):
+            return  # drop digest/roundup items — they merge unrelated stories into one headline
         key = normalize(it["title"])[:80]
         if not key:
             return
@@ -507,17 +581,21 @@ def cluster_items(items: list[dict], threshold: float = 0.28) -> list[dict]:
         recency = max(0.0, 24.0 - age_h) / 24.0  # 1.0 = brand new, 0 = ~24h old
         cl["police_flag"] = is_police_misconduct(cl)
         cl["issue_rank"] = issue_rank(cl)          # burning-issue / accountability strength (0-3)
+        cl["policy_flag"] = is_policy_beat(cl)     # government/police bribery or policy-incompetence
         cl["ceremonial"] = is_ceremonial(cl)       # feel-good item that must not lead
+        cl["jaipur"] = is_jaipur(cl)               # Jaipur-first ranking preference (vs rest of RJ)
         cl["fresh"] = age_h <= FRESH_LEAD_HOURS    # lead/secondary eligibility (vs archive-only)
-        # Newsworthiness score. The page leads with the BURNING ISSUE, not merely the newest item:
-        # importance (severity) and the accountability/disorder signal (issue_rank) dominate;
-        # recency is a tiebreaker (W_RECENCY, was 4.0); ceremonial/feel-good stories are penalised.
-        # apply_lead_policy then enforces the lead rules; order_secondary front-loads issue stories.
+        # Newsworthiness score. The page is a POLICY-INCOMPETENCE / BRIBERY desk: the governance/
+        # bribery signal (issue_rank) and importance (severity) dominate; a Jaipur story gets a small
+        # first-among-Rajasthan boost; recency is a tiebreaker; ceremonial/feel-good stories are
+        # penalised. apply_policy_lead then enforces the policy-beat lead rule; order_secondary
+        # front-loads accountability stories.
         cl["score"] = (
             severity_rank(cl["severity"]) * 3.0
             + cl["issue_rank"] * W_ISSUE
             + min(len(cl["items"]), 6) * 1.0
             + recency * W_RECENCY
+            + (W_JAIPUR if cl["jaipur"] else 0.0)
             - (CEREMONIAL_PENALTY if cl["ceremonial"] else 0.0)
         )
     clusters.sort(key=lambda c: c["score"], reverse=True)
@@ -541,21 +619,22 @@ def is_police_misconduct(cluster: dict) -> bool:
 
 
 def order_secondary(clusters: list[dict]) -> list[dict]:
-    """The 'यह भी ब्रेकिंग' pool (max 5), excluding the lead. Only fresh (current) clusters show —
-    archive-only backfill items never appear as breaking cards. Police-accountability and
-    burning-issue stories are pulled to the front (standing priority) so they keep a slot even when
-    other stories outrank them; the rest follow by score. `clusters` is already sorted by score, so
-    each group keeps its order."""
-    pool = [c for c in clusters[1:] if c.get("fresh", True)]
+    """The 'यह भी ब्रेकिंग' pool (max 5), excluding the lead. Only fresh (current) clusters that are
+    themselves on-beat (is_policy_beat) show — the whole page stays about bribery/policy-incompetence,
+    never generic news, and archive-only backfill items never appear as cards. Police-accountability
+    and higher issue_rank stories are pulled to the front; the rest follow by score. `clusters` is
+    already score-sorted, so each group keeps its order."""
+    pool = [c for c in clusters[1:] if c.get("fresh", True) and c.get("policy_flag")]
     police = [c for c in pool if c.get("police_flag")]
     issue = [c for c in pool if not c.get("police_flag") and c.get("issue_rank", 0) > 0]
     rest = [c for c in pool if not c.get("police_flag") and c.get("issue_rank", 0) == 0]
     return (police + issue + rest)[:5]
 
 
-def is_local(cluster: dict) -> bool:
-    """True if the cluster is about Jaipur city (or a known Jaipur locality). Reads the raw
-    item text — `jaipur` is only a clustering stopword, so it survives in `normalize()`."""
+def is_jaipur(cluster: dict) -> bool:
+    """True if the cluster is about Jaipur city (or a known Jaipur locality). Used for the
+    Jaipur-first ranking preference. Reads the raw item text — `jaipur` is only a clustering
+    stopword, so it survives in `normalize()`."""
     text = " ".join(
         normalize(i["title"] + " " + i.get("summary", "")) for i in cluster["items"]
     )
@@ -564,50 +643,49 @@ def is_local(cluster: dict) -> bool:
     return any(p in text for p in JAIPUR_PHRASES)
 
 
+def is_local(cluster: dict) -> bool:
+    """True if the cluster is about Rajasthan — Jaipur, the state, or a known Rajasthan
+    city/district/agency (ACB). Coverage is Rajasthan-wide; is_jaipur() handles Jaipur-first."""
+    if is_jaipur(cluster):
+        return True
+    text = " ".join(
+        normalize(i["title"] + " " + i.get("summary", "")) for i in cluster["items"]
+    )
+    if set(text.split()) & RAJASTHAN_TERMS:
+        return True
+    return any(p in text for p in RAJASTHAN_PHRASES)
+
+
 def filter_local(clusters: list[dict]) -> list[dict]:
-    """Drop every cluster that is not a Jaipur-city story (keeps order)."""
+    """Drop every cluster that is not a Rajasthan story (keeps order)."""
     return [c for c in clusters if is_local(c)]
 
 
-# "Major event" bar: severity high/critical (disaster, terror, fatal accident, big fire, murder,
-# rape, riot). Used to decide when a genuine disaster outranks the standing police-accountability
-# promotion. severity_rank: critical=3, high=2, medium=1, low=0.
-MAJOR_MIN_RANK = 2  # 'high'
-
-
-def apply_lead_policy(clusters: list[dict]) -> list[dict]:
-    """Choose the lead (clusters[0]) under the burning-issue-first editorial policy.
+def apply_policy_lead(clusters: list[dict]) -> list[dict]:
+    """Choose the lead (clusters[0]) under the POLICY-INCOMPETENCE / BRIBERY editorial policy.
 
     - Only a FRESH cluster can lead — archive-only backfill items seed the timeline but are never
       presented as "breaking now".
-    - A ceremonial / feel-good story leads ONLY on a day with no disorder / accountability / serious
-      (injury-death) story at all; otherwise the burning issue leads.
-    - Standing priority: on a day with no MAJOR event (high/critical), a police-accountability story
-      is promoted to lead; a genuine disaster still leads when present.
+    - The lead MUST pass the policy-beat gate (is_policy_beat): a government/police bribery or
+      policy-incompetence story. Nothing else is ever promoted to the lead slot — on a day with no
+      qualifying story the list comes back empty and build() keeps the last policy page (no drop to
+      generic news).
+    - Jaipur-first is a STRICT tier: whenever a fresh Jaipur policy story exists, the strongest one
+      leads; only when Jaipur has nothing on the beat that day does the strongest story from the rest
+      of Rajasthan lead. (A soft W_JAIPUR score nudge alone can't guarantee this — an incidental
+      high-severity word on a non-Jaipur item could otherwise outweigh it.) `clusters` is already
+      score-sorted, so `[0]` of each tier is the strongest of its kind; the rest of Rajasthan still
+      appears under "यह भी ब्रेकिंग" via order_secondary.
 
-    `clusters` is already score-sorted (issue-boosted, ceremonial-penalised), so each filtered list
-    keeps its order and `[0]` is the strongest of its kind."""
+    Returns the clusters reordered with the chosen lead first, or [] when nothing fresh qualifies."""
     if not clusters:
-        return clusters
-    fresh = [c for c in clusters if c.get("fresh", True)]
-    if not fresh:
-        return clusters  # nothing current; build() keeps the last good page rather than lead stale
-
-    def qualifies(c: dict) -> bool:  # a burning issue / accountability / serious story
-        return bool(
-            c.get("police_flag")
-            or c.get("issue_rank", 0) > 0
-            or severity_rank(c.get("severity", "low")) >= MAJOR_MIN_RANK
-        )
-
-    serious = [c for c in fresh if qualifies(c) and not c.get("ceremonial")]
-    if serious:
-        police = [c for c in serious if c.get("police_flag")]
-        major = any(severity_rank(c.get("severity", "low")) >= MAJOR_MIN_RANK for c in serious)
-        lead = police[0] if (police and not major) else serious[0]
-    else:
-        lead = fresh[0]  # quiet day — nothing but ceremonial/neutral news; never blank
-
+        return []
+    fresh_policy = [c for c in clusters
+                    if c.get("fresh", True) and c.get("policy_flag") and not c.get("ceremonial")]
+    if not fresh_policy:
+        return []  # no fresh policy/bribery story — build() keeps the last good policy page
+    jaipur = [c for c in fresh_policy if c.get("jaipur")]
+    lead = (jaipur or fresh_policy)[0]
     return [lead] + [c for c in clusters if c is not lead]
 
 
@@ -680,43 +758,48 @@ def groq_analyze(api_key: str, clusters: list[dict], points: list[dict]) -> dict
     ]
 
     system = (
-        "आप जयपुर (राजस्थान, भारत) की एक हिंदी न्यूज़ वेबसाइट के वरिष्ठ समाचार संपादक हैं। "
-        "दिए गए फ़ीड आइटम और घटनाक्रम इतिहास (story_history — शीर्षक अंग्रेज़ी में हो सकते हैं) की "
-        "जानकारी का ही उपयोग करें और तथ्यों को स्वाभाविक, शुद्ध, विस्तृत हिंदी में लिखें। "
-        "story_history कई दिनों में फैला हो सकता है — पूरी कहानी शुरुआत से अब तक क्रमवार समझाएँ ताकि "
-        "पाठक को end-to-end समझ मिले। अपुष्ट बातों का श्रेय दें ('पुलिस के अनुसार', "
-        "'स्थानीय रिपोर्टों के मुताबिक')। स्रोतों में मौजूद न होने वाले आँकड़े, नाम या तथ्य कभी न गढ़ें। "
-        "अनिवार्य संपादकीय नियम: यदि स्रोतों में जयपुर/राजस्थान पुलिस की जाँच में किसी भी तरह की "
-        "लापरवाही, देरी, चूक, नाकामी या आलोचना का ज़िक्र हो, तो उसे 'police_accountability' में "
-        "स्पष्ट व प्रमुखता से, तथ्यों के साथ उजागर करें — लेकिन कभी मनगढ़ंत आरोप न लगाएँ। "
-        "यदि प्रमुख खबर (lead_story) स्वयं पुलिस की लापरवाही/नाकामी से जुड़ी हो, तो उसे मुख्य खबर मानकर "
-        "analysis में उसका पूरा, तथ्यपरक विवरण दें। "
+        "आप राजस्थान (भारत) की एक हिंदी न्यूज़ वेबसाइट के वरिष्ठ जवाबदेही (accountability) संपादक हैं। "
+        "यह पेज केवल एक बीट पर केंद्रित है: सरकारी/पुलिस भ्रष्टाचार, रिश्वतखोरी और नीतिगत नाकामी "
+        "(policy incompetence)। दिए गए फ़ीड आइटम और घटनाक्रम इतिहास (story_history — शीर्षक अंग्रेज़ी में "
+        "हो सकते हैं) की जानकारी का ही उपयोग करें और तथ्यों को स्वाभाविक, शुद्ध, विस्तृत हिंदी में लिखें। "
+        "अत्यंत महत्वपूर्ण: पूरी रिपोर्ट एक ही खबर/मामले पर केंद्रित रहे — कई असंबंधित घटनाओं को एक शीर्षक "
+        "या रिपोर्ट में कभी न मिलाएँ। यदि lead_story में कई असंबंधित घटनाएँ दिखें, तो केवल भ्रष्टाचार/"
+        "रिश्वत/नीतिगत नाकामी वाली मुख्य घटना चुनकर उसी पर लिखें। "
+        "story_history कई दिनों में फैला हो सकता है — उसी एक मामले की पूरी कहानी शुरुआत से अब तक क्रमवार "
+        "समझाएँ ताकि पाठक को end-to-end समझ मिले। अपुष्ट बातों का श्रेय दें ('पुलिस के अनुसार', "
+        "'एसीबी के मुताबिक', 'स्थानीय रिपोर्टों के अनुसार')। स्रोतों में मौजूद न होने वाले आँकड़े, नाम, "
+        "रिश्वत की राशि या तथ्य कभी न गढ़ें; कभी मनगढ़ंत आरोप न लगाएँ। "
+        "यदि स्रोतों में पुलिस/प्रशासन की लापरवाही, देरी, चूक, नाकामी या आलोचना हो, तो उसे "
+        "'police_accountability' में स्पष्ट व प्रमुखता से, तथ्यों के साथ उजागर करें। "
         "सभी टेक्स्ट फ़ील्ड पूरी तरह देवनागरी हिंदी में हों — कोई अंग्रेज़ी वाक्य नहीं; केवल event_type "
         "और severity अंग्रेज़ी enum में रहें। सिर्फ़ मान्य JSON लौटाएँ।"
     )
     user = {
-        "task": "जयपुर की प्रमुख ब्रेकिंग खबर की गहराई से, बहु-दिवसीय, end-to-end हिंदी कवरेज तैयार करें।",
+        "task": "राजस्थान की एक भ्रष्टाचार/रिश्वत/नीतिगत-नाकामी की प्रमुख खबर की गहराई से, बहु-दिवसीय, "
+                "end-to-end हिंदी कवरेज तैयार करें — एक ही मामले पर केंद्रित।",
         "lead_story": {"headline": lead["headline"], "snippets": lead_snippets},
         "story_history": history,
         "lead_sources_en": lead_sources,
         "other_stories_en": [c["headline"] for c in others],
         "output_schema": {
-            "lead_headline": "संक्षिप्त, सटीक हिंदी शीर्षक",
-            "event_type": "one of: terror, fire, earthquake, flood, accident, "
-                          "crime, investigation, protest, civic, weather, other",
+            "lead_headline": "एक ही घटना/मामले का संक्षिप्त, सटीक हिंदी शीर्षक (कई खबरें न मिलाएँ)",
+            "event_type": "one of: bribery, corruption, scam, investigation, "
+                          "negligence, civic, protest, crime, other",
             "severity": "one of: critical, high, medium, low",
             "analysis": "3-4 सुसंगत, बहु-वाक्य पैराग्राफ की विस्तृत हिंदी रिपोर्ट (प्रवाहमय गद्य, "
-                        "टुकड़ों में नहीं) — पृष्ठभूमि, शुरुआत से अब तक का पूरा घटनाक्रम, मौजूदा स्थिति; "
+                        "टुकड़ों में नहीं) — केवल इसी एक मामले की पृष्ठभूमि, कौन/कौन-सा विभाग शामिल, "
+                        "क्या आरोप/कितनी राशि, शुरुआत से अब तक का घटनाक्रम, मौजूदा स्थिति; "
                         "हर पैराग्राफ में कई वाक्य हों; पैराग्राफ \\n\\n से अलग करें",
-            "key_facts": "4-8 हिंदी बिंदुओं की array (छोटे तथ्य)",
+            "key_facts": "6-8 हिंदी बिंदुओं की array (सटीक तथ्य: कौन, विभाग/पद, राशि, धारा, कार्रवाई)",
             "developments": "objects की array [{date_label, text}] — story_history के हर बिंदु के लिए "
                             "ठीक एक प्रविष्टि, उसी क्रम में (oldest→newest; कोई बिंदु न छोड़ें, न जोड़ें); "
                             "date_label = उसी बिंदु के story_history 'when' से हूबहू (जैसे "
                             "'13 जुलाई, दोपहर 4:06 बजे'); समय ज्ञात न हो तो केवल तिथि; समय कभी न गढ़ें; "
-                            "text = 1 संक्षिप्त, सुस्पष्ट हिंदी वाक्य",
-            "police_accountability": "हिंदी पैराग्राफ — जयपुर/राजस्थान पुलिस की लापरवाही/देरी/चूक/"
+                            "text = 2-3 सुस्पष्ट हिंदी वाक्य — उस दिन क्या हुआ, किसने/किस विभाग/अधिकारी ने, "
+                            "कितनी राशि या क्या आरोप/कार्रवाई, और स्रोत का हवाला (जैसे 'एसीबी के अनुसार')",
+            "police_accountability": "हिंदी पैराग्राफ — पुलिस/प्रशासन की लापरवाही/देरी/चूक/"
                                      "आलोचना के प्रमाणित तथ्य; यदि स्रोतों में कुछ नहीं तो खाली स्ट्रिंग",
-            "what_next": "1-2 हिंदी वाक्य — आगे क्या संभावित/अपेक्षित है",
+            "what_next": "1-2 हिंदी वाक्य — आगे क्या संभावित/अपेक्षित है (जाँच, चार्जशीट, अदालत आदि)",
             "sources_hi": "हिंदी एक-पंक्ति शीर्षकों की array — lead_sources_en के समान क्रम व संख्या में",
             "other_stories": "objects {headline, summary} की array हिंदी में — "
                              "other_stories_en के समान क्रम व संख्या में",
@@ -955,10 +1038,71 @@ def _build_cluster(items: list[dict]) -> dict:
     )
     cl["police_flag"] = is_police_misconduct(cl)
     cl["issue_rank"] = issue_rank(cl)
+    cl["policy_flag"] = is_policy_beat(cl)
     cl["ceremonial"] = is_ceremonial(cl)
+    cl["jaipur"] = is_jaipur(cl)
     cl["fresh"] = True  # a manual pin is always eligible to lead
     cl["score"] = 1e6  # pinned to the front regardless of the usual newsworthiness score
     return cl
+
+
+# Web-enrichment tuning. ENRICH_MAX caps how many related items are folded in per run; a related item
+# is kept only if it shares at least ENRICH_MIN_SHARED of the lead's distinctive query terms, so the
+# enrichment stays on the SAME single story instead of pulling in other bribery cases.
+ENRICH_MAX = 12
+ENRICH_MIN_SHARED = 2
+
+
+def _lead_query_terms(cluster: dict, max_terms: int = 5) -> list[str]:
+    """The most distinctive keywords of the lead's headline, for a related-coverage web search.
+    Longer, more specific tokens first (a name / department / place), stopwords already removed."""
+    toks = sorted(keywords(cluster.get("headline", "")), key=lambda t: (len(t), t), reverse=True)
+    return toks[:max_terms]
+
+
+def enrich_lead(cluster: dict, items: list[dict]) -> dict:
+    """Search Google News for related coverage of the CHOSEN lead story and fold matching items into
+    the cluster, so the timeline gains more granular, timestamped points from many outlets. This is
+    the 'go search the same news on the web and find related feeds' step. Only items that (a) are
+    Rajasthan-local, (b) are not digests, and (c) share ≥ENRICH_MIN_SHARED of the lead's distinctive
+    terms are kept — so the page stays a single story. Returns the (possibly) enriched cluster; on a
+    feed error or no matches, returns it unchanged with its original headline/flags intact."""
+    terms = _lead_query_terms(cluster)
+    if len(terms) < 2:
+        return cluster
+    core = " ".join(terms)
+    core_terms = set(terms)
+    need = min(ENRICH_MIN_SHARED, len(core_terms))
+    # A locality anchor keeps the related search in Rajasthan; two windows widen the timeline arc.
+    queries = [f"Rajasthan OR Jaipur {core} when:7d", f"{core} when:30d"]
+
+    seen = {normalize(i["title"])[:80] for i in cluster["items"]}
+    extra: list[dict] = []
+    for q in queries:
+        for it in fetch_feed(q):
+            if len(extra) >= ENRICH_MAX:
+                break
+            key = normalize(it["title"])[:80]
+            if not key or key in seen or is_roundup(it):
+                continue
+            it_kw = keywords(it["title"] + " " + it.get("summary", ""))
+            if len(core_terms & it_kw) < need:
+                continue  # not clearly the same story — skip so the timeline stays single-focus
+            if not is_local({"items": [it]}):
+                continue
+            extra.append(it)
+            seen.add(key)
+
+    if not extra:
+        return cluster
+    enriched = dict(cluster)
+    enriched["items"] = _merge_items(cluster["items"], extra)
+    enriched["keywords"] = set(cluster["keywords"])
+    for it in extra:
+        enriched["keywords"] |= keywords(it["title"] + " " + it.get("summary", ""))
+    print(f"  enrich: folded +{len(extra)} related item(s) into the lead "
+          f"(search terms: {core!r})")
+    return enriched
 
 
 def _force_lead(clusters: list[dict], items: list[dict], ov: dict) -> list[dict]:
@@ -1040,33 +1184,45 @@ def build() -> None:
         return
 
     clusters = cluster_items(items)
-    clusters = filter_local(clusters)  # Jaipur-city only — drop national/out-of-area stories
-    print(f"  {len(clusters)} Jaipur-local cluster(s) after locality gate")
+    clusters = filter_local(clusters)  # Rajasthan only — drop national/out-of-area stories
+    print(f"  {len(clusters)} Rajasthan cluster(s) after locality gate")
 
     # A manual pin (override.json / FORCE_* inputs) can force a chosen story to lead.
     override = load_override()
     if override:
         clusters = _force_lead(clusters, items, override)
-        # Honour the explicit pin as the lead, but keep the secondary pool Jaipur-local.
+        # Honour the explicit pin as the lead, but keep the secondary pool Rajasthan-local.
         if clusters:
             clusters = [clusters[0]] + filter_local(clusters[1:])
     else:
-        # Burning-issue-first lead policy: the disorder/accountability/serious story of the day
-        # leads; ceremonial/feel-good items are kept out of the lead unless nothing else qualifies.
-        clusters = apply_lead_policy(clusters)
+        # Policy-incompetence / bribery lead policy: only a fresh government/police bribery or
+        # policy-failure story may lead. On a day with none, the list comes back empty and we keep
+        # the last policy page — the page never drops to generic news.
+        clusters = apply_policy_lead(clusters)
     if not clusters:
-        print("No clusters to render; keeping existing page (no commit).")
+        print("No fresh policy/bribery lead; keeping last policy page (no commit).")
         return
 
     top = clusters[0]
     # Never headline a stale item as "breaking now": if the auto-picked lead isn't fresh (e.g. only
     # the wider-window backfill produced clusters), keep the last good page. Manual pins are exempt.
     if not override and not top.get("fresh", True):
-        print("No fresh Jaipur-local lead; keeping existing page (no commit).")
+        print("No fresh Rajasthan policy lead; keeping existing page (no commit).")
         return
 
+    # Web enrichment: search for related coverage of the CHOSEN story across many outlets and fold it
+    # into the lead cluster, so the timeline gains more granular, timestamped points from multiple
+    # sources (and the AI has richer, well-attributed material). Only for the auto-picked lead — a
+    # manual pin already ran its own targeted query in _force_lead().
+    if not override:
+        top = enrich_lead(top, items)
+        clusters[0] = top
+
+    # Order-independent hash of the lead's (base + enriched) headline set: it changes when genuinely
+    # new coverage appears — base feed or related-coverage enrichment — so the timeline grows, but not
+    # on mere RSS reordering. A RENDER_VERSION bump still forces a one-time re-render.
     feed_hash = hashlib.sha1(
-        "|".join(normalize(i["title"]) for i in top["items"]).encode()
+        "|".join(sorted({normalize(i["title"]) for i in top["items"] if i["title"]})).encode()
     ).hexdigest()[:16]
 
     # Skip when the top-story feed is unchanged AND already rendered by this output
@@ -1288,16 +1444,20 @@ def _arc_sample(points: list[dict], n: int) -> list[dict]:
 
 
 def attach_dev_times(lead: dict, points: list[dict]) -> None:
-    """Give each timeline development a real archived timestamp when the mapping is unambiguous. The
-    AI narrates the (down-sampled) arc oldest-first, one development per point, so when the counts
-    match we align by index and use the point's exact IST date+time (never fabricated). Otherwise
-    the AI's own `date_label` is left untouched."""
+    """Give each timeline development a real archived timestamp AND its source outlet when the mapping
+    is unambiguous. The AI narrates the (down-sampled) arc oldest-first, one development per point, so
+    when the counts match we align by index and use the point's exact IST date+time (never fabricated)
+    plus the outlet that reported it (transliterated to Hindi, shown as a small source label under the
+    development). Otherwise the AI's own `date_label` is left untouched and no source is attached."""
     devs = lead.get("developments") or []
     if devs and len(devs) == len(points):
         for dev, point in zip(devs, points):
             label = _hindi_point_label(point)
             if label:
                 dev["label"] = label
+            src_hi = hindi_source(point.get("source", ""))
+            if src_hi:
+                dev["source_hi"] = src_hi
 
 
 BRAND_SUFFIX = "ब्रेकिंग जयपुर न्यूज़"
@@ -1370,14 +1530,17 @@ def render(state: dict, now: datetime) -> None:
     else:
         source_items = '<div class="empty-note">स्रोत जुटाए जा रहे हैं।</div>'
 
-    # Developments — a past→present chain (oldest at top, newest at bottom).
+    # Developments — a past→present chain (oldest at top, newest at bottom). Each entry carries a
+    # real timestamp (<time>), a 2-3 sentence account (<p>), and, when known, the reporting outlet.
     developments = lead.get("developments", [])
     if developments:
         # --i carries the item's index so the CSS can stagger each item's reveal animation.
         timeline_html = "\n".join(
             f'<li class="tl-item sev-{esc(sev)}" style="--i:{i}">'
             + (f'<time>{esc(d.get("label"))}</time>' if d.get("label") else "")
-            + f'<p>{esc(d.get("text"))}</p></li>'
+            + f'<p>{esc(d.get("text"))}</p>'
+            + (f'<span class="tl-src">{esc(d.get("source_hi"))}</span>' if d.get("source_hi") else "")
+            + '</li>'
             for i, d in enumerate(developments)
         )
     else:
@@ -1994,7 +2157,13 @@ ul.timeline { list-style: none; margin: 0; padding: 0; max-width: 760px; }
   50%      { box-shadow: 0 0 0 5px rgba(183,28,28,0), 0 0 16px var(--brand); }
 }
 .tl-item time { display: block; font-size: .74rem; font-weight: 800; color: var(--brand); letter-spacing: .03em; }
-.tl-item p { margin: 3px 0 0; }
+/* multi-sentence, sourced developments — give them room to read as short paragraphs */
+.tl-item p { margin: 4px 0 0; line-height: 1.7; }
+.tl-item .tl-src {
+  display: inline-block; margin-top: 5px; font-size: .72rem; font-weight: 700;
+  color: var(--muted); letter-spacing: .02em;
+}
+.tl-item .tl-src::before { content: "\2014\00a0"; opacity: .7; }
 .note { font-size: .8rem; color: var(--muted); margin-top: 14px; }
 footer { max-width: var(--maxw); margin: 0 auto; padding: 0 16px 48px; font-size: .82rem; color: var(--muted); }
 footer a { color: var(--brand); font-weight: 600; }

@@ -22,7 +22,7 @@ back into the repo, which Pages then serves) — everything else is hand-authore
 | `security-tooling-landscape/` | `/security-tooling-landscape` | Article: "The Cybersecurity Tooling Landscape, Mapped". |
 | `jaipur-news/` | `/jaipur-news` | Static Jaipur/Rajasthan news landing page (SEO). |
 | `jaipur-properties/` | `/jaipur-properties` | Static Jaipur real-estate landing page (SEO). |
-| `breaking/` | `/breaking` | **AI-generated, fully-Hindi live breaking-news page** (the one dynamic page). Bot-committed; see `docs/breaking-news.md`. |
+| `breaking/` | `/breaking` | **AI-generated, fully-Hindi live single-story news page** on one beat: government/police **bribery & policy incompetence** in Rajasthan (Jaipur-first). Bot-committed; see `docs/breaking-news.md`. |
 | `scripts/` | — | The two generators + `requirements.txt` (stdlib only; just `tzdata`). |
 | `.github/workflows/` | — | `breaking-news.yml` and `sitemap.yml`. |
 | `docs/` | — | `breaking-news.md` — full spec + operator guide for the breaking page. |
@@ -34,14 +34,19 @@ back into the repo, which Pages then serves) — everything else is hand-authore
   branch (`main`) at `www.manzill.com`. Editing an `.html` file and merging to `main` publishes it.
 - **Two generators run in CI and commit their output:**
   - `scripts/build_breaking_news.py` → `.github/workflows/breaking-news.yml` (cron `*/20` +
-    manual dispatch). Fetches Google News RSS (+ wider-window backfill), clusters stories, keeps
-    only Jaipur-city ones (locality gate), **leads with the burning issue of the day** (disorder /
-    misgovernance / accountability / deaths, `issue_rank` + severity — ceremonial/feel-good barred
-    from the lead unless nothing else qualifies), archives **every** local story so each keeps its
-    multi-week timeline, calls **Groq** for a Hindi write-up, renders `breaking/index.html` (+ RSS +
-    news sitemap), commits only on change. Only genuinely-sourced stories are ranked up; the AI
-    never fabricates (theme lists are top-of-file config).
-    Needs the repo secret **`GROQ_API_KEY`** (without it, a Hindi holding page shows).
+    manual dispatch). The page is a **single-story accountability desk**: it covers ONE story at a
+    time on one beat — **government/police bribery & policy incompetence** in Rajasthan, Jaipur-first.
+    Flow: fetch Google News RSS (bribery/ACB/policy-failure queries + wider-window backfill) → **drop
+    digest/roundup items** (`is_roundup`, so unrelated stories never merge into one headline) →
+    cluster → keep Rajasthan stories (`is_local`, Jaipur-first via `is_jaipur`) → pick a single fresh
+    **policy/bribery lead** (`is_policy_beat` gate + `apply_policy_lead`; Jaipur is a strict tier) →
+    **web-enrich**: search related coverage of that one story and fold it in (`enrich_lead`) →
+    archive **every** story's multi-day arc (rolling 30 days) → call **Groq** for a Hindi write-up
+    with a rich, timestamped, **sourced** timeline (2–3 sentence developments, not one-liners) →
+    render `breaking/index.html` (+ RSS + news sitemap), commit only on change. On a day with no fresh
+    policy story the **last policy page is kept** — the page never drops to generic news. Only
+    genuinely-sourced stories are ranked up; the AI never fabricates (theme lists are top-of-file
+    config). Needs the repo secret **`GROQ_API_KEY`** (without it, a Hindi holding page shows).
   - `scripts/build_sitemap.py` → `.github/workflows/sitemap.yml` (push to any `**/index.html`,
     daily cron, or dispatch). Auto-discovers routes (**any folder containing `index.html`**;
     `EXCLUDE_DIRS = {.github, scripts, docs, node_modules, breaking-news}`) and rewrites the root

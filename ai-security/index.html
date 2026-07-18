@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#0e3a5f">
+
+    <title>AI Security: The New Attack Surface | Manzill Surolia</title>
+    <meta name="description" content="LLMs and AI agents opened a new attack surface — prompt injection, data poisoning, excessive agency, model theft. A facts-first map of the OWASP Top 10 for LLM Applications, the defenses that hold, and the governance frameworks (NIST AI RMF, ISO 42001, EU AI Act) that now apply. By Manzill Surolia.">
+    <meta name="keywords" content="AI security, LLM security, prompt injection, jailbreaking, OWASP Top 10 LLM, excessive agency, model poisoning, NIST AI RMF, ISO 42001, EU AI Act, AI governance, RLHF, guardrails">
+    <meta name="author" content="Manzill Surolia">
+
+    <link rel="canonical" href="https://www.manzill.com/ai-security">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="icon" type="image/png" sizes="512x512" href="/icon.png">
+    <link rel="apple-touch-icon" href="/icon.png">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Manzill Surolia">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:title" content="AI Security: The New Attack Surface">
+    <meta property="og:description" content="Prompt injection, poisoning, excessive agency, model theft — the OWASP Top 10 for LLM apps, the defenses that hold, and the governance that now applies.">
+    <meta property="og:url" content="https://www.manzill.com/ai-security">
+    <meta property="og:image" content="https://www.manzill.com/manzill-og.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:alt" content="Manzill Surolia &mdash; AI security">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="AI Security: The New Attack Surface">
+    <meta name="twitter:description" content="The OWASP LLM Top 10, the defenses that hold, and the AI-governance frameworks that now apply. By Manzill Surolia.">
+    <meta name="twitter:image" content="https://www.manzill.com/manzill-og.png">
+    <meta name="twitter:image:alt" content="Manzill Surolia &mdash; AI security">
+
+    <!-- Fonts: Inter (modern UI) with system fallback -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap">
+
+    <script>document.documentElement.classList.add('js');</script>
+
+    <style>
+:root {
+  --brand: #0e3a5f;
+  --brand-dark: #082438;
+  --link: #0d5d92;
+  --accent: #12a5b8;
+  --bg: #f6f8fa;
+  --surface: #ffffff;
+  --text: #0f1a24;
+  --muted: #55636e;
+  --border: #dde4ea;
+  --shadow: 0 1px 3px rgba(0,0,0,.06), 0 4px 12px rgba(0,0,0,.04);
+  --radius: 12px;
+  --maxw: 1100px;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --link: #5cb3e0;
+    --bg: #0d1117;
+    --surface: #161b22;
+    --text: #e6edf3;
+    --muted: #8b98a5;
+    --border: #26303b;
+    --shadow: 0 1px 3px rgba(0,0,0,.4), 0 4px 12px rgba(0,0,0,.3);
+  }
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: inherit; text-decoration: none; }
+img { display: block; max-width: 100%; height: auto; }
+
+header.site { background: var(--brand); color: #fff; border-bottom: 3px solid var(--accent); box-shadow: var(--shadow); }
+.bar { max-width: var(--maxw); margin: 0 auto; padding: 12px 16px; display: flex; align-items: center; gap: 12px; }
+.brand { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 1.4rem; }
+.brand .logo { width: 34px; height: 34px; background: #fff; color: var(--brand); border-radius: 8px; display: grid; place-items: center; font-weight: 900; font-size: 1.15rem; font-family: system-ui, sans-serif; }
+
+main { max-width: var(--maxw); margin: 0 auto; padding: 20px 16px 60px; }
+
+.section-head { display: flex; align-items: baseline; gap: 12px; margin: 8px 0 14px; }
+.section-head h2 { font-size: 1.25rem; margin: 0; padding-left: 12px; border-left: 4px solid var(--brand); font-weight: 800; }
+
+.tabs { display: flex; gap: 6px; overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: thin; background: var(--surface); border: 1px solid var(--border); border-radius: 999px; padding: 6px; margin: 4px 0 22px; position: sticky; top: 8px; z-index: 10; box-shadow: var(--shadow); }
+.tabs::-webkit-scrollbar { height: 4px; }
+.tab { flex: 0 0 auto; background: transparent; border: 0; color: var(--text); text-decoration: none; padding: 8px 14px; border-radius: 999px; font-family: inherit; font-size: .92rem; font-weight: 600; cursor: pointer; white-space: nowrap; display: inline-flex; align-items: center; gap: 6px; transition: background .15s ease, color .15s ease; }
+.tab:hover { background: rgba(14,58,95,.08); }
+.tab[aria-selected="true"] { background: var(--brand); color: #fff; }
+@media (prefers-color-scheme: dark) { .tab:hover { background: rgba(255,255,255,.06); } }
+
+.editorial-card { background: var(--surface); border: 1px solid var(--border); border-left: 4px solid var(--accent); border-radius: var(--radius); padding: 18px 20px; margin-bottom: 18px; box-shadow: var(--shadow); }
+.editorial-card h2 { margin: 0 0 10px; font-size: 1.1rem; font-weight: 800; color: var(--link); }
+.editorial-card p { margin: 0 0 12px; font-size: .95rem; line-height: 1.7; }
+.editorial-card .byline { margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--border); font-size: .85rem; color: var(--muted); }
+.editorial-card .byline strong { color: var(--text); }
+
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
+
+.hero { margin: 26px 0 6px; }
+.hero .eyebrow { margin: 0 0 6px; font-size: .8rem; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; color: var(--link); }
+.hero h1 { font-size: clamp(1.5rem, 3.2vw, 2.05rem); line-height: 1.12; letter-spacing: -.015em; margin: 0; font-weight: 800; }
+.hero .sub { margin: .5rem 0 0; color: var(--muted); font-size: clamp(1rem, 2.2vw, 1.18rem); max-width: 62ch; }
+
+.layout { display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: 30px; align-items: start; }
+article.content, aside.sidebar { min-width: 0; }
+article.content > section { margin-bottom: 40px; scroll-margin-top: 64px; }
+article.content > section:first-child { margin-top: 6px; }
+article.content p { margin: 0 0 14px; }
+.lede { font-size: 1.06rem; line-height: 1.72; }
+.note { font-size: .88rem; color: var(--muted); margin: 6px 0 0; }
+.reading { color: var(--muted); }
+
+.stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin: 18px 0 22px; }
+.stat { background: linear-gradient(135deg, var(--brand), var(--brand-dark)); color: #fff; border-radius: var(--radius); padding: 16px 16px 14px; box-shadow: var(--shadow); display: flex; flex-direction: column; gap: 4px; border-top: 3px solid var(--accent); }
+.stat .num { font-size: 2rem; font-weight: 900; line-height: 1; letter-spacing: -.02em; }
+.stat .lbl { font-size: .82rem; opacity: .95; line-height: 1.35; }
+
+.table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow); background: var(--surface); }
+table.data-table { border-collapse: collapse; width: 100%; font-size: .92rem; }
+table.data-table th, table.data-table td { text-align: left; padding: 11px 14px; vertical-align: top; border-bottom: 1px solid var(--border); }
+table.data-table thead th { background: var(--brand); color: #fff; font-weight: 700; font-size: .82rem; letter-spacing: .01em; white-space: nowrap; }
+table.data-table tbody tr:nth-child(even) { background: rgba(14,58,95,.035); }
+table.data-table tbody tr:last-child td { border-bottom: 0; }
+table.data-table tbody tr:hover { background: rgba(14,58,95,.07); }
+td.ref { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-weight: 700; color: var(--link); white-space: nowrap; }
+.tag { display: inline-block; font-size: .72rem; font-weight: 700; padding: 2px 8px; border-radius: 999px; white-space: nowrap; background: rgba(18,165,184,.14); color: var(--link); }
+.tag.sev { background: rgba(183,28,28,.14); color: #b71c1c; }
+@media (prefers-color-scheme: dark) {
+  table.data-table tbody tr:nth-child(even) { background: rgba(255,255,255,.03); }
+  table.data-table tbody tr:hover { background: rgba(14,58,95,.16); }
+  .tag.sev { background: rgba(255,120,120,.16); color: #ff9b9b; }
+}
+
+.callout { background: rgba(18,165,184,.10); border: 1px solid var(--border); border-left: 4px solid var(--accent); border-radius: var(--radius); padding: 14px 18px; margin: 16px 0 0; }
+.callout p { margin: 0; font-weight: 600; color: var(--text); }
+.callout.warn { background: rgba(183,28,28,.08); border-left-color: #b71c1c; }
+
+ul.takeaways { margin: 6px 0 0; padding-left: 0; list-style: none; }
+ul.takeaways li { position: relative; padding: 10px 0 10px 30px; border-bottom: 1px solid var(--border); font-size: .98rem; }
+ul.takeaways li:last-child { border-bottom: 0; }
+ul.takeaways li::before { content: "\25B8"; color: var(--link); position: absolute; left: 6px; top: 10px; font-weight: 900; }
+.method { margin-top: 22px; font-size: .86rem; color: var(--muted); background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px 16px; }
+.method strong { color: var(--text); }
+
+aside.sidebar { position: sticky; top: 64px; }
+.author-card p.name { font-size: 1.15rem; font-weight: 800; color: var(--text); margin-bottom: 10px; }
+.author-card .socials { font-size: .9rem; }
+.author-card .socials a { color: var(--link); font-weight: 700; }
+.author-card .socials a:hover { text-decoration: underline; }
+.author-card .tag-hash { color: var(--muted); }
+
+.more-card h2 { color: var(--link); }
+ul.more-list { margin: 4px 0 0; padding: 0; list-style: none; }
+ul.more-list li { padding: 9px 0; border-bottom: 1px solid var(--border); }
+ul.more-list li:last-child { border-bottom: 0; }
+ul.more-list a { font-weight: 700; color: var(--link); }
+ul.more-list a:hover { text-decoration: underline; }
+ul.more-list .m-desc { display: block; font-size: .82rem; color: var(--muted); font-weight: 400; margin-top: 2px; }
+
+footer.site-foot { border-top: 1px solid var(--border); background: var(--surface); color: var(--muted); font-size: .86rem; }
+footer.site-foot .foot-in { max-width: var(--maxw); margin: 0 auto; padding: 20px 16px; display: flex; flex-wrap: wrap; gap: 8px 18px; align-items: center; }
+footer.site-foot a { color: var(--link); font-weight: 700; }
+footer.site-foot a:hover { text-decoration: underline; }
+footer.site-foot .sep { opacity: .5; }
+
+@media (max-width: 860px) { .layout { grid-template-columns: minmax(0, 1fr); gap: 8px; } aside.sidebar { position: static; margin-top: 8px; } }
+
+.js .animate.stat-grid .stat { opacity: 0; transform: translateY(12px); transition: opacity .5s ease, transform .5s ease; }
+.js .animate.stat-grid.in-view .stat { opacity: 1; transform: none; }
+.js .animate.stat-grid.in-view .stat:nth-child(2){ transition-delay: .07s; }
+.js .animate.stat-grid.in-view .stat:nth-child(3){ transition-delay: .14s; }
+.js .animate.stat-grid.in-view .stat:nth-child(4){ transition-delay: .21s; }
+.js .animate.stat-grid.in-view .stat:nth-child(5){ transition-delay: .28s; }
+.js .animate table.data-table tbody tr { opacity: 0; transform: translateY(6px); transition: opacity .45s ease, transform .45s ease; }
+.js .animate.in-view table.data-table tbody tr { opacity: 1; transform: none; }
+.js .animate.in-view table.data-table tbody tr:nth-child(2){ transition-delay: .03s; }
+.js .animate.in-view table.data-table tbody tr:nth-child(3){ transition-delay: .06s; }
+.js .animate.in-view table.data-table tbody tr:nth-child(4){ transition-delay: .09s; }
+.js .animate.in-view table.data-table tbody tr:nth-child(5){ transition-delay: .12s; }
+.js .animate.in-view table.data-table tbody tr:nth-child(6){ transition-delay: .15s; }
+    </style>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Manzill Surolia",
+      "url": "https://www.manzill.com/",
+      "image": "https://www.manzill.com/manzill-og.png",
+      "jobTitle": "Cyber Security & GRC Professional",
+      "knowsAbout": ["Cyber Security", "AI Security", "LLM Security", "Prompt Injection", "AI Governance", "NIST AI RMF", "ISO 42001", "EU AI Act", "GRC"],
+      "sameAs": ["https://in.linkedin.com/in/manzill", "https://x.com/manzill", "https://www.facebook.com/manzill"]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": ["Article", "TechArticle"],
+      "headline": "AI Security: The New Attack Surface",
+      "description": "A facts-first map of the LLM/AI attack surface — the OWASP Top 10 for LLM Applications, the defenses that hold, and the governance frameworks (NIST AI RMF, ISO 42001, EU AI Act) that now apply.",
+      "author": { "@type": "Person", "name": "Manzill Surolia", "url": "https://www.manzill.com/" },
+      "publisher": { "@type": "Person", "name": "Manzill Surolia" },
+      "datePublished": "2026-07-17",
+      "dateModified": "2026-07-17",
+      "articleSection": "Cyber Security",
+      "keywords": "AI security, LLM security, prompt injection, OWASP Top 10 LLM, excessive agency, model poisoning, NIST AI RMF, ISO 42001, EU AI Act, AI governance",
+      "image": "https://www.manzill.com/manzill-og.png",
+      "mainEntityOfPage": "https://www.manzill.com/ai-security",
+      "about": ["LLM security", "Prompt injection", "OWASP Top 10 for LLM Applications", "AI governance", "EU AI Act"]
+    }
+    </script>
+</head>
+<body>
+    <header class="site">
+      <div class="bar">
+        <a class="brand" href="/">
+          <span class="logo">M</span>
+          <span>Manzill Surolia</span>
+        </a>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <p class="eyebrow">Analysis &middot; 17 Jul 2026</p>
+        <h1>AI Security: The New Attack Surface</h1>
+        <p class="sub">LLMs and AI agents don&rsquo;t just add features &mdash; they add a new class of vulnerability. The model itself becomes attackable, and natural language becomes an injection vector.</p>
+      </section>
+
+      <nav class="tabs" aria-label="Sections">
+        <a class="tab" href="#overview">Overview</a>
+        <a class="tab" href="#surface">The attack surface</a>
+        <a class="tab" href="#terms">Key terms</a>
+        <a class="tab" href="#defenses">Defenses</a>
+        <a class="tab" href="#governance">Governance</a>
+        <a class="tab" href="#bottom-line">Bottom line</a>
+      </nav>
+
+      <div class="layout">
+        <article class="content">
+
+          <section id="overview">
+            <div class="stat-grid animate">
+              <div class="stat"><span class="num">10</span><span class="lbl">OWASP LLM risk categories</span></div>
+              <div class="stat"><span class="num">#1</span><span class="lbl">prompt injection &mdash; and still unsolved</span></div>
+              <div class="stat"><span class="num">3</span><span class="lbl">governance frameworks now apply</span></div>
+              <div class="stat"><span class="num">2</span><span class="lbl">new trust boundaries: the prompt &amp; the model</span></div>
+              <div class="stat"><span class="num">1</span><span class="lbl">rule: treat model output as untrusted</span></div>
+            </div>
+            <p class="lede">Traditional appsec assumes code you control processing data you validate. An LLM breaks both assumptions: its &ldquo;logic&rdquo; is statistical and opaque, and its instructions and its data arrive in the <em>same</em> channel &mdash; plain language. That collapses a boundary security has always relied on. The result is a genuinely new attack surface, catalogued by OWASP&rsquo;s Top 10 for LLM Applications, sitting on top of &mdash; not replacing &mdash; every classic risk in the systems around the model.</p>
+          </section>
+
+          <section id="surface">
+            <div class="section-head"><h2>1 &middot; The New Attack Surface (OWASP LLM Top 10)</h2></div>
+            <p>OWASP maintains a Top 10 specifically for LLM applications. Read it as the map of where AI systems actually break &mdash; the model, its data, its tools, and the trust we place in its output.</p>
+            <div class="table-wrap animate">
+              <table class="data-table">
+                <thead><tr><th>Risk</th><th>What it is</th></tr></thead>
+                <tbody>
+                  <tr><td><span class="tag sev">LLM01</span> <strong>Prompt Injection</strong></td><td class="reading">Crafted input overrides the system&rsquo;s instructions &mdash; directly, or indirectly via content the model reads (a web page, a document, an email)</td></tr>
+                  <tr><td><span class="tag">LLM02</span> <strong>Sensitive Info Disclosure</strong></td><td class="reading">The model reveals secrets, PII or proprietary data from its context, training, or connected systems</td></tr>
+                  <tr><td><span class="tag">LLM03</span> <strong>Supply Chain</strong></td><td class="reading">Compromised third-party models, datasets, plugins or dependencies</td></tr>
+                  <tr><td><span class="tag">LLM04</span> <strong>Data &amp; Model Poisoning</strong></td><td class="reading">Tampered training or fine-tuning data plants backdoors or bias</td></tr>
+                  <tr><td><span class="tag">LLM05</span> <strong>Improper Output Handling</strong></td><td class="reading">Downstream code trusts model output &mdash; enabling XSS, SSRF, SQL injection or command execution</td></tr>
+                  <tr><td><span class="tag sev">LLM06</span> <strong>Excessive Agency</strong></td><td class="reading">An agent has more permissions, tools or autonomy than it needs, so a bad decision does real damage</td></tr>
+                  <tr><td><span class="tag">LLM07</span> <strong>System Prompt Leakage</strong></td><td class="reading">The hidden system prompt (and any secrets in it) is extracted</td></tr>
+                  <tr><td><span class="tag">LLM08</span> <strong>Vector &amp; Embedding Weaknesses</strong></td><td class="reading">Attacks on the RAG layer &mdash; poisoned or leaky vector stores and retrieval</td></tr>
+                  <tr><td><span class="tag">LLM09</span> <strong>Misinformation</strong></td><td class="reading">Hallucinated or wrong output relied on as fact (overreliance)</td></tr>
+                  <tr><td><span class="tag">LLM10</span> <strong>Unbounded Consumption</strong></td><td class="reading">Resource/cost exhaustion &mdash; denial-of-wallet, model extraction through mass querying</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="callout warn"><p>&#9888; <strong>Prompt injection has no complete fix.</strong> Because instructions and data share one channel, you can reduce it but not eliminate it &mdash; which is why the real control is limiting what the model is <em>allowed to do</em> (LLM06), not just what it&rsquo;s told.</p></div>
+          </section>
+
+          <section id="terms">
+            <div class="section-head"><h2>2 &middot; The Vocabulary You Actually Need</h2></div>
+            <p>A handful of terms carry most of the security conversation around AI. Knowing these is the difference between governing AI and nodding along.</p>
+            <div class="table-wrap animate">
+              <table class="data-table">
+                <thead><tr><th>Term</th><th>Meaning</th></tr></thead>
+                <tbody>
+                  <tr><td><strong>Prompt injection</strong></td><td class="reading">Malicious input designed to override a model&rsquo;s instructions</td></tr>
+                  <tr><td><strong>Jailbreaking</strong></td><td class="reading">Bypassing a model&rsquo;s safety guardrails to elicit restricted behaviour</td></tr>
+                  <tr><td><strong>Hallucination</strong></td><td class="reading">Plausible but fabricated or wrong output &mdash; a reliability <em>and</em> security risk</td></tr>
+                  <tr><td><strong>Alignment</strong></td><td class="reading">Making a model behave according to human values and intent</td></tr>
+                  <tr><td><strong>RLHF</strong></td><td class="reading">Reinforcement Learning from Human Feedback &mdash; the tuning that shapes behaviour</td></tr>
+                  <tr><td><strong>Guardrails</strong></td><td class="reading">Input/output filters and policy checks wrapped around the model</td></tr>
+                  <tr><td><strong>Model card</strong></td><td class="reading">Documentation of a model&rsquo;s capabilities, limits and intended use</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <section id="defenses">
+            <div class="section-head"><h2>3 &middot; Defenses That Hold</h2></div>
+            <p>You can&rsquo;t patch a probability distribution, so AI security is mostly about the <em>system around</em> the model &mdash; classic security discipline applied to a new component.</p>
+            <ul class="takeaways">
+              <li><strong>Treat every model output as untrusted input</strong> &mdash; validate and encode it before it touches code, a browser, or a database (kills LLM05).</li>
+              <li><strong>Least privilege for agents</strong> &mdash; scope tools, permissions and autonomy tightly; require human-in-the-loop for high-impact actions (contains LLM06).</li>
+              <li><strong>Guardrails, but assume bypass</strong> &mdash; input/output filtering helps; design so a successful injection still can&rsquo;t do much.</li>
+              <li><strong>Keep secrets out of prompts</strong> &mdash; don&rsquo;t place data in the context or system prompt you couldn&rsquo;t bear to leak (LLM02, LLM07).</li>
+              <li><strong>Secure the pipeline</strong> &mdash; verify model &amp; dataset provenance, pin dependencies, secure the RAG/vector store (LLM03, LLM04, LLM08).</li>
+              <li><strong>Rate-limit &amp; budget</strong> &mdash; quotas and cost caps blunt denial-of-wallet and model extraction (LLM10).</li>
+              <li><strong>Red-team &amp; evaluate continuously</strong> &mdash; adversarial testing and model cards make behaviour measurable.</li>
+            </ul>
+          </section>
+
+          <section id="governance">
+            <div class="section-head"><h2>4 &middot; The Governance Now Attached to AI</h2></div>
+            <p>AI security is not only technical &mdash; three frameworks now define the compliance side, and they map onto the GRC muscle organisations already have.</p>
+            <div class="table-wrap animate">
+              <table class="data-table">
+                <thead><tr><th>Framework</th><th>What it is</th><th>Use it for</th></tr></thead>
+                <tbody>
+                  <tr><td><strong>NIST AI RMF</strong></td><td class="reading">Voluntary risk-management framework (Govern, Map, Measure, Manage), with a Generative-AI profile</td><td class="reading">A structure to identify &amp; manage AI risk &mdash; the &ldquo;CSF for AI&rdquo;</td></tr>
+                  <tr><td><strong>ISO/IEC 42001</strong></td><td class="reading">Certifiable AI management system (AIMS) standard</td><td class="reading">The &ldquo;ISO 27001 for AI&rdquo; &mdash; prove a managed AI programme</td></tr>
+                  <tr><td><strong>EU AI Act</strong></td><td class="reading">Risk-tiered regulation (prohibited &rarr; high-risk &rarr; limited &rarr; minimal), phasing in through 2025&ndash;2027</td><td class="reading">Legal obligations if you build or deploy AI touching the EU</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="callout"><p>&#9656; The GRC tie-in: if you already run <a href="/iso-27001-2022">ISO 27001</a>, ISO 42001 bolts on the same way ISO 27701 does for privacy &mdash; and the <a href="/">control overlap</a> means much of the work is shared.</p></div>
+          </section>
+
+          <section id="bottom-line">
+            <div class="section-head"><h2>Bottom line</h2></div>
+            <ul class="takeaways">
+              <li><strong>The channel collapsed</strong> &mdash; instructions and data now arrive together, which is why prompt injection is structural, not a bug.</li>
+              <li><strong>Limit agency, not just input</strong> &mdash; the durable control is what the model may <em>do</em>, since what it&rsquo;s <em>told</em> can&rsquo;t be fully secured.</li>
+              <li><strong>Output is untrusted</strong> &mdash; treat model responses like user input everywhere downstream.</li>
+              <li><strong>AI sits on top of appsec</strong> &mdash; it adds risks; it doesn&rsquo;t remove supply-chain, access or data ones.</li>
+              <li><strong>Governance arrived fast</strong> &mdash; NIST AI RMF, ISO 42001 and the EU AI Act now make AI a board and compliance topic.</li>
+            </ul>
+            <p class="method"><strong>Sources &amp; method.</strong> Risk categories follow the <strong>OWASP Top 10 for LLM Applications</strong> (2025); the terminology reflects standard AI/ML usage. Governance references are the <strong>NIST AI Risk Management Framework</strong> (AI RMF 1.0 + Generative-AI profile), <strong>ISO/IEC 42001:2023</strong>, and the <strong>EU AI Act</strong> (phased application 2025&ndash;2027). General information, not legal advice. Original analysis; no third-party graphics or text reproduced.</p>
+          </section>
+
+        </article>
+
+        <aside class="sidebar">
+          <div class="editorial-card author-card">
+            <h2>About the Author</h2>
+            <p class="name">Manzill Surolia</p>
+            <p><strong>Education:</strong> LL.B, MCA</p>
+            <p><strong>Experience:</strong> Cyber security professional with over 10 years of experience in cyber security, governance, risk management, and compliance. Strong background in governance, risk, and compliance (GRC), with hands-on experience in security auditing, regulatory compliance (HITRUST, PCI-DSS, FedRAMP, ISO 27001, NIST), and overseeing data protection measures. Adept in designing incident response plans, business continuity plans (BCP), and driving initiatives in security posture management.</p>
+            <p class="socials">
+              <a href="https://in.linkedin.com/in/manzill" rel="me">LinkedIn</a> &middot;
+              <a href="https://x.com/manzill" rel="me">X</a> &middot;
+              <a href="https://www.facebook.com/manzill" rel="me">Facebook</a>
+              <span class="tag-hash">&nbsp;&middot; #Manzill</span>
+            </p>
+            <div class="byline">&copy; 2026 <strong>Manzill Surolia</strong>. All rights reserved.</div>
+          </div>
+
+          <div class="editorial-card more-card">
+            <h2>More analysis</h2>
+            <ul class="more-list">
+              <li><a href="/evolution-of-cybersecurity">The Evolution of Cybersecurity</a><span class="m-desc">Why AI is the next attack surface</span></li>
+              <li><a href="/">Regulatory Controls, Decoded</a><span class="m-desc">58 security &amp; privacy frameworks, vectorised</span></li>
+              <li><a href="/iso-27001-2022">ISO 27001:2013 &rarr; 2022</a><span class="m-desc">Where ISO 42001 bolts on</span></li>
+            </ul>
+          </div>
+        </aside>
+      </div>
+    </main>
+
+    <footer class="site-foot">
+      <div class="foot-in">
+        <span>&copy; 2026 <strong>Manzill Surolia</strong></span>
+        <span class="sep">&middot;</span>
+        <a href="/">Home</a>
+        <a href="/evolution-of-cybersecurity">Evolution of cybersecurity</a>
+        <a href="/saml-oauth-ssh">Auth protocols</a>
+        <span class="sep">&middot;</span>
+        <a href="https://in.linkedin.com/in/manzill" rel="me">LinkedIn</a>
+      </div>
+    </footer>
+
+    <script>
+    (function () {
+      var els = document.querySelectorAll('.animate');
+      var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (reduce || !('IntersectionObserver' in window)) {
+        els.forEach(function (el) { el.classList.add('in-view'); });
+        return;
+      }
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) { e.target.classList.add('in-view'); io.unobserve(e.target); }
+        });
+      }, { threshold: 0.15 });
+      els.forEach(function (el) { io.observe(el); });
+    })();
+    </script>
+</body>
+</html>

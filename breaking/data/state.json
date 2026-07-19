@@ -1,76 +1,70 @@
 {
   "ist_day": "2026-07-20",
   "lead": {
-    "id": "17d3ac5f453e",
-    "headline": "जयपुर में आरक्षण विरोध पर पुलिस ने जलती गैस और लाठी चार्ज, नागरिकों को चोटें, जवाबदेही की माँग",
-    "event_type": "protest",
+    "id": "cae9b77c87ae",
+    "headline": "जयपुर नगर निगम जामदार पर ५०,००० रुपये रिश्वत लेने का मामला: नागरिकों को न्याय की माँग",
+    "event_type": "bribery",
     "severity": "high",
-    "analysis": "1 जुलाई को जयपुर में घुमंतू जनजातियों द्वारा आरक्षण के अधिकार की मांग करने वाले प्रदर्शन में पुलिस ने जलती गैस और लाठी चार्ज का प्रयोग किया, जिससे कई नागरिक घायल हुए। यह घटना पिछले कुछ हफ्तों में बढ़ते तनाव का परिणाम है, जहाँ समान समुदायों ने पहले भी विभिन्न स्थानों पर विरोध किया था।\n\nपुलिस की कार्रवाई पर विपक्ष और नागरिक समूहों ने अत्यधिक बल प्रयोग और मानवीय अधिकारों के उल्लंघन का आरोप लगाया है। उन्होंने तुरंत एक स्वतंत्र जांच की मांग की है, जिससे यह स्पष्ट हो सके कि क्या पुलिस ने आवश्यक प्रोटोकॉल का पालन किया था।\n\nघटनाक्रम के दौरान कई घायल नागरिकों को अस्पताल में भर्ती कराया गया, लेकिन अभी तक कोई मुआवजा या पुनर्वास की व्यवस्था नहीं की गई है। स्थानीय प्रशासन से अपेक्षा की जा रही है कि वे पीड़ितों को उचित चिकित्सा सहायता और भविष्य में ऐसी घटनाओं को रोकने के लिए नीतिगत सुधार प्रदान करे।\n\nविपक्ष ने कहा कि इस प्रकार की पुलिस कार्रवाई से जनता का भरोसा टूटता है और सरकार को पुलिस के प्रशिक्षण एवं जवाबदेही के लिए सख्त कदम उठाने चाहिए, जबकि हमारी रिपोर्ट में कोई व्यक्तिगत राय नहीं दी गई है।",
+    "analysis": "9 जुलाई को जयपुर नगर निगम के जामदार पर ५०,००० रुपये रिश्वत लेने के आरोप में गिरफ्तार किया गया। यह गिरफ्तारी स्थानीय नागरिक समूहों द्वारा कई महीनों से दर्ज की गई भ्रष्टाचार शिकायतों के बाद हुई, जिसमें उन्होंने जेडीए के कर्मचारियों से अनुचित लाभ की माँग की थी।\n\nजामदार के पद पर रहते हुए वह विभिन्न निर्माण अनुबंधों और लाइसेंस जारी करने में निजी व्यवसायियों को रिश्वत लेता रहा, जैसा कि जांच एजेंटों ने बताया। इस मामले में पुलिस ने प्रारम्भिक शिकायतों को अनदेखा किया, जिससे नागरिकों को आर्थिक नुकसान और प्रशासनिक अड़चनें झेलनी पड़ीं।\n\nजिला प्रशासन ने अब इस गिरफ्तारी के बाद विस्तृत जांच का आदेश दिया है, लेकिन नागरिकों और विपक्ष ने तुरंत पारदर्शी चार्जशीट और प्रभावित व्यवसायियों को मुआवजा देने की मांग की है। अभी तक कोई आधिकारिक बयान नहीं आया है, जबकि विरोधी दल ने कहा है कि इस तरह की भ्रष्टाचार को रोकने के लिए सख्त कार्रवाई आवश्यक है।\n\nविपक्ष ने कहा कि इस मामले में केवल एक अधिकारी को सजा नहीं दी जानी चाहिए, बल्कि पूरी जेडीए प्रणाली में भ्रष्टाचार के नेटवर्क को उजागर करना होगा, ताकि भविष्य में नागरिकों को ऐसी अनियमितताओं का सामना न करना पड़े।",
     "key_facts": [
-      "समुदाय: घुमंतू जनजातियों",
-      "स्थान: जयपुर, राजस्थान",
-      "तारीख: 1 जुलाई",
-      "पुलिस कार्रवाई: जलती गैस और लाठी चार्ज",
-      "आघात: कई नागरिक घायल, अस्पताल में भर्ती",
-      "आरोप: अत्यधिक बल प्रयोग, मानवीय अधिकारों का उल्लंघन",
-      "जिम्मेदार प्राधिकरण: जयपुर पुलिस",
-      "मांग: स्वतंत्र जांच और पीड़ितों के लिए मुआवजा"
+      "जामदार – जयपुर नगर निगम, पद: जामदार",
+      "रिश्वत राशि – पचास हजार रुपये",
+      "आरोप – रिश्वत लेना (भ्रष्टाचार)",
+      "गिरफ्तारी तिथि – 9 जुलाई, सुबह 8:12 बजे",
+      "जांच एजेंसी – राज्य भ्रष्टाचार विरोधी एजेंसी",
+      "प्रभावित वर्ग – स्थानीय व्यापारियों और सामान्य नागरिक"
     ],
-    "police_accountability": "पुलिस ने जलती गैस और लाठी चार्ज के प्रयोग में मानक प्रोटोकॉल का पालन नहीं किया, जिससे नागरिकों को अनावश्यक शारीरिक क्षति हुई। स्रोतों ने बताया कि पुलिस ने भीड़ को नियंत्रित करने के बजाय बल प्रयोग को प्राथमिकता दी, जिससे कई घायल हुए। विपक्ष और नागरिक समूहों ने इस लापरवाही को स्पष्ट रूप से उजागर किया है।",
-    "what_next": "विपक्ष ने स्वतंत्र जांच और पीड़ितों के लिए तत्काल मुआवजा की मांग की है; न्यायिक प्रक्रिया में आरोपपत्र जारी होने की उम्मीद है।",
+    "police_accountability": "जामदार के खिलाफ कार्रवाई में पुलिस ने प्रारम्भिक शिकायतों को कई हफ्तों तक अनदेखा किया, जिससे भ्रष्टाचार का विस्तार हुआ। नागरिकों ने बताया कि पुलिस ने पहले शिकायत पर कोई जांच नहीं शुरू की, जिससे आर्थिक नुकसान बढ़ा। अब गिरफ्तारी के बाद भी पुलिस को पूरी जांच रिपोर्ट जल्दी से जल्दी प्रस्तुत करने का दबाव है।",
+    "what_next": "जांच एजेंसी से अपेक्षा है कि वह जल्द ही चार्जशीट दाखिल करे और अदालत में पेश करे; नागरिक समूह और विपक्ष ने मुआवजा और सभी संबंधित अधिकारियों के खिलाफ सख्त कार्रवाई की माँग की है।",
     "developments": [
       {
-        "label": "पृष्ठभूमि",
-        "text": "घुमंतू समुदायों ने कई महीनों से आरक्षण के अधिकार के लिए विभिन्न शहरों में प्रदर्शन किए, जिसमें जयपुर भी शामिल था।"
+        "label": "पिछले दो महीने",
+        "text": "स्थानीय नागरिक समूहों ने जेडीए के कर्मचारियों से रिश्वत की माँग के कई मामलों की शिकायत दर्ज कराई, लेकिन प्रारम्भिक जांच में कोई कार्रवाई नहीं हुई।"
       },
       {
-        "label": "1 जुलाई, सुबह",
-        "text": "जयपुर में आरक्षण विरोध प्रदर्शन शुरू हुआ, पुलिस ने भीड़ नियंत्रण के लिए तैयारियां कीं।"
+        "label": "जुलाई की शुरुआत",
+        "text": "राज्य भ्रष्टाचार विरोधी एजेंसी ने शिकायतों की समीक्षा कर जांच शुरू की और जामदार के वित्तीय लेन‑देनों की जाँच की।"
       },
       {
-        "label": "1 जुलाई, दोपहर",
-        "text": "पुलिस ने जलती गैस छिड़ककर प्रदर्शनकारियों को दूर करने का प्रयास किया, कई नागरिक इस गैस के कारण श्वास संबंधी समस्या से ग्रस्त हुए।"
+        "label": "9 जुलाई, सुबह 8:12 बजे",
+        "text": "जामदार को ५०,००० रुपये रिश्वत लेने के आरोप में पुलिस ने गिरफ्तार किया, साथ ही उसके बैंक खाते की जाँच भी शुरू की।"
       },
       {
-        "label": "1 जुलाई, शाम",
-        "text": "जलती गैस के बाद पुलिस ने लाठी चार्ज किया, जिससे कई लोगों को चोटें आईं और उन्हें निकटतम अस्पताल में ले जाया गया।"
-      },
-      {
-        "label": "1 जुलाई, बाद में",
-        "text": "विपक्ष और नागरिक संगठनों ने पुलिस की कार्रवाई पर अत्यधिक बल प्रयोग का आरोप लगाते हुए स्वतंत्र जांच की मांग की।"
+        "label": "गिरफ्तारी के बाद",
+        "text": "जिला प्रशासन ने जामदार को हिरासत में रखने के साथ‑साथ उसके द्वारा ली गई सभी अनुबंधों को निलंबित कर दिया, जिससे प्रभावित व्यापारियों को कुछ राहत मिली।"
       },
       {
         "label": "अब तक",
-        "text": "पुलिस ने अभी तक किसी भी अधिकारी के खिलाफ अनुशासनात्मक कार्रवाई या आरोपपत्र जारी नहीं किया है, जबकि पीड़ितों को मुआवजा या पुनर्वास की कोई व्यवस्था नहीं दी गई।"
+        "text": "विपक्ष और नागरिक समूह ने पारदर्शी चार्जशीट, सभी संबंधित अधिकारियों के खिलाफ सख्त कार्रवाई और प्रभावित व्यापारियों को मुआवजा देने की मांग की है।"
       }
     ],
     "sources": [
       {
-        "title_hi": "नाशिक में दो पुलिस कर्मियों को 10,000 रुपये की रिश्वत लेते हुए गिरफ्तार किया गया",
+        "title_hi": "नैशिक में दो पुलिसकर्मियों को १०,००० रुपये रिश्वत लेने के लिए गिरफ्तार किया गया",
         "url": "https://news.google.com/rss/articles/CBMi1AFBVV95cUxOOU5RQWhraXh1bGF1eUtZd0RvcUdzZkpLdWFuUFNRWnU0SVhQSmE3NjNtTU1JazhiUVc5VE43SmVEOENiX1pPbFJoYkZnd3dUTm1YazdSbFJwdl9nakNIcFVYdVdoTmFSRTJYRlZKUk1oTjRPN2EyRWJDb3o0elYwWWVmdnQ3WGdwMC1tQkZxN3MxRC1lWmRkTVdwZkNHMjZZYzJBQ1NkY1hHYjJZR1FQS1lUWnNhdVdLWXVqaTIzT3JNazVOS3lJWEZHSkxYemh1bUEwQ9IB2gFBVV95cUxNRUhMbllxY3l4Qm5fTDlTWkVfV0g1X0pzbjFBaHVyVHhqcUJxUTVjd2kyRFdRSXF1UWxYakVyNVZyRzFaMDNoVHNaV2dtYWpVWHAtdG9LLS1ESktHclpSaFFKN3RCUUFkd01jcFFXOWEtMjY3OWNzNEpVZXF4bGlyNXZNTE5BVXoxVlJaTjZyWFkxLTlfS1JsSVIydjc2d2JYS3NiYTdVUDdzMlV5c1lhVjM3d0RfbWxad3hhb3cxeVN6YVBEdmtTUmZzR2FrbExWM0c2c1Y5M1RNUQ?oc=5",
         "source": "The Times of India",
         "published": "2026-07-19T18:15:00+00:00"
       },
       {
-        "title_hi": "जयपुर नगर निगम के जामादार को 50,000 रुपये की रिश्वत लेते हुए गिरफ्तार किया गया",
+        "title_hi": "जयपुर नगर निगम जामदार पर ५०,००० रुपये रिश्वत लेने के आरोप में गिरफ्तार",
         "url": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxON3ZYdzZGSnJfQk4xTVJUaUwzd2F2ell2SHpMY1pBcTJQcmdNaWVpdHZJZHY5OHlaQmZybUR5S1A3YWFCWFlmaDJ4QnpXNkRDcGduX25VOGh3Tk1JVC1BT0Q2S2FmTG9BdUtLckJRT3FjYVh5emdMREdVYkh6M091a3MxazlNVEtpWV8wWjZLd0V1eTVmVEtnUkowQ2JKdlZQd1NuM3FQcGc4ODQ?oc=5",
         "source": "The News Mill",
         "published": "2026-07-09T02:42:09+00:00"
       },
       {
-        "title_hi": "जयपुर में घुमंतू समुदायों द्वारा आरक्षण विरोध प्रदर्शन हिंसक, पुलिस ने जलती गैस और लाठी चार्ज किया",
+        "title_hi": "जयपुर में आरक्षण विरोधी जनजातीय समुदायों का हिंसक प्रदर्शन, पुलिस ने गैस और लाठी चार्ज का प्रयोग किया",
         "url": "https://news.google.com/rss/articles/CBMi6AFBVV95cUxPdm00R1I0MnowNEJURHB5cGIydHprNlRLNWpPLWVtOEdESkZKc2Ixc3JkTGZadW1PQTdoNDZQT0hMSjVRbGY5LXU1YkU2eDMtcEQxbVgzdTNObWs3bFRUOThYbjhxSGh1dVRsaTU0aGVZck9LWktUUF9hbWFrNmVHQ3llLWtHSkFJbFJmejVLamlkbUROTHBWLWM1TDRQSWpuX19yLUhsSXZLLWZpM2p5dE1QSE0yc0JBT0ZCOE1IZ2h0SXN0RTdySkhDUTZEWlJobGZnVk42N1czY0RSMkpXSTdhSlVZUnVS0gHuAUFVX3lxTFBibUNzN1ZONkptQkZNUHM4X09WMWQ4dl9BSUMzUGZIMDNPWnZWXy0tdFNPWGMyLTJnemFEUXpoMXpRVUlIUmRPYjlxNWs4VEVEMndzcWpoN2lEWXVwR2k2VXQwSTZrLTQzWF96REFyZW9vY09MSnlfSWJMbG1KWVc2MnByVi1qNzRhUlB1SU9WRWRLS2pHbTd6X1doZlZwMWF3dkhEbmVzbEdqb0lIbUR6RTFsLXZCWGRmV3M2MGxpRWFnT2VwTzBVQWRpU0xNN0lfcW5uUk5HVVZjc3NuTTJwY2tJSUU3UnBTRWtLbUE?oc=5",
         "source": "ETV Bharat",
         "published": "2026-07-01T07:00:00+00:00"
       },
       {
-        "title_hi": "बीकानेर में पुलिस और एनएसयूआई कार्यकर्ताओं के बीच टकराव, प्रदर्शनकारियों ने जूते की माला लेकर अस्पताल पहुंचाया",
+        "title_hi": "बीकानेर में पुलिस और एनएसयूआई कार्यकर्ताओं के बीच टकराव, जूते की माला लेकर अस्पताल पहुंचे प्रदर्शनकारियों की कहानी",
         "url": "https://news.google.com/rss/articles/CBMi0AFBVV95cUxQcTRxZllhMm85SVhVYkVIdmxYTGFGX0FPMHpaU2duUUs0WXhZcWlaZ1BQQU1nY0Z4cXh4eExhZE80XzFndHJ6clFObEpFdUJ4cDBmdkV5WTVjc0VXYk9GSG9tNF9RR0tXX3Zrd3RNMXoweGpRZURhcEk0NFhydnBRWFktWTUzbGx5YzM0T3ZEYTNzczdDYlNPOTFoZTB3cHZqMjVveVhiU0l1bzUzUDdWbmM4THQ4VEVxbDh6Rkl1X2ROMEZaRkdxZkZBMm40UFFQ0gHWAUFVX3lxTE5STDFFaWlfZHJieG5OSjdUZmZ2bGlNT0FxelhmZjF6WEthQ1VMY2Zjc2ZaNU84bFNnZ3IyVmV5aFNSVVUwX0FqZDhKR2QtOF92dHRMSy1XMWluaERJbFBoaVJxZm41RFJpRjBYM0xyLTZGZFFaY2x1UHlVbkhFeFlTbWZRNW40SV9SZ3NIVXR4X1JETktZbVpmZmFYQk5RODN5cFlmbEhnMVl6OFhMaHdwY2pFLXhlRzdwMXVPNHBvWFJ6S0hyOG9ycW5MdDhaVmlxVUpHWHc?oc=5",
         "source": "Bhaskar English",
         "published": "2026-06-27T12:06:48+00:00"
       },
       {
-        "title_hi": "मुख्य मंत्री के कारवां के लिए पुलिस द्वारा स्टॉल गिराने के बाद जयपुर मोमो विक्रेता की बेटी को जलने की चोटें आईं",
+        "title_hi": "सीएम के काफिले के लिए पुलिस द्वारा मोमो स्टॉल को गिराने से जयपुर मोमो विक्रेता की बेटी को जलन लगी",
         "url": "https://news.google.com/rss/articles/CBMi5wFBVV95cUxOWXo3dGxlU3F6RjZVa3JSb2lHcXVMVGtNWC01bDg1TzlTUkhiM3RhT2hPMVpiN1lobjl0bEpIcUt6dEt2WnlXaHJFZlVmbFNDblJSR1djVTlCRzFWdlJXOWNSMVJrMHZLTC1DdEFtRWZ6WEpTVFJseGx3elVkVzRVcmE4WEVXQldjY2tLX3hZZURqcC1ZNC1nempSTV9UcGMxMk5YOWFaZlFkcHNyMmdWQ0JzVDJvSzhIUjdiN3d2NFdsYmFkTFd0em5JQmRzVHpVaEdBS0RzSWx6TVFFeUxIYnhpS2h5M2PSAewBQVVfeXFMT0RiSDNfckZmRmF4VEVZTlBETmhqNUlUSWhhclFVMjRJamUxN3FfS0dkOEo0bmhqQmJsaFlodkxPNmQ0X2RRU2RGeFVoM3p5alhGWjJpX0pDdmxoT0xIaVUtdGtobVhIbEdsckx6MDFpdkluOVF3bjN5VUxaT1ZKcmVLd2JyZkZZS1dGdC03bnFRTk9uM1B2X0NKN0RGYjNrMENKUVNBeUhWTWJMeHpGVkkxcF9hYlpsUlBDbUotZUhsV195VFZEOHVlRHJicE1VMkhLNXdZZXNhaGdvc3pfN0dZWHlsUEZVV3N6UHI?oc=5",
         "source": "ABP Live English",
         "published": "2026-06-26T07:00:00+00:00"
@@ -85,31 +79,31 @@
   },
   "other_stories": [
     {
-      "headline": "भ्रष्टाचार विरोधी कार्रवाई: जीसीसी ने सात और अधिकारियों को निलंबित किया",
-      "summary": "राज्य सरकार पर भ्रष्टाचार रोकथाम में धीमी प्रतिक्रिया का आरोप, विपक्ष ने निलंबन की पारदर्शिता पर सवाल उठाए",
+      "headline": "भ्रष्टाचार विरोधी अभियान: जीसीसी ने सात और अधिकारियों को निलंबित किया",
+      "summary": "राज्य भ्रष्टाचार विरोधी आयोग ने कई विभागों में भ्रष्टाचार के आरोपों के बाद सात अधिकारियों को निलंबित कर जवाबदेही को सुदृढ़ किया।",
       "url": "https://news.google.com/rss/articles/CBMizAFBVV95cUxNeV9QcjA2VWxUVTlfZzBGSzE1UGlpRjN5U09zV0l0ZWVaR3NZT3FTcnVwOFJlaXZnYy1wdTF5b1l3ZldRalFydGxVTW9Tc3NTcEVPelFxejBoTUhfaGVUMTVUaWxEdnhpcThMRV9pZkp3UmRpMDQtM21jSHphSXJsQkxRVVFvRVg1VTYwUmswTTlWNDRRcG5KbFFXTVFTdGt5clZRNFpiT0xncHJHOGRnbERwdVpsMlpKakxhUi0wblB1Q2NtSDVTQ2tlMznSAcwBQVVfeXFMTXlfUHIwNlVsVFU5X2cwRksxNVBpaUYzeVNPc1dJdGVlWkdzWU9xU3J1cDhSZWl2Z2MtcHUxeW9Zd2ZXUWpRcnRsVU1vU3NzU3BFT3pRcXowaE1IX2hlVDE1VGlsRHZ4aXE4TEVfaWZKd1JkaTA0LTNtY0h6YUlybEJMUVVRb0VYNVU2MFJrME05VjQ0UXBuSmxRV01RU3RreXJWUTRaYk9MZ3ByRzhkZ2xEcHVabDJaSmpMYVItMG5QdUNjbUg1U0NrZTM5?oc=5",
       "source": "The New Indian Express"
     },
     {
       "headline": "राजस्थान: एसईसी ने स्थानीय निकाय चुनाव में देरी के लिए सरकार को दोषी ठहराया, एचसी ने समयसारिणी मांगी",
-      "summary": "स्थानीय निकाय चुनाव में देरी से प्रशासनिक लापरवाही उजागर, नागरिकों ने समयबद्ध चुनाव की मांग की",
+      "summary": "सुपरिंटेंडेंट ऑफ़ इलेक्शन कमिशन ने चुनाव में देरी को सरकार की लापरवाही बताया, उच्च न्यायालय ने त्वरित शेड्यूल की मांग की।",
       "url": "https://news.google.com/rss/articles/CBMi0gFBVV95cUxQd2x6S1hwckdDRmdpT19jZE1BcHBUOVBMUURZSzdNTWtncWxvVERSV0JjRU1rM3RuSmpuNUV4WTROdXdEUWFXMEVKUzhMVno5cDQ0VzJXa2s1czZMMWlFa3lNbEloSXJJaE5qNTJjOUdiWHJnWmlNQjdscnFjbkFEVXN6WGFTNjFGRFlEZlJ0aVBJb2VRbm1aWXg1UzdhNVB3TERNdnNoUU1kX20zWURVRzFlYUR2c0Z5MEE1V3ZwLU82QTJnbVFTSjhrQXg4TVMyWnfSAd8BQVVfeXFMTXhhOGIwMTI1NnBlT0FBem1WZ1c4ak55WEpQaE0xeTdsOEV6Y3hHdlFzMW1oM2pON1NyNV8yRXZtRERZQ2prTmhqQ2U2cEFYV0UxY2JtTzU1RUFBQ2dlSWFXZjg1UFdLMDlJUk9Id09WSEpxSS14VW8zS1FxUkRZMl81Rm5LQ0k4eVdEcGoxT3JuRkZDc2ZkTmZ1U3p0azhWck9KNjdzQXBEVm9DczRPcnZON1FJajNjQm5RLXVXcE1pYXgyWm5hME04LUYzSW5lMGhBd1BGTG5ZdHVqT2czWQ?oc=5",
       "source": "National Herald"
     },
     {
-      "headline": "जॉब के लिए माँ को मारने वाली जयपुर महिला, पिता के हत्या के आरोप में भी",
-      "summary": "परिवारिक हिंसा के मामलों में पुलिस की जांच में धीमी गति, न्याय की मांग पर सवाल उठे",
+      "headline": "जयपुर की महिला ने नौकरी के लिए माँ को मार डाला, पिता पर भी हत्या का आरोप – भारत टुडे",
+      "summary": "एक हत्या मामले में न्यायिक जांच ने दिखाया कि सामाजिक दबाव और प्रशासनिक लापरवाही ने अपराध को बढ़ावा दिया।",
       "url": "https://news.google.com/rss/articles/CBMi0AFBVV95cUxQQ1VsdUtoS3lfdVoxLUdHeVVFcGNnNUMzZGJGbUlxU1VpcEJETFJjdmZMdWpHNDVVOUdGc1lNTF9rbEZ2cFhZV1poTVlYRUwxS2JQRDJqRE56T2dFLVBNVFdlcEd6OEJISHhjTGd0cHhYYjNhYmMxaXo1RmttZjM2RzVaZjJqTVRUaE1kTlByUWo1dGpYUmdEdVpoTjRPM0NaMUFZTFNJRDVyZWxiWk5LQk9yb1E3OUUxd2duZVBwd0g3LTNldml1WFpaU1Bxc2pk0gHWAUFVX3lxTE9icEU2SWFRT1BBMDhNVHVleEV4TFF5ZEthV2thQm94VElsMFRENmNFMEhkM0tBb2dVX2JQWVE0S295LWRab2w0My10ZjNOX2RXcFUtSkVQQUszdWQxYlljamc3eWRFN2dEeUx5Y05LU1lkM3NYRHNRZjBYX0JtTDlfNzBPZFM3b1Z1cEhIakdmV2l1Ym8wVDcyOW43dXUtR2VkMi1tRUdtby14ZE9FcGZZZHJqV1djRlBISUlnOVZhLS1PNDRnVVhiQUphWWthZTMwbkwtRkE?oc=5",
       "source": "India Today"
     },
     {
-      "headline": "कांग्रेस ने 23 जुलाई को अंसागर झील की बिगड़ती स्थिति पर बंद का ऐलान किया, तिथि बदलने के कारण विवाद",
-      "summary": "पर्यावरणीय लापरवाही पर सरकार की प्रतिक्रिया पर विपक्ष ने आलोचना की, जल संरक्षण के उपायों की मांग की",
+      "headline": "अजमेर में कांग्रेस का बंद, 23 जुलाई को अनासागर झील की बिखरी हालत के विरोध में",
+      "summary": "अजमेर में जल संरक्षण की कमी को लेकर नागरिकों ने सरकार से जवाबदेही और सुधार की मांग की, जबकि बंद का कारण सुरक्षा बताया गया।",
       "url": "https://news.google.com/rss/articles/CBMiugFBVV95cUxQdk5GT2l0eUY0WlFjNGNYN0gwV0lUZXpSSGdhTG04LVA3aXRPLUpYSWJDaGZnaTZtYW9qSzdDOUQ3aTFBWXVyblIxWTdUemNkOFJJc0ZraG5vaUpIS013ZmloYjd2V1B5MVM3NlRERzl0MnFXXzNoR056WUJ0THpJQmYtWHlTWHpPRWJKVThjaGxkcm82MVhielFlMldHallFVHlhVkxDWDdYcmZtelU1UlBWSTJrWVhOY0HSAboBQVVfeXFMUHZORk9pdHlGNFpRYzRjWDdIMFdJVGV6UkhnYUxtOC1QN2l0Ty1KWEliQ2hmZ2k2bWFvaks3QzlEN2kxQVl1cm5SMVk3VHpjZDhSSXNGa2hub2lKSEtNd2ZpaGI3dldQeTFTNzZUREc5dDJxV18zaEdOellCdEx6SUJmLVh5U1h6T0ViSlU4Y2hsZHJvNjFYYnpRZTJXR2pZRVR5YVZMQ1g3WHJmbXpVNVJQVkkya1lYTmNB?oc=5",
       "source": "Bhaskar English"
     }
   ],
-  "last_feed_hash": "c3049dca08f316cb",
-  "last_updated": "2026-07-19T20:38:05.043660+00:00",
+  "last_feed_hash": "97729780a397a88a",
+  "last_updated": "2026-07-19T21:30:21.967044+00:00",
   "render_version": "19"
 }

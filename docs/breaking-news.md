@@ -66,14 +66,21 @@ it; the story body follows directly. Section order below the header:
    Not many short one-line fragments.
 3. **घटनाक्रम — शुरुआत से अब तक** — a **rich, multi-step** dated timeline as a top-to-bottom
    **dot-line-dot** chain, **oldest at top → newest at bottom** (past → present). The AI narrates
-   **6–12 steps**: every dated archived point **plus** the case's process milestones (शिकायत → ACB
-   ट्रैप → गिरफ्तारी → एफआईआर → निलंबन → चार्जशीट → अदालत), so a story reads as a real arc, not a
-   one-liner. Each step is a **2–3 sentence, sourced account** (what happened, which
+   **6–12 steps (at least 5)**: every dated archived point **plus** the case's process/narrative
+   milestones. For a bribery case that arc is शिकायत → ACB ट्रैप → गिरफ्तारी → एफआईआर → निलंबन →
+   चार्जशीट → अदालत; for **any other story type** (policy failure, an accusation/statement, a civic
+   lapse) the AI uses a **generic scaffold** — पृष्ठभूमि → मुख्य घटना/आरोप → कौन/कौन-सा विभाग →
+   सरकारी प्रतिक्रिया या उसकी अनुपस्थिति → प्रतिक्रियाएँ/माँगें → आगे — so a story reads as a real
+   arc, not a one-liner. **Never a lone entry:** a genuinely single-source scoop has only one dated
+   point, so `ensure_timeline_depth` expands it into a relative-labelled arc **from the already-
+   sourced `key_facts`/`what_next`** up to `MIN_TIMELINE_STEPS` (4) — no fabricated times or facts;
+   the one real dated step keeps its time/outlet and the forward-looking `आगे` step sits last.
+   Each step is a **2–3 sentence, sourced account** (what happened, which
    department/officer, amount/allegation, attribution). Labels: steps that map to a dated source
    show the real **Hindi date *and* time** (e.g. `13 जुलाई, दोपहर 4:06 बजे`) and the reporting outlet
    (small Hindi source label); process steps with no confirmed timestamp show a **relative Hindi
-   label** (e.g. `शिकायत के बाद`, `जाँच के दौरान`) — a clock time is **never fabricated**
-   (`attach_dev_times` stamps real time+outlet only on unambiguously-matched steps). The dated arc
+   label** (e.g. `शिकायत के बाद`, `जाँच के दौरान`, `पृष्ठभूमि`, `आगे`) — a clock time is **never
+   fabricated** (`attach_dev_times` stamps real time+outlet only on unambiguously-matched steps). The dated arc
    fed to the AI is down-sampled to `TIMELINE_MAX` (14) points to respect the Groq token budget; the
    archive still stores all 30 days. The chain is animated (staggered reveal; the newest/bottom dot
    pulses as the "live/developing" point); motion is disabled under `prefers-reduced-motion`.
@@ -214,7 +221,12 @@ By default the lead is auto-picked on newsworthiness. To **pin** a chosen story 
 
 ### Cadence
 - `cron: */20 * * * *` (best-effort; GitHub coalesces schedules under load). The generator
-  skips runs where the top-story feed is unchanged, so quiet periods produce no commits.
+  skips runs where the top-story feed is unchanged, so quiet periods produce no commits —
+  **except** once the last render is older than `MAX_STALE_HOURS` (3), when it re-renders anyway
+  (re-ranks the lead, re-runs enrichment, refreshes the `अंतिम अपडेट` stamp). This stops a
+  single-source lead — whose title set never changes — from freezing the page for hours.
+- `FRESH_LEAD_HOURS = 20` bounds how long a story stays eligible to LEAD, so a day-old one-off item
+  ages out and a fresher on-beat story takes over instead of the stale lead sticking.
 
 ### Making changes
 - Edit `scripts/build_breaking_news.py` and **bump `RENDER_VERSION`** so the next run repaints.

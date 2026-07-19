@@ -66,7 +66,7 @@ NEWS_SITE = "https://news.manzill.com"
 # Bump whenever the rendered output (template/RSS/sitemap format) changes. A mismatch
 # with the value stored in state forces a one-time re-render even when the feed is
 # unchanged, so a redesign rolls out on the next scheduled run without a manual push.
-RENDER_VERSION = "14"
+RENDER_VERSION = "15"
 
 # strftime has no Hindi locale, so map month names for the Hindi date/time strings.
 HINDI_MONTHS = [
@@ -322,14 +322,31 @@ _ROUNDUP_LEADIN = ("news", "today", "khabar", "samachar", "roundup", "headline",
 # Scoring weights (tunable). Recency is deliberately no longer the heaviest term — a burning
 # issue must outrank a merely-fresh ceremonial item. See cluster_items().
 W_ISSUE = 4.0             # weight on issue_rank (0-3) — the accountability boost
-W_RECENCY = 2.0           # was 4.0; freshness is now a tiebreaker, not the dominant term
+W_RECENCY = 3.0           # freshness tiebreaker; raised (was 2.0) so a fresher story overtakes a
+                         # day-old one of similar strength instead of the stale lead sticking
+W_SOURCES = 2.0           # weight per distinct source (capped at 6); raised (was 1.0) so a concrete,
+                         # multi-outlet story outranks a thin single-source scoop (which also freezes
+                         # the page — its unchanged title set never trips the feed-hash re-render)
 W_JAIPUR = 3.0            # Jaipur-first (soft): a Jaipur story usually leads, but a clearly bigger
                          # Rajasthan story (high issue_rank, many sources) can still overtake it
 CEREMONIAL_PENALTY = 4.0  # subtracted from a ceremonial cluster's score
 # A cluster may LEAD ("breaking now") only if its newest item is this fresh. Older clusters
 # (e.g. pulled by the wider-window backfill queries) still seed the archive/timeline but are
-# never presented as breaking. See cluster_items()/apply_policy_lead().
-FRESH_LEAD_HOURS = 36.0
+# never presented as breaking. Kept moderate (was 36) so a day-old one-off story ages out of the
+# lead by the next day and a fresher on-beat story takes over. See cluster_items()/apply_policy_lead().
+FRESH_LEAD_HOURS = 20.0
+
+# The feed-hash skip (see build()) avoids a Groq call + commit when the lead's coverage is
+# unchanged. But a single-source lead's title set never changes, so without an upper bound the page
+# — and its "अंतिम अपडेट" stamp — can sit frozen for the whole FRESH_LEAD_HOURS window. This caps
+# that: once the last render is older than MAX_STALE_HOURS the run proceeds anyway (re-ranks the
+# lead, re-runs enrichment, refreshes the timestamp). Runs are hours apart, so it stays TPM-safe.
+MAX_STALE_HOURS = 3.0
+
+# Floor on how many timeline steps the "घटनाक्रम" must show. A genuinely single-source breaking
+# story has only one dated point; ensure_timeline_depth() then narrates a relative-labelled arc from
+# the already-sourced key_facts/what_next so the timeline is never a lone entry (no fabricated times).
+MIN_TIMELINE_STEPS = 4
 
 # Max timeline points NARRATED per story. A weeks-long arc is down-sampled to this many points
 # (keeping the first and last, see _arc_sample) so the "घटनाक्रम" still spans शुरुआत → अब. Kept
@@ -616,7 +633,7 @@ def cluster_items(items: list[dict], threshold: float = 0.28) -> list[dict]:
         cl["score"] = (
             severity_rank(cl["severity"]) * 3.0
             + cl["issue_rank"] * W_ISSUE
-            + min(len(cl["items"]), 6) * 1.0
+            + min(len(cl["items"]), 6) * W_SOURCES
             + recency * W_RECENCY
             + (W_JAIPUR if cl["jaipur"] else 0.0)
             - (CEREMONIAL_PENALTY if cl["ceremonial"] else 0.0)
@@ -788,8 +805,16 @@ def groq_analyze(api_key: str, clusters: list[dict], points: list[dict]) -> dict
         "रिश्वत/नीतिगत नाकामी वाली मुख्य घटना चुनकर उसी पर लिखें। "
         "story_history कई दिनों में फैला हो सकता है — उसी एक मामले की पूरी कहानी शुरुआत से अब तक क्रमवार "
         "समझाएँ ताकि पाठक को end-to-end समझ मिले। developments को एक विस्तृत, बहु-चरणीय टाइमलाइन बनाएँ "
-        "(6-12 चरण): हर दिनांकित बिंदु + मामले के प्रक्रिया-चरण; बिना पुष्ट तिथि वाले चरणों पर सापेक्ष "
-        "हिंदी लेबल दें, मनगढ़ंत घड़ी-समय कभी नहीं। अपुष्ट बातों का श्रेय दें ('पुलिस के अनुसार', "
+        "(6-12 चरण, कम से कम 5): यह किसी भी प्रकार की खबर पर लागू है — रिश्वत/भ्रष्टाचार का मामला हो, "
+        "नीतिगत नाकामी/लापरवाही हो, कोई आरोप/बयान हो, या नागरिक-सेवा की चूक — हर के लिए एक असली घटना-चक्र "
+        "बनाएँ। जब कई दिनांकित बिंदु हों तो हर बिंदु + मामले के प्रक्रिया-चरण दें। जब केवल एक ही दिनांकित "
+        "बिंदु मिले तब भी टाइमलाइन को एक ही चरण तक सिमटने न दें — विश्लेषण और key_facts में मौजूद तथ्यों से "
+        "इस सामान्य ढाँचे में चरण बनाएँ: पृष्ठभूमि/संदर्भ → मुख्य घटना या आरोप (दिनांकित) → कौन/कौन-सा "
+        "विभाग/अधिकारी शामिल → सरकारी या आधिकारिक प्रतिक्रिया (या उसकी अनुपस्थिति) → प्रतिक्रियाएँ/माँगें "
+        "(विपक्ष, नागरिक समूह) → आगे क्या। बिना पुष्ट तिथि वाले चरणों पर सापेक्ष हिंदी लेबल दें "
+        "(जैसे 'पृष्ठभूमि', 'घटना के बाद', 'अब तक', 'आगे'), मनगढ़ंत घड़ी-समय या तिथि कभी नहीं — और नए तथ्य "
+        "कभी न गढ़ें, केवल पहले से मौजूद तथ्यों को चरणों में क्रमबद्ध करें। अपुष्ट बातों का श्रेय दें "
+        "('पुलिस के अनुसार', "
         "'एसीबी के मुताबिक', 'स्थानीय रिपोर्टों के अनुसार')। स्रोतों में मौजूद न होने वाले आँकड़े, नाम, "
         "रिश्वत की राशि या तथ्य कभी न गढ़ें; कभी मनगढ़ंत आरोप न लगाएँ। "
         "यदि स्रोतों में पुलिस/प्रशासन की लापरवाही, देरी, चूक, नाकामी या आलोचना हो, तो उसे "
@@ -815,14 +840,19 @@ def groq_analyze(api_key: str, clusters: list[dict], points: list[dict]) -> dict
                         "हर पैराग्राफ में कई वाक्य हों; पैराग्राफ \\n\\n से अलग करें",
             "key_facts": "6-8 हिंदी बिंदुओं की array (सटीक तथ्य: कौन, विभाग/पद, राशि, धारा, कार्रवाई)",
             "developments": "objects की array [{date_label, text}] — मामले का विस्तृत, क्रमवार "
-                            "घटनाक्रम (oldest→newest), 6-12 चरण। इसमें (क) story_history का हर दिनांकित "
-                            "बिंदु शामिल करें — उसका date_label = 'when' से हूबहू; और (ख) मामले के प्रमुख "
-                            "प्रक्रिया-चरण जोड़ें जो स्रोतों/विश्लेषण में मौजूद हों (जैसे शिकायत, एसीबी ट्रैप, "
-                            "रंगे हाथ पकड़ना, गिरफ्तारी, एफआईआर/मुकदमा, निलंबन, जाँच, चार्जशीट, अदालत)। "
+                            "घटनाक्रम (oldest→newest), 6-12 चरण और कम से कम 5 (एक ही दिनांकित बिंदु होने पर "
+                            "भी कभी एक चरण पर न रुकें)। इसमें (क) story_history का हर दिनांकित बिंदु शामिल "
+                            "करें — उसका date_label = 'when' से हूबहू; और (ख) मामले के प्रक्रिया/कथानक-चरण "
+                            "जोड़ें जो स्रोतों/विश्लेषण/key_facts में मौजूद हों — रिश्वत के मामले में "
+                            "(शिकायत, एसीबी ट्रैप, रंगे हाथ पकड़ना, गिरफ्तारी, एफआईआर/मुकदमा, निलंबन, जाँच, "
+                            "चार्जशीट, अदालत), और किसी भी अन्य खबर (नीतिगत नाकामी/आरोप/नागरिक-चूक) में इस "
+                            "सामान्य ढाँचे से (पृष्ठभूमि/संदर्भ, मुख्य घटना या आरोप, कौन/कौन-सा विभाग शामिल, "
+                            "सरकारी/आधिकारिक प्रतिक्रिया या उसकी अनुपस्थिति, विपक्ष/नागरिकों की प्रतिक्रिया व "
+                            "माँगें, आगे की अपेक्षित कार्रवाई)। "
                             "date_label नियम: जिस चरण की सही तिथि/समय स्रोत में हो वही दें (जैसे "
                             "'13 जुलाई, दोपहर 4:06 बजे' या केवल तिथि); जहाँ सही तिथि न हो वहाँ सापेक्ष हिंदी "
-                            "लेबल दें (जैसे 'शिकायत के बाद', 'जाँच के दौरान', 'गिरफ्तारी के बाद') — मनगढ़ंत "
-                            "घड़ी-समय या तिथि कभी न दें। "
+                            "लेबल दें (जैसे 'पृष्ठभूमि', 'शिकायत के बाद', 'जाँच के दौरान', 'अब तक', 'आगे') — "
+                            "मनगढ़ंत घड़ी-समय या तिथि कभी न दें। "
                             "text = 2-3 सुस्पष्ट हिंदी वाक्य — उस चरण में क्या हुआ, किसने/किस विभाग/अधिकारी ने, "
                             "कितनी राशि या क्या आरोप/कार्रवाई, और स्रोत का हवाला (जैसे 'एसीबी के अनुसार')",
             "police_accountability": "हिंदी पैराग्राफ — पुलिस/प्रशासन की लापरवाही/देरी/चूक/"
@@ -843,8 +873,9 @@ def groq_analyze(api_key: str, clusters: list[dict], points: list[dict]) -> dict
             "temperature": 0.35,
             # TPM-safe: the archived arc is down-sampled (TIMELINE_MAX) and the history payload is
             # lean, so prompt + max_tokens stays comfortably under Groq's 8000 TPM cap. Do NOT raise
-            # this past ~5500 on this tier — see AGENTS.md "Groq TPM gotcha".
-            "max_tokens": 5000,
+            # this past ~5500 on this tier — see AGENTS.md "Groq TPM gotcha". 5200 gives the
+            # guaranteed multi-step timeline a little output headroom while staying under budget.
+            "max_tokens": 5200,
             "response_format": {"type": "json_object"},
         }
     ).encode()
@@ -917,6 +948,14 @@ def _days_ago(iso: str, now: datetime) -> float:
     if dt.tzinfo is None:
         dt = dt.replace(tzinfo=timezone.utc)
     return (now - dt).total_seconds() / 86400.0
+
+
+def _hours_since(iso: str | None, now: datetime) -> float:
+    """Hours between an ISO timestamp and now. A missing or unparseable value reads as very stale
+    (large number) so the staleness guard proceeds rather than staying frozen. See build()."""
+    if not iso:
+        return 1e9
+    return _days_ago(iso, now) * 24.0
 
 
 # Cross-run "same story" matching. A slightly looser threshold and larger keyword memory than the
@@ -1260,11 +1299,17 @@ def build() -> None:
     # Skip when the top-story feed is unchanged AND already rendered by this output
     # version (no Groq call, no commit). A RENDER_VERSION bump forces a one-time re-render.
     # An active override always re-renders so the pinned story takes effect immediately.
+    # Exception: never sit frozen past MAX_STALE_HOURS — a single-source lead's title set never
+    # changes, so without this the page and its "अंतिम अपडेट" stamp would stall for the whole
+    # FRESH_LEAD_HOURS window. Once stale we proceed anyway to re-rank, re-enrich and re-stamp.
     feed_changed = feed_hash != state.get("last_feed_hash")
     up_to_date = state.get("render_version") == RENDER_VERSION
+    stale_h = _hours_since(state.get("last_updated"), now)
+    too_stale = stale_h >= MAX_STALE_HOURS
     if (OUT_HTML.exists() and state.get("lead") and not feed_changed
-            and up_to_date and not override):
-        print("No change in top-story feed; skipping update (no commit).")
+            and up_to_date and not override and not too_stale):
+        print(f"No change in top-story feed and page is fresh ({stale_h:.1f}h old); "
+              "skipping update (no commit).")
         return
 
     # Accumulate EVERY local story's multi-day history — not just the lead — so ongoing stories keep
@@ -1295,6 +1340,10 @@ def build() -> None:
 
     # Stamp the timeline with real archived date+time where the mapping is unambiguous.
     attach_dev_times(lead, arc)
+    # Safety net: a single-source story can still come back with one development — expand it into a
+    # relative-labelled arc from the already-sourced key_facts/what_next so the timeline is never a
+    # lone entry (no fabricated times or facts).
+    ensure_timeline_depth(lead)
 
     state.update(
         {
@@ -1509,6 +1558,38 @@ def attach_dev_times(lead: dict, points: list[dict]) -> None:
         src_hi = src_by_label.get((dev.get("label") or "").strip())
         if src_hi:
             dev["source_hi"] = src_hi
+
+
+def ensure_timeline_depth(lead: dict) -> None:
+    """Guarantee the timeline is never a lone entry.
+
+    A genuinely single-source breaking story has only one dated archive point, so the AI can hand
+    back just one development even though the (now generalized) prompt asks for a multi-step arc.
+    When there are fewer than MIN_TIMELINE_STEPS, expand into a narrative arc using ONLY content the
+    AI already produced from sources — the lead's own key_facts and what_next — with RELATIVE Hindi
+    labels and NO timestamps or outlet stamps. This invents no facts and no times; it re-narrates
+    already-sourced content as ordered steps so 'घटनाक्रम' reads as शुरुआत → अब. The one real dated
+    development keeps its real time/outlet at the top; the forward-looking 'आगे' step sits last as
+    the live/developing point. The prompt is the primary path — this is a best-effort safety net."""
+    devs = lead.get("developments") or []
+    if len(devs) >= MIN_TIMELINE_STEPS:
+        return
+    seen = {(d.get("text") or "").strip() for d in devs if (d.get("text") or "").strip()}
+
+    context_steps: list[dict] = []
+    for fact in (lead.get("key_facts") or []):
+        text = str(fact).strip()
+        if text and text not in seen:
+            context_steps.append({"label": "मामले में", "text": text})
+            seen.add(text)
+
+    what_next = (lead.get("what_next") or "").strip()
+    tail = [{"label": "आगे", "text": what_next}] if what_next and what_next not in seen else []
+
+    need = MIN_TIMELINE_STEPS - len(devs)
+    context_steps = context_steps[:max(need - len(tail), 0)]
+    if context_steps or tail:
+        lead["developments"] = devs + context_steps + tail
 
 
 BRAND_SUFFIX = "ब्रेकिंग जयपुर न्यूज़"

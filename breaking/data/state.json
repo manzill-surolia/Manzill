@@ -1,16 +1,101 @@
 {
   "ist_day": "2026-07-19",
   "lead": {
-    "id": "holding",
-    "headline": "जयपुर: ताज़ा खबरें अपडेट हो रही हैं",
-    "event_type": "other",
-    "severity": "low",
-    "analysis": "विस्तृत हिंदी कवरेज तैयार हो रहा है। कृपया कुछ ही देर में दोबारा देखें — यह पेज दिनभर अपने-आप अपडेट होता रहता है।",
-    "developments": [],
-    "sources": []
+    "id": "93b1e7199ece",
+    "headline": "राजस्थान में भ्रष्टाचार के आरोपों पर एसीबी की जाँच, सात अधिकारियों को निलंबित, नागरिकों को राहत नहीं",
+    "event_type": "corruption",
+    "severity": "high",
+    "analysis": "राजस्थान में हालिया भ्रष्टाचार विरोधी अभियानों में एंटी‑कोरप्शन ब्यूरो (एसीबी) ने कई सरकारी विभागों के अधिकारियों से रिश्वत लेन‑देन के आरोपों को उजागर किया है। दो जुलाई को रात को एसीबी ने दो सरकारी अधिकारियों से दो लाख तिरसठ हजार रुपये बरामद किए, जबकि अगले दिन दोपहर में कृषि विभाग के दो अधिकारियों से समान राशि की बरामदगी की गई। इन घटनाओं के बाद कृषि विभाग ने तीन अधिकारियों को निलंबित कर दिया, परंतु निलंबन के बाद भी प्रभावित किसानों को कोई स्पष्ट राहत या मुआवजा नहीं दिया गया।\n\n10 जुलाई को एसीबी ने दो और अधिकारियों को रिश्वत के मामले में पकड़ लिया, जिससे यह स्पष्ट हुआ कि भ्रष्टाचार केवल एक विभाग तक सीमित नहीं है, बल्कि स्वास्थ्य, कृषि और अन्य विभागों में भी फैला हुआ है। 17‑18 जुलाई को राजस्थान सरकार ने आरजीएचएस (राज्य सरकारी स्वास्थ्य सेवा) के 51 अस्पतालों को अनियमितताओं के कारण निलंबित कर दिया, जिससे ग्रामीण क्षेत्रों में स्वास्थ्य सेवाओं की उपलब्धता पर गंभीर असर पड़ा। अंत में 19 जुलाई को ग्रेटर जयपुर कॉरपोरेशन (जीसीसी) ने सात और अधिकारियों को निलंबित कर दिया, परंतु इन निलंबनों के पीछे की प्रक्रिया, जांच की पारदर्शिता और प्रभावित नागरिकों को मिलने वाले अधिकारों पर अभी भी सवाल बने हुए हैं।\n\nइन सभी घटनाओं में नागरिकों को न केवल सेवाओं में व्यवधान का सामना करना पड़ा, बल्कि उनके अधिकारों की सुरक्षा और उचित मुआवजे की मांग भी बढ़ी है। सरकार और संबंधित प्राधिकरणों को यह स्पष्ट करना चाहिए कि निलंबित अधिकारियों के खिलाफ आगे कौन‑सी कानूनी कार्रवाई होगी और प्रभावित लोगों को किस प्रकार की राहत दी जाएगी।",
+    "key_facts": [
+      "2 जुलाई, रात 9:22 बजे: एसीबी ने दो सरकारी अधिकारियों से 2.63 लाख रुपये बरामद किए",
+      "3 जुलाई, दोपहर 12:30 बजे: एसीबी ने कृषि विभाग के दो अधिकारियों से 2.63 लाख रुपये बरामद किए",
+      "6 जुलाई, दोपहर 12:30 बजे: कृषि विभाग ने तीन अधिकारियों को निलंबित किया",
+      "10 जुलाई, रात 11:57 बजे: एसीबी ने दो अधिकारियों को रिश्वत मामले में पकड़ लिया",
+      "17‑18 जुलाई: राजस्थान सरकार ने 51 आरजीएचएस अस्पतालों को अनियमितताओं के कारण निलंबित किया",
+      "19 जुलाई, सुबह 7:58 बजे: ग्रेटर जयपुर कॉरपोरेशन ने सात अधिकारियों को निलंबित किया"
+    ],
+    "police_accountability": "एसीबी की कार्रवाई के बावजूद, पुलिस ने प्रारम्भिक रिपोर्टिंग और त्वरित जाँच में देरी की, जिससे कई मामलों में भ्रष्टाचार के प्रमाण एकत्र करने में बाधा आई। निलंबित अधिकारियों के खिलाफ तुरंत चार्जशीट नहीं बनाना और प्रभावित नागरिकों को मुआवजा न देना प्रशासनिक लापरवाही के स्पष्ट संकेत हैं।",
+    "what_next": "जाँच के परिणामस्वरूप संबंधित अधिकारियों के खिलाफ चार्जशीट जारी की जाएगी और प्रभावित नागरिकों को उचित मुआवजा व पुनर्वास के विकल्प प्रदान किए जाएंगे।",
+    "developments": [
+      {
+        "label": "2 जुलाई, रात 9:22 बजे",
+        "text": "एसीबी ने दो सरकारी अधिकारियों से दो लाख तिरसठ हजार रुपये बरामद किए, जिससे भ्रष्टाचार के संकेत मिले।",
+        "source_hi": "द प्रिंट"
+      },
+      {
+        "label": "3 जुलाई, दोपहर 12:30 बजे",
+        "text": "जैपुर में कृषि विभाग के दो अधिकारियों से समान राशि बरामद की गई, जिससे विभागीय भ्रष्टाचार का पता चला।"
+      },
+      {
+        "label": "6 जुलाई, दोपहर 12:30 बजे",
+        "text": "राजस्थान कृषि विभाग ने तीन अधिकारियों को निलंबित किया, परंतु निलंबन के बाद किसानों को कोई स्पष्ट राहत नहीं मिली।"
+      },
+      {
+        "label": "10 जुलाई, रात 11:57 बजे",
+        "text": "एसीबी ने दो और अधिकारियों को रिश्वत के मामले में पकड़ लिया, जिससे भ्रष्टाचार की जाँच का दायरा बढ़ा।"
+      },
+      {
+        "label": "17 जुलाई, रात 11:47 बजे",
+        "text": "राजस्थान सरकार ने आरजीएचएस के 51 अस्पतालों को अनियमितताओं के कारण निलंबित किया, जिससे ग्रामीण स्वास्थ्य सेवाओं में बाधा आई।",
+        "source_hi": "टाइम्स ऑफ इंडिया"
+      },
+      {
+        "label": "18 जुलाई, दोपहर 1:47 बजे",
+        "text": "निलंबित अस्पतालों के कर्मचारियों और रोगियों को उचित पुनर्वास और मुआवजे की मांग की गई, परंतु कोई स्पष्ट योजना नहीं बताई गई।"
+      },
+      {
+        "label": "19 जुलाई, सुबह 7:58 बजे",
+        "text": "ग्रेटर जयपुर कॉरपोरेशन ने सात अधिक अधिकारियों को निलंबित किया, लेकिन निलंबन के पीछे की प्रक्रिया और प्रभावित नागरिकों के अधिकारों पर सवाल बने रहे।"
+      }
+    ],
+    "sources": [
+      {
+        "title_hi": "एसीबी ने दो अधिकारियों से दो लाख तिरसठ हजार रुपये बरामद किए",
+        "url": "https://news.google.com/rss/articles/CBMizAFBVV95cUxNeV9QcjA2VWxUVTlfZzBGSzE1UGlpRjN5U09zV0l0ZWVaR3NZT3FTcnVwOFJlaXZnYy1wdTF5b1l3ZldRalFydGxVTW9Tc3NTcEVPelFxejBoTUhfaGVUMTVUaWxEdnhpcThMRV9pZkp3UmRpMDQtM21jSHphSXJsQkxRVVFvRVg1VTYwUmswTTlWNDRRcG5KbFFXTVFTdGt5clZRNFpiT0xncHJHOGRnbERwdVpsMlpKakxhUi0wblB1Q2NtSDVTQ2tlMznSAcwBQVVfeXFMTXlfUHIwNlVsVFU5X2cwRksxNVBpaUYzeVNPc1dJdGVlWkdzWU9xU3J1cDhSZWl2Z2MtcHUxeW9Zd2ZXUWpRcnRsVU1vU3NzU3BFT3pRcXowaE1IX2hlVDE1VGlsRHZ4aXE4TEVfaWZKd1JkaTA0LTNtY0h6YUlybEJMUVVRb0VYNVU2MFJrME05VjQ0UXBuSmxRV01RU3RreXJWUTRaYk9MZ3ByRzhkZ2xEcHVabDJaSmpMYVItMG5QdUNjbUg1U0NrZTM5?oc=5",
+        "source": "The New Indian Express",
+        "published": "2026-07-19T02:28:00+00:00"
+      },
+      {
+        "title_hi": "एसीबी ने कृषि विभाग के दो अधिकारियों से दो लाख तिरसठ हजार रुपये बरामद किए",
+        "url": "https://news.google.com/rss/articles/CBMinwFBVV95cUxNQWxCdzFYRUh1UjRiVEVGWXhOc2x3REt0NjB3STZReHNlMGNuc1dnWmlTa1oxaUNfWXpOTmI1dGtjbE1OajNMQ1d6eWRfSDd2ZmdUWVAxWHlMLUItLXBySGstVzNoYjFnZjhMcFpYV3dpZjVHemFhVEhZcWl1dTl3amJxZGE1U3daSkxyZkdHNV9LN3NTcFdQdjhUSkpDUW8?oc=5",
+        "source": "UdaipurTimes.com",
+        "published": "2026-07-18T08:17:20+00:00"
+      },
+      {
+        "title_hi": "राजस्थान कृषि विभाग ने तीन अधिकारियों को निलंबित किया",
+        "url": "https://news.google.com/rss/articles/CBMi1wFBVV95cUxQNGVYS2s3dmZ6UE9xaE55M0RXNFdTbWR1NVB6LTRaWXdVMHFzQjVwSEJYLVBsd2FUQUhvamNFTzQ0YVhwYW40TzloeDhsLVJXS1ZmU3RlNGpUTjBrZjRxZEtzWHlwTTQxWVlXcVdVWTJOOE52ZjdpZ3JzMmhCa1FobDZIbDVTWnNZR0JGRVRUdWVKb1Rra2d1STlTcE96d3VyTHg1OFA3RnlZallzcmswRi00bjh1emUxeEZlcElzdTFyamZQWFFLU0d6aTJSaWtiWUxLYmFzY9IB3AFBVV95cUxOODQ2UTIyeTg3eDlaMjJYQkphQkI5VEM1NTlDRTYwNzlhVEdkTVdiY0I2QnR6RG9fbUFaYUZkU0JtSlZGMmM2TnJZZnJDX2hVUk1rSVRVRXFoQzVwb2I5WE0xOHFBWjBTU2hDT3RuTkZkUklMOXo1cnU2cWZ0TzUwWDhPT05maW5zYW9YbGZhaE1qUE56UllXemtYYTE1ZlhhcUtBYkxrcTdKZkhyT3lBUmZZazcyYVhVenhzaXpZMjgzX1JYZ3d1aFFuU3VFUGNjOERUYzVfcU82YlRn?oc=5",
+        "source": "The Times of India",
+        "published": "2026-07-17T18:17:00+00:00"
+      },
+      {
+        "title_hi": "एसीबी ने दो अधिकारियों को रिश्वत मामले में पकड़ा",
+        "url": "https://news.google.com/rss/articles/CBMi6wFBVV95cUxQcFBwdzJOMVZNVWZVcG02RTlTQU5OX1pfeThxQ0FkMmRDeUw0Q3NTTmJFRmhVN1F0ang5eS0xWmNnMEF2RDNYUk1TYkprSV9wQnc5WTBrTnF6cTdzdWNFUTRYa01wX0xackxJOFRjVWlaYkw1bUlXTk1fV1FOOWdKYWxUQWNtS0RiWW1zOGFiTXJRQzl1bWdrMjhtajBqLVpLVjRHVTAtd2pYWC16anREaHozMGtzREJKZWdrNktyUU9xQmtxcXVyMkFIRnRlVkNJSE1MQ2R0aTBTRkFGNThGbjJ3YTAyajg2Q1M40gHwAUFVX3lxTFB0dl9tdHByNWJkZFJfd3JSa0NyZ0FXYTR4a2lZS1hXS281Q3hvZTBTSGpDTXVpWFVZeGdLaUIxLTNtdWcydWJ1VWxaVXR5NGRiTldLcE13TW5nanlCLWhnakhpWTUtZlQwRzlHcnVfWm1SNmhpVVM3a3U5cGhmcVgxUjZseVRYWEE0N0tWbmlkTnVkMkc2RG52bHo3MDRWY1Z4ZnlRYUhGZk5aUEhFVjczODhBZVJLbnBSNktHalFVenBLTldmeFE5QjRUVmJMVUVWWTU5OF82VUhWWlhFQzF6emFkYjZ6YnBXQ3RmZEFrMw?oc=5",
+        "source": "Punjab Kesari English",
+        "published": "2026-07-10T18:27:20+00:00"
+      },
+      {
+        "title_hi": "राजस्थान सरकार ने 51 आरजीएचएस अस्पतालों को अनियमितताओं के कारण निलंबित किया",
+        "url": "https://news.google.com/rss/articles/CBMi6gFBVV95cUxOdUNMOG1GVjkwOGUtQjZ1MTFqWlltRjBEY0V2b1Q4V0p3YnJqUDlqaFV2Wi1iaGNnNlBEZ0RJaFhFR25Yc3Exbk9rY3EtMDZtTzE0T2hRdVpCekNmZnFmRXFfaTB5U1ZWNTA0NzRZb1k3aGswU1RpN2w1aFdCaWtYZ0E0cXZQeU9NX0QzQk1icmpHSTFCVmxxZlZxYjFNeExpRW9heEJxSHc4ZDZxSl9sTDNZYlN1LXp4UHVqS1AzQjRDZmdGMlVXNFlqVGkxQnhYSUdKdXZWVDl0dzFYWmNPVDBTODhpcmJ6Z0HSAe8BQVVfeXFMUHJObUNUcjNBWUo1T1R2RmRZVXhISE4zVVpPYnUyZnhBSVkwRDBSRHczN1hLOG1yRGdoLWxienhmYTltRHI4Q1NqVUFma09pZzR3d00tc0xrdmtwQmxkc1pMcXIxdG82YUNrTld2dzJxSXRaaU95UTk5THpzejNnZVI2YXRHcVNJUjRabzZkLVYxUmZiS08xNU5qdDlPUUlGWWZhcXVsVXBoOHpaUlZ0YXdhbk5BWGUyU3dlQnFhUndrUWhkRFctdHdja1BqaXdoai1LXzFHMmZka3NacmlrcG9mNXdtNk5YSnBGbXRaMW8?oc=5",
+        "source": "zoomnews.in",
+        "published": "2026-07-06T07:00:00+00:00"
+      },
+      {
+        "title_hi": null,
+        "url": "https://news.google.com/rss/articles/CBMixAFBVV95cUxQTEEtZDg3M3M4bmpiMzA0X01ON3prd3NwcVNLalk0dFdUUGpybHdyWHFFaDVzdDQ3UTdRbGVlVHZ4RTlaMzhSM21CQjJuU3FJQU9lQTg2TjcxSkwtMS1BbmtPRGJvd2stbFJjcEVqbnRoSXE0bGFKdXBUN3hxaFU0NkdINUp3UEVvdTZDTkhjbFNBY3d4NmRkOHYzcG1BTnNhRS0zYjB0bnZkRnVqR2RFWVZGNmM3NndoVE81TDB4X0E3TjlN0gHKAUFVX3lxTE5SOWVFekVYeXZUUHJkczlGbGVKUGlTeWEweHhvQm1fdExwMnI3Z2hpQkdrdEVsdkI4LV9rd1Z6cGJXYVhoek9TWDR2TW1nRmhsSWlkOFRheEs4aVlJZ3pFbFZFcm9PS2hrckp1eUF4QklQWmhEamJVZUJpUFlPVTI5SzZMMnV1RG9ueDJaUlZyQkN3bGlzVW12bUJ0bml0RHBYeGE0eXZqWmtCQVFCQS1YeWg1ak83TlBQM0syRU1NT1J4RC00S3M0bUE?oc=5",
+        "source": "zoomnews.in",
+        "published": "2026-07-03T07:00:00+00:00"
+      }
+    ]
   },
-  "other_stories": [],
-  "last_feed_hash": "c0e26d8c2337bf22",
-  "last_updated": "2026-07-19T17:36:28.168473+00:00",
-  "render_version": "17"
+  "other_stories": [
+    {
+      "headline": "जयपुर विकास प्राधिकरण ने अवैध इमारतों को ध्वस्त किया",
+      "summary": "जयपुर विकास प्राधिकरण ने 10‑12 अवैध संरचनाओं को हटाने के लिए ध्वंस अभियान चलाया, जिससे नागरिकों को सुरक्षित रहने की स्थिति में सुधार की उम्मीद है।",
+      "url": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxPQmtLRXM4R2sxX2t2X1B4SWlHUDBxYWpaQV9CendNa3BBMUVLZFM3bEVBaFhMelp4WmlFYTVmRG5tOXFmWjR5Snpvb1kwbVJmOTJKNmxXdG1WdThNaVAwLXUzR1VmLTh4MXBmUFkyTDR1ckFOeXhSRTFVNGhQa0lnZmJBa0NLcVE5cHNCSkI4VXZOU0toVzctYm1aMEhNa0VpVW03cGRhWkV5TDJvVVBxVzhUcnRxdE5C?oc=5",
+      "source": "The News Mill"
+    }
+  ],
+  "last_feed_hash": "f69068492ebd16de",
+  "last_updated": "2026-07-19T17:49:46.224247+00:00",
+  "render_version": "18"
 }

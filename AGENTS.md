@@ -54,7 +54,14 @@ back into the repo, which Pages then serves) — everything else is hand-authore
     older than `MAX_STALE_HOURS` (3) so it never freezes on a stale lead. On a day with no fresh
     policy story the **last policy page is kept** — the page never drops to generic news. Only
     genuinely-sourced stories are ranked up; the AI never fabricates (theme lists are top-of-file
-    config). Needs the repo secret **`GROQ_API_KEY`** (without it, a Hindi holding page shows).
+    config). **Editorial stance:** the desk is **citizen-first** — a headline must foreground the
+    government/JDA/police accountability & citizen-impact angle (मुआवज़ा/पुनर्वास/देरी/लापरवाही),
+    never read as praising a state action; `has_failure_angle` keeps a "govt did its job" story
+    (a clean demolition/raid, `NEUTRAL_ACTION_TERMS`) out of the lead. **Devanagari-only is
+    enforced in code**, not just prompted: `to_hindi()` (with the `ORG_HI` acronym map) strips every
+    English word/acronym and the model's `(analysis)`/`(lead_story)` field-name tags from all visible
+    fields in `_lead_from_ai`. Needs the repo secret **`GROQ_API_KEY`** (without it, a Hindi holding
+    page shows).
   - `scripts/build_sitemap.py` → `.github/workflows/sitemap.yml` (push to any `**/index.html`,
     daily cron, or dispatch). Auto-discovers routes (**any folder containing `index.html`**;
     `EXCLUDE_DIRS = {.github, scripts, docs, node_modules, breaking-news}`) and rewrites the root

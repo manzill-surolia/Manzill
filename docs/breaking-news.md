@@ -29,6 +29,20 @@ an operator guide.
   `ISSUE_KEYWORDS["governance"]`, or a flagged police-misconduct cluster). Ceremonial/feel-good
   and generic news are never promoted to the lead. Rajasthan ACB bribery traps are a near-daily
   source of fresh stories (`FEED_QUERIES`).
+- **Accountability-failure required, not a "govt did its job" story (`has_failure_angle`):** the
+  governance keyword list also contains **neutral state-action** words (demolition, eviction, raid,
+  `NEUTRAL_ACTION_TERMS`), so a clean demolition drive could pass `is_policy_beat` and read as
+  praise. `apply_policy_lead` therefore prefers a fresh cluster with a genuine failure signal
+  (`FAILURE_TERMS`: negligence, delay, dereliction, breakdown, bribery, citizen harm, police
+  misconduct); it falls back to the best fresh policy cluster only if none has a failure angle
+  (so the lead is never emptied — no re-freeze).
+- **Citizen-first framing (mandatory):** the desk's lens is the **ordinary citizen / affected
+  resident**, never the state. Every lead — especially a government action like a demolition — must
+  examine the **human impact and citizens' rights**: compensation, rehabilitation, due process/
+  notice, recourse. Where the sources are silent, these are raised as **open accountability
+  questions** ("प्रभावितों को मुआवज़ा/पुनर्वास मिलेगा या नहीं, स्पष्ट नहीं"), never answered by
+  fabrication. The `lead_headline` must foreground this accountability/citizen-impact angle and is
+  never written as neutral or praising.
 - **Coverage — Rajasthan-wide, Jaipur-first:** the locality gate (`is_local` / `filter_local`)
   keeps stories anywhere in Rajasthan (Jaipur, the state, known cities/districts, ACB) and drops
   out-of-state items. **Jaipur-first is a soft preference** (`is_jaipur` + `W_JAIPUR=3.0` in the
@@ -49,6 +63,14 @@ an operator guide.
 ### Language — fully Hindi, no English
 - **All visible text is Hindi (Devanagari).** The AI translates English feed facts into
   Hindi (headline, analysis, developments, source titles, secondary stories).
+- **`to_hindi()` — a deterministic Devanagari-only guarantee** (not just a prompt request): every
+  visible AI field is passed through it in `_lead_from_ai` before render. It (1) drops the model's
+  bogus provenance tags — `(analysis)`, `(lead_story)`, `(other_stories)`, `(लीड स्रोत)` — (2)
+  rewrites English acronyms/orgs to their conventional Hindi form via **`ORG_HI`** (well-known orgs
+  get the full name, `JDA` → जयपुर विकास प्राधिकरण, `BJP` → भाजपा; the rest are transliterated,
+  `ED` → ईडी, `ACB` → एसीबी, `FIR` → एफआईआर), and (3) strips any residual Latin run. Numbers/dates
+  (`10-12`, `9:32`) and paragraph breaks are preserved. `event_type`/`severity` stay English enums
+  (they drive CSS/cadence, never shown).
 - Outlet brand names are **transliterated** to Devanagari (e.g. `Times of India` →
   टाइम्स ऑफ इंडिया, `NDTV` → एनडीटीवी); unknown outlets are dropped rather than shown in English.
 - Clock and dates are Hindi (e.g. `शाम 5:22 बजे`, `रविवार, 12 जुलाई 2026`). `<html lang="hi">`.

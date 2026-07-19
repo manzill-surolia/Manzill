@@ -275,10 +275,14 @@ By default the lead is auto-picked on newsworthiness. To **pin** a chosen story 
 - **Page shows English:** the Groq call failed (check the log for `Groq HTTP …`). Verify the
   key and that Groq isn't rate-limited; the code falls back to a Hindi holding page, never English.
 - **Page shows the empty Hindi holding scaffold (`Groq HTTP 413`):** the request exceeded the
-  account's **8000 tokens-per-minute** limit. Groq counts *prompt + `max_tokens`* per request,
-  so an oversized `max_tokens` alone can trip it (`Requested 8242 > Limit 8000`). Keep
-  `max_tokens ≤ ~6000` and run a **single** AI pass. Extra keys in the same Groq org don't help
-  (shared TPM). See **Future work — TPM-safe enhancements** below and `AGENTS.md`.
+  account's **8000 tokens-per-minute** limit. Groq counts *prompt + `max_tokens`* per request, and
+  the Devanagari prompt tokenizes expensively, so a prompt edit can silently trip it
+  (`Requested 8088 > Limit 8000`). **Check any prompt change with `python scripts/check_tpm.py`**
+  (offline conservative estimate; `--api` for Groq's exact `usage.prompt_tokens`). The generator now
+  **self-heals**: `groq_analyze` preflight-shrinks the request to `TPM_BUDGET` (7000) before sending
+  and retries once with a minimal request on a 413. Budget knobs (`GROQ_TPM_LIMIT`, `GROQ_MAX_TOKENS`,
+  `TPM_BUDGET`) are top-of-file in `build_breaking_news.py`. Keep `max_tokens ≤ ~5000` (baseline
+  4500) and run a **single** AI pass; extra keys in the same Groq org don't help (shared TPM).
 
 ---
 

@@ -23,7 +23,7 @@ back into the repo, which Pages then serves) — everything else is hand-authore
 | `jaipur-news/` | `/jaipur-news` | Static Jaipur/Rajasthan news landing page (SEO). |
 | `jaipur-properties/` | `/jaipur-properties` | Static Jaipur real-estate landing page (SEO). |
 | `breaking/` | `/breaking` | **AI-generated, fully-Hindi live single-story news page** on one beat: government/police **bribery & policy incompetence** in Rajasthan (Jaipur-first). Bot-committed; see `docs/breaking-news.md`. |
-| `scripts/` | — | The two generators + `requirements.txt` (stdlib only; just `tzdata`). |
+| `scripts/` | — | The two generators, `check_tpm.py` (Groq TPM budget checker), + `requirements.txt` (stdlib only; just `tzdata`). |
 | `.github/workflows/` | — | `breaking-news.yml` and `sitemap.yml`. |
 | `docs/` | — | `breaking-news.md` — full spec + operator guide for the breaking page. |
 | `CNAME`, `robots.txt`, `sitemap.xml`, `favicon.svg`, `icon.png`, `manzill-og.png` | — | Domain, crawler rules, sitemap (auto-generated), assets. |
@@ -87,9 +87,18 @@ back into the repo, which Pages then serves) — everything else is hand-authore
 ## ⚠️ Groq TPM gotcha — read before touching the news generator
 
 The Groq account's tier caps **8,000 tokens per minute (TPM)**, and Groq counts
-**`prompt_tokens + max_tokens` per request** against it (not just output). Rules:
+**`prompt_tokens + max_tokens` per request** against it (not just output). The Hindi prompt tokenizes
+expensively, so a prompt edit can silently drift over the cap → `HTTP 413` → the empty holding page.
 
-- Keep the request's **`max_tokens ≤ ~6000`** (prompt is ~1.2k). Known-good baseline: `4500`.
+- **Check every prompt change with the TPM tool:** `python scripts/check_tpm.py` (offline
+  conservative estimate of a worst-case request; non-zero exit on FAIL — CI-gateable) or
+  `python scripts/check_tpm.py --api` (Groq's exact `usage.prompt_tokens`). The budget knobs live at
+  the top of `build_breaking_news.py`: `GROQ_TPM_LIMIT=8000`, `GROQ_MAX_TOKENS=4500`, `TPM_BUDGET=7000`.
+- **Self-healing:** `groq_analyze` runs a **preflight** (`estimate_tokens`/`_messages_tokens`) that
+  shrinks the request (drop snippets → other-stories → down-sample history → lower max_tokens) to fit
+  `TPM_BUDGET` before sending, and **retries once** with a minimal request on a 413 before falling
+  back to the holding page. The message building is `_groq_messages` (shared with `check_tpm.py`).
+- Keep the request's **`max_tokens ≤ ~5000`**; known-good baseline `4500`.
 - Run a **single** AI pass. Two passes (e.g. reporter + editor) can't both fit in one minute.
 - Extra API keys from the **same Groq org share the one cap** — no added headroom. Only a higher
   tier or keys in *separate* orgs give independent budgets.

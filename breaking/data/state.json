@@ -1,65 +1,16 @@
 {
   "ist_day": "2026-07-19",
   "lead": {
-    "id": "3bce0224688a",
-    "headline": "जयपुर विकास प्राधिकरण ने अवैध इमारतों के ध्वंस में 10‑12 संरचनाएँ हटाई, पुलिस ने सोने‑चांदी की गुप्त जमा की जांच शुरू की",
-    "event_type": "negligence",
-    "severity": "medium",
-    "analysis": "जयपुर में कई वर्षों से विभिन्न क्षेत्रों में अवैध निर्माण बढ़ते जा रहे थे, जिनके खिलाफ जयपुर विकास प्राधिकरण (JDA) ने कई बार चेतावनी जारी की थी, परंतु निर्माणकर्ताओं ने आदेशों की अनदेखी की। इस पृष्ठभूमि में 19 जुलाई को सुबह 9:32 बजे JDA ने एक बड़े ध्वंस अभियान के तहत 10‑12 अवैध संरचनाओं को तोड़ दिया, जिससे स्थानीय प्रशासन की देर से कार्रवाई पर सवाल उठे।\n\nध्वंस के दौरान कुछ निवासियों ने दावा किया कि एक पुरानी हवेली के नीचे सोने‑चांदी की बड़ी मात्रा की गुप्त जमा मिली है, जिससे स्थानीय मीडिया में चर्चा छा गई। इस सूचना को लेकर जयपुर पुलिस ने तुरंत जांच शुरू कर दी, लेकिन अभी तक इस दावे की पुष्टि या अस्वीकृति नहीं हुई है।\n\nजांच के दौरान पुलिस ने ध्वंस स्थल की सुरक्षा और दस्तावेजीकरण में कई कमियों को उजागर किया, जिससे नागरिक समूहों ने पारदर्शिता और उचित पुनर्वास की मांग की। JDA ने बाद में कहा कि भविष्य में अवैध निर्माणों को रोकने के लिए अधिक सख्त निगरानी और त्वरित कार्यवाही की जाएगी।\n\nवर्तमान में मामला अभी भी जांच के चरण में है, और यदि सोने‑चांदी की गुप्त जमा की पुष्टि होती है तो यह एक अलग आर्थिक अपराध बन सकता है, जबकि ध्वंस प्रक्रिया की देरी और लापरवाही को नीति विफलता के रूप में देखा जा रहा है।",
-    "key_facts": [
-      "19 जुलाई, सुबह 9:32 बजे – जयपुर विकास प्राधिकरण ने 10‑12 अवैध इमारतों को ध्वंस किया (lead_story)",
-      "ध्वंस के दौरान हवेली में सोने‑चांदी की गुप्त जमा का दावा किया गया (other_stories)",
-      "जयपुर पुलिस ने उस दावे की जांच शुरू की (other_stories)",
-      "अवैध निर्माणों पर पहले कई चेतावनियाँ जारी थीं, परंतु निर्माणकर्ता अनदेखी करते रहे (analysis)",
-      "स्थानीय नागरिक समूहों ने ध्वंस में पारदर्शिता और पुनर्वास की मांग की (analysis)",
-      "JDA ने भविष्य में अधिक सख्त निगरानी और त्वरित कार्यवाही का वादा किया (analysis)"
-    ],
-    "police_accountability": "",
-    "what_next": "पुलिस की जांच जारी रहेगी; यदि सोने‑चांदी की जमा की पुष्टि हुई तो आर्थिक अपराध के रूप में मामला अदालत में जाएगा।",
-    "developments": [
-      {
-        "label": "पृष्ठभूमि",
-        "text": "जयपुर में कई सालों से अवैध निर्माण बढ़ते रहे, JDA ने कई बार चेतावनी जारी की लेकिन निर्माणकर्ता अनदेखी करते रहे (analysis)।"
-      },
-      {
-        "label": "19 जुलाई, सुबह 9:32 बजे",
-        "text": "जयपुर विकास प्राधिकरण ने 10‑12 अवैध संरचनाओं को ध्वंस किया, जिससे स्थानीय प्रशासन की देर से कार्रवाई पर सवाल उठे (lead_story)।"
-      },
-      {
-        "label": "ध्वंस के दौरान",
-        "text": "ध्वंस स्थल पर एक पुरानी हवेली के नीचे सोने‑चांदी की गुप्त जमा का दावा किया गया, जिससे मीडिया में चर्चा छा गई (other_stories)।"
-      },
-      {
-        "label": "जांच के दौरान",
-        "text": "जयपुर पुलिस ने उक्त दावे की जांच शुरू की, लेकिन अभी तक कोई पुष्टि नहीं हुई (other_stories)।"
-      },
-      {
-        "label": "प्रतिक्रिया",
-        "text": "स्थानीय नागरिक समूहों ने ध्वंस में पारदर्शिता, उचित दस्तावेजीकरण और पुनर्वास की मांग की (analysis)।"
-      },
-      {
-        "label": "आगे",
-        "text": "JDA ने भविष्य में अवैध निर्माणों को रोकने के लिए सख्त निगरानी और त्वरित कार्यवाही का वादा किया (analysis)।"
-      }
-    ],
-    "sources": [
-      {
-        "title_hi": "जयपुर विकास प्राधिकरण ने ध्वंस अभियान में 10‑12 अवैध इमारतें हटाई",
-        "url": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxPQmtLRXM4R2sxX2t2X1B4SWlHUDBxYWpaQV9CendNa3BBMUVLZFM3bEVBaFhMelp4WmlFYTVmRG5tOXFmWjR5Snpvb1kwbVJmOTJKNmxXdG1WdThNaVAwLXUzR1VmLTh4MXBmUFkyTDR1ckFOeXhSRTFVNGhQa0lnZmJBa0NLcVE5cHNCSkI4VXZOU0toVzctYm1aMEhNa0VpVW03cGRhWkV5TDJvVVBxVzhUcnRxdE5C?oc=5",
-        "source": "The News Mill",
-        "published": "2026-07-19T04:02:10+00:00"
-      }
-    ]
+    "id": "holding",
+    "headline": "जयपुर: ताज़ा खबरें अपडेट हो रही हैं",
+    "event_type": "other",
+    "severity": "low",
+    "analysis": "विस्तृत हिंदी कवरेज तैयार हो रहा है। कृपया कुछ ही देर में दोबारा देखें — यह पेज दिनभर अपने-आप अपडेट होता रहता है।",
+    "developments": [],
+    "sources": []
   },
-  "other_stories": [
-    {
-      "headline": "जयपुर पुलिस ने हवेली ध्वंस के दौरान मिली सोने‑चांदी की गुप्त जमा की जांच शुरू की",
-      "summary": "ध्वंस के दौरान हवेली के नीचे सोने‑चांदी की बड़ी मात्रा की गुप्त जमा का दावा आया, जिसके बाद पुलिस ने इस दावे की जांच का आदेश दिया।",
-      "url": "https://news.google.com/rss/articles/CBMi6wFBVV95cUxNSTNxaTFDSDFYZFZJUjR1SmFmWGk4VGxnTk00LXIzcWJ6VUJNUDV4TTJuRFJ4SjhNRTBTYmV0MGNDakNOUVVhMUpxMXotWDA4QXVHZkJ4TTE3X29lckktMWFQdVVyNFJOMDJyM2FPVXI1YTlqekgzRmo0bExoRXFyQkpoaTRJMGlYUEZEQ3hfRHktemRyZkptN1ZhbXVRbDQ4VU5pdFd4dHljTjhENzlId2E4aVhhU0JrVXFSbjM5VlotcjJxaU5RYko2clpmUzlaeGIxQTZUS3NhOFhZTUVEMlV5Y0RfQ1NsYlc00gHwAUFVX3lxTE03bzZDTW5kSUdadlAtZGgwZEQyekZ4RFFObXV6Q2tMc2ZkdmRNVzhwVTNiVGZIM1lVNmlWZXVOWDBHVFZSbl9yOEJ4dEFfWlFGNVlhdXBkc0JoeGpSZFpLTDdncHhnZ0RlWUFrcUhnQUFjZHdaODlyVFVOSmMxa0dOeGwwTzBLTEt0SEZjei05aVEwQ2JtVWt1VkVHXzBPWVd2cjZmNTdhbXRBV182Wk1CMnF4X1htR25sd0VrTUJveWUtQnVRUDBObGlsR0NCbHpnd1NvVzdzQ25xZ0Z2UlNrNFJCWkhma3dCYmlWcm40Tw?oc=5",
-      "source": "The Times of India"
-    }
-  ],
-  "last_feed_hash": "6d23df28f4549d1b",
-  "last_updated": "2026-07-19T14:44:42.147100+00:00",
-  "render_version": "15"
+  "other_stories": [],
+  "last_feed_hash": "addafa14e0b20472",
+  "last_updated": "2026-07-19T17:10:20.463057+00:00",
+  "render_version": "17"
 }

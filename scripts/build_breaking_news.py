@@ -66,7 +66,16 @@ NEWS_SITE = "https://news.manzill.com"
 # Bump whenever the rendered output (template/RSS/sitemap format) changes. A mismatch
 # with the value stored in state forces a one-time re-render even when the feed is
 # unchanged, so a redesign rolls out on the next scheduled run without a manual push.
-RENDER_VERSION = "17"
+RENDER_VERSION = "18"
+
+# --- Groq TPM budget ------------------------------------------------------- #
+# Groq bills prompt_tokens + max_tokens against a per-minute cap; exceeding it returns HTTP 413 and
+# the page falls back to the empty Hindi holding scaffold. The prompt is Devanagari-heavy (Hindi
+# tokenizes expensively), so a growing prompt silently drifts over the cap. Check any prompt change
+# with `python scripts/check_tpm.py` (offline estimate) or `--api` (Groq's exact prompt_tokens).
+GROQ_TPM_LIMIT = 8000        # the account tier's tokens-per-minute cap
+GROQ_MAX_TOKENS = 4500       # output cap; prompt + this must stay < GROQ_TPM_LIMIT (was 5200 → 413)
+TPM_BUDGET = 7000            # design ceiling for (est. prompt + max_tokens); ~1000 tokens of margin
 
 # strftime has no Hindi locale, so map month names for the Hindi date/time strings.
 HINDI_MONTHS = [
@@ -853,157 +862,159 @@ def groq_pick_model(api_key: str) -> str:
     return env_model or MODEL_PREFERENCE[0]
 
 
-def groq_analyze(api_key: str, clusters: list[dict], points: list[dict]) -> dict | None:
-    """Ask Groq for a deep HINDI package covering the story's full multi-week arc: long analysis,
-    key facts, dated developments (one per archived timeline point, oldest→newest), police
-    accountability, what-next, Hindi source titles and Hindi secondary stories. `points` is the
-    already down-sampled archived arc (oldest first) — see _arc_sample()/TIMELINE_MAX."""
-    model = groq_pick_model(api_key)
+def estimate_tokens(text: str) -> int:
+    """Conservative (over-)estimate of tokens for the o200k-family tokenizer gpt-oss uses. ASCII ≈ 1
+    token / 3.5 chars; non-ASCII (Devanagari codepoints + combining marks) ≈ 1 token / 2 chars.
+    Over-counting is deliberate — if this says a request FITS, the real call fits. For the exact count
+    use `scripts/check_tpm.py --api` (Groq's usage.prompt_tokens). See the Groq TPM budget constants."""
+    if not text:
+        return 0
+    ascii_n = sum(1 for ch in text if ord(ch) < 128)
+    return int(ascii_n / 3.5 + (len(text) - ascii_n) / 2.0)
+
+
+def _messages_tokens(messages: list[dict]) -> int:
+    """Estimated prompt tokens for a chat `messages` list (content + a small per-message overhead)."""
+    return sum(estimate_tokens(m.get("content", "")) + 6 for m in messages) + 8
+
+
+def _groq_messages(clusters: list[dict], points: list[dict], *,
+                   snippets: int = 3, others: int = 4, sources: int = 5,
+                   history_max: int | None = None) -> list[dict]:
+    """Build the Groq chat `messages` (system + user JSON) for the lead's arc. The caps are parameters
+    so groq_analyze's TPM preflight can shrink an over-budget request, and check_tpm.py can measure the
+    exact request the generator sends. Kept lean — the prompt is Devanagari-heavy (see the TPM budget);
+    the hard guarantees (Devanagari-only via to_hindi, accountability via questions_authority/
+    enrich_lead) live in code, not in prompt verbosity."""
     lead = clusters[0]
-    others = order_secondary(clusters)  # police + burning-issue stories first
-    lead_sources = [s["title"] for s in cluster_sources(lead, limit=6)]
-    lead_snippets = [i["summary"] for i in lead["items"][:5] if i["summary"]][:5]
-    # The archived arc, oldest→newest. `when` carries the exact Hindi date+time so the AI labels
-    # each development with a real timestamp; the payload is kept lean to respect the Groq TPM cap.
-    history = [
-        {"when": _hindi_point_label(p), "report": p.get("text_en", "")}
-        for p in points
-    ]
+    others_cl = order_secondary(clusters)[:max(others, 0)]
+    lead_sources = [s["title"] for s in cluster_sources(lead, limit=sources)]
+    lead_snippets = [i["summary"] for i in lead["items"] if i["summary"]][:max(snippets, 0)]
+    pts = points if history_max is None else _arc_sample(points, history_max)
+    history = [{"when": _hindi_point_label(p), "report": p.get("text_en", "")} for p in pts]
 
     system = (
-        "आप राजस्थान (भारत) की एक हिंदी न्यूज़ वेबसाइट के वरिष्ठ जवाबदेही (accountability) संपादक हैं। "
-        "यह पेज केवल एक बीट पर केंद्रित है: सरकारी/पुलिस भ्रष्टाचार, रिश्वतखोरी और नीतिगत नाकामी "
-        "(policy incompetence)। आपका दृष्टिकोण हमेशा आम नागरिक/पीड़ित का है, सरकार का नहीं — हर खबर में "
-        "आम लोगों पर पड़े असर, उनके हक़ और जवाबदेही को केंद्र में रखें, सरकारी कार्रवाई की तटस्थ या "
-        "प्रशंसात्मक रिपोर्टिंग कभी न करें। यह एक वॉचडॉग (निगरानी) पेज है: हर पोस्ट में — शीर्षक, विश्लेषण "
-        "और घटनाक्रम — राज्य सरकार, जेडीए/नगर निगम, प्रशासन और पुलिस को कठघरे में रखें: ज़िम्मेदार "
-        "प्राधिकरण का नाम लें, उन्होंने क्या किया या करने में क्या चूक/देरी की, और जवाबदेही के सीधे सवाल "
-        "उठाएँ। story_history में इसी विषय की कई स्रोतों की संबंधित कवरेज है — उन सबको मिलाकर एक ही सुसंगत, "
-        "गहरी खबर बनाएँ (कई असंबंधित घटनाएँ न मिलाएँ)। (मर्यादा: केवल स्रोतों में मौजूद तथ्य व सीधे सवाल; "
-        "किसी नामित व्यक्ति/पार्टी पर मनगढ़ंत आरोप, राशि या तथ्य कभी न गढ़ें।) दिए गए फ़ीड आइटम और घटनाक्रम "
-        "इतिहास (story_history — शीर्षक अंग्रेज़ी में "
-        "हो सकते हैं) की जानकारी का ही उपयोग करें और तथ्यों को स्वाभाविक, शुद्ध, विस्तृत हिंदी में लिखें। "
-        "अत्यंत महत्वपूर्ण: पूरी रिपोर्ट एक ही खबर/मामले पर केंद्रित रहे — कई असंबंधित घटनाओं को एक शीर्षक "
-        "या रिपोर्ट में कभी न मिलाएँ। यदि lead_story में कई असंबंधित घटनाएँ दिखें, तो केवल भ्रष्टाचार/"
-        "रिश्वत/नीतिगत नाकामी वाली मुख्य घटना चुनकर उसी पर लिखें। "
-        "story_history कई दिनों में फैला हो सकता है — उसी एक मामले की पूरी कहानी शुरुआत से अब तक क्रमवार "
-        "समझाएँ ताकि पाठक को end-to-end समझ मिले। developments को एक विस्तृत, बहु-चरणीय टाइमलाइन बनाएँ "
-        "(6-12 चरण, कम से कम 5): यह किसी भी प्रकार की खबर पर लागू है — रिश्वत/भ्रष्टाचार का मामला हो, "
-        "नीतिगत नाकामी/लापरवाही हो, कोई आरोप/बयान हो, या नागरिक-सेवा की चूक — हर के लिए एक असली घटना-चक्र "
-        "बनाएँ। जब कई दिनांकित बिंदु हों तो हर बिंदु + मामले के प्रक्रिया-चरण दें। जब केवल एक ही दिनांकित "
-        "बिंदु मिले तब भी टाइमलाइन को एक ही चरण तक सिमटने न दें — विश्लेषण और key_facts में मौजूद तथ्यों से "
-        "इस सामान्य ढाँचे में चरण बनाएँ: पृष्ठभूमि/संदर्भ → मुख्य घटना या आरोप (दिनांकित) → कौन/कौन-सा "
-        "विभाग/अधिकारी शामिल → सरकारी या आधिकारिक प्रतिक्रिया (या उसकी अनुपस्थिति) → प्रतिक्रियाएँ/माँगें "
-        "(विपक्ष, नागरिक समूह) → आगे क्या। बिना पुष्ट तिथि वाले चरणों पर सापेक्ष हिंदी लेबल दें "
-        "(जैसे 'पृष्ठभूमि', 'घटना के बाद', 'अब तक', 'आगे'), मनगढ़ंत घड़ी-समय या तिथि कभी नहीं — और नए तथ्य "
-        "कभी न गढ़ें, केवल पहले से मौजूद तथ्यों को चरणों में क्रमबद्ध करें। अपुष्ट बातों का श्रेय दें "
-        "('पुलिस के अनुसार', "
-        "'एसीबी के मुताबिक', 'स्थानीय रिपोर्टों के अनुसार')। स्रोतों में मौजूद न होने वाले आँकड़े, नाम, "
-        "रिश्वत की राशि या तथ्य कभी न गढ़ें; कभी मनगढ़ंत आरोप न लगाएँ। "
-        "यदि स्रोतों में पुलिस/प्रशासन की लापरवाही, देरी, चूक, नाकामी या आलोचना हो, तो उसे "
-        "'police_accountability' में स्पष्ट व प्रमुखता से, तथ्यों के साथ उजागर करें। "
-        "नागरिक-प्रथम कोण अनिवार्य: जब सरकार/जेडीए/पुलिस कोई कार्रवाई करे (जैसे ध्वंस, छापेमारी), तो "
-        "प्रभावित आम लोगों का पक्ष ज़रूर उठाएँ — क्या उन्हें मुआवज़ा, पुनर्वास, उचित नोटिस/प्रक्रिया मिली, "
-        "उनके हक़ की रक्षा हुई या नहीं। जहाँ स्रोत इन पर चुप हों, वहाँ इन्हें खुले जवाबदेही-सवाल के रूप में "
-        "उठाएँ (जैसे 'प्रभावितों को मुआवज़ा/पुनर्वास मिलेगा या नहीं, यह स्पष्ट नहीं') — उत्तर कभी न गढ़ें। "
-        "भाषा नियम (कठोर): हर दृश्य फ़ील्ड पूरी तरह देवनागरी में हो — कोई रोमन/अंग्रेज़ी अक्षर, शब्द या "
-        "संक्षिप्ति नहीं (JDA→जयपुर विकास प्राधिकरण, BJP→भाजपा, ED→ईडी, ACB→एसीबी, FIR→एफआईआर जैसी सभी "
-        "संक्षिप्तियाँ देवनागरी में लिखें)। किसी फ़ील्ड/इनपुट का नाम या स्रोत-टैग कोष्ठक में कभी न लिखें — "
-        "'(analysis)', '(lead_story)', '(other_stories)', '(लीड स्रोत)' जैसे टैग पूर्णतः वर्जित; श्रेय केवल "
-        "असली प्राधिकरण/आउटलेट के हिंदी नाम से दें या कुछ न लिखें। केवल event_type और severity अंग्रेज़ी enum "
-        "में रहें। सिर्फ़ मान्य JSON लौटाएँ।"
+        "आप राजस्थान (भारत) की एक हिंदी न्यूज़ वेबसाइट के वरिष्ठ जवाबदेही संपादक हैं — यह एक वॉचडॉग "
+        "(निगरानी) पेज है। दृष्टिकोण हमेशा आम नागरिक/पीड़ित का, सरकार का नहीं। हर पोस्ट (शीर्षक, विश्लेषण, "
+        "घटनाक्रम) में राज्य सरकार, जेडीए/नगर निगम, प्रशासन और पुलिस को कठघरे में रखें: ज़िम्मेदार "
+        "प्राधिकरण का नाम, उनकी चूक/देरी/नाकामी, नागरिक पर असर (मुआवज़ा/पुनर्वास/उचित प्रक्रिया) और सीधे "
+        "जवाबदेही-सवाल। सरकारी कार्रवाई (ध्वंस/छापेमारी/जाँच) की तटस्थ या प्रशंसात्मक रिपोर्टिंग कभी नहीं। "
+        "पूरी रिपोर्ट एक ही मामले पर केंद्रित रहे (असंबंधित घटनाएँ न मिलाएँ); story_history में इसी विषय की "
+        "कई स्रोतों की कवरेज है — उन्हें मिलाकर शुरुआत से अब तक की एक सुसंगत खबर बनाएँ। developments = "
+        "5-12 चरणों की क्रमवार टाइमलाइन (oldest→newest): story_history का हर दिनांकित बिंदु (date_label = "
+        "'when' से हूबहू) + विश्लेषण/तथ्यों से बने प्रक्रिया/कथानक-चरण। जहाँ पुष्ट तिथि हो वही दें, वरना "
+        "सापेक्ष हिंदी लेबल (पृष्ठभूमि/घटना के बाद/जाँच के दौरान/अब तक/आगे) — मनगढ़ंत घड़ी-समय कभी नहीं। "
+        "अपुष्ट बात का श्रेय असली प्राधिकरण/आउटलेट के हिंदी नाम से दें (जैसे 'एसीबी के अनुसार') या कुछ नहीं। "
+        "स्रोतों में पुलिस/प्रशासन की लापरवाही/देरी/चूक हो तो 'police_accountability' में प्रमुखता से। "
+        "मर्यादा: केवल स्रोतों में मौजूद तथ्य + सीधे सवाल; किसी नामित व्यक्ति/पार्टी पर मनगढ़ंत आरोप, राशि "
+        "या तथ्य कभी न गढ़ें। भाषा (कठोर): हर दृश्य फ़ील्ड पूर्णतः देवनागरी — कोई रोमन/अंग्रेज़ी अक्षर या "
+        "संक्षिप्ति नहीं (जैसे JDA→जयपुर विकास प्राधिकरण, BJP→भाजपा, ED→ईडी); किसी इनपुट फ़ील्ड का नाम/टैग "
+        "कोष्ठक में कभी नहीं ('(analysis)', '(lead_story)' वर्जित)। केवल event_type व severity अंग्रेज़ी "
+        "enum में। सिर्फ़ मान्य JSON लौटाएँ।"
     )
     user = {
-        "task": "राजस्थान की एक भ्रष्टाचार/रिश्वत/नीतिगत-नाकामी की प्रमुख खबर की गहराई से, बहु-दिवसीय, "
-                "end-to-end हिंदी कवरेज तैयार करें — एक ही मामले पर केंद्रित।",
+        "task": "राजस्थान की सरकारी/पुलिस भ्रष्टाचार या नीतिगत-नाकामी की एक प्रमुख खबर की गहराई से, "
+                "बहु-दिवसीय, नागरिक-प्रथम व जवाबदेही-केंद्रित हिंदी कवरेज — एक ही मामले पर।",
         "lead_story": {"headline": lead["headline"], "snippets": lead_snippets},
         "story_history": history,
         "lead_sources_en": lead_sources,
-        "other_stories_en": [c["headline"] for c in others],
+        "other_stories_en": [c["headline"] for c in others_cl],
         "output_schema": {
-            "lead_headline": "एक ही घटना/मामले का संक्षिप्त, सटीक हिंदी शीर्षक (कई खबरें न मिलाएँ) — जो "
-                             "सरकार/जेडीए/पुलिस/प्रशासन की जवाबदेही और आम नागरिक पर असर को केंद्र में रखे "
-                             "(लापरवाही, देरी, चूक, नाकामी, भ्रष्टाचार, अनदेखी, या मुआवज़ा/पुनर्वास/हक़ का "
-                             "सवाल)। इसे कभी तटस्थ या सरकारी उपलब्धि/प्रशंसा के रूप में न लिखें; भले ही घटना "
-                             "सरकारी कार्रवाई (ध्वंस/छापेमारी) हो, शीर्षक उसके पीछे की विफलता/देरी या "
-                             "प्रभावितों के सवाल को उजागर करे (जैसे 'ध्वंस तो हुआ, पर प्रभावितों को मुआवज़ा?', "
-                             "'वर्षों की अनदेखी के बाद देरी से कार्रवाई पर सवाल')",
-            "event_type": "one of: bribery, corruption, scam, investigation, "
-                          "negligence, civic, protest, crime, other",
+            "lead_headline": "संक्षिप्त, सटीक हिंदी शीर्षक (एक ही मामला) जो सरकार/जेडीए/पुलिस की जवाबदेही "
+                             "व नागरिक-असर को केंद्र में रखे (लापरवाही/देरी/नाकामी/भ्रष्टाचार/अनदेखी या "
+                             "मुआवज़ा/पुनर्वास का सवाल); कभी तटस्थ या प्रशंसात्मक नहीं",
+            "event_type": "one of: bribery, corruption, scam, investigation, negligence, civic, "
+                          "protest, crime, other",
             "severity": "one of: critical, high, medium, low",
-            "analysis": "3-4 सुसंगत, बहु-वाक्य पैराग्राफ की विस्तृत हिंदी रिपोर्ट (प्रवाहमय गद्य, "
-                        "टुकड़ों में नहीं) — केवल इसी एक मामले की पृष्ठभूमि, कौन/कौन-सा विभाग शामिल, "
-                        "क्या आरोप/कितनी राशि, शुरुआत से अब तक का घटनाक्रम, मौजूदा स्थिति; और आम "
-                        "नागरिक/प्रभावितों पर असर व उनके हक़ (मुआवज़ा/पुनर्वास/उचित प्रक्रिया) का प्रश्न "
-                        "ज़रूर उठाएँ (स्रोत चुप हों तो खुले सवाल के रूप में, उत्तर न गढ़ें); "
-                        "हर पैराग्राफ में कई वाक्य हों; पैराग्राफ \\n\\n से अलग करें",
-            "key_facts": "6-8 हिंदी बिंदुओं की array (सटीक तथ्य: कौन, विभाग/पद, राशि, धारा, कार्रवाई)",
-            "developments": "objects की array [{date_label, text}] — मामले का विस्तृत, क्रमवार "
-                            "घटनाक्रम (oldest→newest), 6-12 चरण और कम से कम 5 (एक ही दिनांकित बिंदु होने पर "
-                            "भी कभी एक चरण पर न रुकें)। इसमें (क) story_history का हर दिनांकित बिंदु शामिल "
-                            "करें — उसका date_label = 'when' से हूबहू; और (ख) मामले के प्रक्रिया/कथानक-चरण "
-                            "जोड़ें जो स्रोतों/विश्लेषण/key_facts में मौजूद हों — रिश्वत के मामले में "
-                            "(शिकायत, एसीबी ट्रैप, रंगे हाथ पकड़ना, गिरफ्तारी, एफआईआर/मुकदमा, निलंबन, जाँच, "
-                            "चार्जशीट, अदालत), और किसी भी अन्य खबर (नीतिगत नाकामी/आरोप/नागरिक-चूक) में इस "
-                            "सामान्य ढाँचे से (पृष्ठभूमि/संदर्भ, मुख्य घटना या आरोप, कौन/कौन-सा विभाग शामिल, "
-                            "सरकारी/आधिकारिक प्रतिक्रिया या उसकी अनुपस्थिति, विपक्ष/नागरिकों की प्रतिक्रिया व "
-                            "माँगें, आगे की अपेक्षित कार्रवाई)। "
-                            "date_label नियम: जिस चरण की सही तिथि/समय स्रोत में हो वही दें (जैसे "
-                            "'13 जुलाई, दोपहर 4:06 बजे' या केवल तिथि); जहाँ सही तिथि न हो वहाँ सापेक्ष हिंदी "
-                            "लेबल दें (जैसे 'पृष्ठभूमि', 'शिकायत के बाद', 'जाँच के दौरान', 'अब तक', 'आगे') — "
-                            "मनगढ़ंत घड़ी-समय या तिथि कभी न दें। "
-                            "text = 2-3 सुस्पष्ट हिंदी वाक्य — उस चरण में क्या हुआ, किसने/किस विभाग/अधिकारी ने, "
-                            "कितनी राशि या क्या आरोप/कार्रवाई, प्रभावित नागरिकों पर असर; और जहाँ ज़रूरी हो, "
-                            "श्रेय केवल असली प्राधिकरण/आउटलेट के हिंदी नाम से दें (जैसे 'एसीबी के अनुसार') या "
-                            "कुछ नहीं — किसी इनपुट फ़ील्ड का नाम या अंग्रेज़ी टैग कभी न लिखें",
-            "police_accountability": "हिंदी पैराग्राफ — पुलिस/प्रशासन की लापरवाही/देरी/चूक/"
-                                     "आलोचना के प्रमाणित तथ्य; यदि स्रोतों में कुछ नहीं तो खाली स्ट्रिंग",
-            "what_next": "1-2 हिंदी वाक्य — आगे क्या संभावित/अपेक्षित है (जाँच, चार्जशीट, अदालत आदि); और "
-                         "प्रभावित नागरिकों को क्या राहत/मुआवज़ा/न्याय या कानूनी विकल्प मिल सकता है, यह भी बताएँ",
-            "sources_hi": "हिंदी एक-पंक्ति शीर्षकों की array — lead_sources_en के समान क्रम व संख्या में",
-            "other_stories": "objects {headline, summary} की array हिंदी में — "
-                             "other_stories_en के समान क्रम व संख्या में",
+            "analysis": "3-4 बहु-वाक्य पैराग्राफ की प्रवाहमय हिंदी रिपोर्ट — इसी मामले की पृष्ठभूमि, "
+                        "कौन/कौन-सा विभाग, क्या आरोप/राशि, शुरुआत से अब तक का घटनाक्रम, मौजूदा स्थिति, और "
+                        "नागरिक/प्रभावितों पर असर व उनके हक़ (स्रोत चुप हों तो खुला सवाल, उत्तर न गढ़ें); "
+                        "पैराग्राफ \\n\\n से अलग",
+            "key_facts": "6-8 हिंदी बिंदुओं की array (कौन, विभाग/पद, राशि, धारा, कार्रवाई)",
+            "developments": "[{date_label, text}] की array, oldest→newest, 5-12 चरण (एक ही बिंदु होने पर "
+                            "भी एक चरण पर न रुकें)। text = 2-3 हिंदी वाक्य: क्या हुआ, किस विभाग/अधिकारी ने, "
+                            "क्या आरोप/कार्रवाई, नागरिक पर असर। date_label = पुष्ट तिथि या सापेक्ष हिंदी "
+                            "लेबल; मनगढ़ंत समय/तिथि नहीं; इनपुट फ़ील्ड का नाम कभी नहीं",
+            "police_accountability": "हिंदी पैराग्राफ — पुलिस/प्रशासन की लापरवाही/देरी/चूक के प्रमाणित "
+                                     "तथ्य; स्रोतों में कुछ न हो तो खाली स्ट्रिंग",
+            "what_next": "1-2 हिंदी वाक्य — आगे क्या (जाँच/चार्जशीट/अदालत) और प्रभावितों को क्या "
+                         "राहत/मुआवज़ा/कानूनी विकल्प मिल सकता है",
+            "sources_hi": "हिंदी एक-पंक्ति शीर्षकों की array — lead_sources_en के समान क्रम व संख्या",
+            "other_stories": "{headline, summary} की array हिंदी में — other_stories_en के समान क्रम व संख्या",
         },
     }
-    payload = json.dumps(
-        {
-            "model": model,
-            "messages": [
-                {"role": "system", "content": system},
-                {"role": "user", "content": json.dumps(user, ensure_ascii=False)},
-            ],
-            "temperature": 0.35,
-            # TPM-safe: the archived arc is down-sampled (TIMELINE_MAX) and the history payload is
-            # lean, so prompt + max_tokens stays comfortably under Groq's 8000 TPM cap. Do NOT raise
-            # this past ~5500 on this tier — see AGENTS.md "Groq TPM gotcha". 5200 gives the
-            # guaranteed multi-step timeline a little output headroom while staying under budget.
-            "max_tokens": 5200,
-            "response_format": {"type": "json_object"},
-        }
-    ).encode()
+    return [{"role": "system", "content": system},
+            {"role": "user", "content": json.dumps(user, ensure_ascii=False)}]
 
+
+def _groq_call(api_key: str, model: str, messages: list[dict], max_tokens: int) -> tuple[dict | None, int]:
+    """POST one chat-completion. Returns (parsed_json | None, http_status): 200 on success, the HTTP
+    status on an HTTPError (e.g. 413 = over the TPM cap), or -1 on any other failure."""
+    payload = json.dumps({
+        "model": model,
+        "messages": messages,
+        "temperature": 0.35,
+        "max_tokens": max_tokens,
+        "response_format": {"type": "json_object"},
+    }).encode()
     req = urllib.request.Request(
-        f"{GROQ_BASE}/chat/completions",
-        data=payload,
-        headers={
-            "Authorization": f"Bearer {api_key}",
-            "Content-Type": "application/json",
-            "User-Agent": GROQ_UA,
-        },
-        method="POST",
+        f"{GROQ_BASE}/chat/completions", data=payload,
+        headers={"Authorization": f"Bearer {api_key}", "Content-Type": "application/json",
+                 "User-Agent": GROQ_UA}, method="POST",
     )
     try:
         with urllib.request.urlopen(req, timeout=90) as resp:
             body = json.loads(resp.read())
         content = body["choices"][0]["message"]["content"]
-        data = json.loads(content)
-        print(f"  Groq model {model} responded ({len(content)} chars)")
-        return data
+        print(f"  Groq model {model} responded ({len(content)} chars, max_tokens={max_tokens})")
+        return json.loads(content), 200
     except urllib.error.HTTPError as exc:
-        print(f"  ! Groq HTTP {exc.code}: {exc.read()[:300]!r}", file=sys.stderr)
+        print(f"  ! Groq HTTP {exc.code}: {exc.read()[:200]!r}", file=sys.stderr)
+        return None, exc.code
     except Exception as exc:
         print(f"  ! Groq call failed: {exc}", file=sys.stderr)
-    return None
+        return None, -1
+
+
+def groq_analyze(api_key: str, clusters: list[dict], points: list[dict]) -> dict | None:
+    """Ask Groq for the deep HINDI package (analysis, key facts, dated developments, police
+    accountability, what-next, Hindi sources/secondary stories). Preflight-shrinks the request to the
+    TPM budget before sending (Groq bills prompt+max_tokens against an 8000/min cap), and retries once
+    with a minimal request on HTTP 413, so an unusually large day degrades to a smaller-but-real post
+    instead of the empty holding page. `points` is the down-sampled arc — see _arc_sample/TIMELINE_MAX."""
+    model = groq_pick_model(api_key)
+    max_tokens = GROQ_MAX_TOKENS
+    snippets, others, hist = 3, 4, None
+    messages = _groq_messages(clusters, points, snippets=snippets, others=others, history_max=hist)
+    # Preflight: shrink the request until the estimated prompt + output fits the TPM budget. On a
+    # normal day the default already fits, so nothing is dropped; only a big enrichment day trims.
+    for _ in range(8):
+        if _messages_tokens(messages) + max_tokens <= TPM_BUDGET:
+            break
+        if snippets:
+            snippets = 0
+        elif others:
+            others = 0
+        elif hist is None:
+            hist = min(8, len(points)) or None
+        elif hist and hist > 5:
+            hist = 5
+        elif max_tokens > 3500:
+            max_tokens = 3500
+        else:
+            break
+        messages = _groq_messages(clusters, points, snippets=snippets, others=others, history_max=hist)
+    est = _messages_tokens(messages)
+    print(f"  TPM: est. prompt {est} + max_tokens {max_tokens} = {est + max_tokens} "
+          f"(budget {TPM_BUDGET}, cap {GROQ_TPM_LIMIT})")
+
+    data, code = _groq_call(api_key, model, messages, max_tokens)
+    if data is None and code == 413:
+        print("  ! Groq 413 — retrying once with a minimal request.", file=sys.stderr)
+        messages = _groq_messages(clusters, points, snippets=0, others=0,
+                                  history_max=min(8, len(points)) or None)
+        data, _ = _groq_call(api_key, model, messages, 3500)
+    return data
 
 
 # --------------------------------------------------------------------------- #

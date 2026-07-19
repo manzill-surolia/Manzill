@@ -66,7 +66,7 @@ NEWS_SITE = "https://news.manzill.com"
 # Bump whenever the rendered output (template/RSS/sitemap format) changes. A mismatch
 # with the value stored in state forces a one-time re-render even when the feed is
 # unchanged, so a redesign rolls out on the next scheduled run without a manual push.
-RENDER_VERSION = "16"
+RENDER_VERSION = "17"
 
 # strftime has no Hindi locale, so map month names for the Hindi date/time strings.
 HINDI_MONTHS = [
@@ -137,6 +137,12 @@ FEED_QUERIES = [
     "(corruption OR bribe OR illegal OR negligence OR encroachment OR demolition OR scam) when:2d",
     # Broad Jaipur catch so a big Jaipur policy/bribery story is never missed by the narrow queries.
     "Jaipur (corruption OR bribe OR scam OR negligence OR protest OR probe) when:1d",
+    # Citizen grievances & harm that put the AUTHORITIES in question — protests against the govt,
+    # denied compensation/rehabilitation, evictions, custodial/negligence deaths, cover-ups. This is
+    # accountability-first sourcing: news that questions the government/police, not incidental crime.
+    "Jaipur OR Rajasthan (protest OR agitation OR gherao OR victim OR \"no compensation\" "
+    "OR rehabilitation OR eviction OR \"custodial death\" OR negligence OR dereliction OR \"cover up\") "
+    "(government OR administration OR police OR JDA OR municipal OR minister) when:2d",
 ]
 
 # Wider-window BACKFILL queries. Items from these seed a story's multi-week timeline (the archive)
@@ -148,6 +154,9 @@ ARCHIVAL_QUERIES = [
     "OR embezzlement OR kickback OR graft) when:14d",
     "Jaipur OR Rajasthan (government OR department OR officer) (negligence OR \"policy failure\" "
     "OR mismanagement OR probe OR investigation OR \"charge sheet\" OR court OR suspended) when:30d",
+    # Backfill the accountability arc: weeks of coverage questioning the authorities' handling.
+    "Jaipur OR Rajasthan (protest OR victim OR compensation OR eviction OR custodial OR negligence "
+    "OR dereliction OR \"cover up\") (government OR police OR administration OR JDA) when:30d",
 ]
 
 # --------------------------------------------------------------------------- #
@@ -528,6 +537,16 @@ def has_failure_angle(cluster: dict) -> bool:
     return bool(cluster.get("police_flag"))
 
 
+def questions_authority(cluster: dict) -> bool:
+    """True if the cluster puts an ACCOUNTABILITY SUBJECT (state government / JDA / municipal /
+    minister / police / administration) UNDER QUESTION — it names such an authority AND carries a
+    failure/accountability signal. This is the page's core editorial test: every lead should question
+    the government/police, not merely report an incident. Purely lexical — never invents wrongdoing."""
+    text = " " + _cluster_text(cluster) + " "
+    names_authority = any(s in text for s in ACCOUNTABILITY_SUBJECTS) or bool(cluster.get("police_flag"))
+    return names_authority and has_failure_angle(cluster)
+
+
 def is_ceremonial(cluster: dict) -> bool:
     """True for feel-good / ceremonial news (yatra, festival, inauguration…) that must not lead
     the breaking slot — but ONLY when the story carries no serious severity and no issue signal,
@@ -773,11 +792,13 @@ def apply_policy_lead(clusters: list[dict]) -> list[dict]:
                     if c.get("fresh", True) and c.get("policy_flag") and not c.get("ceremonial")]
     if not fresh_policy:
         return []  # no fresh policy/bribery story — build() keeps the last good policy page
-    # Prefer a genuine accountability-FAILURE story so a neutral "govt did its job" action (a clean
-    # demolition/raid) doesn't lead and read as praise. Fall back to the best fresh policy cluster if
-    # none has a failure angle, so the lead is never emptied (which would re-freeze the page).
+    # Lead with a story that puts the government/police UNDER QUESTION (names an authority + has a
+    # failure angle); then any accountability-failure story; then, only if neither exists, the best
+    # fresh policy cluster. Each tier is score-sorted, and the final fallback keeps the lead from ever
+    # emptying (which would re-freeze the page) and stops a neutral "govt did its job" action leading.
+    authority_leads = [c for c in fresh_policy if questions_authority(c)]
     failure_leads = [c for c in fresh_policy if has_failure_angle(c)]
-    lead = (failure_leads or fresh_policy)[0]  # already score-sorted (Jaipur boost baked in)
+    lead = (authority_leads or failure_leads or fresh_policy)[0]
     return [lead] + [c for c in clusters if c is not lead]
 
 
@@ -854,7 +875,13 @@ def groq_analyze(api_key: str, clusters: list[dict], points: list[dict]) -> dict
         "यह पेज केवल एक बीट पर केंद्रित है: सरकारी/पुलिस भ्रष्टाचार, रिश्वतखोरी और नीतिगत नाकामी "
         "(policy incompetence)। आपका दृष्टिकोण हमेशा आम नागरिक/पीड़ित का है, सरकार का नहीं — हर खबर में "
         "आम लोगों पर पड़े असर, उनके हक़ और जवाबदेही को केंद्र में रखें, सरकारी कार्रवाई की तटस्थ या "
-        "प्रशंसात्मक रिपोर्टिंग कभी न करें। दिए गए फ़ीड आइटम और घटनाक्रम इतिहास (story_history — शीर्षक अंग्रेज़ी में "
+        "प्रशंसात्मक रिपोर्टिंग कभी न करें। यह एक वॉचडॉग (निगरानी) पेज है: हर पोस्ट में — शीर्षक, विश्लेषण "
+        "और घटनाक्रम — राज्य सरकार, जेडीए/नगर निगम, प्रशासन और पुलिस को कठघरे में रखें: ज़िम्मेदार "
+        "प्राधिकरण का नाम लें, उन्होंने क्या किया या करने में क्या चूक/देरी की, और जवाबदेही के सीधे सवाल "
+        "उठाएँ। story_history में इसी विषय की कई स्रोतों की संबंधित कवरेज है — उन सबको मिलाकर एक ही सुसंगत, "
+        "गहरी खबर बनाएँ (कई असंबंधित घटनाएँ न मिलाएँ)। (मर्यादा: केवल स्रोतों में मौजूद तथ्य व सीधे सवाल; "
+        "किसी नामित व्यक्ति/पार्टी पर मनगढ़ंत आरोप, राशि या तथ्य कभी न गढ़ें।) दिए गए फ़ीड आइटम और घटनाक्रम "
+        "इतिहास (story_history — शीर्षक अंग्रेज़ी में "
         "हो सकते हैं) की जानकारी का ही उपयोग करें और तथ्यों को स्वाभाविक, शुद्ध, विस्तृत हिंदी में लिखें। "
         "अत्यंत महत्वपूर्ण: पूरी रिपोर्ट एक ही खबर/मामले पर केंद्रित रहे — कई असंबंधित घटनाओं को एक शीर्षक "
         "या रिपोर्ट में कभी न मिलाएँ। यदि lead_story में कई असंबंधित घटनाएँ दिखें, तो केवल भ्रष्टाचार/"
@@ -1189,10 +1216,25 @@ def _build_cluster(items: list[dict]) -> dict:
 
 
 # Web-enrichment tuning. ENRICH_MAX caps how many related items are folded in per run; a related item
-# is kept only if it shares at least ENRICH_MIN_SHARED of the lead's distinctive query terms, so the
-# enrichment stays on the SAME single story instead of pulling in other bribery cases.
-ENRICH_MAX = 12
+# is kept when it shares ENRICH_MIN_SHARED of the lead's distinctive query terms, OR shares ≥1 term
+# AND carries an accountability-failure signal (so coverage questioning the authorities on the same
+# topic is admitted) — while unrelated bribery cases still aren't. See enrich_lead.
+ENRICH_MAX = 16
 ENRICH_MIN_SHARED = 2
+
+# Accountability-angle terms appended to the post-selection related search, so enrichment actively
+# pulls coverage that QUESTIONS the government/police on the chosen topic (their negligence, delay,
+# the victims, denied compensation, protests, probes) instead of more same-angle/celebratory
+# coverage. Used to build the extra enrich_lead queries (English — matched against English feeds).
+ACCOUNTABILITY_ANGLE_TERMS = [
+    "negligence", "delay", "lapse", "dereliction", "compensation", "rehabilitation",
+    "protest", "victim", "probe", "inquiry", "action", "responsibility", "accountability",
+    "suspended", "cover up", "custodial", "apathy", "grievance", "demand",
+]
+# A compact OR-clause of the highest-signal angle terms for a Google News query (kept short so the
+# query stays valid and focused).
+_ANGLE_OR = ("negligence OR delay OR compensation OR rehabilitation OR protest OR victim OR probe "
+             "OR action OR responsibility OR suspended OR dereliction OR custodial")
 
 
 def _lead_query_terms(cluster: dict, max_terms: int = 5) -> list[str]:
@@ -1204,6 +1246,14 @@ def _lead_query_terms(cluster: dict, max_terms: int = 5) -> list[str]:
                cluster.get("headline", ""))
     toks = sorted(keywords(rep), key=lambda t: (len(t), t), reverse=True)
     return toks[:max_terms]
+
+
+def _has_accountability_signal(it: dict) -> bool:
+    """True if a single feed item carries a government/police accountability-failure signal
+    (FAILURE_TERMS) — used by enrich_lead to admit related coverage that questions the authorities
+    on the chosen topic, not just more same-angle reporting."""
+    txt = " " + normalize(it["title"] + " " + it.get("summary", "")) + " "
+    return any(t in txt for t in FAILURE_TERMS)
 
 
 def enrich_lead(cluster: dict, items: list[dict]) -> dict:
@@ -1219,8 +1269,21 @@ def enrich_lead(cluster: dict, items: list[dict]) -> dict:
     core = " ".join(terms)
     core_terms = set(terms)
     need = min(ENRICH_MIN_SHARED, len(core_terms))
-    # A locality anchor keeps the related search in Rajasthan; two windows widen the timeline arc.
-    queries = [f"Rajasthan OR Jaipur {core} when:7d", f"{core} when:30d"]
+    subject = terms[0]  # the single most distinctive token (a name / department / place)
+    # A locality anchor keeps the related search in Rajasthan; the two base windows widen the arc, and
+    # the angle queries actively pull coverage that QUESTIONS the authorities on this topic (their
+    # negligence/delay, victims, compensation, protests) instead of more same-angle reporting.
+    queries = [
+        f"Rajasthan OR Jaipur {core} when:7d",
+        f"{core} when:30d",
+        f"Rajasthan OR Jaipur {subject} ({_ANGLE_OR}) when:30d",
+    ]
+    # If the story names an accountability subject (govt/JDA/police/minister…), search that
+    # authority's handling of the topic directly.
+    ctext = " " + _cluster_text(cluster) + " "
+    subj = next((s.strip() for s in ACCOUNTABILITY_SUBJECTS if s in ctext and len(s.strip()) > 2), None)
+    if subj:
+        queries.append(f"Rajasthan OR Jaipur {subject} \"{subj}\" ({_ANGLE_OR}) when:30d")
 
     seen = {normalize(i["title"])[:80] for i in cluster["items"]}
     extra: list[dict] = []
@@ -1231,10 +1294,14 @@ def enrich_lead(cluster: dict, items: list[dict]) -> dict:
             key = normalize(it["title"])[:80]
             if not key or key in seen or is_roundup(it):
                 continue
-            it_kw = keywords(it["title"] + " " + it.get("summary", ""))
-            if len(core_terms & it_kw) < need:
-                continue  # not clearly the same story — skip so the timeline stays single-focus
             if not is_local({"items": [it]}):
+                continue
+            it_kw = keywords(it["title"] + " " + it.get("summary", ""))
+            shared = len(core_terms & it_kw)
+            # Same story: enough shared distinctive terms, OR ≥1 shared term plus an accountability
+            # signal (so coverage questioning the authorities on this topic folds in) — but never an
+            # unrelated item (0 shared terms), so the page stays single-focus.
+            if shared < need and not (shared >= 1 and _has_accountability_signal(it)):
                 continue
             extra.append(it)
             seen.add(key)

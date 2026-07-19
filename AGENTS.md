@@ -54,10 +54,16 @@ back into the repo, which Pages then serves) — everything else is hand-authore
     older than `MAX_STALE_HOURS` (3) so it never freezes on a stale lead. On a day with no fresh
     policy story the **last policy page is kept** — the page never drops to generic news. Only
     genuinely-sourced stories are ranked up; the AI never fabricates (theme lists are top-of-file
-    config). **Editorial stance:** the desk is **citizen-first** — a headline must foreground the
-    government/JDA/police accountability & citizen-impact angle (मुआवज़ा/पुनर्वास/देरी/लापरवाही),
-    never read as praising a state action; `has_failure_angle` keeps a "govt did its job" story
-    (a clean demolition/raid, `NEUTRAL_ACTION_TERMS`) out of the lead. **Devanagari-only is
+    config). **Editorial stance:** the desk is a **citizen-first watchdog** — every post must put *this*
+    government/JDA/police UNDER QUESTION. Sourcing is accountability-first (`FEED_QUERIES`/
+    `ARCHIVAL_QUERIES` include grievances/protests/victims/compensation/custodial/cover-ups against
+    the authorities); the lead must `questions_authority` (names an authority + `has_failure_angle`),
+    else a failure-angle story, else the best fresh policy cluster (never empty); once a topic is
+    picked, `enrich_lead` runs **accountability-angle** related searches (`ACCOUNTABILITY_ANGLE_TERMS`
+    + the named authority's handling) so the timeline/title/description are built from coverage that
+    questions the govt/police. A headline must foreground the accountability & citizen-impact angle
+    (मुआवज़ा/पुनर्वास/देरी/लापरवाही), never praise a state action; `has_failure_angle` keeps a "govt
+    did its job" story (`NEUTRAL_ACTION_TERMS`) out of the lead. **Devanagari-only is
     enforced in code**, not just prompted: `to_hindi()` (with the `ORG_HI` acronym map) strips every
     English word/acronym and the model's `(analysis)`/`(lead_story)` field-name tags from all visible
     fields in `_lead_from_ai`. Needs the repo secret **`GROQ_API_KEY`** (without it, a Hindi holding

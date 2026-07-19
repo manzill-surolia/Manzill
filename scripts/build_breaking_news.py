@@ -66,7 +66,7 @@ NEWS_SITE = "https://news.manzill.com"
 # Bump whenever the rendered output (template/RSS/sitemap format) changes. A mismatch
 # with the value stored in state forces a one-time re-render even when the feed is
 # unchanged, so a redesign rolls out on the next scheduled run without a manual push.
-RENDER_VERSION = "18"
+RENDER_VERSION = "19"
 
 # --- Groq TPM budget ------------------------------------------------------- #
 # Groq bills prompt_tokens + max_tokens against a per-minute cap; exceeding it returns HTTP 413 and
@@ -737,16 +737,18 @@ def is_police_misconduct(cluster: dict) -> bool:
 
 
 def order_secondary(clusters: list[dict]) -> list[dict]:
-    """The 'यह भी ब्रेकिंग' pool (max 5), excluding the lead. Only fresh (current) clusters that are
-    themselves on-beat (is_policy_beat) show — the whole page stays about bribery/policy-incompetence,
-    never generic news, and archive-only backfill items never appear as cards. Police-accountability
-    and higher issue_rank stories are pulled to the front; the rest follow by score. `clusters` is
-    already score-sorted, so each group keeps its order."""
-    pool = [c for c in clusters[1:] if c.get("fresh", True) and c.get("policy_flag")]
+    """The 'यह भी ब्रेकिंग' pool (max 5), excluding the lead. This is a WATCHDOG page, so a secondary
+    card must itself QUESTION the authorities: only fresh clusters that pass `has_failure_angle` (a
+    real bribery/negligence/delay/citizen-harm/police-misconduct signal) show — a neutral "govt did
+    its job" action (a clean demolition/eviction/raid, `NEUTRAL_ACTION_TERMS`) is excluded even though
+    it passes `is_policy_beat`, so a pro-government item never leaks onto the page. Stories that name
+    an authority (`questions_authority`) and police-misconduct are front-loaded; the rest follow by
+    score. An empty pool renders no section — better than a pro-govt card. `clusters` is score-sorted."""
+    pool = [c for c in clusters[1:] if c.get("fresh", True) and has_failure_angle(c)]
     police = [c for c in pool if c.get("police_flag")]
-    issue = [c for c in pool if not c.get("police_flag") and c.get("issue_rank", 0) > 0]
-    rest = [c for c in pool if not c.get("police_flag") and c.get("issue_rank", 0) == 0]
-    return (police + issue + rest)[:5]
+    authority = [c for c in pool if not c.get("police_flag") and questions_authority(c)]
+    rest = [c for c in pool if not c.get("police_flag") and not questions_authority(c)]
+    return (police + authority + rest)[:5]
 
 
 def is_jaipur(cluster: dict) -> bool:
@@ -899,6 +901,9 @@ def _groq_messages(clusters: list[dict], points: list[dict], *,
         "घटनाक्रम) में राज्य सरकार, जेडीए/नगर निगम, प्रशासन और पुलिस को कठघरे में रखें: ज़िम्मेदार "
         "प्राधिकरण का नाम, उनकी चूक/देरी/नाकामी, नागरिक पर असर (मुआवज़ा/पुनर्वास/उचित प्रक्रिया) और सीधे "
         "जवाबदेही-सवाल। सरकारी कार्रवाई (ध्वंस/छापेमारी/जाँच) की तटस्थ या प्रशंसात्मक रिपोर्टिंग कभी नहीं। "
+        "शैली हार्ड ब्रेकिंग-न्यूज़ की हो, संपादकीय/राय नहीं: तथ्यात्मक, स्रोत-आधारित रिपोर्टिंग; जवाबदेही के "
+        "सवाल/माँगें नागरिकों, विपक्ष या विशेषज्ञों के हवाले से दें ('विपक्ष ने मांग की', 'नागरिकों ने सवाल "
+        "उठाया') — अपनी ओर से उपदेश ('सरकार को यह करना चाहिए') कभी नहीं। "
         "पूरी रिपोर्ट एक ही मामले पर केंद्रित रहे (असंबंधित घटनाएँ न मिलाएँ); story_history में इसी विषय की "
         "कई स्रोतों की कवरेज है — उन्हें मिलाकर शुरुआत से अब तक की एक सुसंगत खबर बनाएँ। developments = "
         "5-12 चरणों की क्रमवार टाइमलाइन (oldest→newest): story_history का हर दिनांकित बिंदु (date_label = "
@@ -926,10 +931,11 @@ def _groq_messages(clusters: list[dict], points: list[dict], *,
             "event_type": "one of: bribery, corruption, scam, investigation, negligence, civic, "
                           "protest, crime, other",
             "severity": "one of: critical, high, medium, low",
-            "analysis": "3-4 बहु-वाक्य पैराग्राफ की प्रवाहमय हिंदी रिपोर्ट — इसी मामले की पृष्ठभूमि, "
+            "analysis": "हार्ड न्यूज़ रिपोर्ट (संपादकीय/राय नहीं), 3-4 पैराग्राफ: पहला पैराग्राफ सबसे नई/बड़ी "
+                        "ठोस घटना से शुरू हो (उल्टा पिरामिड); फिर इसी मामले कीपृष्ठभूमि, "
                         "कौन/कौन-सा विभाग, क्या आरोप/राशि, शुरुआत से अब तक का घटनाक्रम, मौजूदा स्थिति, और "
-                        "नागरिक/प्रभावितों पर असर व उनके हक़ (स्रोत चुप हों तो खुला सवाल, उत्तर न गढ़ें); "
-                        "पैराग्राफ \\n\\n से अलग",
+                        "नागरिकों पर असर; जवाबदेही के सवाल/माँगें हवाले से ('विपक्ष/नागरिकों के अनुसार'), "
+                        "अपनी राय या 'सरकार को करना चाहिए' जैसी बात कभी नहीं; पैराग्राफ \\n\\n से अलग",
             "key_facts": "6-8 हिंदी बिंदुओं की array (कौन, विभाग/पद, राशि, धारा, कार्रवाई)",
             "developments": "[{date_label, text}] की array, oldest→newest, 5-12 चरण (एक ही बिंदु होने पर "
                             "भी एक चरण पर न रुकें)। text = 2-3 हिंदी वाक्य: क्या हुआ, किस विभाग/अधिकारी ने, "
@@ -937,10 +943,12 @@ def _groq_messages(clusters: list[dict], points: list[dict], *,
                             "लेबल; मनगढ़ंत समय/तिथि नहीं; इनपुट फ़ील्ड का नाम कभी नहीं",
             "police_accountability": "हिंदी पैराग्राफ — पुलिस/प्रशासन की लापरवाही/देरी/चूक के प्रमाणित "
                                      "तथ्य; स्रोतों में कुछ न हो तो खाली स्ट्रिंग",
-            "what_next": "1-2 हिंदी वाक्य — आगे क्या (जाँच/चार्जशीट/अदालत) और प्रभावितों को क्या "
-                         "राहत/मुआवज़ा/कानूनी विकल्प मिल सकता है",
+            "what_next": "1-2 हिंदी वाक्य — आगे की अपेक्षित प्रक्रिया (जाँच/चार्जशीट/अदालत) और "
+                         "प्रभावितों/विपक्ष की माँगें, तथ्यात्मक व हवाले से; अपनी राय/उपदेश नहीं",
             "sources_hi": "हिंदी एक-पंक्ति शीर्षकों की array — lead_sources_en के समान क्रम व संख्या",
-            "other_stories": "{headline, summary} की array हिंदी में — other_stories_en के समान क्रम व संख्या",
+            "other_stories": "{headline, summary} की array हिंदी में — other_stories_en के समान क्रम व "
+                             "संख्या; हर summary एक तथ्यात्मक हार्ड-न्यूज़ पंक्ति जो जवाबदेही/नाकामी के पहलू "
+                             "पर हो (सरकार की प्रशंसा या 'सुधार की उम्मीद' जैसी बात नहीं)",
         },
     }
     return [{"role": "system", "content": system},

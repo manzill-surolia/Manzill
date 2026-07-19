@@ -29,6 +29,27 @@ an operator guide.
   `ISSUE_KEYWORDS["governance"]`, or a flagged police-misconduct cluster). Ceremonial/feel-good
   and generic news are never promoted to the lead. Rajasthan ACB bribery traps are a near-daily
   source of fresh stories (`FEED_QUERIES`).
+- **Every lead must QUESTION the authorities (`questions_authority`):** the desk is a watchdog — a
+  lead should put the government / JDA / municipal body / minister / police (`ACCOUNTABILITY_SUBJECTS`)
+  under question, so `apply_policy_lead` prefers a fresh cluster that **names an authority AND has a
+  failure angle**, then any failure-angle story, then (only as a last resort) the best fresh policy
+  cluster — never emptying the lead. Sourcing is accountability-first too: `FEED_QUERIES`/
+  `ARCHIVAL_QUERIES` include citizen grievances/protests, victims, denied compensation, custodial/
+  negligence, and cover-ups against the authorities.
+- **Accountability-failure required, not a "govt did its job" story (`has_failure_angle`):** the
+  governance keyword list also contains **neutral state-action** words (demolition, eviction, raid,
+  `NEUTRAL_ACTION_TERMS`), so a clean demolition drive could pass `is_policy_beat` and read as
+  praise. `apply_policy_lead` therefore prefers a fresh cluster with a genuine failure signal
+  (`FAILURE_TERMS`: negligence, delay, dereliction, breakdown, bribery, citizen harm, police
+  misconduct); it falls back to the best fresh policy cluster only if none has a failure angle
+  (so the lead is never emptied — no re-freeze).
+- **Citizen-first framing (mandatory):** the desk's lens is the **ordinary citizen / affected
+  resident**, never the state. Every lead — especially a government action like a demolition — must
+  examine the **human impact and citizens' rights**: compensation, rehabilitation, due process/
+  notice, recourse. Where the sources are silent, these are raised as **open accountability
+  questions** ("प्रभावितों को मुआवज़ा/पुनर्वास मिलेगा या नहीं, स्पष्ट नहीं"), never answered by
+  fabrication. The `lead_headline` must foreground this accountability/citizen-impact angle and is
+  never written as neutral or praising.
 - **Coverage — Rajasthan-wide, Jaipur-first:** the locality gate (`is_local` / `filter_local`)
   keeps stories anywhere in Rajasthan (Jaipur, the state, known cities/districts, ACB) and drops
   out-of-state items. **Jaipur-first is a soft preference** (`is_jaipur` + `W_JAIPUR=3.0` in the
@@ -49,6 +70,14 @@ an operator guide.
 ### Language — fully Hindi, no English
 - **All visible text is Hindi (Devanagari).** The AI translates English feed facts into
   Hindi (headline, analysis, developments, source titles, secondary stories).
+- **`to_hindi()` — a deterministic Devanagari-only guarantee** (not just a prompt request): every
+  visible AI field is passed through it in `_lead_from_ai` before render. It (1) drops the model's
+  bogus provenance tags — `(analysis)`, `(lead_story)`, `(other_stories)`, `(लीड स्रोत)` — (2)
+  rewrites English acronyms/orgs to their conventional Hindi form via **`ORG_HI`** (well-known orgs
+  get the full name, `JDA` → जयपुर विकास प्राधिकरण, `BJP` → भाजपा; the rest are transliterated,
+  `ED` → ईडी, `ACB` → एसीबी, `FIR` → एफआईआर), and (3) strips any residual Latin run. Numbers/dates
+  (`10-12`, `9:32`) and paragraph breaks are preserved. `event_type`/`severity` stay English enums
+  (they drive CSS/cadence, never shown).
 - Outlet brand names are **transliterated** to Devanagari (e.g. `Times of India` →
   टाइम्स ऑफ इंडिया, `NDTV` → एनडीटीवी); unknown outlets are dropped rather than shown in English.
 - Clock and dates are Hindi (e.g. `शाम 5:22 बजे`, `रविवार, 12 जुलाई 2026`). `<html lang="hi">`.
@@ -113,12 +142,18 @@ it; the story body follows directly. Section order below the header:
 - **Every Rajasthan story is archived each run — not just the lead** (`ingest_cluster` for all
   clusters, then a single `prune_archive`), so an ongoing story keeps gaining points even on days
   it isn't the headline, instead of the timeline collapsing to one day.
-- **Web enrichment (`enrich_lead`):** once the single lead is chosen, the pipeline runs targeted
-  Google News RSS searches built from the lead's most distinctive terms (`when:7d`/`when:30d`) and
-  folds **only genuinely-related** items (same story: they must share ≥2 of the lead's terms, be
-  Rajasthan-local, and not be a digest) into the lead cluster and archive. This is the "search the
-  web for the same story and find related feeds" step — it gives the timeline more granular,
-  timestamped, multi-outlet points without changing the chosen headline.
+- **Accountability-angled web enrichment (`enrich_lead`):** once the single lead is chosen, the
+  pipeline runs targeted Google News RSS searches to **deepen the story from the accountability
+  angle** — besides the two base windows built from the lead's distinctive terms (`when:7d`/
+  `when:30d`), it adds **angle queries** that combine the lead's subject with
+  `ACCOUNTABILITY_ANGLE_TERMS` (negligence/delay/compensation/rehabilitation/protest/victim/probe/…)
+  and, when the story names an authority (`ACCOUNTABILITY_SUBJECTS`: govt/JDA/police/…), a query
+  about **that authority's handling** of the topic. So the related search actively pulls coverage
+  that *questions the government/police* on this story, not more same-angle reporting. A related item
+  folds in if it is Rajasthan-local, not a digest, and either shares ≥`ENRICH_MIN_SHARED` (2) of the
+  lead's terms **or** shares ≥1 term **and** carries a failure signal (`FAILURE_TERMS`); an unrelated
+  item (0 shared terms) never folds in, so the page stays single-focus. This gives the timeline,
+  title and description more granular, multi-outlet, accountability-focused points (`ENRICH_MAX=16`).
 - **Wider-window backfill:** `ARCHIVAL_QUERIES` (`when:14d`/`when:30d`, bribery/policy-themed) pull
   the weeks of coverage that preceded today so a newly-prominent story shows a real multi-week
   timeline immediately. These items are tagged `archival` and — being older than `FRESH_LEAD_HOURS`

@@ -66,7 +66,7 @@ NEWS_SITE = "https://news.manzill.com"
 # Bump whenever the rendered output (template/RSS/sitemap format) changes. A mismatch
 # with the value stored in state forces a one-time re-render even when the feed is
 # unchanged, so a redesign rolls out on the next scheduled run without a manual push.
-RENDER_VERSION = "15"
+RENDER_VERSION = "17"
 
 # strftime has no Hindi locale, so map month names for the Hindi date/time strings.
 HINDI_MONTHS = [
@@ -96,6 +96,22 @@ HINDI_SOURCE = {
     "outlook india": "आउटलुक", "lokmat": "लोकमत", "lokmat times": "लोकमत",
 }
 
+# English acronyms / org names → their conventional Hindi form. The page is Devanagari-only, so the
+# to_hindi() sanitizer rewrites any of these that slip through the AI's output. Well-known orgs get
+# their full Hindi name; the rest are transliterated (see to_hindi). Keys are lowercased; matching is
+# whole-token (Latin-boundary) so digits/dates are never touched. Curated to avoid ambiguous
+# two-letter English words.
+ORG_HI = {
+    "jda": "जयपुर विकास प्राधिकरण", "jmc": "जयपुर नगर निगम", "jdc": "जयपुर विकास प्राधिकरण",
+    "bjp": "भाजपा", "congress": "कांग्रेस", "inc": "कांग्रेस", "aap": "आम आदमी पार्टी",
+    "ed": "ईडी", "acb": "एसीबी", "cbi": "सीबीआई", "eow": "आर्थिक अपराध शाखा",
+    "rghs": "आरजीएचएस", "rpsc": "आरपीएससी", "reet": "रीट", "neet": "नीट", "gst": "जीएसटी",
+    "fir": "एफआईआर", "rti": "आरटीआई", "pil": "जनहित याचिका", "ncr": "एनसीआर",
+    "ips": "आईपीएस", "ias": "आईएएस", "ras": "आरएएस", "sho": "एसएचओ", "dsp": "डीएसपी",
+    "sdm": "एसडीएम", "sp": "एसपी", "dm": "डीएम", "cm": "मुख्यमंत्री", "pm": "प्रधानमंत्री",
+    "mla": "विधायक", "acp": "एसीपी", "ssp": "एसएसपी", "adg": "एडीजी", "dgp": "डीजीपी",
+}
+
 # --------------------------------------------------------------------------- #
 # Feeds & scoring
 # --------------------------------------------------------------------------- #
@@ -121,6 +137,12 @@ FEED_QUERIES = [
     "(corruption OR bribe OR illegal OR negligence OR encroachment OR demolition OR scam) when:2d",
     # Broad Jaipur catch so a big Jaipur policy/bribery story is never missed by the narrow queries.
     "Jaipur (corruption OR bribe OR scam OR negligence OR protest OR probe) when:1d",
+    # Citizen grievances & harm that put the AUTHORITIES in question — protests against the govt,
+    # denied compensation/rehabilitation, evictions, custodial/negligence deaths, cover-ups. This is
+    # accountability-first sourcing: news that questions the government/police, not incidental crime.
+    "Jaipur OR Rajasthan (protest OR agitation OR gherao OR victim OR \"no compensation\" "
+    "OR rehabilitation OR eviction OR \"custodial death\" OR negligence OR dereliction OR \"cover up\") "
+    "(government OR administration OR police OR JDA OR municipal OR minister) when:2d",
 ]
 
 # Wider-window BACKFILL queries. Items from these seed a story's multi-week timeline (the archive)
@@ -132,6 +154,9 @@ ARCHIVAL_QUERIES = [
     "OR embezzlement OR kickback OR graft) when:14d",
     "Jaipur OR Rajasthan (government OR department OR officer) (negligence OR \"policy failure\" "
     "OR mismanagement OR probe OR investigation OR \"charge sheet\" OR court OR suspended) when:30d",
+    # Backfill the accountability arc: weeks of coverage questioning the authorities' handling.
+    "Jaipur OR Rajasthan (protest OR victim OR compensation OR eviction OR custodial OR negligence "
+    "OR dereliction OR \"cover up\") (government OR police OR administration OR JDA) when:30d",
 ]
 
 # --------------------------------------------------------------------------- #
@@ -284,6 +309,28 @@ BRIBE_TERMS = [
     "misappropriat", "disproportionate assets", "trap case", "caught taking",
     "demanding money", "illegal gratification", "ghoos", "ghus",
 ]
+
+# Neutral government/police ACTION words: they pass is_policy_beat (via ISSUE_KEYWORDS["governance"])
+# but by themselves are the state DOING ITS JOB (clearing illegal builds, evicting, raiding, seizing).
+# A lead built only on these reads as praising the government — see has_failure_angle / apply_policy_lead.
+NEUTRAL_ACTION_TERMS = {
+    "encroachment", "illegal", "flouting", "violation", "bulldozer", "demolition",
+    "demolished", "demolish", "eviction", "evicted", "raid", "raided", "seized", "seizure", "razed",
+}
+# Genuine government/police accountability-FAILURE signals: the governance/disorder failure words
+# (minus the neutral-action ones above) + every bribery term + explicit negligence/delay/citizen-harm
+# words. has_failure_angle() requires one of these so a "govt did its job" story can't lead.
+FAILURE_TERMS = (
+    [t for t in ISSUE_KEYWORDS["governance"] if t not in NEUTRAL_ACTION_TERMS]
+    + ISSUE_KEYWORDS["disorder"]
+    + BRIBE_TERMS
+    + [
+        "delay", "delayed", "pending", "stalled", "stall", "ignored", "unheeded",
+        "no compensation", "without compensation", "no rehabilitation", "unpaid", "denied",
+        "victim", "displaced", "homeless", "rendered homeless", "protest", "outcry", "suffer",
+        "death", "deaths", "died", "killed", "without notice", "no notice", "arbitrary",
+    ]
+)
 
 # Ceremonial / feel-good news that must not lead the "breaking" slot (see is_ceremonial &
 # apply_policy_lead). Only demoted when the cluster carries no serious severity and no issue
@@ -476,6 +523,28 @@ def is_policy_beat(cluster: dict) -> bool:
     if any(t in text for t in ISSUE_KEYWORDS["governance"]):
         return True
     return bool(cluster.get("police_flag"))
+
+
+def has_failure_angle(cluster: dict) -> bool:
+    """True if the cluster carries a genuine government/police accountability-FAILURE signal —
+    bribery, negligence, delay, dereliction, breakdown, citizen harm, or police misconduct — as
+    opposed to a merely neutral state action (a clean demolition/eviction/raid). Used by
+    apply_policy_lead to keep a 'govt did its job' story out of the lead slot, so the page never
+    reads as praising the government. Purely lexical — it never invents wrongdoing."""
+    text = " " + _cluster_text(cluster) + " "
+    if any(t in text for t in FAILURE_TERMS):
+        return True
+    return bool(cluster.get("police_flag"))
+
+
+def questions_authority(cluster: dict) -> bool:
+    """True if the cluster puts an ACCOUNTABILITY SUBJECT (state government / JDA / municipal /
+    minister / police / administration) UNDER QUESTION — it names such an authority AND carries a
+    failure/accountability signal. This is the page's core editorial test: every lead should question
+    the government/police, not merely report an incident. Purely lexical — never invents wrongdoing."""
+    text = " " + _cluster_text(cluster) + " "
+    names_authority = any(s in text for s in ACCOUNTABILITY_SUBJECTS) or bool(cluster.get("police_flag"))
+    return names_authority and has_failure_angle(cluster)
 
 
 def is_ceremonial(cluster: dict) -> bool:
@@ -723,7 +792,13 @@ def apply_policy_lead(clusters: list[dict]) -> list[dict]:
                     if c.get("fresh", True) and c.get("policy_flag") and not c.get("ceremonial")]
     if not fresh_policy:
         return []  # no fresh policy/bribery story — build() keeps the last good policy page
-    lead = fresh_policy[0]  # already score-sorted (Jaipur boost baked in)
+    # Lead with a story that puts the government/police UNDER QUESTION (names an authority + has a
+    # failure angle); then any accountability-failure story; then, only if neither exists, the best
+    # fresh policy cluster. Each tier is score-sorted, and the final fallback keeps the lead from ever
+    # emptying (which would re-freeze the page) and stops a neutral "govt did its job" action leading.
+    authority_leads = [c for c in fresh_policy if questions_authority(c)]
+    failure_leads = [c for c in fresh_policy if has_failure_angle(c)]
+    lead = (authority_leads or failure_leads or fresh_policy)[0]
     return [lead] + [c for c in clusters if c is not lead]
 
 
@@ -798,7 +873,15 @@ def groq_analyze(api_key: str, clusters: list[dict], points: list[dict]) -> dict
     system = (
         "आप राजस्थान (भारत) की एक हिंदी न्यूज़ वेबसाइट के वरिष्ठ जवाबदेही (accountability) संपादक हैं। "
         "यह पेज केवल एक बीट पर केंद्रित है: सरकारी/पुलिस भ्रष्टाचार, रिश्वतखोरी और नीतिगत नाकामी "
-        "(policy incompetence)। दिए गए फ़ीड आइटम और घटनाक्रम इतिहास (story_history — शीर्षक अंग्रेज़ी में "
+        "(policy incompetence)। आपका दृष्टिकोण हमेशा आम नागरिक/पीड़ित का है, सरकार का नहीं — हर खबर में "
+        "आम लोगों पर पड़े असर, उनके हक़ और जवाबदेही को केंद्र में रखें, सरकारी कार्रवाई की तटस्थ या "
+        "प्रशंसात्मक रिपोर्टिंग कभी न करें। यह एक वॉचडॉग (निगरानी) पेज है: हर पोस्ट में — शीर्षक, विश्लेषण "
+        "और घटनाक्रम — राज्य सरकार, जेडीए/नगर निगम, प्रशासन और पुलिस को कठघरे में रखें: ज़िम्मेदार "
+        "प्राधिकरण का नाम लें, उन्होंने क्या किया या करने में क्या चूक/देरी की, और जवाबदेही के सीधे सवाल "
+        "उठाएँ। story_history में इसी विषय की कई स्रोतों की संबंधित कवरेज है — उन सबको मिलाकर एक ही सुसंगत, "
+        "गहरी खबर बनाएँ (कई असंबंधित घटनाएँ न मिलाएँ)। (मर्यादा: केवल स्रोतों में मौजूद तथ्य व सीधे सवाल; "
+        "किसी नामित व्यक्ति/पार्टी पर मनगढ़ंत आरोप, राशि या तथ्य कभी न गढ़ें।) दिए गए फ़ीड आइटम और घटनाक्रम "
+        "इतिहास (story_history — शीर्षक अंग्रेज़ी में "
         "हो सकते हैं) की जानकारी का ही उपयोग करें और तथ्यों को स्वाभाविक, शुद्ध, विस्तृत हिंदी में लिखें। "
         "अत्यंत महत्वपूर्ण: पूरी रिपोर्ट एक ही खबर/मामले पर केंद्रित रहे — कई असंबंधित घटनाओं को एक शीर्षक "
         "या रिपोर्ट में कभी न मिलाएँ। यदि lead_story में कई असंबंधित घटनाएँ दिखें, तो केवल भ्रष्टाचार/"
@@ -819,8 +902,16 @@ def groq_analyze(api_key: str, clusters: list[dict], points: list[dict]) -> dict
         "रिश्वत की राशि या तथ्य कभी न गढ़ें; कभी मनगढ़ंत आरोप न लगाएँ। "
         "यदि स्रोतों में पुलिस/प्रशासन की लापरवाही, देरी, चूक, नाकामी या आलोचना हो, तो उसे "
         "'police_accountability' में स्पष्ट व प्रमुखता से, तथ्यों के साथ उजागर करें। "
-        "सभी टेक्स्ट फ़ील्ड पूरी तरह देवनागरी हिंदी में हों — कोई अंग्रेज़ी वाक्य नहीं; केवल event_type "
-        "और severity अंग्रेज़ी enum में रहें। सिर्फ़ मान्य JSON लौटाएँ।"
+        "नागरिक-प्रथम कोण अनिवार्य: जब सरकार/जेडीए/पुलिस कोई कार्रवाई करे (जैसे ध्वंस, छापेमारी), तो "
+        "प्रभावित आम लोगों का पक्ष ज़रूर उठाएँ — क्या उन्हें मुआवज़ा, पुनर्वास, उचित नोटिस/प्रक्रिया मिली, "
+        "उनके हक़ की रक्षा हुई या नहीं। जहाँ स्रोत इन पर चुप हों, वहाँ इन्हें खुले जवाबदेही-सवाल के रूप में "
+        "उठाएँ (जैसे 'प्रभावितों को मुआवज़ा/पुनर्वास मिलेगा या नहीं, यह स्पष्ट नहीं') — उत्तर कभी न गढ़ें। "
+        "भाषा नियम (कठोर): हर दृश्य फ़ील्ड पूरी तरह देवनागरी में हो — कोई रोमन/अंग्रेज़ी अक्षर, शब्द या "
+        "संक्षिप्ति नहीं (JDA→जयपुर विकास प्राधिकरण, BJP→भाजपा, ED→ईडी, ACB→एसीबी, FIR→एफआईआर जैसी सभी "
+        "संक्षिप्तियाँ देवनागरी में लिखें)। किसी फ़ील्ड/इनपुट का नाम या स्रोत-टैग कोष्ठक में कभी न लिखें — "
+        "'(analysis)', '(lead_story)', '(other_stories)', '(लीड स्रोत)' जैसे टैग पूर्णतः वर्जित; श्रेय केवल "
+        "असली प्राधिकरण/आउटलेट के हिंदी नाम से दें या कुछ न लिखें। केवल event_type और severity अंग्रेज़ी enum "
+        "में रहें। सिर्फ़ मान्य JSON लौटाएँ।"
     )
     user = {
         "task": "राजस्थान की एक भ्रष्टाचार/रिश्वत/नीतिगत-नाकामी की प्रमुख खबर की गहराई से, बहु-दिवसीय, "
@@ -830,13 +921,21 @@ def groq_analyze(api_key: str, clusters: list[dict], points: list[dict]) -> dict
         "lead_sources_en": lead_sources,
         "other_stories_en": [c["headline"] for c in others],
         "output_schema": {
-            "lead_headline": "एक ही घटना/मामले का संक्षिप्त, सटीक हिंदी शीर्षक (कई खबरें न मिलाएँ)",
+            "lead_headline": "एक ही घटना/मामले का संक्षिप्त, सटीक हिंदी शीर्षक (कई खबरें न मिलाएँ) — जो "
+                             "सरकार/जेडीए/पुलिस/प्रशासन की जवाबदेही और आम नागरिक पर असर को केंद्र में रखे "
+                             "(लापरवाही, देरी, चूक, नाकामी, भ्रष्टाचार, अनदेखी, या मुआवज़ा/पुनर्वास/हक़ का "
+                             "सवाल)। इसे कभी तटस्थ या सरकारी उपलब्धि/प्रशंसा के रूप में न लिखें; भले ही घटना "
+                             "सरकारी कार्रवाई (ध्वंस/छापेमारी) हो, शीर्षक उसके पीछे की विफलता/देरी या "
+                             "प्रभावितों के सवाल को उजागर करे (जैसे 'ध्वंस तो हुआ, पर प्रभावितों को मुआवज़ा?', "
+                             "'वर्षों की अनदेखी के बाद देरी से कार्रवाई पर सवाल')",
             "event_type": "one of: bribery, corruption, scam, investigation, "
                           "negligence, civic, protest, crime, other",
             "severity": "one of: critical, high, medium, low",
             "analysis": "3-4 सुसंगत, बहु-वाक्य पैराग्राफ की विस्तृत हिंदी रिपोर्ट (प्रवाहमय गद्य, "
                         "टुकड़ों में नहीं) — केवल इसी एक मामले की पृष्ठभूमि, कौन/कौन-सा विभाग शामिल, "
-                        "क्या आरोप/कितनी राशि, शुरुआत से अब तक का घटनाक्रम, मौजूदा स्थिति; "
+                        "क्या आरोप/कितनी राशि, शुरुआत से अब तक का घटनाक्रम, मौजूदा स्थिति; और आम "
+                        "नागरिक/प्रभावितों पर असर व उनके हक़ (मुआवज़ा/पुनर्वास/उचित प्रक्रिया) का प्रश्न "
+                        "ज़रूर उठाएँ (स्रोत चुप हों तो खुले सवाल के रूप में, उत्तर न गढ़ें); "
                         "हर पैराग्राफ में कई वाक्य हों; पैराग्राफ \\n\\n से अलग करें",
             "key_facts": "6-8 हिंदी बिंदुओं की array (सटीक तथ्य: कौन, विभाग/पद, राशि, धारा, कार्रवाई)",
             "developments": "objects की array [{date_label, text}] — मामले का विस्तृत, क्रमवार "
@@ -854,10 +953,13 @@ def groq_analyze(api_key: str, clusters: list[dict], points: list[dict]) -> dict
                             "लेबल दें (जैसे 'पृष्ठभूमि', 'शिकायत के बाद', 'जाँच के दौरान', 'अब तक', 'आगे') — "
                             "मनगढ़ंत घड़ी-समय या तिथि कभी न दें। "
                             "text = 2-3 सुस्पष्ट हिंदी वाक्य — उस चरण में क्या हुआ, किसने/किस विभाग/अधिकारी ने, "
-                            "कितनी राशि या क्या आरोप/कार्रवाई, और स्रोत का हवाला (जैसे 'एसीबी के अनुसार')",
+                            "कितनी राशि या क्या आरोप/कार्रवाई, प्रभावित नागरिकों पर असर; और जहाँ ज़रूरी हो, "
+                            "श्रेय केवल असली प्राधिकरण/आउटलेट के हिंदी नाम से दें (जैसे 'एसीबी के अनुसार') या "
+                            "कुछ नहीं — किसी इनपुट फ़ील्ड का नाम या अंग्रेज़ी टैग कभी न लिखें",
             "police_accountability": "हिंदी पैराग्राफ — पुलिस/प्रशासन की लापरवाही/देरी/चूक/"
                                      "आलोचना के प्रमाणित तथ्य; यदि स्रोतों में कुछ नहीं तो खाली स्ट्रिंग",
-            "what_next": "1-2 हिंदी वाक्य — आगे क्या संभावित/अपेक्षित है (जाँच, चार्जशीट, अदालत आदि)",
+            "what_next": "1-2 हिंदी वाक्य — आगे क्या संभावित/अपेक्षित है (जाँच, चार्जशीट, अदालत आदि); और "
+                         "प्रभावित नागरिकों को क्या राहत/मुआवज़ा/न्याय या कानूनी विकल्प मिल सकता है, यह भी बताएँ",
             "sources_hi": "हिंदी एक-पंक्ति शीर्षकों की array — lead_sources_en के समान क्रम व संख्या में",
             "other_stories": "objects {headline, summary} की array हिंदी में — "
                              "other_stories_en के समान क्रम व संख्या में",
@@ -1114,10 +1216,25 @@ def _build_cluster(items: list[dict]) -> dict:
 
 
 # Web-enrichment tuning. ENRICH_MAX caps how many related items are folded in per run; a related item
-# is kept only if it shares at least ENRICH_MIN_SHARED of the lead's distinctive query terms, so the
-# enrichment stays on the SAME single story instead of pulling in other bribery cases.
-ENRICH_MAX = 12
+# is kept when it shares ENRICH_MIN_SHARED of the lead's distinctive query terms, OR shares ≥1 term
+# AND carries an accountability-failure signal (so coverage questioning the authorities on the same
+# topic is admitted) — while unrelated bribery cases still aren't. See enrich_lead.
+ENRICH_MAX = 16
 ENRICH_MIN_SHARED = 2
+
+# Accountability-angle terms appended to the post-selection related search, so enrichment actively
+# pulls coverage that QUESTIONS the government/police on the chosen topic (their negligence, delay,
+# the victims, denied compensation, protests, probes) instead of more same-angle/celebratory
+# coverage. Used to build the extra enrich_lead queries (English — matched against English feeds).
+ACCOUNTABILITY_ANGLE_TERMS = [
+    "negligence", "delay", "lapse", "dereliction", "compensation", "rehabilitation",
+    "protest", "victim", "probe", "inquiry", "action", "responsibility", "accountability",
+    "suspended", "cover up", "custodial", "apathy", "grievance", "demand",
+]
+# A compact OR-clause of the highest-signal angle terms for a Google News query (kept short so the
+# query stays valid and focused).
+_ANGLE_OR = ("negligence OR delay OR compensation OR rehabilitation OR protest OR victim OR probe "
+             "OR action OR responsibility OR suspended OR dereliction OR custodial")
 
 
 def _lead_query_terms(cluster: dict, max_terms: int = 5) -> list[str]:
@@ -1129,6 +1246,14 @@ def _lead_query_terms(cluster: dict, max_terms: int = 5) -> list[str]:
                cluster.get("headline", ""))
     toks = sorted(keywords(rep), key=lambda t: (len(t), t), reverse=True)
     return toks[:max_terms]
+
+
+def _has_accountability_signal(it: dict) -> bool:
+    """True if a single feed item carries a government/police accountability-failure signal
+    (FAILURE_TERMS) — used by enrich_lead to admit related coverage that questions the authorities
+    on the chosen topic, not just more same-angle reporting."""
+    txt = " " + normalize(it["title"] + " " + it.get("summary", "")) + " "
+    return any(t in txt for t in FAILURE_TERMS)
 
 
 def enrich_lead(cluster: dict, items: list[dict]) -> dict:
@@ -1144,8 +1269,21 @@ def enrich_lead(cluster: dict, items: list[dict]) -> dict:
     core = " ".join(terms)
     core_terms = set(terms)
     need = min(ENRICH_MIN_SHARED, len(core_terms))
-    # A locality anchor keeps the related search in Rajasthan; two windows widen the timeline arc.
-    queries = [f"Rajasthan OR Jaipur {core} when:7d", f"{core} when:30d"]
+    subject = terms[0]  # the single most distinctive token (a name / department / place)
+    # A locality anchor keeps the related search in Rajasthan; the two base windows widen the arc, and
+    # the angle queries actively pull coverage that QUESTIONS the authorities on this topic (their
+    # negligence/delay, victims, compensation, protests) instead of more same-angle reporting.
+    queries = [
+        f"Rajasthan OR Jaipur {core} when:7d",
+        f"{core} when:30d",
+        f"Rajasthan OR Jaipur {subject} ({_ANGLE_OR}) when:30d",
+    ]
+    # If the story names an accountability subject (govt/JDA/police/minister…), search that
+    # authority's handling of the topic directly.
+    ctext = " " + _cluster_text(cluster) + " "
+    subj = next((s.strip() for s in ACCOUNTABILITY_SUBJECTS if s in ctext and len(s.strip()) > 2), None)
+    if subj:
+        queries.append(f"Rajasthan OR Jaipur {subject} \"{subj}\" ({_ANGLE_OR}) when:30d")
 
     seen = {normalize(i["title"])[:80] for i in cluster["items"]}
     extra: list[dict] = []
@@ -1156,10 +1294,14 @@ def enrich_lead(cluster: dict, items: list[dict]) -> dict:
             key = normalize(it["title"])[:80]
             if not key or key in seen or is_roundup(it):
                 continue
-            it_kw = keywords(it["title"] + " " + it.get("summary", ""))
-            if len(core_terms & it_kw) < need:
-                continue  # not clearly the same story — skip so the timeline stays single-focus
             if not is_local({"items": [it]}):
+                continue
+            it_kw = keywords(it["title"] + " " + it.get("summary", ""))
+            shared = len(core_terms & it_kw)
+            # Same story: enough shared distinctive terms, OR ≥1 shared term plus an accountability
+            # signal (so coverage questioning the authorities on this topic folds in) — but never an
+            # unrelated item (0 shared terms), so the page stays single-focus.
+            if shared < need and not (shared >= 1 and _has_accountability_signal(it)):
                 continue
             extra.append(it)
             seen.add(key)
@@ -1366,26 +1508,30 @@ def build() -> None:
 def _lead_from_ai(ai: dict, clusters: list[dict]) -> tuple[dict | None, list[dict]]:
     """Map the Groq Hindi JSON onto the render model. Returns (lead, other_stories)."""
     top = clusters[0]
-    headline = (ai.get("lead_headline") or "").strip()
+    # to_hindi() strips English/acronyms/field-name tags from every VISIBLE field (not the
+    # event_type/severity enums, which drive CSS/cadence) so the page stays Devanagari-only.
+    headline = to_hindi((ai.get("lead_headline") or "").strip())
+    if not headline:
+        headline = to_hindi(top.get("headline", ""))   # de-Latinised cluster headline as fallback
     if not headline:
         return None, []
     severity = (ai.get("severity") or top["severity"]).strip().lower()
     if severity not in CADENCE_MINUTES:
         severity = top["severity"]
     event_type = (ai.get("event_type") or "other").strip().lower()
-    analysis = (ai.get("analysis") or "").strip()
+    analysis = to_hindi((ai.get("analysis") or "").strip())
 
-    key_facts = [str(f).strip() for f in (ai.get("key_facts") or []) if str(f).strip()][:8]
-    police = (ai.get("police_accountability") or "").strip()
-    what_next = (ai.get("what_next") or "").strip()
+    key_facts = [t for f in (ai.get("key_facts") or []) if (t := to_hindi(str(f).strip()))][:8]
+    police = to_hindi((ai.get("police_accountability") or "").strip())
+    what_next = to_hindi((ai.get("what_next") or "").strip())
 
     developments = []
     for d in (ai.get("developments") or [])[:TIMELINE_MAX]:
         if isinstance(d, dict):
-            text = (d.get("text") or "").strip()
-            label = (d.get("date_label") or d.get("label") or "").strip()
+            text = to_hindi((d.get("text") or "").strip())
+            label = to_hindi((d.get("date_label") or d.get("label") or "").strip())
         else:
-            text, label = str(d).strip(), ""
+            text, label = to_hindi(str(d).strip()), ""
         if text:
             developments.append({"label": label, "text": text})
 
@@ -1395,7 +1541,7 @@ def _lead_from_ai(ai: dict, clusters: list[dict]) -> tuple[dict | None, list[dic
     for i, s in enumerate(src_objs):
         hi = None
         if i < len(sources_hi) and isinstance(sources_hi[i], str) and sources_hi[i].strip():
-            hi = sources_hi[i].strip()
+            hi = to_hindi(sources_hi[i].strip()) or None
         sources.append({"title_hi": hi, "url": s["url"],
                         "source": s["source"], "published": s["published"]})
 
@@ -1418,13 +1564,13 @@ def _lead_from_ai(ai: dict, clusters: list[dict]) -> tuple[dict | None, list[dic
     for i, c in enumerate(others):
         if i >= len(os_ai) or not isinstance(os_ai[i], dict):
             continue
-        hl = (os_ai[i].get("headline") or "").strip()
+        hl = to_hindi((os_ai[i].get("headline") or "").strip())
         if not hl:
             continue
         src = cluster_sources(c, limit=1)
         other_stories.append({
             "headline": hl,
-            "summary": (os_ai[i].get("summary") or "").strip(),
+            "summary": to_hindi((os_ai[i].get("summary") or "").strip()),
             "url": src[0]["url"] if src else PAGE_URL,
             "source": src[0]["source"] if src else "",
         })
@@ -1469,6 +1615,59 @@ def hindi_source(name: str) -> str:
     """Devanagari outlet name for the common outlets; empty for unknown ones so no
     English brand text leaks onto the page."""
     return HINDI_SOURCE.get((name or "").strip().lower(), "")
+
+
+# Internal JSON field names the model sometimes echoes as a bogus "(source)" tag — always stripped.
+_PROVENANCE_TAGS = {
+    "analysis", "lead_story", "lead story", "other_stories", "other stories", "story_history",
+    "story history", "key_facts", "key facts", "what_next", "developments", "development",
+    "sources", "source", "sources_hi", "lead_sources_en", "other_stories_en", "output_schema",
+    "लीड स्रोत", "लीड-स्रोत", "स्रोत", "मुख्य स्रोत",
+}
+_LATIN_RE = re.compile(r"[A-Za-z]")
+_PAREN_RE = re.compile(r"[（(]\s*([^()（）]*?)\s*[)）]")
+# Whole-token match of a known acronym/org (Latin boundaries so digits/dates are untouched).
+_ORG_RE = re.compile(
+    r"(?<![A-Za-z])(" + "|".join(re.escape(k) for k in sorted(ORG_HI, key=len, reverse=True)) + r")(?![A-Za-z])",
+    re.IGNORECASE,
+)
+
+
+def to_hindi(text: str) -> str:
+    """Force a visible AI text field to Devanagari-only.
+
+    The /breaking page must never show English. The model sometimes (a) appends its input field
+    name as a fake citation — '(analysis)', '(lead_story)', '(other_stories)' — and (b) leaves
+    English acronyms (JDA, BJP, ED, ACB, FIR…) in the prose. This deterministic pass, applied to
+    every visible field in _lead_from_ai, guarantees a clean page regardless of the model:
+      1. drop provenance/Latin parenthetical tags — '(analysis)', '(JDA)', '(लीड स्रोत)';
+      2. rewrite known acronyms to their conventional Hindi form (ORG_HI);
+      3. strip any residual Latin run (unknown English) — 'not allowed at all';
+      4. tidy whitespace, empty brackets and stray space before Hindi punctuation.
+    Numbers and dates (10-12, 9:32) are preserved; newlines (paragraph breaks) are kept."""
+    if not text:
+        return text
+
+    def _drop_paren(m: "re.Match") -> str:
+        inner = m.group(1).strip()
+        low = inner.lower()
+        if low in _PROVENANCE_TAGS:
+            return ""
+        # a parenthetical that is purely Latin/acronym (e.g. '(analysis)', '(JDA)', '(policy)')
+        if inner and _LATIN_RE.search(inner) and re.fullmatch(r"[A-Za-z0-9 _./&'\-]+", inner):
+            return ""
+        return m.group(0)
+
+    text = _PAREN_RE.sub(_drop_paren, text)
+    text = _ORG_RE.sub(lambda m: ORG_HI[m.group(1).lower()], text)
+    text = _LATIN_RE.sub("", text)               # strip any leftover English letters
+    text = re.sub(r"[（(]\s*[)）]", "", text)      # drop now-empty brackets
+    text = re.sub(r"[（(]\s+", "(", text)
+    text = re.sub(r"\s+[)）]", ")", text)
+    text = re.sub(r"[^\S\n]+", " ", text)         # collapse spaces/tabs, keep newlines
+    text = re.sub(r" *\n *", "\n", text)
+    text = re.sub(r"\s+([।,;:.!?])", r"\1", text)  # no space before punctuation
+    return text.strip()
 
 
 def _src_time(s: dict) -> str:

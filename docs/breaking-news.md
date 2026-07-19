@@ -90,9 +90,11 @@ it; the story body follows directly. Section order below the header:
 1. **livebar** — a slim meta strip just above the headline: **अंतिम अपडेट** (Hindi date/time),
    a **↻ रिफ्रेश** button, and the wordmark **जयपुर न्यूज़** (→ news.manzill.com) at the right.
    No severity badge (removed).
-2. **पूरी खबर** — detailed analysis written as **flowing prose: 3–5 cohesive, multi-sentence
-   paragraphs** (background → full chronology from first report to now → current status).
-   Not many short one-line fragments.
+2. **पूरी खबर** — written as **hard breaking-news reportage, not an editorial**: 3–4 cohesive
+   paragraphs that **open with the newest / most significant development (inverted pyramid)**, then
+   background → chronology → current status. It holds the govt/JDA/police to account through
+   **reported, attributed** facts and demands ("विपक्ष ने मांग की", "नागरिकों ने सवाल उठाया") — never
+   the outlet's own prescription ("सरकार को … करना चाहिए") or government praise. Not one-line fragments.
 3. **घटनाक्रम — शुरुआत से अब तक** — a **rich, multi-step** dated timeline as a top-to-bottom
    **dot-line-dot** chain, **oldest at top → newest at bottom** (past → present). The AI narrates
    **6–12 steps (at least 5)**: every dated archived point **plus** the case's process/narrative
@@ -119,10 +121,15 @@ it; the story body follows directly. Section order below the header:
    when the sources report it; **never fabricated**. Accent-styled card.
 6. **आगे क्या** — short outlook.
 7. **स्रोत** — source cards (Hindi titles, same-tab links).
-8. **यह भी ब्रेकिंग** ("is also breaking") — other **current** on-beat stories from the rest of
-   Rajasthan (only fresh clusters that themselves pass `is_policy_beat`; archive-only backfill and
-   off-beat items never show here). **Police-incompetence and higher-`issue_rank` stories are
-   front-loaded** (`order_secondary`: police first, then `issue_rank>0`, then the rest by score).
+8. **यह भी ब्रेकिंग** ("is also breaking") — other **current accountability** stories from the rest of
+   Rajasthan. As a watchdog page, a secondary card must itself **question the authorities**: the pool
+   is gated on **`has_failure_angle`** (a real bribery/negligence/delay/citizen-harm/police-misconduct
+   signal), so a neutral "govt did its job" action (a clean demolition/eviction/raid,
+   `NEUTRAL_ACTION_TERMS`) is **excluded even though it passes `is_policy_beat`** — a pro-government
+   item never leaks in. Each summary is a factual hard-news line on the failure/accountability angle,
+   never government praise. **Police-misconduct then `questions_authority` stories are front-loaded**
+   (`order_secondary`). Archive-only backfill and off-beat items never show here; an empty pool
+   renders no section.
    Police detection stays precise: an ordinary crime story that merely quotes the police is **not**
    flagged; only strong police-context misconduct (lathicharge, custodial, negligence, misconduct,
    suspension, dereliction, brutality…) or a force verb with the police as subject/agent counts.

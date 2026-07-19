@@ -63,7 +63,11 @@ back into the repo, which Pages then serves) — everything else is hand-authore
     + the named authority's handling) so the timeline/title/description are built from coverage that
     questions the govt/police. A headline must foreground the accountability & citizen-impact angle
     (मुआवज़ा/पुनर्वास/देरी/लापरवाही), never praise a state action; `has_failure_angle` keeps a "govt
-    did its job" story (`NEUTRAL_ACTION_TERMS`) out of the lead. **Devanagari-only is
+    did its job" story (`NEUTRAL_ACTION_TERMS`) out of **both** the lead *and* the "यह भी ब्रेकिंग"
+    secondary cards (`order_secondary` gates on `has_failure_angle`). **Voice = hard breaking-news, not
+    editorial:** the lead article opens with the newest development (inverted pyramid) and holds power
+    to account through **attributed** facts/demands ("विपक्ष ने मांग की") — never the outlet's own
+    "सरकार को करना चाहिए" prescription. **Devanagari-only is
     enforced in code**, not just prompted: `to_hindi()` (with the `ORG_HI` acronym map) strips every
     English word/acronym and the model's `(analysis)`/`(lead_story)` field-name tags from all visible
     fields in `_lead_from_ai`. Needs the repo secret **`GROQ_API_KEY`** (without it, a Hindi holding

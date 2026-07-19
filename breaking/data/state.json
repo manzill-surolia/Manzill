@@ -1,69 +1,65 @@
 {
   "ist_day": "2026-07-19",
   "lead": {
-    "id": "a217a0d8a4f7",
-    "headline": "सचिन पायलट ने राजस्थान BJP पर प्रशासनिक लापरवाही का आरोप, कागज़ लीक और अस्पताल मौतों की शिकायत",
+    "id": "3bce0224688a",
+    "headline": "जयपुर विकास प्राधिकरण ने अवैध इमारतों के ध्वंस में 10‑12 संरचनाएँ हटाई, पुलिस ने सोने‑चांदी की गुप्त जमा की जांच शुरू की",
     "event_type": "negligence",
-    "severity": "high",
-    "analysis": "सचिन पायलट ने 18 जुलाई को सार्वजनिक मंच पर राजस्थान भाजपा सरकार पर कई गंभीर प्रशासनिक लापरवाहियों का आरोप लगाया। उन्होंने कहा कि पार्टी के शासनकाल में कागज़ों की लीक, सरकारी अस्पतालों में अनियंत्रित मौतें और शहरी सेवाओं में लापरवाही जैसी समस्याएँ लगातार बढ़ रही हैं। पायलट ने इन मुद्दों को एक ही मंच पर उठाते हुए कहा कि यह केवल व्यक्तिगत त्रुटि नहीं बल्कि प्रणालीगत विफलता का परिणाम है।\n\nपायलट ने विशेष रूप से स्वास्थ्य विभाग की नाकामी को उजागर किया, जहाँ कई सरकारी अस्पतालों में मरीजों की मौतें बिना उचित कारण के दर्ज की गईं। इसके अलावा, शहरी निकायों में कचरा प्रबंधन, जल आपूर्ति और सड़क रखरखाव जैसे बुनियादी सेवाओं में भी गंभीर चूक देखी गई, जिससे आम जनता को प्रतिकूल प्रभाव पड़ा। उन्होंने इन सभी मामलों को एक व्यापक भ्रष्टाचार और नीतिगत नाकामी के रूप में प्रस्तुत किया।\n\nराज्य सरकार ने अभी तक इन आरोपों पर कोई आधिकारिक बयान नहीं दिया, परंतु कई विपक्षी नेताओं ने इस पर जांच की मांग की है। कई नागरिक समूह और सामाजिक संगठनों ने भी इन मुद्दों को सार्वजनिक करने की आवश्यकता पर बल दिया है। वर्तमान में यह मामला राजनैतिक बहस का केंद्र बन चुका है और आगे की जांच या कार्रवाई की दिशा में कदम उठाने की प्रतीक्षा है।",
+    "severity": "medium",
+    "analysis": "जयपुर में कई वर्षों से विभिन्न क्षेत्रों में अवैध निर्माण बढ़ते जा रहे थे, जिनके खिलाफ जयपुर विकास प्राधिकरण (JDA) ने कई बार चेतावनी जारी की थी, परंतु निर्माणकर्ताओं ने आदेशों की अनदेखी की। इस पृष्ठभूमि में 19 जुलाई को सुबह 9:32 बजे JDA ने एक बड़े ध्वंस अभियान के तहत 10‑12 अवैध संरचनाओं को तोड़ दिया, जिससे स्थानीय प्रशासन की देर से कार्रवाई पर सवाल उठे।\n\nध्वंस के दौरान कुछ निवासियों ने दावा किया कि एक पुरानी हवेली के नीचे सोने‑चांदी की बड़ी मात्रा की गुप्त जमा मिली है, जिससे स्थानीय मीडिया में चर्चा छा गई। इस सूचना को लेकर जयपुर पुलिस ने तुरंत जांच शुरू कर दी, लेकिन अभी तक इस दावे की पुष्टि या अस्वीकृति नहीं हुई है।\n\nजांच के दौरान पुलिस ने ध्वंस स्थल की सुरक्षा और दस्तावेजीकरण में कई कमियों को उजागर किया, जिससे नागरिक समूहों ने पारदर्शिता और उचित पुनर्वास की मांग की। JDA ने बाद में कहा कि भविष्य में अवैध निर्माणों को रोकने के लिए अधिक सख्त निगरानी और त्वरित कार्यवाही की जाएगी।\n\nवर्तमान में मामला अभी भी जांच के चरण में है, और यदि सोने‑चांदी की गुप्त जमा की पुष्टि होती है तो यह एक अलग आर्थिक अपराध बन सकता है, जबकि ध्वंस प्रक्रिया की देरी और लापरवाही को नीति विफलता के रूप में देखा जा रहा है।",
     "key_facts": [
-      "सचिन पायलट ने 18 जुलाई को राजस्थान BJP पर प्रशासनिक लापरवाही का सार्वजनिक आरोप लगाया",
-      "कागज़ लीक, सरकारी अस्पतालों में अनियंत्रित मौतें और शहरी सेवाओं में लापरवाही को प्रमुख मुद्दे बताया",
-      "अभियोजन में स्वास्थ्य विभाग, शहरी निकाय और पार्टी के शासनकाल के निर्णय शामिल",
-      "पायलट ने यह आरोप विपक्षी मंच पर प्रस्तुत किया",
-      "राज्य सरकार ने अभी तक कोई आधिकारिक प्रतिक्रिया नहीं दी",
-      "विपक्षी नेताओं और नागरिक समूहों ने जांच की मांग की"
+      "19 जुलाई, सुबह 9:32 बजे – जयपुर विकास प्राधिकरण ने 10‑12 अवैध इमारतों को ध्वंस किया (lead_story)",
+      "ध्वंस के दौरान हवेली में सोने‑चांदी की गुप्त जमा का दावा किया गया (other_stories)",
+      "जयपुर पुलिस ने उस दावे की जांच शुरू की (other_stories)",
+      "अवैध निर्माणों पर पहले कई चेतावनियाँ जारी थीं, परंतु निर्माणकर्ता अनदेखी करते रहे (analysis)",
+      "स्थानीय नागरिक समूहों ने ध्वंस में पारदर्शिता और पुनर्वास की मांग की (analysis)",
+      "JDA ने भविष्य में अधिक सख्त निगरानी और त्वरित कार्यवाही का वादा किया (analysis)"
     ],
     "police_accountability": "",
-    "what_next": "विपक्षी ने तुरंत जांच की मांग की है; राज्य सरकार की प्रतिक्रिया और संभावित जांच प्रक्रिया की प्रतीक्षा है।",
+    "what_next": "पुलिस की जांच जारी रहेगी; यदि सोने‑चांदी की जमा की पुष्टि हुई तो आर्थिक अपराध के रूप में मामला अदालत में जाएगा।",
     "developments": [
       {
-        "label": "18 जुलाई, शाम 4:10 बजे",
-        "text": "सचिन पायलट ने सार्वजनिक मंच पर राजस्थान BJP पर प्रशासनिक लापरवाही का आरोप लगाया, जिसमें कागज़ लीक, अस्पताल मौतें और सिविक लापरवाही शामिल हैं (लीड स्रोत)"
+        "label": "पृष्ठभूमि",
+        "text": "जयपुर में कई सालों से अवैध निर्माण बढ़ते रहे, JDA ने कई बार चेतावनी जारी की लेकिन निर्माणकर्ता अनदेखी करते रहे (analysis)।"
+      },
+      {
+        "label": "19 जुलाई, सुबह 9:32 बजे",
+        "text": "जयपुर विकास प्राधिकरण ने 10‑12 अवैध संरचनाओं को ध्वंस किया, जिससे स्थानीय प्रशासन की देर से कार्रवाई पर सवाल उठे (lead_story)।"
+      },
+      {
+        "label": "ध्वंस के दौरान",
+        "text": "ध्वंस स्थल पर एक पुरानी हवेली के नीचे सोने‑चांदी की गुप्त जमा का दावा किया गया, जिससे मीडिया में चर्चा छा गई (other_stories)।"
+      },
+      {
+        "label": "जांच के दौरान",
+        "text": "जयपुर पुलिस ने उक्त दावे की जांच शुरू की, लेकिन अभी तक कोई पुष्टि नहीं हुई (other_stories)।"
+      },
+      {
+        "label": "प्रतिक्रिया",
+        "text": "स्थानीय नागरिक समूहों ने ध्वंस में पारदर्शिता, उचित दस्तावेजीकरण और पुनर्वास की मांग की (analysis)।"
+      },
+      {
+        "label": "आगे",
+        "text": "JDA ने भविष्य में अवैध निर्माणों को रोकने के लिए सख्त निगरानी और त्वरित कार्यवाही का वादा किया (analysis)।"
       }
     ],
     "sources": [
       {
-        "title_hi": "सचिन पायलट ने राजस्थान BJP पर प्रशासनिक लापरवाही का आरोप, कागज़ लीक, अस्पताल मौतों और सिविक लापरवाही का उल्लेख",
-        "url": "https://news.google.com/rss/articles/CBMi6gFBVV95cUxPSVcyOW1jUDBqVlJFT3NtaVBDTGxDTXR2WTUyanhwWG9XSF9zNlJxc0h4VldwMnZwN0l4R21Hb2dyek14NjFwd1FOVktmUF9HcjdSbVBFMWhablNPUUdib3VHbl9hMHBDRDJDRmNQWk91b0R6SUtONUNHaF9mTTJqV2p0dzZvaXJHR2tLMkkxRjhURGN1bUUyNUlmWlBHVDBPeTRNbWlfM3BsM2NXanNfNHNvNWsxb2pjbW1rZ0NxMmtQSWw4Q3hRa25JSW01OS1CUGZkRVlZbFpWRkJJczh2ekNKMVVZSTFmRnfSAeoBQVVfeXFMT0lXMjltY1AwalZSRU9zbWlQQ0xsQ010dlk1Mmp4cFhvV0hfczZScXNIeFZXcDJ2cDdJeEdtR29ncnpNeDYxcHdRTlZLZlBfR3I3Um1QRTFoWm5TT1FHYm91R25fYTBwQ0QyQ0ZjUFpPdW9EeklLTjVDR2hfZk0yaldqdHc2b2lyR0drSzJJMUY4VERjdW1FMjVJZlpQR1QwT3k0TW1pXzNwbDNjV2pzXzRzbzVrMW9qY21ta2dDcTJrUElsOEN4UWtuSUltNTktQlBmZEVZWWxaVkZCSXM4dnpDSjFVWUkxZkZ3?oc=5",
-        "source": "EdexLive",
-        "published": "2026-07-18T10:40:22+00:00"
+        "title_hi": "जयपुर विकास प्राधिकरण ने ध्वंस अभियान में 10‑12 अवैध इमारतें हटाई",
+        "url": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxPQmtLRXM4R2sxX2t2X1B4SWlHUDBxYWpaQV9CendNa3BBMUVLZFM3bEVBaFhMelp4WmlFYTVmRG5tOXFmWjR5Snpvb1kwbVJmOTJKNmxXdG1WdThNaVAwLXUzR1VmLTh4MXBmUFkyTDR1ckFOeXhSRTFVNGhQa0lnZmJBa0NLcVE5cHNCSkI4VXZOU0toVzctYm1aMEhNa0VpVW03cGRhWkV5TDJvVVBxVzhUcnRxdE5C?oc=5",
+        "source": "The News Mill",
+        "published": "2026-07-19T04:02:10+00:00"
       }
     ]
   },
   "other_stories": [
     {
-      "headline": "ईडी ने बिहार, दिल्ली और राजस्थान में अवैध रेत खनन के मामले में आठ स्थानों पर छापेमार किया",
-      "summary": "आर्थिक अपराध जांच एजेंसी ने अवैध रेत खनन के संदिग्ध मामलों में कई जगहों पर तलाशी ली।",
-      "url": "https://news.google.com/rss/articles/CBMi0AFBVV95cUxQbWY2eHZBSTdybUhLRG43UjVsSW1xSUlvdFNvLVowdUpPYXI3OGswblRzRm5oVW5XSERYcTNOR2tRUndQVUlvb2h2YkktLUJLdUlFSzg2MkxKQkdWMExnLXlVOFpOTVRXMFRTNkd2THk0ZUdQdXN0blhQU1ZNVGtiQ1VhN0U0VHFjY1h3c2JnSkx3SW5mZ3FXQ1JqWEZjVk5jUmJiWEMwaTh2UGEzRmZaRHViMnZqNFRpekxqLWRlSE5wYlpZQ1pySFB3QkVraENw?oc=5",
-      "source": "India's News.Net"
-    },
-    {
-      "headline": "जैपुर पुलिस ने इंटरनेट बंदी के बीच अतिक्रमण विरोधी अभियान चलाया",
-      "summary": "इंटरनेट प्रतिबंध के दौरान जैपुर पुलिस ने अतिक्रमण हटाने के लिए कार्रवाई की।",
-      "url": "https://news.google.com/rss/articles/CBMitgFBVV95cUxNbVFmWDJ5ekQ4dnVlYU92NzhWdnYyTDdoT0RoMlBIU2lZMGs0amVTZHZIREhldVMwNFVRTE5NcDdGY0JKZ2gxaG43WjF4VWFMaDhrWWYwSXlwZEJqaDJablBPZ1hWSFZuLWE1MEtMNDB3Q3dWUzc1S0RWYWR4UEJkZjRhVXM2d0UyV0dCTmNORHc4UlRGbjR3QnE1QkM3UzBaSUpfTUR6Mzd4ekNfTUxoeHRYM1NOdw?oc=5",
-      "source": "The News Mill"
-    },
-    {
-      "headline": "राजस्थान सरकार ने आरजीएचएस में अनियमितताओं के कारण 51 अस्पतालों को निलंबित किया",
-      "summary": "आरजीएचएस योजना में अनियमितताओं पाई जाने पर 51 अस्पतालों को निलंबित किया गया।",
-      "url": "https://news.google.com/rss/articles/CBMinwFBVV95cUxNQWxCdzFYRUh1UjRiVEVGWXhOc2x3REt0NjB3STZReHNlMGNuc1dnWmlTa1oxaUNfWXpOTmI1dGtjbE1OajNMQ1d6eWRfSDd2ZmdUWVAxWHlMLUItLXBySGstVzNoYjFnZjhMcFpYV3dpZjVHemFhVEhZcWl1dTl3amJxZGE1U3daSkxyZkdHNV9LN3NTcFdQdjhUSkpDUW8?oc=5",
-      "source": "UdaipurTimes.com"
-    },
-    {
-      "headline": "राजस्थान सरकार के स्वास्थ्य योजना पैनल से 69 फार्मेसियों को अनियमितताओं के कारण हटाया गया",
-      "summary": "स्वास्थ्य योजना में अनियमितताओं के कारण 69 फार्मेसियों को पैनल से बाहर किया गया।",
-      "url": "https://news.google.com/rss/articles/CBMi2gFBVV95cUxNY0JRbEFLZHNjOXA2M2pVeVR4ekhPSWJ5WHBfS0ZvbGZtX083OE5XUnpmUm50dUV3M3AyYnRHemYwUUJyMmtrNl9uTWJXa1MzLW1ETmdfVEFpcWJNTjh6VFYtTVNtbWFGZC0yRW1PRTI3LVF0aWtGdlk2RzFROEEzTjVvNFcySEY0aHMxcnktRGZkRG5BSTl4X3dyWWlVOWYxc3NwcHFpblJGVVJLZS12VHo3M0sxaGFsUkhEcEZtay1IdU5RenpKRmo0Z2g3ZEN3YzRjRUhYRXZzZ9IB3wFBVV95cUxQZGM5cWdIcXpXNEQtV203T3hua0Nudm5QRjJzNEI3dUdEcW5qQTVVX1dsMTdrX3A1cTd4MTBYWTA4dTQ2RmxHcndCWVFZSXVZaThuMzduT3JEWUtrMVFEUFNma1ZpVkVfLUowWVJxSTJTb0V4Q0tKZlFsdkVPUm5oNUdzcmVEaklVTmdjekdySkhDY1ZzSnl2NEZtYzNtbV9DaVk4NXhmQ1hNZEVXOG0tanQ1TXdMd2xReWFGV3NudWs1cmV1UVFtVktqclB3OHhIUV9EY0dMV3pnSzNOblpV?oc=5",
-      "source": "ETV Bharat"
-    },
-    {
-      "headline": "जैपुर के व्यक्ति ने दावा किया कि पुरानी हवेली के ध्वंस में छिपा खजाना मिला, ठेकेदार पर गबन का आरोप",
-      "summary": "हवेली ध्वंस के दौरान छिपा खजाना मिलने का दावा और ठेकेदार पर गबन का आरोप लगाया गया।",
-      "url": "https://news.google.com/rss/articles/CBMi-AFBVV95cUxNQXg2dzlOMzFPNnNBWnRwZEh5c1JBdEt2SldzSDFMaWotT2lKb19QZmFId0xuV1Z6bkp4LUx3c29fTUFULXRaenhkSURnUTI1NHRfQVBOa3BQNHpfNlMycjFvYU5CM2YtYThEbE1hVUFOek1NZTVUcHNPd2pnWmZsbEJMT3BWbGRzVzg4MUt1czZtSDg1UkVkMVgxMkR1M2J2ZFFCSGJrZ0FaUDA0cUFtTVA5NC1vV0JUMXVaazhlcHZ5QjV1VENHdWhMYmtlZ2VXcnlnTWZRRmNHMUptbjY4aW5OY2hwY21HUE42MnBKMGNkdGRsMzQ3UNIB_gFBVV95cUxPeUpWWGNPdU51WVFncTZncUphdkowNDhjOFdUajdITHJKNTRhcVFkV3Z1VjNpeVFZN0VXemNhUDdBd2FCaHEyekVrTWIzZ0dBeVhZdEF1UnVBSC1JM1pTbFg1cnZyeDFydWpJSDlWMWU1QTVXOFZoUVFsWEZRR0gydEdUNHY2YkNwU2pJSEhwT25jUGRLZTRaOEZXN25semI2ZXNoODN1YVVUamthTmdGYno3QmNOcnlzcFI4SG1uNTJOcjhfNl92eVNha0JXNEszZ0RpejhEek9pUnFXd21ZeW54Q3VDSnF4WGt5WTlSallhRzJyN25ZWm42U3hhdw?oc=5",
-      "source": "ETV Bharat"
+      "headline": "जयपुर पुलिस ने हवेली ध्वंस के दौरान मिली सोने‑चांदी की गुप्त जमा की जांच शुरू की",
+      "summary": "ध्वंस के दौरान हवेली के नीचे सोने‑चांदी की बड़ी मात्रा की गुप्त जमा का दावा आया, जिसके बाद पुलिस ने इस दावे की जांच का आदेश दिया।",
+      "url": "https://news.google.com/rss/articles/CBMi6wFBVV95cUxNSTNxaTFDSDFYZFZJUjR1SmFmWGk4VGxnTk00LXIzcWJ6VUJNUDV4TTJuRFJ4SjhNRTBTYmV0MGNDakNOUVVhMUpxMXotWDA4QXVHZkJ4TTE3X29lckktMWFQdVVyNFJOMDJyM2FPVXI1YTlqekgzRmo0bExoRXFyQkpoaTRJMGlYUEZEQ3hfRHktemRyZkptN1ZhbXVRbDQ4VU5pdFd4dHljTjhENzlId2E4aVhhU0JrVXFSbjM5VlotcjJxaU5RYko2clpmUzlaeGIxQTZUS3NhOFhZTUVEMlV5Y0RfQ1NsYlc00gHwAUFVX3lxTE03bzZDTW5kSUdadlAtZGgwZEQyekZ4RFFObXV6Q2tMc2ZkdmRNVzhwVTNiVGZIM1lVNmlWZXVOWDBHVFZSbl9yOEJ4dEFfWlFGNVlhdXBkc0JoeGpSZFpLTDdncHhnZ0RlWUFrcUhnQUFjZHdaODlyVFVOSmMxa0dOeGwwTzBLTEt0SEZjei05aVEwQ2JtVWt1VkVHXzBPWVd2cjZmNTdhbXRBV182Wk1CMnF4X1htR25sd0VrTUJveWUtQnVRUDBObGlsR0NCbHpnd1NvVzdzQ25xZ0Z2UlNrNFJCWkhma3dCYmlWcm40Tw?oc=5",
+      "source": "The Times of India"
     }
   ],
-  "last_feed_hash": "2cc8bba98d89f5a9",
-  "last_updated": "2026-07-18T18:59:27.977367+00:00",
-  "render_version": "14"
+  "last_feed_hash": "6d23df28f4549d1b",
+  "last_updated": "2026-07-19T14:44:42.147100+00:00",
+  "render_version": "15"
 }

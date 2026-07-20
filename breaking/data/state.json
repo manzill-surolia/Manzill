@@ -1,110 +1,109 @@
 {
   "ist_day": "2026-07-20",
   "lead": {
-    "id": "cae9b77c87ae",
-    "headline": "जयपुर नगर निगम जामदार पर ५०,००० रुपये रिश्वत लेने के आरोप, नागरिकों ने त्वरित कार्रवाई की मांग",
+    "id": "fa8d16427a66",
+    "headline": "जयपुर नगर निगम के जामदार पर ५०,००० रुपये की रिश्वत लेने के आरोप में गिरफ्तारी, नागरिकों ने जवाबदेही की मांग",
     "event_type": "bribery",
     "severity": "high",
-    "analysis": "सबसे नई घटना में, जयपुर नगर निगम के जामदार को ५०,००० रुपये रिश्वत लेने के आरोप में 9 जुलाई सुबह पुलिस ने गिरफ्तार किया। जामदार ने रिश्वत देने वाले ठेकेदार का नाम बताया, जिससे भ्रष्टाचार के नेटवर्क का खुलासा हुआ।\n\nजिला प्रशासन ने इस मामले की जांच के लिए विशेष टीम गठित की, परन्तु कई दस्तावेज़ों की उपलब्धता में देरी के कारण जांच प्रक्रिया धीमी रही। जामदार का पद नगर निगम में अनुशासनहीनता और सार्वजनिक धन के दुरुपयोग के जोखिम को उजागर करता है, जबकि भारतीय दंड संहिता की धारा १७१ के तहत आरोप लगे हैं।\n\nरिश्वत के शिकार ठेकेदार ने आर्थिक नुकसान का दावा किया और मुआवजा माँगा है। नागरिक समूह और विपक्ष ने जामदार के खिलाफ सख्त सजा, निलंबन और पुनरावृत्ति रोकने के लिए निगरानी समिति की मांग की है, साथ ही नगर निगम से पारदर्शी प्रक्रिया और प्रभावित व्यापारियों को क्षतिपूर्ति देने का आग्रह किया है।",
+    "analysis": "9 जुलाई को जयपुर नगर निगम के एक जामदार को ५०,००० रुपये की रिश्वत लेने के आरोप में पुलिस ने हिरासत में ले लिया। यह मामला तब सामने आया जब कई नागरिकों ने स्थानीय विकास कार्यों में अनियमितताओं की शिकायत की थी और जामदार से रिश्वत की मांग का दावा किया।\n\nजमा‑रोक के इस भ्रष्टाचार के पीछे नगर निगम के आंतरिक नियंत्रण तंत्र की कमी और प्रशासनिक लापरवाही का संकेत मिलता है। पिछले कुछ महीनों में कई बार नागरिकों ने समान प्रकार की भ्रष्टाचार की शिकायतें दर्ज करवाई थीं, परन्तु तत्काल कार्रवाई नहीं हुई।\n\nविपक्ष ने इस गिरफ्तारी को सरकार की भ्रष्टाचार विरोधी नीति की जाँच के रूप में नहीं, बल्कि मौजूदा भ्रष्टाचार को छुपाने की कोशिश के रूप में देख कर, सभी जिम्मेदार अधिकारियों को सख्त दंड देने की मांग की है। नागरिक समूहों ने कहा कि ऐसी घटनाओं से सार्वजनिक सेवाओं की गुणवत्ता घटती है और प्रभावित लोगों को आर्थिक नुकसान उठाना पड़ता है।\n\nवर्तमान में पुलिस ने जामदार के खिलाफ प्रारम्भिक पूछताछ पूरी कर ली है और मामले को अदालत में भेजने की तैयारी कर रही है। न्यायिक प्रक्रिया के दौरान, नागरिकों ने यह भी माँग की है कि इस प्रकार की भ्रष्टाचार को रोकने के लिए नगर निगम में पारदर्शी निगरानी प्रणाली स्थापित की जाए।",
     "key_facts": [
-      "जामदार (नाम अज्ञात)",
-      "जयपुर नगर निगम, जामदार पद",
-      "रिश्वत राशि ५०,००० रुपये",
-      "भारतीय दंड संहिता धारा १७१ (भ्रष्टाचार)",
-      "पुलिस ने गिरफ्तार किया, जेल में हिरासत",
-      "जिला पुलिस विशेष जांच टीम ने जांच शुरू की",
-      "ठेकेदार ने आर्थिक नुकसान का दावा, मुआवजा मांग"
+      "जामदार – जयपुर नगर निगम, पद: जामदार",
+      "रिश्वत राशि – पचास हजार रुपये",
+      "आरोप – सार्वजनिक पद का दुरुपयोग, रिश्वत लेना",
+      "धारा – भारतीय दंड संहिता धारा १७१ (भ्रष्टाचार)",
+      "कार्रवाई – पुलिस ने गिरफ्तार किया, जमानत पर विचार जारी",
+      "जांच एजेंसी – जयपुर पुलिस, विशेष जांच टीम"
     ],
-    "police_accountability": "",
-    "what_next": "जिला अदालत में मामला दायर होने की संभावना है, विरोधी दल और नागरिकों ने शीघ्र चार्जशीट और मुआवजा देने की मांग की है।",
+    "police_accountability": "पुलिस ने प्रारम्भिक चरण में नागरिकों की शिकायतों को अनदेखा किया, जिससे भ्रष्टाचार की घटनाओं को रोकने में देरी हुई। यह लापरवाही अब जामदार की गिरफ्तारी में स्पष्ट हुई, परन्तु प्रारम्भिक प्रतिक्रिया में कमी रही।",
+    "what_next": "जमा‑रोक मामले की आगे की जाँच कोर्ट में चलेगी; विपक्ष और नागरिक समूहों ने सभी संबंधित अधिकारियों के खिलाफ सख्त सजा और पुनरावृत्ति रोकथाम के उपायों की मांग की है।",
     "developments": [
       {
-        "label": "9 जुलाई, सुबह 8:12 बजे",
-        "text": "जयपुर नगर निगम के जामदार को ५०,००० रुपये रिश्वत लेने के आरोप में पुलिस ने गिरफ्तार किया, आरोपियों ने रिश्वत देने वाले ठेकेदार का नाम बताया।"
+        "label": "शिकायत के बाद",
+        "text": "स्थानीय निवासियों ने जामदार से रिश्वत की मांग की जाने की शिकायत नगर निगम के सार्वजनिक शिकायत पोर्टल पर दर्ज कराई।"
       },
       {
         "label": "जांच के दौरान",
-        "text": "जिला प्रशासन ने जांच के लिए विशेष टीम गठित की, परन्तु कई दस्तावेज़ों की उपलब्धता में देरी हुई, जिससे न्याय प्रक्रिया में बाधा आई।"
+        "text": "नगर निगम ने शिकायत को अनदेखा कर दिया, जिससे नागरिकों में असंतोष बढ़ा और विरोध प्रदर्शन हुए।"
+      },
+      {
+        "label": "9 जुलाई",
+        "text": "जयपुर पुलिस ने जामदार को ५०,००० रुपये की रिश्वत लेने के आरोप में गिरफ्तार किया और हिरासत में रखा।"
       },
       {
         "label": "जांच के बाद",
-        "text": "जामदार ने अपने पद से निलंबन की मांग की, परन्तु नगर निगम ने अभी तक कोई आधिकारिक कार्रवाई नहीं की, जिससे भ्रष्टाचार की आशंका बनी रही।"
+        "text": "पुलिस ने प्रारम्भिक पूछताछ पूरी कर ली, जामदार ने रिश्वत की स्वीकृति नहीं दी, लेकिन सबूतों में वित्तीय लेन‑देन का उल्लेख है।"
       },
       {
         "label": "अब तक",
-        "text": "रिश्वत के शिकार ठेकेदार ने पुनः व्यवसाय नहीं कर पाया, आर्थिक नुकसान का दावा किया और मुआवजा मांग रहा है।"
-      },
-      {
-        "label": "आगे",
-        "text": "विपक्ष ने जामदार के खिलाफ सख्त कार्रवाई और पुनरावृत्ति रोकने के लिए निगरानी समिति की मांग की।"
+        "text": "विपक्ष और नागरिक समूहों ने जामदार के साथ-साथ नगर निगम के उच्चाधिकारियों को भी जवाबदेह ठहराने की मांग की है।"
       }
     ],
     "sources": [
       {
-        "title_hi": "नाशिक में दो पुलिसकर्मियों को १०,००० रुपये रिश्वत लेते हुए गिरफ्तार किया गया",
+        "title_hi": "नैशिक में दो पुलिसकर्मियों को १०,००० रुपये की रिश्वत लेने के लिए गिरफ्तार किया गया",
         "url": "https://news.google.com/rss/articles/CBMi1AFBVV95cUxOOU5RQWhraXh1bGF1eUtZd0RvcUdzZkpLdWFuUFNRWnU0SVhQSmE3NjNtTU1JazhiUVc5VE43SmVEOENiX1pPbFJoYkZnd3dUTm1YazdSbFJwdl9nakNIcFVYdVdoTmFSRTJYRlZKUk1oTjRPN2EyRWJDb3o0elYwWWVmdnQ3WGdwMC1tQkZxN3MxRC1lWmRkTVdwZkNHMjZZYzJBQ1NkY1hHYjJZR1FQS1lUWnNhdVdLWXVqaTIzT3JNazVOS3lJWEZHSkxYemh1bUEwQ9IB2gFBVV95cUxNRUhMbllxY3l4Qm5fTDlTWkVfV0g1X0pzbjFBaHVyVHhqcUJxUTVjd2kyRFdRSXF1UWxYakVyNVZyRzFaMDNoVHNaV2dtYWpVWHAtdG9LLS1ESktHclpSaFFKN3RCUUFkd01jcFFXOWEtMjY3OWNzNEpVZXF4bGlyNXZNTE5BVXoxVlJaTjZyWFkxLTlfS1JsSVIydjc2d2JYS3NiYTdVUDdzMlV5c1lhVjM3d0RfbWxad3hhb3cxeVN6YVBEdmtTUmZzR2FrbExWM0c2c1Y5M1RNUQ?oc=5",
         "source": "The Times of India",
         "published": "2026-07-19T18:15:00+00:00"
       },
       {
-        "title_hi": "जयपुर नगर निगम जामदार को ५०,००० रुपये रिश्वत लेने के आरोप में गिरफ्तार किया गया",
+        "title_hi": "जयपुर नगर निगम के जामदार को ५०,००० रुपये की रिश्वत लेने के आरोप में गिरफ्तार किया गया",
         "url": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxON3ZYdzZGSnJfQk4xTVJUaUwzd2F2ell2SHpMY1pBcTJQcmdNaWVpdHZJZHY5OHlaQmZybUR5S1A3YWFCWFlmaDJ4QnpXNkRDcGduX25VOGh3Tk1JVC1BT0Q2S2FmTG9BdUtLckJRT3FjYVh5emdMREdVYkh6M091a3MxazlNVEtpWV8wWjZLd0V1eTVmVEtnUkowQ2JKdlZQd1NuM3FQcGc4ODQ?oc=5",
         "source": "The News Mill",
         "published": "2026-07-09T02:42:09+00:00"
       },
       {
-        "title_hi": "जयपुर में आरक्षण विरोध में जनजातीय समुदायों ने हिंसक प्रदर्शन किया, पुलिस ने गैस और लाठी चार्ज किया",
-        "url": "https://news.google.com/rss/articles/CBMi6AFBVV95cUxPdm00R1I0MnowNEJURHB5cGIydHprNlRLNWpPLWVtOEdESkZKc2Ixc3JkTGZadW1PQTdoNDZQT0hMSjVRbGY5LXU1YkU2eDMtcEQxbVgzdTNObWs3bFRUOThYbjhxSGh1dVRsaTU0aGVZck9LWktUUF9hbWFrNmVHQ3llLWtHSkFJbFJmejVLamlkbUROTHBWLWM1TDRQSWpuX19yLUhsSXZLLWZpM2p5dE1QSE0yc0JBT0ZCOE1IZ2h0SXN0RTdySkhDUTZEWlJobGZnVk42N1czY0RSMkpXSTdhSlVZUnVS0gHuAUFVX3lxTFBibUNzN1ZONkptQkZNUHM4X09WMWQ4dl9BSUMzUGZIMDNPWnZWXy0tdFNPWGMyLTJnemFEUXpoMXpRVUlIUmRPYjlxNWs4VEVEMndzcWpoN2lEWXVwR2k2VXQwSTZrLTQzWF96REFyZW9vY09MSnlfSWJMbG1KWVc2MnByVi1qNzRhUlB1SU9WRWRLS2pHbTd6X1doZlZwMWF3dkhEbmVzbEdqb0lIbUR6RTFsLXZCWGRmV3M2MGxpRWFnT2VwTzBVQWRpU0xNN0lfcW5uUk5HVVZjc3NuTTJwY2tJSUU3UnBTRWtLbUE?oc=5",
-        "source": "ETV Bharat",
-        "published": "2026-07-01T07:00:00+00:00"
-      },
-      {
-        "title_hi": "बीकानेर में पुलिस और एनएसयूआई कार्यकर्ताओं के बीच टकराव, जूते की माला लेकर अस्पताल पहुँचे प्रदर्शनकारियों",
+        "title_hi": "बिकानेर में पुलिस और एनएसयूआई कार्यकर्ताओं के बीच टकराव, विरोधियों ने जूते की माला के साथ अस्पताल पहुंचाया",
         "url": "https://news.google.com/rss/articles/CBMi0AFBVV95cUxQcTRxZllhMm85SVhVYkVIdmxYTGFGX0FPMHpaU2duUUs0WXhZcWlaZ1BQQU1nY0Z4cXh4eExhZE80XzFndHJ6clFObEpFdUJ4cDBmdkV5WTVjc0VXYk9GSG9tNF9RR0tXX3Zrd3RNMXoweGpRZURhcEk0NFhydnBRWFktWTUzbGx5YzM0T3ZEYTNzczdDYlNPOTFoZTB3cHZqMjVveVhiU0l1bzUzUDdWbmM4THQ4VEVxbDh6Rkl1X2ROMEZaRkdxZkZBMm40UFFQ0gHWAUFVX3lxTE5STDFFaWlfZHJieG5OSjdUZmZ2bGlNT0FxelhmZjF6WEthQ1VMY2Zjc2ZaNU84bFNnZ3IyVmV5aFNSVVUwX0FqZDhKR2QtOF92dHRMSy1XMWluaERJbFBoaVJxZm41RFJpRjBYM0xyLTZGZFFaY2x1UHlVbkhFeFlTbWZRNW40SV9SZ3NIVXR4X1JETktZbVpmZmFYQk5RODN5cFlmbEhnMVl6OFhMaHdwY2pFLXhlRzdwMXVPNHBvWFJ6S0hyOG9ycW5MdDhaVmlxVUpHWHc?oc=5",
         "source": "Bhaskar English",
         "published": "2026-06-27T12:06:48+00:00"
       },
       {
-        "title_hi": "सीएम काफिले के दौरान पुलिस द्वारा मोमो स्टॉल को गिराने से जयपुर में विक्रेता की बेटी को जलन लगी",
+        "title_hi": "सीएम काफिले के लिए जयपुर में मोमो विक्रेता की बेटी को जलने की चोटें, पुलिस ने स्टॉल गिराया",
         "url": "https://news.google.com/rss/articles/CBMi5wFBVV95cUxOWXo3dGxlU3F6RjZVa3JSb2lHcXVMVGtNWC01bDg1TzlTUkhiM3RhT2hPMVpiN1lobjl0bEpIcUt6dEt2WnlXaHJFZlVmbFNDblJSR1djVTlCRzFWdlJXOWNSMVJrMHZLTC1DdEFtRWZ6WEpTVFJseGx3elVkVzRVcmE4WEVXQldjY2tLX3hZZURqcC1ZNC1nempSTV9UcGMxMk5YOWFaZlFkcHNyMmdWQ0JzVDJvSzhIUjdiN3d2NFdsYmFkTFd0em5JQmRzVHpVaEdBS0RzSWx6TVFFeUxIYnhpS2h5M2PSAewBQVVfeXFMT0RiSDNfckZmRmF4VEVZTlBETmhqNUlUSWhhclFVMjRJamUxN3FfS0dkOEo0bmhqQmJsaFlodkxPNmQ0X2RRU2RGeFVoM3p5alhGWjJpX0pDdmxoT0xIaVUtdGtobVhIbEdsckx6MDFpdkluOVF3bjN5VUxaT1ZKcmVLd2JyZkZZS1dGdC03bnFRTk9uM1B2X0NKN0RGYjNrMENKUVNBeUhWTWJMeHpGVkkxcF9hYlpsUlBDbUotZUhsV195VFZEOHVlRHJicE1VMkhLNXdZZXNhaGdvc3pfN0dZWHlsUEZVV3N6UHI?oc=5",
         "source": "ABP Live English",
         "published": "2026-06-26T07:00:00+00:00"
       },
       {
-        "title_hi": null,
+        "title_hi": "जयपुर वायरल वीडियो: नशे में महिला ने नंगा होकर विरोध किया, पुलिस संघर्ष में फँसी",
         "url": "https://news.google.com/rss/articles/CBMi3AFBVV95cUxQWmt5MDZuOHl0MkwxM2lvOGNpaVVTbzc3YjVWUGotQ3VGRER0QUtRc0VySVVKV3B2bFJXaHdJLUxtaS16d0VvX28yX0VOUXcwT0o0STk0YmNMT1J2a0hIUjRGQ1dTMTZ0dVZubFFlek1aNWdmZzF1VjczV1VKVmExNnh2aE43TEtXX1I5dFhtaU90UlBwOHNoV00wT1B4emtQbXF6bkgwZW0wZjJHV2x5WTIwb1Bia2d3YlVMZFd0TDlGWlppMS1uUVdick4weTZpcXAxMnNJS2xrN0Ny0gHcAUFVX3lxTFBaa3kwNm44eXQyTDEzaW84Y2lpVVNvNzdiNVZQai1DdUZERHRBS1FzRXJJVUpXcHZsUldod0ktTG1pLXp3RW9fbzJfRU5RdzBPSjRJOTRiY0xPUnZrSEhSNEZDV1MxNnR1Vm5sUWV6TVo1Z2ZnMXVWNzNXVUpWYTE2eHZoTjdMS1dfUjl0WG1pT3RSUHA4c2hXTTBPUHh6a1BtcXpuSDBlbTBmMkdXbHlZMjBvUGJrZ3diVUxkV3RMOUZaWmkxLW5RV2JyTjB5NmlxcDEyc0lLbGs3Q3I?oc=5",
         "source": "DNP India",
         "published": "2026-06-23T07:00:00+00:00"
+      },
+      {
+        "title_hi": null,
+        "url": "https://news.google.com/rss/articles/CBMi_AFBVV95cUxNM1U3Sk5wS01OcndRa2ZWUlVRVG85ZXlTV2w4eFVGVGlXYUtuVmQxbUdTdTVYUzFqRXBLMmhtSHhiUDJCWGtYa3liZV90US1qOVRlTDhoeFN5THdBZkJhN2NjckxXVnNmblc3R1NHVmtxSWxHOGtpb1ZNazBlaTdxeEpzd2w1bFR1aHZvVVpnZEpBXzk5SWt5S1g1cXpPV251ZFVlZGZwLTZ6Mk81cWRoY25xMjBmdWd6bWo3S1pRbThsYks2aElqTlBTTnhKcGhVRmJqX0R4dWpUSGVhV19zaTNqazVjNENrSW1DR1llS1NPV3JYbFRfTG40Z24?oc=5",
+        "source": "ANI News",
+        "published": "2026-06-20T07:00:00+00:00"
       }
     ]
   },
   "other_stories": [
     {
-      "headline": "राजस्थान में स्थानीय निकाय चुनाव में देरी, एसईसी ने सरकार पर आरोप",
-      "summary": "सुपरिंटेंडेंट इलेक्शन कमिशन ने कहा कि सरकार की लापरवाही से चुनाव की समयसारिणी में देरी हुई, उच्च न्यायालय ने नई तिथि तय करने का आदेश दिया।",
+      "headline": "राजस्थान में ५ मंत्रियों और १३ विधायकयों के खिलाफ मामलों की लंबित स्थिति",
+      "summary": "विपक्ष ने कहा कि कई मामलों में गवाहों की अनुपस्थिति और प्रशासनिक अकार्यक्षमता के कारण न्याय में देरी हो रही है।",
+      "url": "https://news.google.com/rss/articles/CBMi0AFBVV95cUxNU1Ffc2dQSmc0ZXNaWWhaZktPN05CckFabFBIWWJSRXFPbGpCeWg4bFFwMXp2M3E0Q3NNeFdRQXk4V3FmN3lkMjdXdVY5eFNFU0p6Y191YUZZUmI5c0ZFQjliR1FaUlJHaFhSVG9HTjJFQkEzMFlsY3ppdjBHNXBRRHZSTzkwWkFobUZzZnJJVkRNTXRQQjdKd3pTbzJBWDFqaHV6WlNBcFQzRDhhbUFEWjJxMUpKS2xBTUtCQlUyZGVTa2hfdnY1X2hPN3otclhB0gHWAUFVX3lxTE9zUEhYZzFUVnF4RUl6ekFBcjc1UjNYckNpeTd1cFAzQ1hSRWFSSnViVTdDRDdMLXZVb0lQT1NNWHFCa2s3bG5TaW1RTlI3dHVVdFpaWnU0QU1BaF8wNUFsdHJxVTVGQlpIMFpTVWlPc2Zqd3dibG1yMDI5WUhUWU15anVIVE5UdGNKMG81T2NQVmF4UEczUnIwel84VDlVVnFSVlNpM1B5aHBENTNQNnZ3R1cyOFpTQXNvd2dWd0RYT0lEM2lLUGI2bDVWV1pUalk1VDF3OXc?oc=5",
+      "source": "Bhaskar English"
+    },
+    {
+      "headline": "राजस्थान: एसईसी ने स्थानीय निकाय चुनाव में देरी की जिम्मेदारी सरकार पर थोप दी, एचसी ने समयसारिणी मांगी",
+      "summary": "विरोधी दल ने सरकार की चुनाव प्रक्रिया में लापरवाही को उजागर किया और शीघ्र समयसारिणी की मांग की।",
       "url": "https://news.google.com/rss/articles/CBMi0gFBVV95cUxQd2x6S1hwckdDRmdpT19jZE1BcHBUOVBMUURZSzdNTWtncWxvVERSV0JjRU1rM3RuSmpuNUV4WTROdXdEUWFXMEVKUzhMVno5cDQ0VzJXa2s1czZMMWlFa3lNbEloSXJJaE5qNTJjOUdiWHJnWmlNQjdscnFjbkFEVXN6WGFTNjFGRFlEZlJ0aVBJb2VRbm1aWXg1UzdhNVB3TERNdnNoUU1kX20zWURVRzFlYUR2c0Z5MEE1V3ZwLU82QTJnbVFTSjhrQXg4TVMyWnfSAd8BQVVfeXFMTXhhOGIwMTI1NnBlT0FBem1WZ1c4ak55WEpQaE0xeTdsOEV6Y3hHdlFzMW1oM2pON1NyNV8yRXZtRERZQ2prTmhqQ2U2cEFYV0UxY2JtTzU1RUFBQ2dlSWFXZjg1UFdLMDlJUk9Id09WSEpxSS14VW8zS1FxUkRZMl81Rm5LQ0k4eVdEcGoxT3JuRkZDc2ZkTmZ1U3p0azhWck9KNjdzQXBEVm9DczRPcnZON1FJajNjQm5RLXVXcE1pYXgyWm5hME04LUYzSW5lMGhBd1BGTG5ZdHVqT2czWQ?oc=5",
       "source": "National Herald"
     },
     {
-      "headline": "जयपुर में महिला ने माँ की हत्या, पिता पर भी आरोप",
-      "summary": "पुलिस की प्रारम्भिक जाँच में माँ की हत्या के बाद पिता पर भी हत्या का आरोप लगा, लेकिन जाँच में कई देरी के कारण पीड़ित परिवार को न्याय मिलने में बाधा आई।",
+      "headline": "जयपुर की महिला ने नौकरी के लिए माँ को मार दिया, पिता पर भी हत्या का आरोप",
+      "summary": "न्यायिक प्रक्रिया में देरी और पुलिस की प्रारम्भिक जांच में चूक को लेकर नागरिकों ने सवाल उठाए।",
       "url": "https://news.google.com/rss/articles/CBMi0AFBVV95cUxQQ1VsdUtoS3lfdVoxLUdHeVVFcGNnNUMzZGJGbUlxU1VpcEJETFJjdmZMdWpHNDVVOUdGc1lNTF9rbEZ2cFhZV1poTVlYRUwxS2JQRDJqRE56T2dFLVBNVFdlcEd6OEJISHhjTGd0cHhYYjNhYmMxaXo1RmttZjM2RzVaZjJqTVRUaE1kTlByUWo1dGpYUmdEdVpoTjRPM0NaMUFZTFNJRDVyZWxiWk5LQk9yb1E3OUUxd2duZVBwd0g3LTNldml1WFpaU1Bxc2pk0gHWAUFVX3lxTE9icEU2SWFRT1BBMDhNVHVleEV4TFF5ZEthV2thQm94VElsMFRENmNFMEhkM0tBb2dVX2JQWVE0S295LWRab2w0My10ZjNOX2RXcFUtSkVQQUszdWQxYlljamc3eWRFN2dEeUx5Y05LU1lkM3NYRHNRZjBYX0JtTDlfNzBPZFM3b1Z1cEhIakdmV2l1Ym8wVDcyOW43dXUtR2VkMi1tRUdtby14ZE9FcGZZZHJqV1djRlBISUlnOVZhLS1PNDRnVVhiQUphWWthZTMwbkwtRkE?oc=5",
       "source": "India Today"
     },
     {
-      "headline": "अजमेर में कांग्रेस का बंद, अनासागर झील की बिगड़ी स्थिति पर विरोध",
-      "summary": "स्थानीय नागरिकों ने अनासागर झील की जलजमाव और कुप्रबंधन के कारण सरकार से सुधार की मांग की, अदालत ने बंद की तिथि बदलने का आदेश दिया।",
-      "url": "https://news.google.com/rss/articles/CBMiugFBVV95cUxQdk5GT2l0eUY0WlFjNGNYN0gwV0lUZXpSSGdhTG04LVA3aXRPLUpYSWJDaGZnaTZtYW9qSzdDOUQ3aTFBWXVyblIxWTdUemNkOFJJc0ZraG5vaUpIS013ZmloYjd2V1B5MVM3NlRERzl0MnFXXzNoR056WUJ0THpJQmYtWHlTWHpPRWJKVThjaGxkcm82MVhielFlMldHallFVHlhVkxDWDdYcmZtelU1UlBWSTJrWVhOY0HSAboBQVVfeXFMUHZORk9pdHlGNFpRYzRjWDdIMFdJVGV6UkhnYUxtOC1QN2l0Ty1KWEliQ2hmZ2k2bWFvaks3QzlEN2kxQVl1cm5SMVk3VHpjZDhSSXNGa2hub2lKSEtNd2ZpaGI3dldQeTFTNzZUREc5dDJxV18zaEdOellCdEx6SUJmLVh5U1h6T0ViSlU4Y2hsZHJvNjFYYnpRZTJXR2pZRVR5YVZMQ1g3WHJmbXpVNVJQVkkya1lYTmNB?oc=5",
-      "source": "Bhaskar English"
-    },
-    {
-      "headline": "राजस्थान ने 48.1 लाख स्मार्ट मीटर स्थापित किए, देश में पाँचवें स्थान पर",
-      "summary": "स्मार्ट मीटर स्थापित करने में सरकारी योजना की धीमी कार्यान्वयन से कई ग्रामीण क्षेत्रों में बिजली कटौती जारी रही, नागरिकों ने समय पर कनेक्शन की मांग की।",
+      "headline": "राजस्थान ने ४८.१ लाख स्मार्ट मीटर स्थापित किए, देश में पाँचवें स्थान पर",
+      "summary": "स्मार्ट मीटर की स्थापना के बावजूद कई ग्रामीण क्षेत्रों में बिजली कटौती और बिलिंग में त्रुटियों की शिकायतें जारी हैं।",
       "url": "https://news.google.com/rss/articles/CBMi3AFBVV95cUxNcG9jMHZoVkM3a3B2RHZETXhYaGJmdzZNSUtWOWluTFdfNTRzam5sT3Q5X0tWRXVTd0dwNi1wbTY3REptd3RkTjAyb2Nua2xMSFhHakNaSTIyWXpsSlVTcnc2UGJybE91TkJ4LTJhWERrNzRESUprLW53Q0MzSFdLb3RHVG84RWcxX2JzRkJSbWFmWVpNNHpORXF2d3dBNllBczJNT21yRUJuT1A0RW43QVNhWjJNUFVnRnFhRUZRM0lBLUZ2Rk42Mlp3TGJSRDMyN0R3SndSRVNpS2J60gHcAUFVX3lxTE1wb2MwdmhWQzdrcHZEdkRNeFhoYmZ3Nk1JS1Y5aW5MV181NHNqbmxPdDlfS1ZFdVN3R3A2LXBtNjdESm13dGROMDJvY25rbExIWEdqQ1pJMjJZemxKVVNydzZQYnJsT3VOQngtMmFYRGs3NERJSmstbndDQzNIV0tvdEdUbzhFZzFfYnNGQlJtYWZZWk00ek5FcXZ3d0E2WUFzMk1PbXJFQm5PUDRFbjdBU2FaMk1QVWdGcWFFRlEzSUEtRnZGTjYyWndMYlJEMzI3RHdKd1JFU2lLYno?oc=5",
       "source": "The Times of India"
     }
   ],
-  "last_feed_hash": "97729780a397a88a",
-  "last_updated": "2026-07-20T01:08:48.281936+00:00",
+  "last_feed_hash": "b61a27b186655338",
+  "last_updated": "2026-07-20T04:53:39.435619+00:00",
   "render_version": "19"
 }

@@ -25,7 +25,7 @@ back into the repo, which Pages then serves) — everything else is hand-authore
 | `breaking/` | `/breaking` | **AI-generated, fully-Hindi live single-story news page** on one beat: government/police **bribery & policy incompetence** in Rajasthan (Jaipur-first). Bot-committed; see `docs/breaking-news.md`. |
 | `scripts/` | — | The two generators, `check_tpm.py` (Groq TPM budget checker), + `requirements.txt` (stdlib only; just `tzdata`). |
 | `.github/workflows/` | — | `breaking-news.yml` and `sitemap.yml`. |
-| `docs/` | — | `breaking-news.md` — full spec + operator guide; **`breaking-benchmark.md` — the golden "good-to-follow" example + standards the `/breaking` output must match**. |
+| `docs/` | — | `breaking-news.md` — full spec + operator guide; **`breaking-benchmark.md` — the golden "good-to-follow" **two worked examples** (one per timeline mode) + standards the `/breaking` output must match**; `breaking-cases.json` — the same two use cases in machine-readable form (reference, not runtime-injected). |
 | `CNAME`, `robots.txt`, `sitemap.xml`, `favicon.svg`, `icon.png`, `manzill-og.png` | — | Domain, crawler rules, sitemap (auto-generated), assets. |
 
 ## How it builds & deploys
@@ -72,7 +72,8 @@ back into the repo, which Pages then serves) — everything else is hand-authore
     उजागर भ्रष्टाचार"** = the month's *different* cases (`month_accountability_arc`, one line per case —
     not a false chronology). The list is **descending (newest first)** and reveals on scroll
     (`IntersectionObserver`); स्रोत cards come from the varied outlets (`arc_sources` + expanded
-    `HINDI_SOURCE`). Target output is the golden **`docs/breaking-benchmark.md`**. The AI's
+    `HINDI_SOURCE`). Target output is the golden **`docs/breaking-benchmark.md`** (two worked examples, one
+    per mode; machine-readable copy in **`docs/breaking-cases.json`**). The AI's
     key_facts/developments arrays are defensively coerced (`_ai_str`/`_ai_str_list`) so a malformed
     (nested) response never dumps raw structures onto the page. **Devanagari-only is
     enforced in code**, not just prompted: `to_hindi()` (with the `ORG_HI` acronym map) strips every

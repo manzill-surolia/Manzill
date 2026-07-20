@@ -25,7 +25,7 @@ back into the repo, which Pages then serves) — everything else is hand-authore
 | `breaking/` | `/breaking` | **AI-generated, fully-Hindi live single-story news page** on one beat: government/police **bribery & policy incompetence** in Rajasthan (Jaipur-first). Bot-committed; see `docs/breaking-news.md`. |
 | `scripts/` | — | The two generators, `check_tpm.py` (Groq TPM budget checker), + `requirements.txt` (stdlib only; just `tzdata`). |
 | `.github/workflows/` | — | `breaking-news.yml` and `sitemap.yml`. |
-| `docs/` | — | `breaking-news.md` — full spec + operator guide for the breaking page. |
+| `docs/` | — | `breaking-news.md` — full spec + operator guide; **`breaking-benchmark.md` — the golden "good-to-follow" example + standards the `/breaking` output must match**. |
 | `CNAME`, `robots.txt`, `sitemap.xml`, `favicon.svg`, `icon.png`, `manzill-og.png` | — | Domain, crawler rules, sitemap (auto-generated), assets. |
 
 ## How it builds & deploys
@@ -67,7 +67,12 @@ back into the repo, which Pages then serves) — everything else is hand-authore
     secondary cards (`order_secondary` gates on `has_failure_angle`). **Voice = hard breaking-news, not
     editorial:** the lead article opens with the newest development (inverted pyramid) and holds power
     to account through **attributed** facts/demands ("विपक्ष ने मांग की") — never the outlet's own
-    "सरकार को करना चाहिए" prescription. **Devanagari-only is
+    "सरकार को करना चाहिए" prescription. **Monthly tracker:** the timeline **clubs the month's
+    corruption/accountability cases** into one arc (`month_accountability_arc`), with the current case
+    as the title/lede, and the स्रोत cards come from those varied outlets (`arc_sources` + expanded
+    `HINDI_SOURCE`) — the target output is the golden **`docs/breaking-benchmark.md`**. The AI's
+    key_facts/developments arrays are defensively coerced (`_ai_str`/`_ai_str_list`) so a malformed
+    (nested) response never dumps raw structures onto the page. **Devanagari-only is
     enforced in code**, not just prompted: `to_hindi()` (with the `ORG_HI` acronym map) strips every
     English word/acronym and the model's `(analysis)`/`(lead_story)` field-name tags from all visible
     fields in `_lead_from_ai`. Needs the repo secret **`GROQ_API_KEY`** (without it, a Hindi holding

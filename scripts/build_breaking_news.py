@@ -66,7 +66,7 @@ NEWS_SITE = "https://news.manzill.com"
 # Bump whenever the rendered output (template/RSS/sitemap format) changes. A mismatch
 # with the value stored in state forces a one-time re-render even when the feed is
 # unchanged, so a redesign rolls out on the next scheduled run without a manual push.
-RENDER_VERSION = "19"
+RENDER_VERSION = "20"
 
 # --- Groq TPM budget ------------------------------------------------------- #
 # Groq bills prompt_tokens + max_tokens against a per-minute cap; exceeding it returns HTTP 413 and
@@ -103,6 +103,20 @@ HINDI_SOURCE = {
     "free press journal": "फ्री प्रेस जर्नल", "the free press journal": "फ्री प्रेस जर्नल",
     "et now": "ईटी नाउ", "zee business": "ज़ी बिज़नेस", "outlook": "आउटलुक",
     "outlook india": "आउटलुक", "lokmat": "लोकमत", "lokmat times": "लोकमत",
+    # Rajasthan-desk + wire + regional outlets that show up in the corruption feeds — added so the
+    # source cards carry a real outlet name instead of blanking to "ताज़ा रिपोर्ट".
+    "the new indian express": "द न्यू इंडियन एक्सप्रेस", "new indian express": "द न्यू इंडियन एक्सप्रेस",
+    "udaipurtimes.com": "उदयपुर टाइम्स", "udaipurtimes": "उदयपुर टाइम्स", "udaipur times": "उदयपुर टाइम्स",
+    "punjab kesari english": "पंजाब केसरी", "punjab kesari": "पंजाब केसरी",
+    "zoomnews.in": "ज़ूम न्यूज़", "zoom news": "ज़ूम न्यूज़",
+    "etv bharat": "ईटीवी भारत", "the news mill": "द न्यूज़ मिल", "edexlive": "एडेक्सलाइव",
+    "india's news.net": "इंडियाज़ न्यूज़", "india news": "इंडिया न्यूज़",
+    "news18 rajasthan": "न्यूज़18 राजस्थान", "news18 hindi": "न्यूज़18 हिंदी",
+    "dna": "डीएनए", "dna india": "डीएनए", "ians": "आईएएनएस", "ani": "एएनआई", "pti": "पीटीआई",
+    "the statesman": "द स्टेट्समैन", "national herald": "नेशनल हेराल्ड", "the tribune": "द ट्रिब्यून",
+    "tribuneindia": "द ट्रिब्यून", "sambad english": "सम्बाद", "daily pioneer": "द पायनियर",
+    "the pioneer": "द पायनियर", "catch news": "कैच न्यूज़", "the logical indian": "द लॉजिकल इंडियन",
+    "jaipur stuff": "जयपुर स्टफ", "first india news": "फर्स्ट इंडिया", "first india": "फर्स्ट इंडिया",
 }
 
 # English acronyms / org names → their conventional Hindi form. The page is Devanagari-only, so the
@@ -882,7 +896,7 @@ def _messages_tokens(messages: list[dict]) -> int:
 
 def _groq_messages(clusters: list[dict], points: list[dict], *,
                    snippets: int = 3, others: int = 4, sources: int = 5,
-                   history_max: int | None = None) -> list[dict]:
+                   history_max: int | None = None, source_objs: list[dict] | None = None) -> list[dict]:
     """Build the Groq chat `messages` (system + user JSON) for the lead's arc. The caps are parameters
     so groq_analyze's TPM preflight can shrink an over-budget request, and check_tpm.py can measure the
     exact request the generator sends. Kept lean — the prompt is Devanagari-heavy (see the TPM budget);
@@ -890,7 +904,10 @@ def _groq_messages(clusters: list[dict], points: list[dict], *,
     enrich_lead) live in code, not in prompt verbosity."""
     lead = clusters[0]
     others_cl = order_secondary(clusters)[:max(others, 0)]
-    lead_sources = [s["title"] for s in cluster_sources(lead, limit=sources)]
+    # Prefer the clubbed-arc sources (the month's varied outlets) so the AI Hindi-titles the same
+    # cards the page renders; fall back to the lead cluster's own sources.
+    _src = source_objs if source_objs is not None else cluster_sources(lead, limit=sources)
+    lead_sources = [s["title"] for s in _src[:max(sources, 6)]]
     lead_snippets = [i["summary"] for i in lead["items"] if i["summary"]][:max(snippets, 0)]
     pts = points if history_max is None else _arc_sample(points, history_max)
     history = [{"when": _hindi_point_label(p), "report": p.get("text_en", "")} for p in pts]
@@ -904,8 +921,10 @@ def _groq_messages(clusters: list[dict], points: list[dict], *,
         "शैली हार्ड ब्रेकिंग-न्यूज़ की हो, संपादकीय/राय नहीं: तथ्यात्मक, स्रोत-आधारित रिपोर्टिंग; जवाबदेही के "
         "सवाल/माँगें नागरिकों, विपक्ष या विशेषज्ञों के हवाले से दें ('विपक्ष ने मांग की', 'नागरिकों ने सवाल "
         "उठाया') — अपनी ओर से उपदेश ('सरकार को यह करना चाहिए') कभी नहीं। "
-        "पूरी रिपोर्ट एक ही मामले पर केंद्रित रहे (असंबंधित घटनाएँ न मिलाएँ); story_history में इसी विषय की "
-        "कई स्रोतों की कवरेज है — उन्हें मिलाकर शुरुआत से अब तक की एक सुसंगत खबर बनाएँ। developments = "
+        "story_history इस महीने के कई भ्रष्टाचार/जवाबदेही मामलों को समेटता है — इन्हें एक समेकित "
+        "'राजस्थान में इस महीने भ्रष्टाचार/जवाबदेही' खबर में जोड़ें (केवल भ्रष्टाचार/जवाबदेही मामले, "
+        "असंबंधित विषय कभी नहीं); शीर्षक व पहला पैराग्राफ सबसे नई घटना को लीड बनाएँ, फिर महीने के बाकी "
+        "मामलों को क्रमवार जोड़ें। developments = "
         "5-12 चरणों की क्रमवार टाइमलाइन (oldest→newest): story_history का हर दिनांकित बिंदु (date_label = "
         "'when' से हूबहू) + विश्लेषण/तथ्यों से बने प्रक्रिया/कथानक-चरण। जहाँ पुष्ट तिथि हो वही दें, वरना "
         "सापेक्ष हिंदी लेबल (पृष्ठभूमि/घटना के बाद/जाँच के दौरान/अब तक/आगे) — मनगढ़ंत घड़ी-समय कभी नहीं। "
@@ -918,22 +937,22 @@ def _groq_messages(clusters: list[dict], points: list[dict], *,
         "enum में। सिर्फ़ मान्य JSON लौटाएँ।"
     )
     user = {
-        "task": "राजस्थान की सरकारी/पुलिस भ्रष्टाचार या नीतिगत-नाकामी की एक प्रमुख खबर की गहराई से, "
-                "बहु-दिवसीय, नागरिक-प्रथम व जवाबदेही-केंद्रित हिंदी कवरेज — एक ही मामले पर।",
+        "task": "राजस्थान में इस महीने सरकारी/पुलिस भ्रष्टाचार व जवाबदेही की एक समेकित, बहु-दिवसीय, "
+                "नागरिक-प्रथम हार्ड-न्यूज़ कवरेज — महीने के मामलों को जोड़ते हुए, सबसे नई घटना को लीड बनाकर।",
         "lead_story": {"headline": lead["headline"], "snippets": lead_snippets},
         "story_history": history,
         "lead_sources_en": lead_sources,
         "other_stories_en": [c["headline"] for c in others_cl],
         "output_schema": {
-            "lead_headline": "संक्षिप्त, सटीक हिंदी शीर्षक (एक ही मामला) जो सरकार/जेडीए/पुलिस की जवाबदेही "
-                             "व नागरिक-असर को केंद्र में रखे (लापरवाही/देरी/नाकामी/भ्रष्टाचार/अनदेखी या "
-                             "मुआवज़ा/पुनर्वास का सवाल); कभी तटस्थ या प्रशंसात्मक नहीं",
+            "lead_headline": "संक्षिप्त, सटीक हिंदी शीर्षक — सबसे नई घटना/समग्र आँकड़े को लीड बनाकर, जो "
+                             "सरकार/जेडीए/पुलिस की जवाबदेही व नागरिक-असर को केंद्र में रखे (लापरवाही/देरी/"
+                             "नाकामी/भ्रष्टाचार/अनदेखी या मुआवज़ा/पुनर्वास का सवाल); कभी तटस्थ या प्रशंसात्मक नहीं",
             "event_type": "one of: bribery, corruption, scam, investigation, negligence, civic, "
                           "protest, crime, other",
             "severity": "one of: critical, high, medium, low",
             "analysis": "हार्ड न्यूज़ रिपोर्ट (संपादकीय/राय नहीं), 3-4 पैराग्राफ: पहला पैराग्राफ सबसे नई/बड़ी "
-                        "ठोस घटना से शुरू हो (उल्टा पिरामिड); फिर इसी मामले कीपृष्ठभूमि, "
-                        "कौन/कौन-सा विभाग, क्या आरोप/राशि, शुरुआत से अब तक का घटनाक्रम, मौजूदा स्थिति, और "
+                        "ठोस घटना से शुरू हो (उल्टा पिरामिड); फिर इस महीने के भ्रष्टाचार/जवाबदेही मामलों की "
+                        "पृष्ठभूमि, कौन/कौन-सा विभाग, क्या आरोप/राशि, शुरुआत से अब तक का घटनाक्रम, मौजूदा स्थिति, और "
                         "नागरिकों पर असर; जवाबदेही के सवाल/माँगें हवाले से ('विपक्ष/नागरिकों के अनुसार'), "
                         "अपनी राय या 'सरकार को करना चाहिए' जैसी बात कभी नहीं; पैराग्राफ \\n\\n से अलग",
             "key_facts": "6-8 हिंदी बिंदुओं की array (कौन, विभाग/पद, राशि, धारा, कार्रवाई)",
@@ -984,16 +1003,19 @@ def _groq_call(api_key: str, model: str, messages: list[dict], max_tokens: int) 
         return None, -1
 
 
-def groq_analyze(api_key: str, clusters: list[dict], points: list[dict]) -> dict | None:
+def groq_analyze(api_key: str, clusters: list[dict], points: list[dict],
+                 source_objs: list[dict] | None = None) -> dict | None:
     """Ask Groq for the deep HINDI package (analysis, key facts, dated developments, police
     accountability, what-next, Hindi sources/secondary stories). Preflight-shrinks the request to the
     TPM budget before sending (Groq bills prompt+max_tokens against an 8000/min cap), and retries once
     with a minimal request on HTTP 413, so an unusually large day degrades to a smaller-but-real post
-    instead of the empty holding page. `points` is the down-sampled arc — see _arc_sample/TIMELINE_MAX."""
+    instead of the empty holding page. `points` is the down-sampled arc — see _arc_sample/TIMELINE_MAX.
+    `source_objs` (the clubbed-arc sources) are Hindi-titled by the AI to match the rendered cards."""
     model = groq_pick_model(api_key)
     max_tokens = GROQ_MAX_TOKENS
     snippets, others, hist = 3, 4, None
-    messages = _groq_messages(clusters, points, snippets=snippets, others=others, history_max=hist)
+    messages = _groq_messages(clusters, points, snippets=snippets, others=others, history_max=hist,
+                              source_objs=source_objs)
     # Preflight: shrink the request until the estimated prompt + output fits the TPM budget. On a
     # normal day the default already fits, so nothing is dropped; only a big enrichment day trims.
     for _ in range(8):
@@ -1011,7 +1033,8 @@ def groq_analyze(api_key: str, clusters: list[dict], points: list[dict]) -> dict
             max_tokens = 3500
         else:
             break
-        messages = _groq_messages(clusters, points, snippets=snippets, others=others, history_max=hist)
+        messages = _groq_messages(clusters, points, snippets=snippets, others=others,
+                                  history_max=hist, source_objs=source_objs)
     est = _messages_tokens(messages)
     print(f"  TPM: est. prompt {est} + max_tokens {max_tokens} = {est + max_tokens} "
           f"(budget {TPM_BUDGET}, cap {GROQ_TPM_LIMIT})")
@@ -1020,7 +1043,7 @@ def groq_analyze(api_key: str, clusters: list[dict], points: list[dict]) -> dict
     if data is None and code == 413:
         print("  ! Groq 413 — retrying once with a minimal request.", file=sys.stderr)
         messages = _groq_messages(clusters, points, snippets=0, others=0,
-                                  history_max=min(8, len(points)) or None)
+                                  history_max=min(8, len(points)) or None, source_objs=source_objs)
         data, _ = _groq_call(api_key, model, messages, 3500)
     return data
 
@@ -1141,6 +1164,55 @@ def prune_archive(archive: dict, now: datetime) -> None:
     archive["stories"] = [s for s in archive["stories"]
                           if _days_ago(s.get("last_seen", ""), now) <= ARCHIVE_DAYS
                           and s.get("points")]
+
+
+def month_accountability_arc(archive: dict, now: datetime) -> list[dict]:
+    """Club the MONTH's corruption/accountability cases into one tracker timeline. Gathers dated
+    points from EVERY archived story within ARCHIVE_DAYS whose report text carries a corruption/
+    accountability signal (BRIBE_TERMS ∪ FAILURE_TERMS), dedupes by url/text, sorts oldest→newest and
+    down-samples to TIMELINE_MAX. This is the '/breaking = corruption of the month' model (see
+    docs/breaking-benchmark.md): one title on the current case, a घटनाक्रम that spans the month's
+    cases, and (via the returned points' outlets) varied sources. Never fabricates — every point is a
+    real archived, dated, sourced item. Returns [] if nothing on-beat is archived."""
+    signal = set(BRIBE_TERMS) | set(FAILURE_TERMS)
+    seen_url: set[str] = set()
+    seen_txt: set[str] = set()
+    pts: list[dict] = []
+    for st in archive.get("stories", []):
+        for p in st.get("points", []):
+            if _days_ago(p.get("iso", ""), now) > ARCHIVE_DAYS:
+                continue
+            txt = " " + normalize(p.get("text_en", "")) + " "
+            if not any(t in txt for t in signal):
+                continue
+            url = p.get("url") or ""
+            key = normalize(p.get("text_en", ""))[:80]
+            if (url and url in seen_url) or (key and key in seen_txt):
+                continue
+            seen_url.add(url)
+            seen_txt.add(key)
+            pts.append(p)
+    pts.sort(key=lambda p: p.get("iso", ""))
+    return _arc_sample(pts, TIMELINE_MAX)
+
+
+def arc_sources(points: list[dict], limit: int = 6) -> list[dict]:
+    """Distinct sources behind a (clubbed) arc — newest first, deduped by url — so the स्रोत cards show
+    the varied outlets that reported the month's cases instead of one repeated placeholder. Shape
+    matches cluster_sources (title=English text_en for AI Hindi-titling, url, source outlet, published)
+    so _groq_messages / _lead_from_ai consume it unchanged."""
+    out: list[dict] = []
+    seen: set[str] = set()
+    for p in sorted(points, key=lambda p: p.get("iso", ""), reverse=True):
+        url = p.get("url") or ""
+        if url and url in seen:
+            continue
+        seen.add(url)
+        out.append({"title": p.get("text_en", ""), "url": url or PAGE_URL,
+                    "source": p.get("source", "") or "Google News", "published": p.get("iso", "")})
+        if len(out) >= limit:
+            break
+    return out
 
 
 def minutes_since(iso: str | None) -> float:
@@ -1481,18 +1553,27 @@ def build() -> None:
     for cl in clusters[1:]:
         ingest_cluster(archive, cl, now)
     prune_archive(archive, now)
-    # Down-sample a weeks-long arc so the timeline still spans शुरुआत → अब within the TPM budget.
-    arc = _arc_sample(story.get("points", []), TIMELINE_MAX)
+    # The page is a corruption/accountability TRACKER: when the lead is on-beat, club the MONTH's
+    # corruption cases into one timeline (docs/breaking-benchmark.md) — घटनाक्रम spans all of them,
+    # with the current case as the lede. Off-beat leads keep their own arc. Down-sampled to
+    # TIMELINE_MAX so it stays within the Groq TPM budget either way.
+    clubbed = month_accountability_arc(archive, now) if is_policy_beat(top) else []
+    arc = clubbed or _arc_sample(story.get("points", []), TIMELINE_MAX)
     print(f"  archive: {len(archive['stories'])} story(ies); lead carries "
-          f"{len(story['points'])} dated point(s) (≤{ARCHIVE_DAYS}d), narrating {len(arc)}")
+          f"{len(story['points'])} dated point(s); narrating {len(arc)} "
+          f"({'clubbed month' if clubbed else 'lead-only'})")
+
+    # For a clubbed month, the स्रोत cards come from the arc's varied outlets (not the lead cluster),
+    # and the AI Hindi-titles those same cards.
+    src_objs = arc_sources(arc) if clubbed else None
 
     lead = None
     other_stories: list[dict] = []
     if use_ai:
         print("Asking Groq for analysis...")
-        ai = groq_analyze(api_key, clusters, arc)
+        ai = groq_analyze(api_key, clusters, arc, source_objs=src_objs)
         if ai:
-            lead, other_stories = _lead_from_ai(ai, clusters)
+            lead, other_stories = _lead_from_ai(ai, clusters, source_objs=src_objs)
 
     if lead is None:
         # No AI / Groq failed: a clean Hindi holding page — never English feed text.
@@ -1524,8 +1605,10 @@ def build() -> None:
           f"{len(other_stories)} other stor(y/ies).")
 
 
-def _lead_from_ai(ai: dict, clusters: list[dict]) -> tuple[dict | None, list[dict]]:
-    """Map the Groq Hindi JSON onto the render model. Returns (lead, other_stories)."""
+def _lead_from_ai(ai: dict, clusters: list[dict],
+                  source_objs: list[dict] | None = None) -> tuple[dict | None, list[dict]]:
+    """Map the Groq Hindi JSON onto the render model. Returns (lead, other_stories). `source_objs`
+    (the clubbed-arc sources) render as the स्रोत cards when given, else the lead cluster's sources."""
     top = clusters[0]
     # to_hindi() strips English/acronyms/field-name tags from every VISIBLE field (not the
     # event_type/severity enums, which drive CSS/cadence) so the page stays Devanagari-only.
@@ -1540,21 +1623,36 @@ def _lead_from_ai(ai: dict, clusters: list[dict]) -> tuple[dict | None, list[dic
     event_type = (ai.get("event_type") or "other").strip().lower()
     analysis = to_hindi((ai.get("analysis") or "").strip())
 
-    key_facts = [t for f in (ai.get("key_facts") or []) if (t := to_hindi(str(f).strip()))][:8]
+    # key_facts / developments must be flat arrays of strings / {date_label,text} objects. The model
+    # sometimes nests them (an array-in-an-array, or the whole developments list dropped into
+    # key_facts); coerce defensively so a raw structure repr NEVER reaches the page.
+    key_facts = _ai_str_list(ai.get("key_facts"), 8)
     police = to_hindi((ai.get("police_accountability") or "").strip())
     what_next = to_hindi((ai.get("what_next") or "").strip())
 
-    developments = []
-    for d in (ai.get("developments") or [])[:TIMELINE_MAX]:
-        if isinstance(d, dict):
-            text = to_hindi((d.get("text") or "").strip())
-            label = to_hindi((d.get("date_label") or d.get("label") or "").strip())
-        else:
-            text, label = to_hindi(str(d).strip()), ""
-        if text:
-            developments.append({"label": label, "text": text})
+    developments: list[dict] = []
 
-    src_objs = cluster_sources(top, limit=6)
+    def add_dev(d) -> None:
+        if len(developments) >= TIMELINE_MAX:
+            return
+        if isinstance(d, dict):
+            text = _ai_str(d.get("text") or d.get("") or "")
+            label = _ai_str(d.get("date_label") or d.get("label") or d.get("_") or "")
+            if text:
+                developments.append({"label": label, "text": text})
+        elif isinstance(d, (list, tuple)):
+            for i in d:            # recover a nested [{date_label,text}, …] the model wrapped in a list
+                add_dev(i)
+        elif isinstance(d, str):
+            t = to_hindi(d.strip())
+            if t:
+                developments.append({"label": "", "text": t})
+        # any other type: skip — never str() it onto the page
+
+    for d in (ai.get("developments") or []):
+        add_dev(d)
+
+    src_objs = source_objs if source_objs is not None else cluster_sources(top, limit=6)
     sources_hi = ai.get("sources_hi") or []
     sources = []
     for i, s in enumerate(src_objs):
@@ -1689,6 +1787,36 @@ def to_hindi(text: str) -> str:
     return text.strip()
 
 
+def _ai_str(x) -> str:
+    """Coerce ONE AI value to a clean Hindi string. A str is sanitized via to_hindi; anything else
+    (a list/dict the model wrongly nested) becomes '' — we NEVER str() a list/dict, because that dumps
+    a raw JSON/Python repr onto the page (the '[{\'_\': …}]' / 'key","key2"' garbage seen when Groq
+    returns a mis-shaped array). See _ai_str_list and _lead_from_ai."""
+    return to_hindi(x.strip()) if isinstance(x, str) else ""
+
+
+def _ai_str_list(x, limit: int) -> list[str]:
+    """Flatten an AI 'array of strings' field into clean Hindi strings. Tolerates nested lists (the
+    model sometimes wraps items in sub-lists) and silently drops dicts/None, so a mis-shaped
+    key_facts/sources array yields real strings instead of a stringified structure."""
+    out: list[str] = []
+
+    def walk(v) -> None:
+        if len(out) >= limit:
+            return
+        if isinstance(v, str):
+            s = to_hindi(v.strip())
+            if s:
+                out.append(s)
+        elif isinstance(v, (list, tuple)):
+            for i in v:
+                walk(i)
+        # dicts / other types: skip — a dict is the wrong shape for a strings array
+
+    walk(x)
+    return out[:limit]
+
+
 def _src_time(s: dict) -> str:
     try:
         dt = datetime.fromisoformat(s["published"])
@@ -1796,7 +1924,9 @@ def ensure_timeline_depth(lead: dict) -> None:
 
     context_steps: list[dict] = []
     for fact in (lead.get("key_facts") or []):
-        text = str(fact).strip()
+        if not isinstance(fact, str):   # key_facts are already clean strings; skip any stray non-string
+            continue
+        text = fact.strip()
         if text and text not in seen:
             context_steps.append({"label": "मामले में", "text": text})
             seen.add(text)

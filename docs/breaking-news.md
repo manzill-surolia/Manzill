@@ -10,8 +10,11 @@ workflow and served as a static file on GitHub Pages.
 This document is the consolidated spec — every instruction gathered for this page, plus
 an operator guide.
 
-> **See [`breaking-benchmark.md`](breaking-benchmark.md)** for the golden "good-to-follow" example
-> (title, description, timeline, key facts, sources) + the per-section standards the output must match.
+> **See [`breaking-benchmark.md`](breaking-benchmark.md)** for the golden "good-to-follow" **two worked
+> examples** — one per timeline mode (Use Case A `घटनाक्रम`, Use Case B `इस महीने उजागर भ्रष्टाचार`) —
+> covering title, description, timeline, key facts, sources + the per-section standards the output must
+> match. The same two use cases are in machine-readable **[`breaking-cases.json`](breaking-cases.json)**
+> (a reference for adapting the prompt; **not** runtime-injected — that would blow the Groq TPM budget).
 > The page is a **corruption/accountability tracker**: one title on the *current* case; a timeline
 > section with **two modes** — **"घटनाक्रम"** for one developing case's chronology, else **"इस महीने
 > उजागर भ्रष्टाचार"** for the month's different cases (`month_accountability_arc`) — **descending

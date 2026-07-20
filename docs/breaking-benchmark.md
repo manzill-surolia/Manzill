@@ -40,7 +40,14 @@ update, and never softens into a pro-government or neutral piece.
 an **editorial** line and is **not** the standard. The polished version above attributes the demand to
 विपक्ष/नागरिक समूह instead.*
 
-### घटनाक्रम — शुरुआत से अब तक (timeline — clubs the month's cases, oldest → newest)
+### इस महीने उजागर भ्रष्टाचार (monthly digest — different cases, **newest → oldest**)
+> **Two modes (important):** this section is **"घटनाक्रम"** (a single case's chronology: शिकायत →
+> ट्रैप → गिरफ्तारी → एफआईआर → चार्जшीट) **only when the lead is one developing case** with a real
+> arc of its own. When it's a roundup of the month's *different* cases (as below), the heading is
+> **"इस महीने उजागर भ्रष्टाचार"** — never "घटनाक्रम — शुरुआत से अब तक", since unrelated cases are not a
+> chronology. Either way the list is **descending (newest first)** and reveals on scroll. (`build()`
+> picks the mode via `SINGLE_CASE_MIN`; example content below is left oldest→newest for readability.)
+
 1. **2 जुलाई, रात 9:22 बजे** — एसीबी ने दो सरकारी अधिकारियों से दो लाख तिरसठ हजार रुपये बरामद किए,
    जिससे भ्रष्टाचार के संकेत मिले। *(द न्यू इंडियन एक्सप्रेस)*
 2. **3 जुलाई, दोपहर 12:30 बजे** — जयपुर में कृषि विभाग के दो अधिकारियों से समान राशि बरामद की गई,
@@ -101,9 +108,12 @@ Only **accountability** stories that question the government/police. A pro-gover
 - **Description (पूरी खबर)** — hard news, **inverted pyramid** (newest development first), **attributed**
   (विपक्ष/नागरिकों/एसीबी के अनुसार); **clubs the month's related corruption cases**; **no** editorial
   "सरकार को … करना चाहिए", **no** government praise.
-- **Timeline (घटनाक्रम)** — ≥5 dated steps, **clubs the month's corruption/accountability cases**
-  oldest → newest, real date label + reporting outlet, 2-3 sentence sourced text. **Never** raw data
-  dumps (`[{'_': …}]`, joined arrays) or stray `:` / `–`.
+- **Timeline section (two modes)** — **"घटनाक्रम"** = one developing case's chronology (only when the
+  lead has ≥`SINGLE_CASE_MIN` dated points of its own); **"इस महीने उजागर भ्रष्टाचार"** = the month's
+  *different* cases (one line per case, distinct case per step — not a false chronology). Either way:
+  **≥5 steps, descending (newest first), scroll-triggered reveal**, real date label + reporting
+  outlet, 2-3 sentence sourced text. **Never** raw data dumps (`[{'_': …}]`, joined arrays) or stray
+  `:` / `–`.
 - **Key facts (मुख्य तथ्य)** — clean dated bullets (who, department, amount, action).
 - **Sources (स्रोत)** — **varied, named outlets** each with a **real Hindi title**; never the pale
   "ताज़ा रिपोर्ट" on every card.

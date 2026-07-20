@@ -66,7 +66,7 @@ NEWS_SITE = "https://news.manzill.com"
 # Bump whenever the rendered output (template/RSS/sitemap format) changes. A mismatch
 # with the value stored in state forces a one-time re-render even when the feed is
 # unchanged, so a redesign rolls out on the next scheduled run without a manual push.
-RENDER_VERSION = "20"
+RENDER_VERSION = "21"
 
 # --- Groq TPM budget ------------------------------------------------------- #
 # Groq bills prompt_tokens + max_tokens against a per-minute cap; exceeding it returns HTTP 413 and
@@ -417,6 +417,11 @@ MAX_STALE_HOURS = 3.0
 # story has only one dated point; ensure_timeline_depth() then narrates a relative-labelled arc from
 # the already-sourced key_facts/what_next so the timeline is never a lone entry (no fabricated times).
 MIN_TIMELINE_STEPS = 4
+
+# A lead needs at least this many dated points OF ITS OWN to earn a "घटनाक्रम — शुरुआत से अब तक"
+# (a single case's chronology). A one-off lead (fewer points) instead shows the month's DIFFERENT
+# corruption cases under "इस महीने उजागर भ्रष्टाचार". See build()'s timeline-mode pick.
+SINGLE_CASE_MIN = 3
 
 # Max timeline points NARRATED per story. A weeks-long arc is down-sampled to this many points
 # (keeping the first and last, see _arc_sample) so the "घटनाक्रम" still spans शुरुआत → अब. Kept
@@ -896,7 +901,8 @@ def _messages_tokens(messages: list[dict]) -> int:
 
 def _groq_messages(clusters: list[dict], points: list[dict], *,
                    snippets: int = 3, others: int = 4, sources: int = 5,
-                   history_max: int | None = None, source_objs: list[dict] | None = None) -> list[dict]:
+                   history_max: int | None = None, source_objs: list[dict] | None = None,
+                   timeline_mode: str = "case") -> list[dict]:
     """Build the Groq chat `messages` (system + user JSON) for the lead's arc. The caps are parameters
     so groq_analyze's TPM preflight can shrink an over-budget request, and check_tpm.py can measure the
     exact request the generator sends. Kept lean — the prompt is Devanagari-heavy (see the TPM budget);
@@ -912,6 +918,18 @@ def _groq_messages(clusters: list[dict], points: list[dict], *,
     pts = points if history_max is None else _arc_sample(points, history_max)
     history = [{"when": _hindi_point_label(p), "report": p.get("text_en", "")} for p in pts]
 
+    if timeline_mode == "month":
+        mode_hint = (
+            "story_history इस महीने के कई अलग-अलग (असंबद्ध) भ्रष्टाचार/जवाबदेही मामलों का संग्रह है — इन्हें "
+            "एक ही घटना की कालक्रमिक कड़ी न बनाएँ; developments में हर चरण एक अलग मामला हो (एक-एक पंक्ति: "
+            "क्या हुआ, किस विभाग/जगह, कितनी राशि/आरोप, नागरिक पर असर)। शीर्षक व पहला पैराग्राफ सबसे नई "
+            "घटना को लीड बनाकर महीने के पैटर्न से जोड़ें। ")
+    else:
+        mode_hint = (
+            "story_history इसी एक विकासशील मामले का सिलसिला है — developments उसी एक मामले का कालक्रमिक "
+            "घटनाक्रम हों (जैसे शिकायत → ट्रैप/जाँच → गिरफ्तारी → एफआईआर → चार्जशीट)। शीर्षक व पहला "
+            "पैराग्राफ सबसे नई घटना को लीड बनाएँ। ")
+
     system = (
         "आप राजस्थान (भारत) की एक हिंदी न्यूज़ वेबसाइट के वरिष्ठ जवाबदेही संपादक हैं — यह एक वॉचडॉग "
         "(निगरानी) पेज है। दृष्टिकोण हमेशा आम नागरिक/पीड़ित का, सरकार का नहीं। हर पोस्ट (शीर्षक, विश्लेषण, "
@@ -921,11 +939,9 @@ def _groq_messages(clusters: list[dict], points: list[dict], *,
         "शैली हार्ड ब्रेकिंग-न्यूज़ की हो, संपादकीय/राय नहीं: तथ्यात्मक, स्रोत-आधारित रिपोर्टिंग; जवाबदेही के "
         "सवाल/माँगें नागरिकों, विपक्ष या विशेषज्ञों के हवाले से दें ('विपक्ष ने मांग की', 'नागरिकों ने सवाल "
         "उठाया') — अपनी ओर से उपदेश ('सरकार को यह करना चाहिए') कभी नहीं। "
-        "story_history इस महीने के कई भ्रष्टाचार/जवाबदेही मामलों को समेटता है — इन्हें एक समेकित "
-        "'राजस्थान में इस महीने भ्रष्टाचार/जवाबदेही' खबर में जोड़ें (केवल भ्रष्टाचार/जवाबदेही मामले, "
-        "असंबंधित विषय कभी नहीं); शीर्षक व पहला पैराग्राफ सबसे नई घटना को लीड बनाएँ, फिर महीने के बाकी "
-        "मामलों को क्रमवार जोड़ें। developments = "
-        "5-12 चरणों की क्रमवार टाइमलाइन (oldest→newest): story_history का हर दिनांकित बिंदु (date_label = "
+        + mode_hint +
+        "developments = "
+        "5-12 चरण: story_history का हर दिनांकित बिंदु (date_label = "
         "'when' से हूबहू) + विश्लेषण/तथ्यों से बने प्रक्रिया/कथानक-चरण। जहाँ पुष्ट तिथि हो वही दें, वरना "
         "सापेक्ष हिंदी लेबल (पृष्ठभूमि/घटना के बाद/जाँच के दौरान/अब तक/आगे) — मनगढ़ंत घड़ी-समय कभी नहीं। "
         "अपुष्ट बात का श्रेय असली प्राधिकरण/आउटलेट के हिंदी नाम से दें (जैसे 'एसीबी के अनुसार') या कुछ नहीं। "
@@ -1004,7 +1020,7 @@ def _groq_call(api_key: str, model: str, messages: list[dict], max_tokens: int) 
 
 
 def groq_analyze(api_key: str, clusters: list[dict], points: list[dict],
-                 source_objs: list[dict] | None = None) -> dict | None:
+                 source_objs: list[dict] | None = None, timeline_mode: str = "case") -> dict | None:
     """Ask Groq for the deep HINDI package (analysis, key facts, dated developments, police
     accountability, what-next, Hindi sources/secondary stories). Preflight-shrinks the request to the
     TPM budget before sending (Groq bills prompt+max_tokens against an 8000/min cap), and retries once
@@ -1015,7 +1031,7 @@ def groq_analyze(api_key: str, clusters: list[dict], points: list[dict],
     max_tokens = GROQ_MAX_TOKENS
     snippets, others, hist = 3, 4, None
     messages = _groq_messages(clusters, points, snippets=snippets, others=others, history_max=hist,
-                              source_objs=source_objs)
+                              source_objs=source_objs, timeline_mode=timeline_mode)
     # Preflight: shrink the request until the estimated prompt + output fits the TPM budget. On a
     # normal day the default already fits, so nothing is dropped; only a big enrichment day trims.
     for _ in range(8):
@@ -1034,7 +1050,7 @@ def groq_analyze(api_key: str, clusters: list[dict], points: list[dict],
         else:
             break
         messages = _groq_messages(clusters, points, snippets=snippets, others=others,
-                                  history_max=hist, source_objs=source_objs)
+                                  history_max=hist, source_objs=source_objs, timeline_mode=timeline_mode)
     est = _messages_tokens(messages)
     print(f"  TPM: est. prompt {est} + max_tokens {max_tokens} = {est + max_tokens} "
           f"(budget {TPM_BUDGET}, cap {GROQ_TPM_LIMIT})")
@@ -1043,7 +1059,8 @@ def groq_analyze(api_key: str, clusters: list[dict], points: list[dict],
     if data is None and code == 413:
         print("  ! Groq 413 — retrying once with a minimal request.", file=sys.stderr)
         messages = _groq_messages(clusters, points, snippets=0, others=0,
-                                  history_max=min(8, len(points)) or None, source_objs=source_objs)
+                                  history_max=min(8, len(points)) or None, source_objs=source_objs,
+                                  timeline_mode=timeline_mode)
         data, _ = _groq_call(api_key, model, messages, 3500)
     return data
 
@@ -1553,25 +1570,36 @@ def build() -> None:
     for cl in clusters[1:]:
         ingest_cluster(archive, cl, now)
     prune_archive(archive, now)
-    # The page is a corruption/accountability TRACKER: when the lead is on-beat, club the MONTH's
-    # corruption cases into one timeline (docs/breaking-benchmark.md) — घटनाक्रम spans all of them,
-    # with the current case as the lede. Off-beat leads keep their own arc. Down-sampled to
-    # TIMELINE_MAX so it stays within the Groq TPM budget either way.
+    # "घटनाक्रम — शुरुआत से अब तक" is ONE developing case's chronology, so it only applies when the lead
+    # has a real arc of its own. A one-off lead (a single ACB arrest) has no chronology — then the
+    # section becomes "इस महीने उजागर भ्रष्टाचार", clubbing the month's DIFFERENT corruption cases.
+    # Pick the mode from the lead's own dated-point count.
+    own_pts = story.get("points", [])
     clubbed = month_accountability_arc(archive, now) if is_policy_beat(top) else []
-    arc = clubbed or _arc_sample(story.get("points", []), TIMELINE_MAX)
-    print(f"  archive: {len(archive['stories'])} story(ies); lead carries "
-          f"{len(story['points'])} dated point(s); narrating {len(arc)} "
-          f"({'clubbed month' if clubbed else 'lead-only'})")
+    if len(own_pts) >= SINGLE_CASE_MIN:
+        timeline_mode = "case"
+        arc = _arc_sample(own_pts, TIMELINE_MAX)
+        tl_heading, tl_note = "घटनाक्रम", "इसी मामले का सिलसिला — नवीनतम अपडेट सबसे ऊपर।"
+    elif clubbed:
+        timeline_mode = "month"
+        arc = clubbed
+        tl_heading, tl_note = "इस महीने उजागर भ्रष्टाचार", "इस महीने के अलग-अलग मामले — नवीनतम सबसे ऊपर।"
+    else:
+        timeline_mode = "case"
+        arc = _arc_sample(own_pts, TIMELINE_MAX)
+        tl_heading, tl_note = "घटनाक्रम", "नवीनतम अपडेट सबसे ऊपर।"
+    print(f"  archive: {len(archive['stories'])} story(ies); lead carries {len(own_pts)} own "
+          f"point(s); mode={timeline_mode}, narrating {len(arc)}")
 
-    # For a clubbed month, the स्रोत cards come from the arc's varied outlets (not the lead cluster),
-    # and the AI Hindi-titles those same cards.
-    src_objs = arc_sources(arc) if clubbed else None
+    # In month mode the स्रोत cards come from the clubbed arc's varied outlets; in case mode, the
+    # lead cluster's own sources (via _lead_from_ai's default).
+    src_objs = arc_sources(arc) if timeline_mode == "month" else None
 
     lead = None
     other_stories: list[dict] = []
     if use_ai:
         print("Asking Groq for analysis...")
-        ai = groq_analyze(api_key, clusters, arc, source_objs=src_objs)
+        ai = groq_analyze(api_key, clusters, arc, source_objs=src_objs, timeline_mode=timeline_mode)
         if ai:
             lead, other_stories = _lead_from_ai(ai, clusters, source_objs=src_objs)
 
@@ -1595,6 +1623,8 @@ def build() -> None:
             "render_version": RENDER_VERSION,
             "lead": lead,
             "other_stories": other_stories,
+            "timeline_heading": tl_heading,
+            "timeline_note": tl_note,
         }
     )
     render(state, now)
@@ -2014,18 +2044,24 @@ def render(state: dict, now: datetime) -> None:
     # real timestamp (<time>), a 2-3 sentence account (<p>), and, when known, the reporting outlet.
     developments = lead.get("developments", [])
     if developments:
-        # --i carries the item's index so the CSS can stagger each item's reveal animation.
+        # Newest first (descending) — the live/developing dot pulses on the FIRST (top) item. --i gives
+        # each item a tiny stagger for the scroll-triggered reveal (see the observer <script> + CSS).
         timeline_html = "\n".join(
             f'<li class="tl-item sev-{esc(sev)}" style="--i:{i}">'
             + (f'<time>{esc(d.get("label"))}</time>' if d.get("label") else "")
             + f'<p>{esc(d.get("text"))}</p>'
             + (f'<span class="tl-src">{esc(d.get("source_hi"))}</span>' if d.get("source_hi") else "")
             + '</li>'
-            for i, d in enumerate(developments)
+            for i, d in enumerate(reversed(developments))
         )
     else:
-        timeline_html = '<li class="tl-item"><p>घटनाक्रम अपडेट हो रहा है।</p></li>'
-    update_count = f"{len(developments)} घटनाक्रम" if developments else "अपडेट हो रहा है"
+        timeline_html = '<li class="tl-item"><p>अपडेट हो रहा है।</p></li>'
+    # Heading/note adapt: "घटनाक्रम" (a single case's chronology) vs "इस महीने उजागर भ्रष्टाचार" (the
+    # month's different cases). Set by build()'s timeline-mode pick.
+    tl_heading = (state.get("timeline_heading") or "घटनाक्रम").strip()
+    tl_note = (state.get("timeline_note") or "नवीनतम अपडेट सबसे ऊपर।").strip()
+    count_word = "मामले" if tl_heading.startswith("इस महीने") else "घटनाक्रम"
+    update_count = f"{len(developments)} {count_word}" if developments else "अपडेट हो रहा है"
 
     # Secondary "अन्य ताज़ा खबरें" — Hindi, links in the same tab.
     if other_stories:
@@ -2087,6 +2123,8 @@ def render(state: dict, now: datetime) -> None:
         "{{WHAT_NEXT}}": what_next_html,
         "{{SOURCES}}": source_items,
         "{{TIMELINE}}": timeline_html,
+        "{{TIMELINE_HEADING}}": esc(tl_heading),
+        "{{TIMELINE_NOTE}}": esc(tl_note),
         "{{OTHER_STORIES}}": other_section,
         "{{UPDATED_IST}}": esc(updated_ist),
         "{{UPDATE_COUNT}}": esc(update_count),
@@ -2616,9 +2654,12 @@ section.feed { margin-bottom: 36px; }
 ul.timeline { list-style: none; margin: 0; padding: 0; max-width: 760px; }
 .tl-item {
   position: relative; padding: 0 0 18px 22px; border-left: 2px solid var(--border);
-  /* each item reveals with a staggered fade-in-up (delay from the inline --i) */
-  opacity: 0; animation: tl-reveal .5s ease both; animation-delay: calc(var(--i, 0) * 0.12s);
+  /* scroll-triggered reveal: hidden until the item enters the viewport, then a fade-in-up (the
+     observer <script> adds .in). --i gives a tiny per-item stagger. */
+  opacity: 0; transform: translateY(10px);
+  transition: opacity .5s ease, transform .5s ease; transition-delay: calc(var(--i, 0) * 0.05s);
 }
+.tl-item.in { opacity: 1; transform: none; }
 .tl-item:last-child { padding-bottom: 0; }
 .tl-item::before {
   content: ""; position: absolute; left: -7px; top: 3px;
@@ -2627,11 +2668,11 @@ ul.timeline { list-style: none; margin: 0; padding: 0; max-width: 760px; }
 }
 .tl-item.sev-critical::before { background: var(--brand); }
 .tl-item.sev-high::before { background: #e65100; }
-/* newest development (bottom of the chain) = the "live/developing" step — glowing pulse */
-.tl-item:last-child::before {
+/* newest development (TOP of the chain, since the list is newest-first) = the "live/developing"
+   step — glowing pulse */
+.tl-item:first-child::before {
   background: var(--brand); animation: tl-glow 1.3s ease-in-out infinite;
 }
-@keyframes tl-reveal { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
 @keyframes tl-glow {
   0%, 100% { box-shadow: 0 0 0 0 rgba(183,28,28,.55), 0 0 4px var(--brand); }
   50%      { box-shadow: 0 0 0 5px rgba(183,28,28,0), 0 0 16px var(--brand); }
@@ -2725,13 +2766,13 @@ ul.facts li { margin: 0 0 8px; line-height: 1.6; }
 
       <section class="feed">
         <div class="section-head">
-          <h2>घटनाक्रम &mdash; शुरुआत से अब तक</h2>
+          <h2>{{TIMELINE_HEADING}}</h2>
           <span class="count">{{UPDATE_COUNT}}</span>
         </div>
         <ul class="timeline">
           {{TIMELINE}}
         </ul>
-        <p class="note">ऊपर से नीचे: पुराने से नए घटनाक्रम। खबर के विकसित होते ही यह पेज अपने-आप रिफ्रेश होता रहता है।</p>
+        <p class="note">{{TIMELINE_NOTE}} खबर के विकसित होते ही यह पेज अपने-आप रिफ्रेश होता रहता है।</p>
       </section>
 
       {{KEY_FACTS}}
@@ -2757,6 +2798,24 @@ ul.facts li { margin: 0 0 8px; line-height: 1.6; }
       <p><a href="/breaking/rss.xml">आरएसएस फ़ीड</a> &middot; <a href="https://news.manzill.com">जयपुर न्यूज़ हिंदी में</a></p>
       <p>&copy; 2026 जयपुर न्यूज़</p>
     </footer>
+    <script>
+      // Scroll-triggered timeline reveal: each .tl-item animates in as it enters the viewport.
+      // Graceful fallback (no IntersectionObserver, or reduced motion) → reveal everything at once.
+      (function () {
+        var items = document.querySelectorAll('.tl-item');
+        var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (!('IntersectionObserver' in window) || reduce) {
+          for (var i = 0; i < items.length; i++) items[i].classList.add('in');
+          return;
+        }
+        var io = new IntersectionObserver(function (entries) {
+          entries.forEach(function (e) {
+            if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+          });
+        }, { threshold: 0.15, rootMargin: '0px 0px -8% 0px' });
+        items.forEach(function (el) { io.observe(el); });
+      })();
+    </script>
 </body>
 </html>
 """

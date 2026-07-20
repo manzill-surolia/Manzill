@@ -12,9 +12,11 @@ an operator guide.
 
 > **See [`breaking-benchmark.md`](breaking-benchmark.md)** for the golden "good-to-follow" example
 > (title, description, timeline, key facts, sources) + the per-section standards the output must match.
-> The page is a **monthly corruption/accountability tracker**: one title on the *current* case, a
-> timeline that **clubs the month's corruption cases** (`month_accountability_arc`), varied named
-> sources (`arc_sources` + `HINDI_SOURCE`), hard-news attributed voice, Devanagari-only.
+> The page is a **corruption/accountability tracker**: one title on the *current* case; a timeline
+> section with **two modes** — **"घटनाक्रम"** for one developing case's chronology, else **"इस महीने
+> उजागर भ्रष्टाचार"** for the month's different cases (`month_accountability_arc`) — **descending
+> (newest first), scroll-revealed**; varied named sources (`arc_sources` + `HINDI_SOURCE`); hard-news
+> attributed voice; Devanagari-only.
 
 ---
 

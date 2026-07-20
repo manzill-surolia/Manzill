@@ -67,10 +67,12 @@ back into the repo, which Pages then serves) — everything else is hand-authore
     secondary cards (`order_secondary` gates on `has_failure_angle`). **Voice = hard breaking-news, not
     editorial:** the lead article opens with the newest development (inverted pyramid) and holds power
     to account through **attributed** facts/demands ("विपक्ष ने मांग की") — never the outlet's own
-    "सरकार को करना चाहिए" prescription. **Monthly tracker:** the timeline **clubs the month's
-    corruption/accountability cases** into one arc (`month_accountability_arc`), with the current case
-    as the title/lede, and the स्रोत cards come from those varied outlets (`arc_sources` + expanded
-    `HINDI_SOURCE`) — the target output is the golden **`docs/breaking-benchmark.md`**. The AI's
+    "सरकार को करना चाहिए" prescription. **Timeline has two modes:** **"घटनाक्रम"** = one developing
+    case's chronology (when the lead has ≥`SINGLE_CASE_MIN` own dated points); otherwise **"इस महीने
+    उजागर भ्रष्टाचार"** = the month's *different* cases (`month_accountability_arc`, one line per case —
+    not a false chronology). The list is **descending (newest first)** and reveals on scroll
+    (`IntersectionObserver`); स्रोत cards come from the varied outlets (`arc_sources` + expanded
+    `HINDI_SOURCE`). Target output is the golden **`docs/breaking-benchmark.md`**. The AI's
     key_facts/developments arrays are defensively coerced (`_ai_str`/`_ai_str_list`) so a malformed
     (nested) response never dumps raw structures onto the page. **Devanagari-only is
     enforced in code**, not just prompted: `to_hindi()` (with the `ORG_HI` acronym map) strips every

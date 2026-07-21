@@ -2,7 +2,7 @@
 
 This is the **canonical set of worked examples + standards** for `manzill.com/breaking`, so the
 requirements for **title, description, timeline, key facts, and sources** don't have to be re-explained.
-The generator (`scripts/build_breaking_news.py`) should reproduce these shapes every run; reviewers
+The generator (`build_breaking_news.py`) should reproduce these shapes every run; reviewers
 should diff the live page against them.
 
 `/breaking` is a **living corruption/accountability tracker for Rajasthan** (Jaipur-first): one title on
@@ -12,7 +12,7 @@ the month; it does **not** wait on any government update, and never softens into
 neutral piece.
 
 There are **two use cases** — the timeline section has **two modes** — and this file documents both. A
-machine-readable copy of both (for the AI to learn/adapt from) lives in **`docs/breaking-cases.json`**.
+machine-readable copy of both (for the AI to learn/adapt from) lives in **`breaking-cases.json`**.
 
 ---
 
@@ -226,7 +226,7 @@ date + (where known) outlet, newest on top.*
 - **Global** — fully **Devanagari** (`to_hindi`; acronyms → जेडीए/भाजपा/ईडी/एसीबी…); **no fabrication**
   (only sourced facts + attributed questions; no invented amounts/allegations about named people); no
   field-name/bracket tags (`(analysis)`, `(lead_story)`); the request stays within the **Groq TPM
-  budget** (check with `python scripts/check_tpm.py`).
+  budget** (check with `python breaking/check_tpm.py`).
 
 ## How this maps to the code
 - Mode pick → `build()` (`own_pts` vs `SINGLE_CASE_MIN`), heading/note in `state` →
@@ -243,7 +243,7 @@ date + (where known) outlet, newest on top.*
 - Hard-news, attributed, mode-aware voice → the `_groq_messages` prompt (`timeline_mode`).
 
 ## Machine-readable copy
-Both use cases are also in **`docs/breaking-cases.json`** (structured `title` / `description` /
+Both use cases are also in **`breaking-cases.json`** (structured `title` / `description` /
 `timeline` / `key_facts` / `sources` / `capture_deltas` per case) — a **reference**, not a runtime
 input: do **not** feed it into the Groq prompt (it would blow the 8000 TPM budget). Use it when
 adapting the prompt or reviewing output.

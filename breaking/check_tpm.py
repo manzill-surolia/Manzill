@@ -7,8 +7,8 @@ scaffold. The Devanagari prompt tokenizes expensively, so a prompt edit can sile
 
 Run this before shipping any change to the Groq prompt in ``build_breaking_news.py``:
 
-    python scripts/check_tpm.py            # offline conservative estimate (no network, CI-gateable)
-    python scripts/check_tpm.py --api      # exact: probes Groq for usage.prompt_tokens (needs key)
+    python breaking/check_tpm.py            # offline conservative estimate (no network, CI-gateable)
+    python breaking/check_tpm.py --api      # exact: probes Groq for usage.prompt_tokens (needs key)
 
 It builds a **synthetic worst-case** request (the caps ``_groq_messages`` sends by default, filled
 with representative-length Hindi+English content and a full ``TIMELINE_MAX`` history), so a PASS is an

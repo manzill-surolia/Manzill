@@ -1,82 +1,117 @@
 {
   "ist_day": "2026-07-21",
   "lead": {
-    "id": "1ebb5bac8290",
-    "headline": "सुप्रीम कोर्ट ने 1996 के जयपुर बस विस्फोट मामले में 30 साल बाद ताजा मुकदमा आदेशित किया",
-    "event_type": "court",
+    "id": "7ed57ec38e7a",
+    "headline": "एनएचएआई ने जयपुर के प्रमुख राजमार्गों पर टोल शुल्क में वृद्धि की, दिल्ली-जयपुर यात्रा महंगी",
+    "event_type": "government",
     "severity": "high",
-    "analysis": "सुप्रीम कोर्ट ने आज 21 जुलाई को 1996 में जयपुर में हुए बस विस्फोट मामले में ताजा मुकदमा चलाने का आदेश दिया। अदालत ने कहा कि पिछले न्यायिक प्रक्रियाओं में कई प्रक्रियात्मक त्रुटियां पाई गईं, जिससे नई सुनवाई आवश्यक है।\n\n1996 के इस विस्फोट में कई लोगों की मौत और कई घायल हुए थे। प्रारम्भिक जांच में कई संदिग्धों को गिरफ्तार किया गया और 2000 में प्रथम स्तर की अदालत ने कुछ आरोपियों को सजा सुनाई थी।\n\nवर्षों के दौरान कई अपीलें दायर की गईं, जिनमें 2022 में उच्च न्यायालय ने कुछ फैसलों को संशोधित किया, जबकि 2024 में सुप्रीम कोर्ट ने पहले ही मामले को स्थगित कर पुनः विचार करने का निर्देश दिया था।\n\nआज के आदेश के बाद, निचली अदालत को नई साक्ष्य, गवाहियों और जांच रिपोर्टों के आधार पर पुनः सुनवाई करनी होगी। यह निर्णय न्यायिक प्रक्रिया की पारदर्शिता और पीड़ितों के अधिकारों की रक्षा के संदर्भ में महत्वपूर्ण माना जा रहा है।",
+    "analysis": "एनएचएआई ने 21 जुलाई को जयपुर के कई राष्ट्रीय राजमार्गों पर टोल शुल्क में ५ से ३० रुपये तक की वृद्धि की घोषणा की, जिससे दिल्ली-जयपुर यात्रा की लागत लगभग २५ रुपये बढ़ जाएगी। यह नया शुल्क सोमवार मध्यरात्रि से लागू होगा और टोल प्लाज़ा पर लगे नए दरपत्रक के माध्यम से यात्रियों को सूचित किया गया।\n\nएनएचएआई के अनुसार, यह वृद्धि राजमार्ग रखरखाव, सुरक्षा उपायों और भविष्य के विकास कार्यों के लिए आवश्यक फंड जुटाने के उद्देश्य से की गई है। इस निर्णय पर कुछ यात्रियों और परिवहन संघों ने आर्थिक बोझ बढ़ने की चिंता जताई, जबकि प्रशासन ने कहा कि टोल वृद्धि बिना किसी वैकल्पिक विकल्प के नहीं की जा सकती।\n\nपहले के टोल दरों में ५-१० रुपये की मामूली वृद्धि की गई थी, पर अब अधिकांश मुख्य मार्गों पर १५-३० रुपये की बढ़ोतरी की गई है। इस बदलाव से ट्रैफ़िक प्रवाह, लॉजिस्टिक्स लागत और स्थानीय व्यापारियों पर प्रभाव पड़ने की संभावना है। प्रशासन ने कहा कि नई दरों की निगरानी की जाएगी और भविष्य में आवश्यकतानुसार पुनः समीक्षा की जा सकती है।\n\nवर्तमान में टोल प्लाज़ा पर नई दरों के संकेत लगे हैं और यात्रियों को नई शुल्क संरचना के बारे में जानकारी दी जा रही है। इस कदम के बाद, एनएचएआई ने कहा कि वह यात्रियों की प्रतिक्रिया सुनते हुए उचित कदम उठाएगा।",
     "key_facts": [
-      "1996 में जयपुर में बस विस्फोट हुआ, जिसमें कई लोगों की मौत और कई घायल हुए।",
-      "प्रारम्भिक जांच में कई संदिग्धों को गिरफ्तार किया गया और 2000 में प्रथम स्तर की अदालत ने सजा सुनाई।",
-      "वर्षों के दौरान कई अपीलें दायर की गईं, जिनमें उच्च न्यायालय और सुप्रीम कोर्ट ने विभिन्न चरणों में हस्तक्षेप किया।",
-      "2024 में सुप्रीम कोर्ट ने मामले को स्थगित कर पुनः विचार का निर्देश दिया था।",
-      "21 जुलाई को सुप्रीम कोर्ट ने ताजा मुकदमा चलाने का आदेश दिया।",
-      "अदालत ने कहा कि पिछले प्रक्रियाओं में कई त्रुटियां पाई गईं, जिससे नई सुनवाई आवश्यक है।",
-      "निचली अदालत को नई साक्ष्य और गवाहियों के आधार पर पुनः सुनवाई करनी होगी।",
-      "यह निर्णय न्यायिक प्रक्रिया की पारदर्शिता और पीड़ितों के अधिकारों की रक्षा के संदर्भ में महत्वपूर्ण माना गया।"
+      "एनएचएआई ने 21 जुलाई को जयपुर के प्रमुख राजमार्गों पर टोल शुल्क में ५ से ३० रुपये तक की वृद्धि की घोषणा की।",
+      "नई टोल दरें सोमवार मध्यरात्रि से लागू होंगी।",
+      "दिल्ली-जयपुर यात्रा की लागत लगभग २५ रुपये बढ़ेगी।",
+      "एनएचएआई ने कहा कि यह वृद्धि राजमार्ग रखरखाव और विकास कार्यों के लिए आवश्यक है।",
+      "टोल प्लाज़ा पर नई दरों के संकेत लगाए गए हैं और यात्रियों को सूचना दी जा रही है।",
+      "कुछ यात्रियों और परिवहन संघों ने आर्थिक बोझ बढ़ने की चिंता जताई है।",
+      "प्रशासन ने कहा कि नई दरों की निगरानी की जाएगी और आवश्यकतानुसार पुनः समीक्षा की जा सकती है।",
+      "टोल वृद्धि से ट्रैफ़िक प्रवाह और स्थानीय व्यापारियों पर प्रभाव पड़ने की संभावना है।"
     ],
     "police_accountability": "",
-    "what_next": "निचली अदालत को नई साक्ष्य और गवाहियों के आधार पर ताजा मुकदमा सुनाने की कार्यवाही शुरू करनी होगी, और सुनवाई की तिथि तय की जाएगी।",
+    "what_next": "एनएचएआई ने कहा कि टोल दरों की प्रभावशीलता की निगरानी की जाएगी और यात्रियों की शिकायतें संबंधित टोल कार्यालय में दर्ज की जा सकती हैं।",
     "developments": [
       {
-        "label": "1996 में",
-        "text": "जयपुर में बस विस्फोट हुआ, कई लोगों की मौत और कई घायल हुए।"
+        "label": "21 जुलाई, सुबह 11:41 बजे",
+        "text": "एनएचएआई ने टोल शुल्क में ५-३० रुपये की वृद्धि की घोषणा की, नई दरें सोमवार मध्यरात्रि से लागू होंगी।"
       },
       {
-        "label": "2000 में",
-        "text": "प्राथमिक अदालत ने कुछ आरोपियों को सजा सुनाई, लेकिन कई प्रक्रियात्मक मुद्दे उभरे।"
+        "label": "21 जुलाई, दोपहर 12:55 बजे",
+        "text": "एनएचएआई ने बताया कि नई दरों से दिल्ली-जयपुर यात्रा की लागत लगभग २५ रुपये बढ़ेगी।"
       },
       {
-        "label": "2022 में",
-        "text": "उच्च न्यायालय ने कुछ फैसलों को संशोधित किया और पुनः जांच का आदेश दिया।"
+        "label": "21 जुलाई, दोपहर 1:31 बजे",
+        "text": "एनएचएआई ने कहा कि यह वृद्धि राजमार्ग रखरखाव, सुरक्षा और भविष्य के विकास कार्यों के लिए फंड जुटाने हेतु है।"
       },
       {
-        "label": "2024 में",
-        "text": "सुप्रीम कोर्ट ने मामले को स्थगित कर पुनः विचार करने का निर्देश दिया।"
+        "label": "21 जुलाई, दोपहर 2:08 बजे",
+        "text": "टोल प्लाज़ा पर नई दरों के संकेत लगाए गए और यात्रियों को नई शुल्क संरचना के बारे में जानकारी दी गई।",
+        "source_hi": "एनडीटीवी"
       },
       {
-        "label": "21 जुलाई",
-        "text": "सुप्रीम कोर्ट ने 30 साल बाद ताजा मुकदमा चलाने का आदेश दिया, यह कहा कि पूर्व प्रक्रिया में त्रुटियां थीं।"
+        "label": "21 जुलाई, दोपहर 3:04 बजे",
+        "text": "परिवहन संघों ने आर्थिक बोझ बढ़ने की चिंता जताई, जबकि प्रशासन ने कहा कि बिना वैकल्पिक विकल्प के यह वृद्धि संभव नहीं थी।"
+      },
+      {
+        "label": "21 जुलाई, शाम 6:04 बजे",
+        "text": "एनएचएआई ने कहा कि नई दरों की निगरानी की जाएगी और भविष्य में आवश्यकतानुसार पुनः समीक्षा की जा सकती है।"
       }
     ],
     "sources": [
       {
-        "title_hi": "1996 जयपुर बस विस्फोट मामला: सुप्रीम कोर्ट ने 30 साल बाद ताजा मुकदमा क्यों आदेशित किया",
-        "url": "https://news.google.com/rss/articles/CBMivgFBVV95cUxPUjJIbUR5Y3JaNkV5MEVlMm1qRGpQZk9LOVQzaTVZM3lERDBFX25EZGJXX1JCb2VnTzhUSk1KTXdaOUZ1MDNLTllja0d6Z0FUeGVDdnoycGt6cUZBVDl4Ry1ncjY0M3FUUll1WThHZFVYYnhmOTI4MF8yZGdnREcyVzBRMWxQRGZ6b0taSGpVNkplV21sdlpNOXRmLWVLcHNUVzV3di0wNTkwSGJzNHAtcm42enVvNmt0eXRpRTZn0gHDAUFVX3lxTE9VcEMxYWtIbElIVVBOTVpWNmZOajk5dzZtYnlwTjkzcmFBVXotcUZNbU9vZ0h0QzREWHNtbFM3d2NXQXMzcUtVcnZPU0ZCa0JCa09abXlHSW11VTJHVHRRR1YxV0FiLWlNYlRNNnVWaVcwc0xIcXhfbDRDdGw5NDNGdzF4TW4wN3RTdUxxbkdBUVpGeDNaOXp4TzhKbUZ5MlpkUWJ5dEVNbDhWNVZUWFcxV1R3Vzg3bklYb3BOQmR0R0xkTQ?oc=5",
-        "source": "NewsX",
-        "published": "2026-07-21T07:44:23+00:00"
+        "title_hi": "एनएचएआई ने टोल दरें बढ़ाई, जयपुर-दिल्ली यात्रा महंगी",
+        "url": "https://news.google.com/rss/articles/CBMi6gFBVV95cUxPOTNRc1JraUN5ZVFQajAwV244c3NBVHpjZDJhd3hvMklRS2pOcjlPSGFwdWFqYkJCc1NrZ0N4ekpHRWU3MnlnV2VlZ0lEXzBuYS1POTJ6RTNRYm1JVnBibzBGci1lcVJnU1k4VmloUWZ0LUVSSllfTnVoa1pOX1BuTFNGVzNjQ0VId2pkcFkxamZ1bEh3SThLNUVqbmNNVkhnT09XaF8zc25ka0JLb0s2X3lseGRqM1Q4MDBKSUZWOHhhZERITXR2bTBMRFBEY2dZYjFoUUhsbWRNaHFpckhVM1MzQXkxWHJya2c?oc=5",
+        "source": "ET TravelWorld",
+        "published": "2026-07-21T12:34:46+00:00"
+      },
+      {
+        "title_hi": "जयपुर राजमार्ग यात्रा महंगी, टोल दरें बढ़ी",
+        "url": "https://news.google.com/rss/articles/CBMikwFBVV95cUxPMTV0b3ZhUWRBUENxN0tGNXRIbmNvbjdKdW02eU4ybS1BVVlsc2Z6SEFodmxlZnkzc21RdTFzQ1I5dmRGQ3RCTG54NmRzdldjbEhoT2xFN05JTEkzc1FkSDVDU042dXRra1pVTy1uTExzNVJPTjZxLXk2b3VUNjRPWmhIb2NoeXd5RjEzN1A4WG1zcWvSAZgBQVVfeXFMUDU3Y1NPbC1aZUdzUmoxTFFMbG10V1pPVjJJODJ6VmRBS3VKVDQwWkh4dkFVOFBsVjNEdG5XTmhEaDBhNDBpQU94aWprajJQWnZla3RlSHpSeU5FbnJmRFRZME96QVdGQjhYMXk0Mi14UnhMWlNnSV9UZEc0TC1pZVc3ZFktcHczc2QwSm1zLVVETkl5dnF5VXU?oc=5",
+        "source": "News9live",
+        "published": "2026-07-21T09:34:44+00:00"
+      },
+      {
+        "title_hi": "टोल दरों में बदलाव, जयपुर के निकट यात्रा महंगी",
+        "url": "https://news.google.com/rss/articles/CBMitgFBVV95cUxOb05jUWNLa3FLQUJSeHFjUmRXNXBvMDZhQkFyMTEycEMxMTJRY3phMmxrbHJ5cVFXQVhteXVfeXg0WjFGMzZhMXRmNjBLRHRhMTZNcEdseEIxbEp4NTY1OXExOEo5SGVwNjR5ZWhhMWM0TWlBaTQxaU11NldNMV9ZWTkySmZaekQ1ckEzZWxSczRIQ0h0NUxTZG04VndBanM3NkNFYWRJdHhSaFo4ZXpqa0dHaW9oZ9IBtgFBVV95cUxOb05jUWNLa3FLQUJSeHFjUmRXNXBvMDZhQkFyMTEycEMxMTJRY3phMmxrbHJ5cVFXQVhteXVfeXg0WjFGMzZhMXRmNjBLRHRhMTZNcEdseEIxbEp4NTY1OXExOEo5SGVwNjR5ZWhhMWM0TWlBaTQxaU11NldNMV9ZWTkySmZaekQ1ckEzZWxSczRIQ0h0NUxTZG04VndBanM3NkNFYWRJdHhSaFo4ZXpqa0dHaW9oZw?oc=5",
+        "source": "NDTV",
+        "published": "2026-07-21T08:38:51+00:00"
+      },
+      {
+        "title_hi": "जयपुर-दिल्ली यात्रा महंगी, एनएचएआई ने टोल दरें 12% बढ़ाई",
+        "url": "https://news.google.com/rss/articles/CBMivgFBVV95cUxQVWpnOFUycHJvSGJPUXFFbnRISkVEUTJJYzk4WThRdFBwMlpydGtnd1hsdGtMYVZVTmtVN3lwLUpZOXdCVHdZSTRxbmRaTEp1NFNUcjFFVk1ZOHFwS3RRMFNnTTZMTFprS3ZqT0Y4bGJrSHhKQmJQcG5uSGJuVkNpRjl1NEZCZVBZelFjcVp1ZlRoUlN2ZnYyOHM1aThzWFhYS2J1QVl0U1pzM0FiWFN2YUt6cmQ0bmE0LUVFNVhB0gHDAUFVX3lxTFAyMVRIcVU4VHlGTGJPUHNnajRCaFBsdkFWcmlKd2tCbW1UcTJVWlpvSHpHdVhpcnlROUw2OHZwdzB4S29NWTVMM0Q3a2hmWWM2OUFqNWtTNldCMEdBS09WMTVMMTYwRGxCTmlKXzZxRnpRRWd6cHFiNF9saXlxRlpvME5Ddnd1N1VBa09mX0Y3aGF5bElvcmU2Y2VTWlB2bUt1ZXIwZ2RkLTlfc3hfdkZCUXMybFlVM2lpWmhGNWw1WkhvRQ?oc=5",
+        "source": "LatestLY",
+        "published": "2026-07-21T08:01:05+00:00"
+      },
+      {
+        "title_hi": "एनएचएआई ने टोल दरें बढ़ाई, जयपुर-दिल्ली यात्रा महंगी",
+        "url": "https://news.google.com/rss/articles/CBMixgFBVV95cUxQSnlVTVNTTmxoYmh6Q2hNajJkQjNVZWYwX0hRY2dIZDRmUmVaQkRydDZvSE5QYjBDUXRzUVVQcHA1SUtUdWJvZmliRUVvcTVkNkxmLTlqSTFtY3ZscXlxRWdjMmFTdnF4SzdzeEVsekRjNC1xM081VzdQWWMxRjZoYnBSTkYwMTFyWVNGVExEOUNwZFlCQmVsQVYyRjZBZUtsYmJEOUdlc3h1em5kcW1Nc21ZVmVraThIbnZELWRYMlo0ZURHamfSAcsBQVVfeXFMTURqSFRnU1BRbFlxb29vZWszdFBra0lxNVBMMFRNT3pxWWlYbV9VYWgxOVlFRUtjYjdyTFhtb1ZZTjVDSFNrT0tzcl9GSGI1N0pYVl83RDl1MDFFMmNONnlhMURwS09McmNwZHAwbnl5NE5CeHVKb2RsdTdJOXhEREg4OHpmXzYzdVVtajl5Ym9PbXk2VENqdzhmNVVKQmphQTFGMjM3UzBpREpUVktuU2xWVWRGcy00RFZMby10T3JMaTJzSkRBZ1BBVVk?oc=5",
+        "source": "The Hans India",
+        "published": "2026-07-21T07:25:35+00:00"
+      },
+      {
+        "title_hi": "एनएचएआई ने टोल दरें ५-३० रुपये बढ़ाई, नई दरें सोमवार से लागू",
+        "url": "https://news.google.com/rss/articles/CBMiwwFBVV95cUxQNkVOdHpXMjZoNUw2VS1MeVV6T1RyWGpFUUZIaGRZdV9RdXZrN1hKSnR6OEMwb3ZWZTFBWkRSU21fTUlQUDg2VG9fYmFIbUNnQlBXazhocEtNcDFsM2dreDJNZEJvS2QySm0tQXhUS1p4enhhRjBiNnF5bEF1Qzg2cDYtMWhYdEEwMC1GcU9tRHkzZXpOTFA4TVJSRElSYnpsWE9aWmJkR3U3elpCc29TZVU0ZkRTVU5fYTE5bXdBNk9vSmvSAcMBQVVfeXFMUDZFTnR6VzI2aDVMNlUtTHlVek9UclhqRVFGSGhkWXVfUXV2azdYSkp0ejhDMG92VmUxQVpEUlNtX01JUFA4NlRvX2JhSG1DZ0JQV2s4aHBLTXAxbDNna3gyTWRCb0tkMkptLUF4VEtaeHp4YUYwYjZxeWxBdUM4NnA2LTFoWHRBMDAtRnFPbUR5M2V6TkxQOE1SUkRJUmJ6bFhPWlpiZEd1N3paQnNvU2VVNGZEU1VOX2ExOW13QTZPb0pr?oc=5",
+        "source": "Bhaskar English",
+        "published": "2026-07-21T06:11:06+00:00"
       }
     ]
   },
   "other_stories": [
     {
-      "headline": "'निरीक्षण ही फैसला नहीं है', चोकड़ी धानी ने कहा 90 किलोग्राम संदिग्ध काजू और तेल की बरामदगी के बाद",
-      "summary": "जयपुर के चोकड़ी धानी में एक छापे में 90 किलोग्राम काजू और तेल मिले, पर अधिकारियों ने कहा कि यह केवल जांच है, नहीं कि अंतिम निर्णय।",
+      "headline": "1996 जयपुर बस विस्फोट मामला: 30 साल बाद सुप्रीम कोर्ट ने नया मुकदमा क्यों आदेशित किया",
+      "summary": "सुप्रीम कोर्ट ने 1996 के जयपुर बस विस्फोट मामले में नई सुनवाई का आदेश दिया, जिससे पिछले सजा पर पुनर्विचार होगा।",
+      "url": "https://news.google.com/rss/articles/CBMivgFBVV95cUxPUjJIbUR5Y3JaNkV5MEVlMm1qRGpQZk9LOVQzaTVZM3lERDBFX25EZGJXX1JCb2VnTzhUSk1KTXdaOUZ1MDNLTllja0d6Z0FUeGVDdnoycGt6cUZBVDl4Ry1ncjY0M3FUUll1WThHZFVYYnhmOTI4MF8yZGdnREcyVzBRMWxQRGZ6b0taSGpVNkplV21sdlpNOXRmLWVLcHNUVzV3di0wNTkwSGJzNHAtcm42enVvNmt0eXRpRTZn0gHDAUFVX3lxTE9VcEMxYWtIbElIVVBOTVpWNmZOajk5dzZtYnlwTjkzcmFBVXotcUZNbU9vZ0h0QzREWHNtbFM3d2NXQXMzcUtVcnZPU0ZCa0JCa09abXlHSW11VTJHVHRRR1YxV0FiLWlNYlRNNnVWaVcwc0xIcXhfbDRDdGw5NDNGdzF4TW4wN3RTdUxxbkdBUVpGeDNaOXp4TzhKbUZ5MlpkUWJ5dEVNbDhWNVZUWFcxV1R3Vzg3bklYb3BOQmR0R0xkTQ?oc=5",
+      "source": "NewsX"
+    },
+    {
+      "headline": "जांच नहीं, चोकड़ी धानी ने कहा 90 किलोग्राम संदिग्ध काजू, तेल की बरामदगी के बाद",
+      "summary": "चोकड़ी धानी में 90 किलोग्राम काजू और तेल की बरामदगी के बाद प्रबंधन ने कहा कि जांच नहीं, बल्कि प्रक्रिया जारी है।",
       "url": "https://news.google.com/rss/articles/CBMi0AFBVV95cUxPSlZRdGxwdHlOT0o0dERNMGo1YWhtLUZtUmRzbC10Q0puMXJ4dWNPWUFMNWFfRExJNFZ3R3NCdFl1OFUxU2I0SURoc3ZFMk1wc0dCSHpNN3dfSHlCdDUySENKNkxMd3BBa2t0b0QzV3lLY0QyQXNUQ2pYdWx5LVlLZWZTT2hKWU1FYkhOcjQtZFFwajNTeEc1VVZKdlZVbVNMcDJtbkxpcVE4RzZfaHRVV2RIZTJCemZJOHdoN3hHVGJRblJ5U1B5R3FhTzZnNlNr0gHYAUFVX3lxTE5oNDYtODhtVnBUYmZ5VjM4b3VjVHh4SE9peF82b2poWFlBR2x1LWJucnNIS2lZMmFNNHpCcFZVNEU2TFVFRHF0RVF5UVo3VXpZQzh0bDAyMjhrNmhIRzVQb2l5ZWNmcmF2NWNiVXB2UEVjaDBHUGNrSTJoR3NNSU5Ka1dmQnhyenY2S3M0MkVHOFBubkYzSC1QdzlRQkNKSkQyU3ptbkp6VDdXeFA4QVc3dFFFS0dndHlfMW1vdUUxR0s4dXVydEZzYUNkM2hlOXpMY3cxTlF3UA?oc=5",
       "source": "NDTV Food"
     },
     {
-      "headline": "जयपुर-दिल्ली यात्रा महंगी, एनएचएआई ने टोल शुल्क में 12 प्रतिशत तक वृद्धि की",
-      "summary": "राष्ट्रीय राजमार्ग प्राधिकरण ने जयपुर-दिल्ली मार्ग पर टोल शुल्क को अधिकतम बारह प्रतिशत तक बढ़ा दिया, जिससे यात्रियों की लागत बढ़ी।",
-      "url": "https://news.google.com/rss/articles/CBMivgFBVV95cUxQVWpnOFUycHJvSGJPUXFFbnRISkVEUTJJYzk4WThRdFBwMlpydGtnd1hsdGtMYVZVTmtVN3lwLUpZOXdCVHdZSTRxbmRaTEp1NFNUcjFFVk1ZOHFwS3RRMFNnTTZMTFprS3ZqT0Y4bGJrSHhKQmJQcG5uSGJuVkNpRjl1NEZCZVBZelFjcVp1ZlRoUlN2ZnYyOHM1aThzWFhYS2J1QVl0U1pzM0FiWFN2YUt6cmQ0bmE0LUVFNVhB0gHDAUFVX3lxTFAyMVRIcVU4VHlGTGJPUHNnajRCaFBsdkFWcmlKd2tCbW1UcTJVWlpvSHpHdVhpcnlROUw2OHZwdzB4S29NWTVMM0Q3a2hmWWM2OUFqNWtTNldCMEdBS09WMTVMMTYwRGxCTmlKXzZxRnpRRWd6cHFiNF9saXlxRlpvME5Ddnd1N1VBa09mX0Y3aGF5bElvcmU2Y2VTWlB2bUt1ZXIwZ2RkLTlfc3hfdkZCUXMybFlVM2lpWmhGNWw1WkhvRQ?oc=5",
-      "source": "LatestLY"
+      "headline": "सुप्रीम कोर्ट की आलोचना के बाद, जयपुर विकास प्राधिकरण ने अवैध वाणिज्यिक इकाइयों को नोटिस जारी किए",
+      "summary": "सुप्रीम कोर्ट की टिप्पणी के बाद जयपुर विकास प्राधिकरण ने शहर में अवैध वाणिज्यिक इकाइयों को बंद करने के नोटिस जारी किए।",
+      "url": "https://news.google.com/rss/articles/CBMigwJBVV95cUxNMUJsdHJEbVh3WDZyWVNEZTl3aF83VlJMbXg2eEpUZWNoOURtLWtKOGVranJ6ZnpTcFQyOC1fd0k2a29OOFJkcDZya09jc2pfYVlVdW42NnRWNEpvUzIyUEdDNHRYUW9CSUVSS1d2VFRoNm9EYW5fUEp3bkVrQ3A0ay1QZ1Y3Wno0Z0ZWX1JVWGUwLUNkLUxmSDZYRmNEOGNuRDh0Z1lfdHF1YlFBQjZOUFg2Z29vR0o4YnFxWlVMTDFuZDJkVmpYSHYwU3BDNkZTRUVOd1hLZFZ2UnUxOXRCQ09EOXVzVWIxMTFfVjdLSm9UcHVtS3p0bUxkZC1kcnl0N3Fv0gH8AUFVX3lxTE1rNm5wdUJCLVp6ZkRlN19vT05WQmhvQkdjSlowVEVMQkEwS282cWViNFBsYkpOZXhhNXBvZU95LVRyYjJfeVBOWGRpRVlzRE1QXzVCMk5Cb3Bva0NSUHlMdW5lakg0dWI5NVRPakdQQ3YzRTlQVDNheUgxdC1LZ013bktQcEF1Q0dNdzF4d25iTnpsZ1NtRGh5U2wyTjNfc2g4aDFlUktPREYyM2w4NEVESnZCcmwwT1RoMmFHNjZYWDNvYWl1RWNnMWpSaE9IY0pQVXV1MXBDVmxPZDBRSWVZeWZyM2g0MXRBUnNmWU9MeGFNOE5QZE82OVE3eg?oc=5",
+      "source": "The Economic Times"
     },
     {
-      "headline": "राजस्थान में मानसून फिर सक्रिय, 33 जिलों में चेतावनी; जयपुर में रात भर बारिश, करौली में बाढ़ की आशंका",
-      "summary": "मौसम विभाग ने बताया कि मानसून की सक्रियता फिर से बढ़ी है, जयपुर में रात भर बारिश हुई और करौली में बाढ़ का खतरा बना है।",
-      "url": "https://news.google.com/rss/articles/CBMiywFBVV95cUxOOFMtQ3dNZEVoNmNsYWo1MmJ6YWpYU2YwdlZlNlVRTU5CSkNRczBHNHktZGoxc2lpZ1lBZlFzaVFDcTN6VXBKMzZibGxXUzJvUU95dFpaajA4LXBCdkc4R01CQUFJLWZqelJ1cktLYy02V0p1YV9GTE5OWWluaE9Wb3g5MWhZSmdyNkM4Q0U2Nk55WXN5SVY5Y2taOGd2YVJncmRoLUtLZ3JlMlI3eDhSZ1RkczNsNzZSQnZOVVJrdmZvX2lFZ2RNS1FKVdIB0AFBVV95cUxPd0t5NTVsXzlOUlEwXzdDbzY4Q01KdkVrTnI5MUt1NVZUYnFCZndTM1Y1SVVpdTg5UlloM05kbVY1V0hLcWZ0SGpLbkhvX3ZCQzJ0Q0pPbWtDRW1mRGpwM3hfRmF0OVB6WnVmWGpfcW5RaDJ4NVFhOElrdnFtVWtHdnJITUs4ZGNVZmZVUnc4T29lc2RtWW5ESUs2NkVHd0VmLTQ1N0JNVUJWdm4zWWNoRUNrUnFkWnVzdVFrQmlvSkpjd29oVTF4X0ZpMlVYTXR4?oc=5",
-      "source": "Bhaskar English"
-    },
-    {
-      "headline": "जयपुर विकास प्राधिकरण ने सुप्रीम कोर्ट के आदेश के बाद अवैध वाणिज्यिक इकाइयों को नोटिस जारी किए",
-      "summary": "सुप्रीम कोर्ट के आदेश के बाद, जयपुर विकास प्राधिकरण ने शहर में कई अवैध वाणिज्यिक इकाइयों को बंद करने के लिए नोटिस जारी किए।",
-      "url": "https://news.google.com/rss/articles/CBMiygFBVV95cUxPcGI4TEpqOFlzU0wtTVpFU2N4YlFpcmNXcjNJOEtwa3M2c1RySTh5U3NramQ2UXFoSHRoaUpMSTdiek95SWhGSUNzZ1h6SC15a01MdTBQU2ozalJ2N2toRUE2ZEVsbF9lQzlwaUFfV3Zza0pwYnZNZ2xtUmI2REVVdzNvcndybl82NlpqN3RTNmRZUkNfekdmc2dzeW05OHdCbVEyVkREVGdoU0ZnQWhBQUdIdE4yWkEtdXFDU1hRZDQ0eVktT3cxVGF3?oc=5",
-      "source": "The News Mill"
+      "headline": "मैंगलम ने जयपुर में 1,000 करोड़ रुपये का पिंकवेस्ट लॉन्च किया",
+      "summary": "मैंगलम ने जयपुर में 1,000 करोड़ रुपये मूल्य का पिंकवेस्ट प्रोजेक्ट शुरू किया, जो शहर के रियल एस्टेट में नई पहल है।",
+      "url": "https://news.google.com/rss/articles/CBMilgFBVV95cUxOWVNVMmVUeWY4QUxxU1JkNGw4M01wVEVZTlgxQ1dRTkNZZW5pREtBNjRGenh3bS1Mb0VLbmRrbTJ5RHV0ZW9zTFpzUXZ4dHNsTlRvYUJoV0VjdUxZbUNFN2ZWWklBYVkyTkdfVUZkVGo3Tkd1SHZ6LVRNbTJwYUlBTFprYnJVRzV6SEU3V2swbnVnbjFLSlE?oc=5",
+      "source": "Hospitality Biz India"
     }
   ],
-  "last_feed_hash": "5a055ffa02e75449",
-  "last_updated": "2026-07-21T12:33:09.351833+00:00",
+  "last_feed_hash": "88083bdc08ea836b",
+  "last_updated": "2026-07-21T16:04:47.579412+00:00",
   "render_version": "25",
   "timeline_heading": "घटनाक्रम",
   "timeline_note": "इसी खबर का सिलसिला — नवीनतम अपडेट सबसे ऊपर।"

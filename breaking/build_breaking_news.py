@@ -267,8 +267,8 @@ MIN_TIMELINE_STEPS = 4
 # Max timeline points NARRATED per story. A weeks-long arc is down-sampled to this many points
 # (keeping the first and last, see _arc_sample) so the "घटनाक्रम" still spans शुरुआत → अब. Kept
 # deliberately modest (was 30) so each development can be a rich 2-3 sentence, sourced entry instead
-# of a one-liner while the single Groq pass stays within the 8000 TPM budget. The archive still
-# stores ALL points for ARCHIVE_DAYS — this only limits how many are narrated in one render.
+# of a one-liner while the single Groq pass stays within the 8000 TPM budget. This only limits how
+# many points are narrated in one render; the archive keeps up to ARCHIVE_MAX_POINTS per story.
 TIMELINE_MAX = 14
 
 # Severity -> minimum minutes between *forced* (feed-changed) timeline updates.
@@ -857,6 +857,14 @@ def _hours_since(iso: str | None, now: datetime) -> float:
 ARCHIVE_MATCH_MIN = 0.40   # raised (was 0.24) so distinct activities of the same body don't merge
 ARCHIVE_KW_CAP = 40        # was 24
 
+# Hard caps that keep archive.json small (it is committed on every ~20-min run, so its size drives
+# both the working file and git-history growth). Without these it accumulated a point for every
+# distinct Jaipur item seen (hit ~90 KB / 337 stories). The timeline is only the LEAD story's own arc
+# and enrich_lead re-fetches its coverage each run, so aggressive pruning doesn't shorten it.
+ARCHIVE_MAX_STORIES = 60   # keep only the most-recently-active stories
+ARCHIVE_MAX_POINTS = 20    # points kept per story (a narrated arc is TIMELINE_MAX=14, down-sampled)
+ARCHIVE_ONEOFF_DAYS = 4    # a single-point story older than this never recurred → noise, drop it
+
 
 def _item_to_point(it: dict) -> dict:
     """One dated timeline point from a feed item (IST date/time, ISO, English title, outlet, url)."""
@@ -928,14 +936,27 @@ def ingest_cluster(archive: dict, cluster: dict, now: datetime) -> dict:
 
 
 def prune_archive(archive: dict, now: datetime) -> None:
-    """Drop development points older than ARCHIVE_DAYS, then drop stories with no recent activity
-    or no points. Run ONCE, after every cluster has been ingested."""
-    for story in archive["stories"]:
-        story["points"] = [p for p in story.get("points", [])
-                           if _days_ago(p.get("iso", ""), now) <= ARCHIVE_DAYS]
-    archive["stories"] = [s for s in archive["stories"]
-                          if _days_ago(s.get("last_seen", ""), now) <= ARCHIVE_DAYS
-                          and s.get("points")]
+    """Trim the archive to a small, bounded size (run ONCE, after every cluster has been ingested).
+    Per story: keep only points within ARCHIVE_DAYS, then the most-recent ARCHIVE_MAX_POINTS. Drop a
+    story that has no points, is older than ARCHIVE_DAYS, or is a stale one-off (a single point older
+    than ARCHIVE_ONEOFF_DAYS — it never developed and isn't leading). Finally hard-cap the total to
+    the most-recently-active ARCHIVE_MAX_STORIES. The lead's own coverage is re-fetched by enrich_lead
+    each run, so this aggressive pruning does not shorten the lead timeline."""
+    kept = []
+    for s in archive.get("stories", []):
+        pts = [p for p in s.get("points", []) if _days_ago(p.get("iso", ""), now) <= ARCHIVE_DAYS]
+        pts.sort(key=lambda p: p.get("iso", ""))
+        s["points"] = pts[-ARCHIVE_MAX_POINTS:]
+        if not s["points"]:
+            continue
+        age = _days_ago(s.get("last_seen", ""), now)
+        if age > ARCHIVE_DAYS:
+            continue
+        if len(s["points"]) < 2 and age > ARCHIVE_ONEOFF_DAYS:
+            continue
+        kept.append(s)
+    kept.sort(key=lambda s: s.get("last_seen", ""), reverse=True)
+    archive["stories"] = kept[:ARCHIVE_MAX_STORIES]
 
 
 def arc_sources(points: list[dict], limit: int = 6) -> list[dict]:

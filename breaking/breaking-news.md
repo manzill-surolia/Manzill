@@ -39,26 +39,26 @@ an operator guide.
   administrative story or a political one (parties, the civic body, the Jaipur-seated state
   government). There is **no bribery/corruption gate**: the lead is simply the top-scored fresh,
   non-ceremonial cluster (`apply_lead`). Ceremonial/feel-good items are kept out of the lead slot.
-- **Ranking (not a filter):** newsworthiness is scored, not gated — importance (`severity`) and
-  public-interest strength (`issue_rank`) dominate, more sources add weight, recency is a
-  tiebreaker, and ceremonial stories are penalised. `has_failure_angle` / `questions_authority`
-  survive only as ranking hints that front-load accountability stories inside the "यह भी ब्रेकिंग"
-  secondary pool (`order_secondary`) — they no longer decide what may lead.
+- **Ranking (topic-neutral, not a filter):** newsworthiness is scored, not gated — event importance
+  (`severity`) plus breadth of coverage (sources) plus recency, with ceremonial/feel-good stories
+  penalised. No topic keeps or boosts a story: crime, civic, political and protest news all compete
+  on the same neutral score. Political/civic terms sit in the medium `severity` tier so political
+  stories stay competitive for the lead.
 - **Voice — hard news, balanced:** the lead is written as factual, sensation-free breaking-news
   reportage. Any claim, allegation or demand is **attributed** to the relevant side ("पुलिस के
   अनुसार", "विपक्ष ने कहा", "नागरिकों ने माँग की"); the page never adds its own opinion or takes a
   side for or against any party/authority. The `lead_headline` foregrounds the newest/biggest
   development, neutrally.
 - **Coverage — Jaipur only:** the locality gate (`is_local` / `filter_local`) is now exactly
-  `is_jaipur` — a story must mention Jaipur or a known Jaipur locality (Sanganer, Amer, Jhotwara,
-  Mansarovar, …) to be in scope; out-of-Jaipur items are dropped. `W_JAIPUR` is retained as a
-  scoring term but every kept story is already a Jaipur story.
+  `is_jaipur`, which keys on the **word "jaipur"** — a story must name Jaipur to be in scope, and
+  out-of-Jaipur items are dropped. There is **no enumerated colony/landmark list**: because every
+  feed query is `Jaipur …`-anchored, keying on the city name covers the whole city without a
+  place list to maintain.
 - **Guardrail (never fabricate):** only stories that **actually appear in the feeds** are ever
-  ranked up, and the AI never invents facts — boosting a theme changes the *ranking of real,
-  sourced news*, never its truth. No allegation, amount or name is manufactured about any
-  person, party or company. The keyword lists (`ISSUE_KEYWORDS`, `SEVERITY_KEYWORDS`,
-  `ROUNDUP_MARKERS`, `CEREMONIAL_KEYWORDS`) are top-of-file config in `build_breaking_news.py` —
-  edit them to tune the ranking.
+  ranked up, and the AI never invents facts — ranking only reorders *real, sourced news*, never
+  changes its truth. No allegation, amount or name is manufactured about any person, party or
+  company. The keyword lists (`SEVERITY_KEYWORDS`, `ROUNDUP_MARKERS`, `CEREMONIAL_KEYWORDS`) are
+  top-of-file config in `build_breaking_news.py` — edit them to tune the ranking.
 - **Never headlines a stale item:** on a day with no fresh Jaipur story, `apply_lead`
   returns nothing and the **last page is kept** (its timeline keeps growing from the
   archive + enrichment). If the very first run finds none (or the AI is unreachable), a clean
@@ -120,18 +120,13 @@ it; the story body follows directly. Section order below the header:
    arc's own events (`arc_sources` over the घटनाक्रम / इस महीने points), so the source links always
    match the timeline shown; they fall back to the lead cluster's own sources only if the arc yields
    none.
-8. **यह भी ब्रेकिंग** ("is also breaking") — the day's other **fresh Jaipur** stories. Only fresh,
-   non-ceremonial clusters show; higher-impact stories are front-loaded (police-accountability, then
-   `questions_authority` stories) with the rest by score (`order_secondary`). Archive-only backfill
-   items never show here; an empty pool renders no section.
-   Police detection stays precise: an ordinary crime story that merely quotes the police is **not**
-   flagged; only strong police-context misconduct (lathicharge, custodial, negligence, misconduct,
-   suspension, dereliction, brutality…) or a force verb with the police as subject/agent counts.
+8. **यह भी ब्रेकिंग** ("is also breaking") — the day's other **fresh Jaipur** stories, in score
+   order (`order_secondary`). Only fresh, non-ceremonial clusters show; a festival never fills the
+   breaking slot. Archive-only backfill items never show here; an empty pool renders no section.
    **Lead selection (`apply_lead`):** the highest-**score** fresh, non-ceremonial cluster leads —
-   no topic gate. `W_JAIPUR` is retained in the score, but every kept story is already a Jaipur
-   story (the locality gate is `is_jaipur`). On a day with nothing fresh the list is empty and the
-   last page is kept. Cluster
-   score: `severity×3 + issue_rank×4 + min(sources,6)×1 + recency×2 + jaipur×3 − ceremonial_penalty`.
+   no topic gate, no place list; every kept story already names Jaipur (`is_jaipur`). On a day with
+   nothing fresh the list is empty and the last page is kept. Cluster
+   score (topic-neutral): `severity×3 + min(sources,6)×2 + recency×3 − ceremonial_penalty`.
 
 ### Multi-day tracking
 - A rolling **30-day archive** (`breaking/data/archive.json`) accumulates each ongoing

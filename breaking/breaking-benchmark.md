@@ -240,8 +240,8 @@ date + (where known) outlet, newest on top.*
 - Varied titled sources → `arc_sources()` + the AI's `sources_hi`, with `HINDI_SOURCE` covering the
   common outlets.
 - Devanagari + no raw dumps → `to_hindi` / `_ai_str` / `_ai_str_list` in `_lead_from_ai`.
-- Lead pick → `apply_lead` (top fresh non-ceremonial cluster); accountability ranking hints →
-  `has_failure_angle` / `questions_authority` (front-load within `order_secondary`).
+- Lead pick → `apply_lead` (top fresh non-ceremonial cluster, topic-neutral score); secondary pool →
+  `order_secondary` (the day's other fresh, non-ceremonial Jaipur stories by score).
 - Hard-news, attributed, mode-aware voice → the `_groq_messages` prompt (`timeline_mode`).
 
 ## Machine-readable copy

@@ -10,16 +10,15 @@ workflow and served as a static file on GitHub Pages.
 This document is the consolidated spec — every instruction gathered for this page, plus
 an operator guide.
 
-> **See [`breaking-benchmark.md`](breaking-benchmark.md)** for the golden "good-to-follow" **two worked
-> examples** — one per timeline mode (Use Case A `घटनाक्रम`, Use Case B `इस महीने`) —
-> covering title, description, timeline, key facts, sources + the per-section standards the output must
-> match. The same two use cases are in machine-readable **[`breaking-cases.json`](breaking-cases.json)**
-> (a reference for adapting the prompt; **not** runtime-injected — that would blow the Groq TPM budget).
-> The page is a **live single-story tracker**: one title on the *current* story; a timeline
-> section with **two modes** — **"घटनाक्रम"** for one developing story's chronology, else **"इस महीने"**
-> for the month's different Jaipur stories (`month_story_arc`) — **descending
-> (newest first), scroll-revealed**; varied named sources (`arc_sources` + `HINDI_SOURCE`); hard-news
-> attributed voice; Devanagari-only.
+> **See [`breaking-benchmark.md`](breaking-benchmark.md)** for the golden "good-to-follow" **worked
+> example** (a single lead story's chronology, `घटनाक्रम`) — covering title, description, timeline,
+> key facts, sources + the per-section standards the output must match. A machine-readable copy is in
+> **[`breaking-cases.json`](breaking-cases.json)** (a reference for adapting the prompt; **not**
+> runtime-injected — that would blow the Groq TPM budget).
+> The page is a **live single-story tracker**: one title on the *current* story, and a timeline
+> (**"घटनाक्रम"**) that is **that same story's own chronology** — built from the lead story's own
+> articles so the title and timeline always match — **descending (newest first), scroll-revealed**;
+> varied named sources (`arc_sources` + `HINDI_SOURCE`); hard-news attributed voice; Devanagari-only.
 
 ---
 
@@ -116,10 +115,9 @@ it; the story body follows directly. Section order below the header:
    police/administration action or accountability and the sources report it; **never fabricated**,
    and not forced onto an unrelated story.
 6. **आगे क्या** — short outlook.
-7. **स्रोत** — source cards (Hindi titles, same-tab links). These **always** come from the timeline
-   arc's own events (`arc_sources` over the घटनाक्रम / इस महीने points), so the source links always
-   match the timeline shown; they fall back to the lead cluster's own sources only if the arc yields
-   none.
+7. **स्रोत** — source cards (Hindi titles, same-tab links). These come from the timeline arc's own
+   events (`arc_sources` over the घटनाक्रम points), so the source links always match the timeline
+   shown; they fall back to the lead cluster's own sources only if the arc yields none.
 8. **यह भी ब्रेकिंग** ("is also breaking") — the day's other **fresh Jaipur** stories, in score
    order (`order_secondary`). Only fresh, non-ceremonial clusters show; a festival never fills the
    breaking slot. Archive-only backfill items never show here; an empty pool renders no section.

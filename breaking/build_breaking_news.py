@@ -66,7 +66,7 @@ NEWS_SITE = "https://news.manzill.com"
 # Bump whenever the rendered output (template/RSS/sitemap format) changes. A mismatch
 # with the value stored in state forces a one-time re-render even when the feed is
 # unchanged, so a redesign rolls out on the next scheduled run without a manual push.
-RENDER_VERSION = "21"
+RENDER_VERSION = "22"
 
 # --- Groq TPM budget ------------------------------------------------------- #
 # Groq bills prompt_tokens + max_tokens against a per-minute cap; exceeding it returns HTTP 413 and
@@ -971,13 +971,16 @@ def _groq_messages(clusters: list[dict], points: list[dict], *,
                         "पृष्ठभूमि, कौन/कौन-सा विभाग, क्या आरोप/राशि, शुरुआत से अब तक का घटनाक्रम, मौजूदा स्थिति, और "
                         "नागरिकों पर असर; जवाबदेही के सवाल/माँगें हवाले से ('विपक्ष/नागरिकों के अनुसार'), "
                         "अपनी राय या 'सरकार को करना चाहिए' जैसी बात कभी नहीं; पैराग्राफ \\n\\n से अलग",
-            "key_facts": "6-8 हिंदी बिंदुओं की array (कौन, विभाग/पद, राशि, धारा, कार्रवाई)",
+            "key_facts": "6-8 हिंदी बिंदुओं की array — हर बिंदु एक स्वाभाविक पूरा वाक्य (कौन · कौन-सा "
+                         "विभाग · कितनी राशि/क्या आरोप · क्या कार्रवाई/नतीजा); डैश या कॉमा से जोड़ी फ़ील्ड-सूची "
+                         "नहीं, और मनगढ़ंत क़ानूनी धारा नहीं",
             "developments": "[{date_label, text}] की array, oldest→newest, 5-12 चरण (एक ही बिंदु होने पर "
                             "भी एक चरण पर न रुकें)। text = 2-3 हिंदी वाक्य: क्या हुआ, किस विभाग/अधिकारी ने, "
                             "क्या आरोप/कार्रवाई, नागरिक पर असर। date_label = पुष्ट तिथि या सापेक्ष हिंदी "
                             "लेबल; मनगढ़ंत समय/तिथि नहीं; इनपुट फ़ील्ड का नाम कभी नहीं",
-            "police_accountability": "हिंदी पैराग्राफ — पुलिस/प्रशासन की लापरवाही/देरी/चूक के प्रमाणित "
-                                     "तथ्य; स्रोतों में कुछ न हो तो खाली स्ट्रिंग",
+            "police_accountability": "हिंदी पैराग्राफ — केवल तभी भरें जब स्रोत सीधे पुलिस/प्रशासन की "
+                                     "लापरवाही/देरी/चूक बताएँ; प्रशासनिक/विभागीय मामले को ज़बरदस्ती पुलिस-चूक "
+                                     "न बनाएँ, वरना खाली स्ट्रिंग",
             "what_next": "1-2 हिंदी वाक्य — आगे की अपेक्षित प्रक्रिया (जाँच/चार्जशीट/अदालत) और "
                          "प्रभावितों/विपक्ष की माँगें, तथ्यात्मक व हवाले से; अपनी राय/उपदेश नहीं",
             "sources_hi": "हिंदी एक-पंक्ति शीर्षकों की array — lead_sources_en के समान क्रम व संख्या",
@@ -1573,12 +1576,24 @@ def build() -> None:
     # "घटनाक्रम — शुरुआत से अब तक" is ONE developing case's chronology, so it only applies when the lead
     # has a real arc of its own. A one-off lead (a single ACB arrest) has no chronology — then the
     # section becomes "इस महीने उजागर भ्रष्टाचार", clubbing the month's DIFFERENT corruption cases.
-    # Pick the mode from the lead's own dated-point count.
+    # Pick the mode from the lead's own COHESIVE dated-point count (the cohesion filter below).
     own_pts = story.get("points", [])
+    # A lead earns the single-case "घटनाक्रम" heading only for points that are genuinely ITS OWN
+    # case. Match on the lead's CASE-IDENTIFYING terms — its distinctive title tokens MINUS the
+    # generic beat vocabulary (bribe/corruption/negligence/protest… in FAILURE_TERMS) that every
+    # accountability story shares — and require ≥ENRICH_MIN_SHARED of them. One shared word (or a
+    # generic "taking bribe") is too loose and would keep unrelated same-beat cases together;
+    # case-specific terms (the officer/department/place/amount) hold a real developing case together
+    # while shedding a different case or an off-topic item folded in by loose archive matching. Too
+    # few cohere → this isn't a single developing case → fall through to the month's different cases.
+    case_terms = set(_lead_query_terms(top, max_terms=6)) - set(FAILURE_TERMS)
+    need = min(ENRICH_MIN_SHARED, len(case_terms))
+    cohesive_pts = ([p for p in own_pts if len(case_terms & keywords(p.get("text_en", ""))) >= need]
+                    if need else own_pts)
     clubbed = month_accountability_arc(archive, now) if is_policy_beat(top) else []
-    if len(own_pts) >= SINGLE_CASE_MIN:
+    if len(cohesive_pts) >= SINGLE_CASE_MIN:
         timeline_mode = "case"
-        arc = _arc_sample(own_pts, TIMELINE_MAX)
+        arc = _arc_sample(cohesive_pts, TIMELINE_MAX)
         tl_heading, tl_note = "घटनाक्रम", "इसी मामले का सिलसिला — नवीनतम अपडेट सबसे ऊपर।"
     elif clubbed:
         timeline_mode = "month"
@@ -1586,10 +1601,10 @@ def build() -> None:
         tl_heading, tl_note = "इस महीने उजागर भ्रष्टाचार", "इस महीने के अलग-अलग मामले — नवीनतम सबसे ऊपर।"
     else:
         timeline_mode = "case"
-        arc = _arc_sample(own_pts, TIMELINE_MAX)
+        arc = _arc_sample(cohesive_pts or own_pts, TIMELINE_MAX)
         tl_heading, tl_note = "घटनाक्रम", "नवीनतम अपडेट सबसे ऊपर।"
     print(f"  archive: {len(archive['stories'])} story(ies); lead carries {len(own_pts)} own "
-          f"point(s); mode={timeline_mode}, narrating {len(arc)}")
+          f"point(s) ({len(cohesive_pts)} cohesive); mode={timeline_mode}, narrating {len(arc)}")
 
     # In month mode the स्रोत cards come from the clubbed arc's varied outlets; in case mode, the
     # lead cluster's own sources (via _lead_from_ai's default).
@@ -1689,6 +1704,10 @@ def _lead_from_ai(ai: dict, clusters: list[dict],
         hi = None
         if i < len(sources_hi) and isinstance(sources_hi[i], str) and sources_hi[i].strip():
             hi = to_hindi(sources_hi[i].strip()) or None
+        # Drop sources the AI didn't give a real Hindi title — a blank/pale card is worse than one
+        # fewer source (benchmark: varied NAMED outlets, each with a real Hindi title).
+        if not hi:
+            continue
         sources.append({"title_hi": hi, "url": s["url"],
                         "source": s["source"], "published": s["published"]})
 

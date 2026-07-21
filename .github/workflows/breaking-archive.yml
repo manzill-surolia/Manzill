@@ -1,0 +1,55 @@
+name: Breaking News Daily Snapshot
+
+# Publishes a dated daily snapshot of www.manzill.com/breaking at 12:00 IST, so each day's front
+# page stays permanently readable at a stable URL, e.g. www.manzill.com/breaking/20-july-2026.
+# 12:00 IST = 06:30 UTC. Scheduled workflows only run from the default branch, so this begins once
+# merged to main. Use "Run workflow" (workflow_dispatch) to snapshot on demand.
+
+on:
+  schedule:
+    - cron: "30 6 * * *"
+  workflow_dispatch:
+    inputs:
+      date:
+        description: "Snapshot slug to write (e.g. 20-july-2026). Blank = today (IST)."
+        required: false
+        default: ""
+
+permissions:
+  contents: write
+
+concurrency:
+  group: breaking-archive
+  cancel-in-progress: false
+
+jobs:
+  snapshot:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Publish dated snapshot of /breaking
+        run: |
+          if [ -n "${{ github.event.inputs.date }}" ]; then
+            python breaking/snapshot.py --date "${{ github.event.inputs.date }}"
+          else
+            python breaking/snapshot.py
+          fi
+
+      - name: Commit and push if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A breaking
+          if git diff --cached --quiet; then
+            echo "No snapshot changes to commit."
+          else
+            git commit -m "Publish daily /breaking snapshot"
+            git push
+          fi

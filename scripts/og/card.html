@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<style>
+  :root{
+    --navy:#082438; --brand:#0e3a5f; --brand-2:#124a76;
+    --teal:#12a5b8; --ink:#ffffff; --muted:#9fb6c9;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  /* Gradient on both html and .card so the full 1200x630 is always painted,
+     regardless of any body-box quirk in the headless capture. */
+  html,body{width:1200px;height:630px;overflow:hidden;
+    background:var(--navy)}
+  body{
+    /* Inter is the site font; fall back to a crisp local sans when it is
+       unavailable at render time (offline / policy-restricted CDNs). */
+    font-family:"Inter","Liberation Sans","Helvetica Neue",Arial,"DejaVu Sans",sans-serif;
+    color:var(--ink);
+    -webkit-font-smoothing:antialiased;
+  }
+  .card{
+    position:relative;width:1200px;height:630px;overflow:hidden;
+    padding:58px 84px;display:grid;grid-template-rows:auto minmax(0,1fr) 88px;row-gap:6px;
+    background:
+      radial-gradient(1100px 560px at 88% -12%, rgba(18,165,184,.30), transparent 60%),
+      linear-gradient(135deg, var(--navy) 0%, var(--brand) 56%, var(--brand-2) 100%);
+  }
+  /* faint hairline frame for a "card" feel */
+  .card::after{
+    content:"";position:absolute;inset:26px;border:1px solid rgba(255,255,255,.08);
+    border-radius:20px;pointer-events:none;
+  }
+  /* ---- top strip: logo + eyebrow ---- */
+  .top{display:flex;align-items:center;gap:26px}
+  .logo{width:96px;height:96px;flex:0 0 auto;border-radius:22px;background:#ffffff;
+    display:flex;align-items:center;justify-content:center;
+    box-shadow:0 10px 30px rgba(0,0,0,.25)}
+  .logo svg{width:60px;height:60px;display:block}
+  .eyebrow{font-size:23px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--teal)}
+  .eyebrow small{display:block;margin-top:6px;font-size:16px;font-weight:600;
+    letter-spacing:.10em;color:var(--muted)}
+  /* ---- headline (the hero) ---- */
+  .mid{display:flex;flex-direction:column;justify-content:center;
+    min-height:0;overflow:hidden;padding:10px 0}
+  .accent{width:96px;height:8px;border-radius:8px;background:var(--teal);
+    margin-bottom:26px;flex:0 0 auto}
+  h1#title{font-weight:800;line-height:1.06;letter-spacing:-.015em;
+    font-size:88px;max-width:1010px;
+    text-wrap:balance;word-break:break-word}
+  /* ---- footer: name demoted ---- */
+  .foot{display:flex;align-items:flex-end;justify-content:space-between;
+    min-height:0;overflow:hidden}
+  .byline{font-size:26px;font-weight:700;color:#e7eef5}
+  .byline small{display:block;margin-top:5px;font-size:18px;font-weight:600;color:var(--muted)}
+  .domain{font-size:26px;font-weight:800;color:#ffffff;opacity:.95;letter-spacing:-.01em}
+  .domain b{color:var(--teal);font-weight:800}
+</style>
+</head>
+<body>
+  <div class="card">
+    <div class="top">
+      <div class="logo" aria-hidden="true">
+        <!-- brand "M": white square, navy stroke (inverse of favicon) -->
+        <svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+          <path d="M96 402 V116 L256 300 L416 116 V402" fill="none"
+                stroke="#0e3a5f" stroke-width="80"
+                stroke-linejoin="round" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="eyebrow">Cyber Security<small>Governance · Risk · Compliance</small></div>
+    </div>
+
+    <div class="mid">
+      <div class="accent"></div>
+      <h1 id="title">__TITLE__</h1>
+    </div>
+
+    <div class="foot">
+      <div class="byline">Manzill Surolia<small>ISO 27001 Lead Auditor</small></div>
+      <div class="domain">manzill.com/<b>__SLUG__</b></div>
+    </div>
+  </div>
+
+  <script>
+    /* Auto-fit the headline: shrink until it fits the middle band, so both
+       short and long titles stay on-brand without manual tuning. */
+    function fit(){
+      var el = document.getElementById('title');
+      var mid = el.closest('.mid');
+      var accent = mid.querySelector('.accent');
+      // Height available to the headline inside the fixed middle row.
+      var avail = mid.clientHeight - accent.offsetHeight - 26 - 14;
+      var size = 88;
+      el.style.fontSize = size + 'px';
+      while (el.scrollHeight > avail && size > 38){ size -= 2; el.style.fontSize = size + 'px'; }
+      document.documentElement.setAttribute('data-fitted','1');
+    }
+    requestAnimationFrame(fit);                   // after first layout
+    window.addEventListener('load', fit);         // re-fit once fonts settle
+  </script>
+</body>
+</html>

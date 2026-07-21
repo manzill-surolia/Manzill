@@ -19,11 +19,11 @@ back into the repo, which Pages then serves) — everything else is hand-authore
 | `index.html` | `/` | Homepage — cybersecurity portfolio ("Regulatory Controls, Decoded"), links to the research series. |
 | `choosing-a-security-framework/` | `/choosing-a-security-framework` | Article: "Choosing a Security Framework: 10 Frameworks, One Decision". |
 | `iso-27001-2022/` | `/iso-27001-2022` | Article: "ISO 27001:2013 → 2022, Quantified". |
-| `security-tooling-landscape/` | `/security-tooling-landscape` | Article: "The Cybersecurity Tooling Landscape, Mapped". |
+| `cybersecurity-tooling-landscape/` | `/cybersecurity-tooling-landscape` | Article: "Cybersecurity Tooling Landscape, Mapped". |
 | `jaipur-news/` | `/jaipur-news` | Static Jaipur/Rajasthan news landing page (SEO). |
 | `jaipur-properties/` | `/jaipur-properties` | Static Jaipur real-estate landing page (SEO). |
 | `breaking/` | `/breaking` | **AI-generated, fully-Hindi live single-story news page** for **Jaipur**: the city's top **breaking & political news**, one story at a time (Jaipur-only, no topic filter). Bot-committed and **self-contained** — its generator, snapshot tool, TPM checker, spec, golden benchmark, and its own agent guide all live in the folder. **See [`breaking/AGENTS.md`](breaking/AGENTS.md).** |
-| `scripts/` | — | `build_sitemap.py` (the sitemap generator) + `requirements.txt` (stdlib only; just `tzdata`). The breaking-news tooling (`build_breaking_news.py`, `snapshot.py`, `check_tpm.py`) lives in `breaking/`. |
+| `scripts/` | — | `build_sitemap.py` (the sitemap generator), `build_og_images.py` + `og/card.html` (the per-article link-preview card generator), and `requirements.txt` (stdlib only; just `tzdata`). The breaking-news tooling (`build_breaking_news.py`, `snapshot.py`, `check_tpm.py`) lives in `breaking/`. |
 | `.github/workflows/` | — | `breaking-news.yml`, `breaking-archive.yml`, and `sitemap.yml`. |
 | `CNAME`, `robots.txt`, `sitemap.xml`, `favicon.svg`, `icon.png`, `manzill-og.png` | — | Domain, crawler rules, sitemap (auto-generated), assets. |
 
@@ -45,15 +45,36 @@ back into the repo, which Pages then serves) — everything else is hand-authore
     it, so each day's front page stays permanently readable at `www.manzill.com/breaking/20-july-2026`.
   - `scripts/build_sitemap.py` → `.github/workflows/sitemap.yml` (push to any `**/index.html`,
     daily cron, or dispatch). Auto-discovers routes (**any folder containing `index.html`**;
-    `EXCLUDE_DIRS = {.github, scripts, docs, node_modules, breaking-news}`) and rewrites the root
+    `EXCLUDE_DIRS = {.github, scripts, docs, node_modules, breaking-news}`, and
+    `REDIRECT_SLUGS` — retired paths that now hold a redirect stub) and rewrites the root
     `sitemap.xml`; per-route `changefreq`/`priority` come from the `META` dict, `lastmod` from
     each page's last git commit date.
+  - `scripts/build_og_images.py` — **local/manual** generator (like the sitemap; not wired into
+    CI). Renders `scripts/og/card.html` per article via the pre-installed headless Chromium and
+    writes `<slug>/og.png` (1200×630). Run it after adding or renaming an article, then commit the
+    PNGs. See "Working on the site" below.
 
 ## Working on the site
 
 - **Add a new page:** create `your-slug/index.html`. The sitemap picks it up automatically on the
   next `sitemap.yml` run (add an entry to `META` in `build_sitemap.py` if you want non-default
   `changefreq`/`priority`; otherwise it uses `DEFAULT_META = weekly/0.8`).
+- **Article-title convention:** article titles **omit a leading or standalone "The"** — write
+  "Cybersecurity Tooling Landscape, Mapped", not "The Cybersecurity Tooling Landscape". Keep the
+  `<title>`, `og:title`, `twitter:title`, `<h1>`, the JSON-LD `headline`, the homepage list link,
+  and any cross-link anchors in sync. Prose sentences may still use a grammatical "the".
+- **Give each article its own link-preview card** so shares highlight the *title*, not a shared
+  "Manzill Surolia" brand card. Run `python scripts/build_og_images.py [<slug> …]` (renders
+  `<slug>/og.png`), then point that page's `og:image`, `twitter:image` and the **Article** JSON-LD
+  `image` at `https://www.manzill.com/<slug>/og.png`, and set `og:image:alt` / `twitter:image:alt`
+  to the article title. Leave the **Person** JSON-LD `image` and the homepage as the shared
+  `manzill-og.png`.
+- **Renaming a slug:** `git mv <old> <new>`, update every reference (canonical, `og:url`, JSON-LD
+  `url`/`mainEntityOfPage`, sibling cross-links, the homepage list, this file), then **leave a
+  redirect stub** at `<old>/index.html` (canonical + `<meta http-equiv="refresh">` + `noindex` +
+  `location.replace(...)`) and add `<old>` to `REDIRECT_SLUGS` in `build_sitemap.py` so the stub
+  stays out of the sitemap. GitHub Pages can't server-redirect, so the stub is what preserves
+  already-shared links.
 - **Edit the breaking page:** it is bot-generated — change `breaking/build_breaking_news.py` (**not**
   `breaking/index.html`) and **bump `RENDER_VERSION`**. See **[`breaking/AGENTS.md`](breaking/AGENTS.md)**
   for the full workflow and the mandatory Groq-TPM check.

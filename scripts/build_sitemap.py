@@ -44,6 +44,11 @@ SITE = "https://www.manzill.com"
 # deletes each run; listed here so a stale copy can never leak into the sitemap.
 EXCLUDE_DIRS = {".github", "scripts", "docs", "node_modules", "breaking-news"}
 
+# Retired slugs that now hold a redirect stub (moved to a new URL). Their
+# index.html only meta-refreshes to the new canonical path, so they must stay
+# out of the sitemap. Add the OLD slug here whenever a page is renamed.
+REDIRECT_SLUGS = {"cybersecurity-certifications", "security-tooling-landscape"}
+
 # Per-route <changefreq>/<priority>. Keyed by slug ("" is the homepage). Any
 # route not listed here — e.g. a page added in the future — uses DEFAULT_META,
 # so a new page needs zero config to land in the sitemap. Tune a specific page
@@ -73,7 +78,10 @@ def discover_slugs(root: Path) -> list[str]:
         parts = rel.parts  # () for the repo root
         if any(p in EXCLUDE_DIRS or p.startswith(".") for p in parts):
             continue
-        slugs.append("/".join(parts))
+        slug = "/".join(parts)
+        if slug in REDIRECT_SLUGS:
+            continue
+        slugs.append(slug)
     return slugs
 
 

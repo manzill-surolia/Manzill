@@ -22,23 +22,27 @@ back into the repo, which Pages then serves) — everything else is hand-authore
 | `security-tooling-landscape/` | `/security-tooling-landscape` | Article: "The Cybersecurity Tooling Landscape, Mapped". |
 | `jaipur-news/` | `/jaipur-news` | Static Jaipur/Rajasthan news landing page (SEO). |
 | `jaipur-properties/` | `/jaipur-properties` | Static Jaipur real-estate landing page (SEO). |
-| `breaking/` | `/breaking` | **AI-generated, fully-Hindi live single-story news page** on one beat: government/police **bribery & policy incompetence** in Rajasthan (Jaipur-first). Bot-committed and **self-contained** — its generator, TPM checker, spec, golden benchmark, and its own agent guide all live in the folder. **See [`breaking/AGENTS.md`](breaking/AGENTS.md).** |
-| `scripts/` | — | `build_sitemap.py` (the sitemap generator) + `requirements.txt` (stdlib only; just `tzdata`). The breaking-news generator (`build_breaking_news.py`, `check_tpm.py`) lives in `breaking/`. |
-| `.github/workflows/` | — | `breaking-news.yml` and `sitemap.yml`. |
+| `breaking/` | `/breaking` | **AI-generated, fully-Hindi live single-story news page** for **Jaipur**: the city's top **breaking & political news**, one story at a time (Jaipur-only, no topic filter). Bot-committed and **self-contained** — its generator, snapshot tool, TPM checker, spec, golden benchmark, and its own agent guide all live in the folder. **See [`breaking/AGENTS.md`](breaking/AGENTS.md).** |
+| `scripts/` | — | `build_sitemap.py` (the sitemap generator) + `requirements.txt` (stdlib only; just `tzdata`). The breaking-news tooling (`build_breaking_news.py`, `snapshot.py`, `check_tpm.py`) lives in `breaking/`. |
+| `.github/workflows/` | — | `breaking-news.yml`, `breaking-archive.yml`, and `sitemap.yml`. |
 | `CNAME`, `robots.txt`, `sitemap.xml`, `favicon.svg`, `icon.png`, `manzill-og.png` | — | Domain, crawler rules, sitemap (auto-generated), assets. |
 
 ## How it builds & deploys
 
 - **Static pages:** no build step — GitHub Pages serves the committed files from the default
   branch (`main`) at `www.manzill.com`. Editing an `.html` file and merging to `main` publishes it.
-- **Two generators run in CI and commit their output:**
+- **Generators run in CI and commit their output:**
   - **Breaking-news page** — `breaking/build_breaking_news.py` → `.github/workflows/breaking-news.yml`
-    (cron `*/20` + manual dispatch). A single-story, fully-Hindi Rajasthan accountability desk: it
-    fetches Google News RSS, picks one fresh bribery/policy-failure lead, web-enriches it, archives
-    every story's multi-day arc, and calls **Groq** for a rich Hindi write-up, then commits
-    `breaking/index.html` (+ RSS + news sitemap) only on change. Needs the repo secret
-    **`GROQ_API_KEY`**. **Full pipeline, editorial rules, and the Groq-TPM gotcha are in
+    (cron `*/20` + manual dispatch). A single-story, fully-Hindi **Jaipur breaking + political news**
+    desk (Jaipur-only, no topic filter): it fetches Google News RSS, picks the strongest fresh Jaipur
+    story, web-enriches it, archives every story's multi-day arc, and calls **Groq** for a rich Hindi
+    write-up, then commits `breaking/index.html` (+ RSS + news sitemap) only on change. Needs the repo
+    secret **`GROQ_API_KEY`**. **Full pipeline, editorial rules, and the Groq-TPM gotcha are in
     [`breaking/AGENTS.md`](breaking/AGENTS.md).**
+  - **Daily `/breaking` snapshot** — `breaking/snapshot.py` → `.github/workflows/breaking-archive.yml`
+    (cron `30 6 * * *` = **12:00 IST** + manual dispatch). Copies the live `breaking/index.html` into
+    a dated folder `breaking/<DD-month-YYYY>/index.html` (e.g. `breaking/20-july-2026/`) and commits
+    it, so each day's front page stays permanently readable at `www.manzill.com/breaking/20-july-2026`.
   - `scripts/build_sitemap.py` → `.github/workflows/sitemap.yml` (push to any `**/index.html`,
     daily cron, or dispatch). Auto-discovers routes (**any folder containing `index.html`**;
     `EXCLUDE_DIRS = {.github, scripts, docs, node_modules, breaking-news}`) and rewrites the root

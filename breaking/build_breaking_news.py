@@ -66,7 +66,7 @@ NEWS_SITE = "https://news.manzill.com"
 # Bump whenever the rendered output (template/RSS/sitemap format) changes. A mismatch
 # with the value stored in state forces a one-time re-render even when the feed is
 # unchanged, so a redesign rolls out on the next scheduled run without a manual push.
-RENDER_VERSION = "23"
+RENDER_VERSION = "24"
 
 # --- Groq TPM budget ------------------------------------------------------- #
 # Groq bills prompt_tokens + max_tokens against a per-minute cap; exceeding it returns HTTP 413 and
@@ -158,6 +158,9 @@ FEED_QUERIES = [
     # Jaipur civic life, infrastructure & public affairs.
     "Jaipur (civic OR traffic OR water OR power OR metro OR road OR development OR weather "
     "OR heritage OR health OR school) when:2d",
+    # Jaipur protests, agitations & civil-society actions.
+    "Jaipur (protest OR agitation OR dharna OR gherao OR rally OR march OR strike "
+    "OR demonstration OR \"hunger strike\" OR morcha) when:2d",
     # Widest Jaipur net so a big Jaipur story is never missed by the narrower queries.
     "Jaipur news when:1d",
 ]
@@ -173,63 +176,13 @@ ARCHIVAL_QUERIES = [
 ]
 
 # --------------------------------------------------------------------------- #
-# Rajasthan locality gate (Jaipur-first)
+# Jaipur locality gate (Jaipur-only)
 # --------------------------------------------------------------------------- #
-# Coverage is Rajasthan-wide but Jaipur-first: a story is kept only if it mentions Rajasthan,
-# Jaipur, or a well-known Rajasthan city/district (is_local). Without this gate a national item
-# that leaks into a broad feed query can outscore every state story and lead the page. Jaipur
-# clusters additionally pass is_jaipur() and get a small ranking boost so Jaipur leads whenever a
-# Jaipur story is available. Single-word tokens are matched against the item's token set (so
-# "camera" never matches "amer"); multi-word phrases are matched as substrings. `normalize()`
-# keeps "jaipur"/"rajasthan" — they are stripped only for clustering (STOPWORDS), not the raw text.
-JAIPUR_TERMS = {
-    "jaipur", "jaipurite", "jaipurites", "sanganer", "sitapura", "jhotwara",
-    "mansarovar", "vidyadhar", "amer", "amber", "chomu", "bagru", "chaksu",
-    "shahpura", "kotputli",
-}
-JAIPUR_PHRASES = (
-    "pink city", "walled city", "malviya nagar", "vaishali nagar",
-    "tonk road", "sindhi camp", "jln marg", "bani park",
-)
-# Rest of Rajasthan — major cities/districts + the state/agency names. A story anywhere here is
-# in-coverage; is_jaipur() (JAIPUR_TERMS/PHRASES) decides the Jaipur-first ranking preference.
-RAJASTHAN_TERMS = {
-    "rajasthan", "acb", "jodhpur", "udaipur", "kota", "ajmer", "bikaner", "alwar",
-    "bharatpur", "sikar", "pali", "nagaur", "churu", "jhunjhunu", "jhunjhunun",
-    "barmer", "jaisalmer", "banswara", "bhilwara", "chittorgarh", "chittaurgarh",
-    "dausa", "dholpur", "hanumangarh", "jalore", "jhalawar", "karauli", "sirohi",
-    "tonk", "bundi", "baran", "dungarpur", "pratapgarh", "rajsamand", "sawai",
-    "madhopur", "ganganagar", "sriganganagar", "beawar", "kishangarh", "neemrana",
-}
-RAJASTHAN_PHRASES = (
-    "sawai madhopur", "sri ganganagar", "anti-corruption bureau", "anti corruption bureau",
-)
-
-# Facts about police incompetence/misconduct are a standing priority: flagged clusters are
-# pulled to the front of the "यह भी ब्रेकिंग" section (see order_secondary). Precision matters —
-# ordinary crime reporting always names the police (as investigator), so we don't flag on a
-# bare "police" mention. Two tiers, both gated on a police reference:
-#   STRONG  — police-context misconduct words (substring match); flag on their own.
-#   FORCE   — physical-force verbs that only count as misconduct when the police are the
-#             grammatical subject/agent ("police beat …", "… beaten by police"), matched
-#             by POLICE_FORCE_RE so a civilian "man beaten to death, police said" is ignored.
-POLICE_TERMS = ("police", "cop", "cops", "policemen", "policeman", "constable",
-                "constables", "sho", "thana", "sub-inspector", "jawan", "jawans")
-POLICE_MISCONDUCT_STRONG = [
-    "lathicharge", "lathi charge", "lathi-charge", "baton charge", "custod",
-    "negligen", "misconduct", "dereliction", "cover up", "coverup", "cover-up",
-    "inaction", "botch", "mishandl", "brutal", "excessive force", "manhandl",
-    "high-handed", "highhanded", "third degree", "custodial torture", "suspend",
-]
-_POLICE_WORD = (r"(?:police|cops?|policemen|policeman|constables?|sho|"
-                r"sub-?inspectors?|jawans?)")
-_FORCE_ACT = (r"(?:beat|beaten|beating|thrash(?:ed|ing)?|assault(?:ed|ing)?|"
-              r"manhandl(?:ed|ing)?|lathi\s*charg\w*|baton\s*charg\w*|lathi|baton|cane[d]?)")
-POLICE_FORCE_RE = re.compile(
-    rf"\b{_POLICE_WORD}\b\W+(?:\w+\W+){{0,2}}{_FORCE_ACT}\b"        # police (brutally) beat …
-    rf"|\b{_FORCE_ACT}\b\W+(?:\w+\W+){{0,2}}by\W+{_POLICE_WORD}\b",  # … beaten (up) by police
-    re.IGNORECASE,
-)
+# A story is kept only if it names Jaipur (is_jaipur). Every FEED_QUERIES entry is already
+# "Jaipur …"-anchored, so keying on the city name covers the WHOLE city — no enumerated colony/
+# landmark list to maintain or keep in sync. `normalize()` keeps "jaipur" in the raw text (it is
+# only stripped for clustering, via STOPWORDS).
+JAIPUR_TERMS = {"jaipur", "jaipurite", "jaipurites"}
 
 # Words that mark a high-impact, fast-moving event. Order = descending severity.
 SEVERITY_KEYWORDS = {
@@ -245,105 +198,12 @@ SEVERITY_KEYWORDS = {
     "medium": [
         "police", "probe", "investigation", "court", "fir", "case", "traffic",
         "power cut", "water", "civic", "strike", "alert", "warning",
+        # political / civic newsworthiness so Jaipur political stories stay competitive for the lead
+        # (they are rarely high-severity events) — topic-neutral, no accountability slant.
+        "election", "assembly", "vidhan sabha", "cabinet", "minister", "mla", "government",
+        "party", "mayor", "council", "councillor", "bill", "session", "policy", "budget",
     ],
 }
-
-# --------------------------------------------------------------------------- #
-# Burning-issue / जन-सरोकार beat (editorial priority)
-# --------------------------------------------------------------------------- #
-# This page is an accountability-first outlet: it leads with the *burning issue* of the day —
-# disorder, misgovernance, economic distress, rights violations, civic breakdown — over
-# ceremonial / feel-good news. These keyword sets steer ranking ONLY; they never change what is
-# true. The pipeline still surfaces only stories that actually appear in the feeds, and the Groq
-# prompt keeps its hard rules (attribute unconfirmed facts, never fabricate). Boosting a theme
-# raises a *real, sourced* story's rank — it never invents allegations about any person, party or
-# company. All three lists below are plain config: edit them to tune the beat, no logic changes.
-#
-# ISSUE_KEYWORDS is grouped so a story that touches several *distinct* groups scores higher than
-# one that merely repeats a single theme (see issue_rank()). English terms, because the feeds are
-# English (severity_of already covers crime/deaths via SEVERITY_KEYWORDS[high]).
-ISSUE_KEYWORDS = {
-    "disorder": [
-        "chaos", "anarchy", "mayhem", "lawlessness", "lawless", "unrest", "disorder",
-        "mismanagement", "mismanaged", "breakdown", "collapse", "haphazard", "disarray",
-    ],
-    "governance": [
-        "corruption", "corrupt", "scam", "bribe", "bribery", "kickback", "scandal",
-        "negligence", "negligent", "apathy", "lapse", "dereliction", "inaction",
-        "cover up", "cover-up", "coverup", "red tape", "irregularit", "embezzl",
-        "misappropriat", "policy failure", "governance failure", "government failure",
-        "encroachment", "illegal", "flouting", "violation", "bulldozer", "demolition",
-        "demolished", "eviction", "evicted",
-    ],
-    "economy": [
-        "unemployment", "unemployed", "jobless", "job loss", "layoff", "lay-off",
-        "retrenchment", "hunger", "starvation", "starve", "malnutrition", "malnourish",
-        "poverty", "destitute", "inflation", "price rise", "price hike", "farmer distress",
-        "farmers protest", "msp", "crop loss", "debt",
-    ],
-    "rights": [
-        "human rights", "custodial", "atrocity", "atrocities", "caste violence",
-        "dalit", "adivasi", "minorit", "hate crime", "discrimination", "harassment",
-        "trafficking", "bonded labour", "child labour",
-    ],
-    "democracy": [
-        "evm", "electoral roll", "voter list", "booth capturing", "voter fraud",
-        "poll irregularit", "vote rigging", "electoral fraud", "voter suppression",
-    ],
-    "civic": [
-        "waterlogging", "water logging", "sewage", "garbage", "sanitation", "pothole",
-        "power cut", "outage", "blackout", "water crisis", "gridlock", "shortage",
-        "crumbling", "dilapidated", "stranded", "overflow",
-    ],
-}
-
-# Named public-accountability subjects — governments, offices and big-business houses whose
-# conduct is a matter of public interest. Public figures/entities, NOT private individuals. A
-# subject term only lifts a story's rank when it co-occurs with a failure/wrongdoing signal
-# (see issue_rank) — a bare mention is not enough, and framing always comes from the sourced facts.
-ACCOUNTABILITY_SUBJECTS = [
-    "government", "govt", "sarkar", "administration", "minister", "mantri", "cabinet",
-    "chief minister", "cm ", "bhajanlal", "bhajan lal", "bjp", "modi", "mla", "mp ",
-    "municipal", "nagar nigam", "jda", "jaipur development authority", "collector",
-    "corporation", "state government", "rajasthan government", "adani", "ambani", "reliance",
-]
-
-# --------------------------------------------------------------------------- #
-# Policy-incompetence / bribery beat gate (the page's editorial focus)
-# --------------------------------------------------------------------------- #
-# The page leads ONLY with government/police bribery or policy-incompetence stories. A cluster
-# passes the gate (is_policy_beat) when it carries a bribery/corruption signal (BRIBE_TERMS) OR a
-# governance failure signal (ISSUE_KEYWORDS["governance"], which already covers scam/negligence/
-# policy failure/dereliction/…). Purely lexical, like severity_of — it never invents wrongdoing;
-# it only lets a real, sourced bribery/misgovernance story lead. Tune this list freely (config).
-BRIBE_TERMS = [
-    "bribe", "bribery", "bribes", "rishwat", "acb", "anti-corruption", "anti corruption",
-    "corrupt", "corruption", "kickback", "graft", "extortion", "extort", "embezzl",
-    "misappropriat", "disproportionate assets", "trap case", "caught taking",
-    "demanding money", "illegal gratification", "ghoos", "ghus",
-]
-
-# Neutral government/police ACTION words (the state DOING ITS JOB: clearing illegal builds, evicting,
-# raiding, seizing). Retained as a ranking hint for has_failure_angle/questions_authority, which still
-# front-load accountability stories within the secondary pool; they no longer gate what may lead.
-NEUTRAL_ACTION_TERMS = {
-    "encroachment", "illegal", "flouting", "violation", "bulldozer", "demolition",
-    "demolished", "demolish", "eviction", "evicted", "raid", "raided", "seized", "seizure", "razed",
-}
-# Genuine government/police accountability-FAILURE signals: the governance/disorder failure words
-# (minus the neutral-action ones above) + every bribery term + explicit negligence/delay/citizen-harm
-# words. has_failure_angle() requires one of these so a "govt did its job" story can't lead.
-FAILURE_TERMS = (
-    [t for t in ISSUE_KEYWORDS["governance"] if t not in NEUTRAL_ACTION_TERMS]
-    + ISSUE_KEYWORDS["disorder"]
-    + BRIBE_TERMS
-    + [
-        "delay", "delayed", "pending", "stalled", "stall", "ignored", "unheeded",
-        "no compensation", "without compensation", "no rehabilitation", "unpaid", "denied",
-        "victim", "displaced", "homeless", "rendered homeless", "protest", "outcry", "suffer",
-        "death", "deaths", "died", "killed", "without notice", "no notice", "arbitrary",
-    ]
-)
 
 # Ceremonial / feel-good news that must not lead the "breaking" slot (see is_ceremonial &
 # apply_lead). Only demoted when the cluster carries no serious severity and no issue
@@ -379,16 +239,12 @@ ROUNDUP_MARKERS = [
 # a multi-story digest even if its exact phrasing isn't in ROUNDUP_MARKERS. See is_roundup().
 _ROUNDUP_LEADIN = ("news", "today", "khabar", "samachar", "roundup", "headline", "bulletin", "wrap")
 
-# Scoring weights (tunable). Recency is deliberately no longer the heaviest term — a burning
-# issue must outrank a merely-fresh ceremonial item. See cluster_items().
-W_ISSUE = 4.0             # weight on issue_rank (0-3) — the accountability boost
-W_RECENCY = 3.0           # freshness tiebreaker; raised (was 2.0) so a fresher story overtakes a
-                         # day-old one of similar strength instead of the stale lead sticking
-W_SOURCES = 2.0           # weight per distinct source (capped at 6); raised (was 1.0) so a concrete,
-                         # multi-outlet story outranks a thin single-source scoop (which also freezes
-                         # the page — its unchanged title set never trips the feed-hash re-render)
-W_JAIPUR = 3.0            # Jaipur-first (soft): a Jaipur story usually leads, but a clearly bigger
-                         # Rajasthan story (high issue_rank, many sources) can still overtake it
+# Scoring weights (tunable). Ranking is topic-neutral — event importance (severity) plus breadth of
+# coverage (sources) plus freshness; ceremonial/feel-good items are penalised. See cluster_items().
+W_RECENCY = 3.0           # freshness tiebreaker so a fresher story overtakes a day-old one
+W_SOURCES = 2.0           # weight per distinct source (capped at 6) — a multi-outlet story outranks
+                         # a thin single-source scoop (which also freezes the page: its unchanged
+                         # title set never trips the feed-hash re-render)
 CEREMONIAL_PENALTY = 4.0  # subtracted from a ceremonial cluster's score
 # A cluster may LEAD ("breaking now") only if its newest item is this fresh. Older clusters
 # (e.g. pulled by the wider-window backfill queries) still seed the archive/timeline but are
@@ -516,66 +372,14 @@ def _cluster_text(cluster: dict) -> str:
     )
 
 
-def issue_rank(cluster: dict) -> int:
-    """0-3 'burning issue' score: how many DISTINCT accountability/disorder themes the story
-    touches (ISSUE_KEYWORDS groups), +1 when a named accountability subject (government/BJP/
-    Modi/Bhajanlal/Adani/Ambani…) co-occurs with an issue signal. Purely lexical, like
-    severity_of — it lifts the rank of a real, sourced story; it never invents one."""
-    text = " " + _cluster_text(cluster) + " "
-    groups = sum(1 for terms in ISSUE_KEYWORDS.values() if any(t in text for t in terms))
-    rank = groups
-    if groups and any(s in text for s in ACCOUNTABILITY_SUBJECTS):
-        rank += 1  # a public-accountability subject named alongside a failure/wrongdoing signal
-    return min(rank, 3)
-
-
-def is_policy_beat(cluster: dict) -> bool:
-    """True if the cluster is a government/police BRIBERY or POLICY-INCOMPETENCE story — the only
-    kind allowed to LEAD this page. Passes on a bribery/corruption signal (BRIBE_TERMS) or a
-    governance-failure signal (ISSUE_KEYWORDS["governance"]: scam, negligence, dereliction, policy
-    failure, embezzlement, …). Police-misconduct clusters (is_police_misconduct) also qualify, since
-    police accountability is in scope. Purely lexical — it never invents wrongdoing."""
-    text = " " + _cluster_text(cluster) + " "
-    if any(t in text for t in BRIBE_TERMS):
-        return True
-    if any(t in text for t in ISSUE_KEYWORDS["governance"]):
-        return True
-    return bool(cluster.get("police_flag"))
-
-
-def has_failure_angle(cluster: dict) -> bool:
-    """True if the cluster carries a government/police accountability-FAILURE signal — negligence,
-    delay, dereliction, breakdown, citizen harm, or police misconduct — as opposed to a merely
-    neutral state action (a clean demolition/eviction/raid). Used by order_secondary/
-    questions_authority to front-load accountability stories in the secondary pool. Purely lexical —
-    it never invents wrongdoing."""
-    text = " " + _cluster_text(cluster) + " "
-    if any(t in text for t in FAILURE_TERMS):
-        return True
-    return bool(cluster.get("police_flag"))
-
-
-def questions_authority(cluster: dict) -> bool:
-    """True if the cluster puts an ACCOUNTABILITY SUBJECT (state government / JDA / municipal /
-    minister / police / administration) UNDER QUESTION — it names such an authority AND carries a
-    failure/accountability signal. This is the page's core editorial test: every lead should question
-    the government/police, not merely report an incident. Purely lexical — never invents wrongdoing."""
-    text = " " + _cluster_text(cluster) + " "
-    names_authority = any(s in text for s in ACCOUNTABILITY_SUBJECTS) or bool(cluster.get("police_flag"))
-    return names_authority and has_failure_angle(cluster)
-
-
 def is_ceremonial(cluster: dict) -> bool:
-    """True for feel-good / ceremonial news (yatra, festival, inauguration…) that must not lead
-    the breaking slot — but ONLY when the story carries no serious severity and no issue signal,
-    so a stampede or death *at* a procession is never demoted. Expects `severity` and `issue_rank`
-    already set on the cluster (see cluster_items)."""
+    """True for feel-good / ceremonial news (yatra, festival, inauguration…) that must not lead the
+    breaking slot — but ONLY when the story carries no serious severity, so a stampede or death *at* a
+    procession is never demoted. Expects `severity` already set on the cluster (see cluster_items)."""
     text = " " + _cluster_text(cluster) + " "
     if not any(c in text for c in CEREMONIAL_KEYWORDS):
         return False
-    if cluster.get("severity", "low") in ("high", "critical"):
-        return False
-    return cluster.get("issue_rank", 0) == 0
+    return cluster.get("severity", "low") not in ("high", "critical")
 
 
 # --------------------------------------------------------------------------- #
@@ -706,74 +510,41 @@ def cluster_items(items: list[dict], threshold: float = 0.28) -> list[dict]:
         newest = max(i["published"] for i in cl["items"])
         age_h = max((now_utc() - newest).total_seconds() / 3600, 0.0)
         recency = max(0.0, 24.0 - age_h) / 24.0  # 1.0 = brand new, 0 = ~24h old
-        cl["police_flag"] = is_police_misconduct(cl)
-        cl["issue_rank"] = issue_rank(cl)          # burning-issue / public-interest strength (0-3)
-        cl["policy_flag"] = is_policy_beat(cl)     # governance/accountability signal (ranking hint)
         cl["ceremonial"] = is_ceremonial(cl)       # feel-good item that must not lead
-        cl["jaipur"] = is_jaipur(cl)               # Jaipur story (the locality gate; kept for scoring)
         cl["fresh"] = age_h <= FRESH_LEAD_HOURS    # lead/secondary eligibility (vs archive-only)
-        # Newsworthiness score for a Jaipur breaking + political news page: importance (severity) and
-        # public-interest strength (issue_rank) dominate; more sources adds weight; recency is a
-        # tiebreaker; ceremonial/feel-good stories are penalised. apply_lead then picks the top fresh
-        # non-ceremonial story as the lead; order_secondary fills "यह भी ब्रेकिंग".
+        # Topic-neutral newsworthiness score for a Jaipur breaking + political news page: event
+        # importance (severity) + breadth of coverage (sources) + freshness; ceremonial/feel-good
+        # stories are penalised so a festival photo never leads over real news. apply_lead picks the
+        # top fresh, non-ceremonial cluster; order_secondary fills "यह भी ब्रेकिंग".
         cl["score"] = (
             severity_rank(cl["severity"]) * 3.0
-            + cl["issue_rank"] * W_ISSUE
             + min(len(cl["items"]), 6) * W_SOURCES
             + recency * W_RECENCY
-            + (W_JAIPUR if cl["jaipur"] else 0.0)
             - (CEREMONIAL_PENALTY if cl["ceremonial"] else 0.0)
         )
     clusters.sort(key=lambda c: c["score"], reverse=True)
     return clusters
 
 
-def is_police_misconduct(cluster: dict) -> bool:
-    """True if the cluster reports Jaipur/Rajasthan police incompetence/misconduct.
-
-    Needs a police reference AND either a strong police-context misconduct word or a
-    force verb with the police as its subject/agent — so an ordinary crime story that
-    merely quotes the police ("man beaten to death, police said") is never flagged.
-    """
-    text = " ".join(normalize(i["title"] + " " + i.get("summary", "")) for i in cluster["items"])
-    words = set(text.split())
-    if not any(t in words for t in POLICE_TERMS):
-        return False
-    if any(kw in text for kw in POLICE_MISCONDUCT_STRONG):
-        return True
-    return bool(POLICE_FORCE_RE.search(text))
-
-
 def order_secondary(clusters: list[dict]) -> list[dict]:
-    """The 'यह भी ब्रेकिंग' pool (max 5), excluding the lead — the day's other fresh Jaipur stories.
-    Only fresh, non-ceremonial clusters show; feel-good/ceremonial items are kept out of the breaking
-    slot. Higher-impact stories are front-loaded (police-accountability, then stories that name an
-    authority alongside a failure signal), with the rest following by score. `clusters` is
-    score-sorted, so ordering within each tier already reflects newsworthiness."""
-    pool = [c for c in clusters[1:] if c.get("fresh", True) and not c.get("ceremonial")]
-    police = [c for c in pool if c.get("police_flag")]
-    authority = [c for c in pool if not c.get("police_flag") and questions_authority(c)]
-    rest = [c for c in pool if not c.get("police_flag") and not questions_authority(c)]
-    return (police + authority + rest)[:5]
+    """The 'यह भी ब्रेकिंग' pool (max 5), excluding the lead — the day's other fresh, non-ceremonial
+    Jaipur stories, in score order (a festival never fills the breaking slot). `clusters` is already
+    score-sorted."""
+    return [c for c in clusters[1:] if c.get("fresh", True) and not c.get("ceremonial")][:5]
 
 
 def is_jaipur(cluster: dict) -> bool:
-    """True if the cluster is about Jaipur city (or a known Jaipur locality). Used for the
-    Jaipur-first ranking preference. Reads the raw item text — `jaipur` is only a clustering
-    stopword, so it survives in `normalize()`."""
+    """True if the cluster names Jaipur — the Jaipur-only locality gate. Reads the raw item text
+    ("jaipur" survives normalize(); it is only a clustering stopword). Feeds are Jaipur-anchored, so
+    this covers the whole city without an enumerated place list."""
     text = " ".join(
         normalize(i["title"] + " " + i.get("summary", "")) for i in cluster["items"]
     )
-    if set(text.split()) & JAIPUR_TERMS:
-        return True
-    return any(p in text for p in JAIPUR_PHRASES)
+    return bool(set(text.split()) & JAIPUR_TERMS)
 
 
 def is_local(cluster: dict) -> bool:
-    """True if the cluster is a JAIPUR story. Coverage is Jaipur-only, so this is exactly
-    is_jaipur() — a story must mention Jaipur (or a known Jaipur locality) to be in scope. The
-    RAJASTHAN_TERMS/PHRASES lists are kept only to recognise the Jaipur-seated state capital in
-    context; they no longer widen coverage to the rest of the state."""
+    """True if the cluster is a Jaipur story. Coverage is Jaipur-only, so this is exactly is_jaipur()."""
     return is_jaipur(cluster)
 
 
@@ -882,8 +653,7 @@ def _groq_messages(clusters: list[dict], points: list[dict], *,
     """Build the Groq chat `messages` (system + user JSON) for the lead's arc. The caps are parameters
     so groq_analyze's TPM preflight can shrink an over-budget request, and check_tpm.py can measure the
     exact request the generator sends. Kept lean — the prompt is Devanagari-heavy (see the TPM budget);
-    the hard guarantees (Devanagari-only via to_hindi, accountability via questions_authority/
-    enrich_lead) live in code, not in prompt verbosity."""
+    the hard guarantees (Devanagari-only via to_hindi) live in code, not in prompt verbosity."""
     lead = clusters[0]
     others_cl = order_secondary(clusters)[:max(others, 0)]
     # Prefer the clubbed-arc sources (the month's varied outlets) so the AI Hindi-titles the same
@@ -1281,36 +1051,16 @@ def _build_cluster(items: list[dict]) -> dict:
         (severity_of(i["title"] + " " + i.get("summary", "")) for i in items),
         key=severity_rank,
     )
-    cl["police_flag"] = is_police_misconduct(cl)
-    cl["issue_rank"] = issue_rank(cl)
-    cl["policy_flag"] = is_policy_beat(cl)
     cl["ceremonial"] = is_ceremonial(cl)
-    cl["jaipur"] = is_jaipur(cl)
     cl["fresh"] = True  # a manual pin is always eligible to lead
     cl["score"] = 1e6  # pinned to the front regardless of the usual newsworthiness score
     return cl
 
 
 # Web-enrichment tuning. ENRICH_MAX caps how many related items are folded in per run; a related item
-# is kept when it shares ENRICH_MIN_SHARED of the lead's distinctive query terms, OR shares ≥1 term
-# AND carries an accountability-failure signal (so coverage questioning the authorities on the same
-# topic is admitted) — while unrelated bribery cases still aren't. See enrich_lead.
+# is kept when it shares ENRICH_MIN_SHARED of the lead's distinctive query terms (see enrich_lead).
 ENRICH_MAX = 16
 ENRICH_MIN_SHARED = 2
-
-# Accountability-angle terms appended to the post-selection related search, so enrichment actively
-# pulls coverage that QUESTIONS the government/police on the chosen topic (their negligence, delay,
-# the victims, denied compensation, protests, probes) instead of more same-angle/celebratory
-# coverage. Used to build the extra enrich_lead queries (English — matched against English feeds).
-ACCOUNTABILITY_ANGLE_TERMS = [
-    "negligence", "delay", "lapse", "dereliction", "compensation", "rehabilitation",
-    "protest", "victim", "probe", "inquiry", "action", "responsibility", "accountability",
-    "suspended", "cover up", "custodial", "apathy", "grievance", "demand",
-]
-# A compact OR-clause of the highest-signal angle terms for a Google News query (kept short so the
-# query stays valid and focused).
-_ANGLE_OR = ("negligence OR delay OR compensation OR rehabilitation OR protest OR victim OR probe "
-             "OR action OR responsibility OR suspended OR dereliction OR custodial")
 
 
 def _lead_query_terms(cluster: dict, max_terms: int = 5) -> list[str]:
@@ -1322,14 +1072,6 @@ def _lead_query_terms(cluster: dict, max_terms: int = 5) -> list[str]:
                cluster.get("headline", ""))
     toks = sorted(keywords(rep), key=lambda t: (len(t), t), reverse=True)
     return toks[:max_terms]
-
-
-def _has_accountability_signal(it: dict) -> bool:
-    """True if a single feed item carries a government/police accountability-failure signal
-    (FAILURE_TERMS) — used by enrich_lead to admit related coverage that questions the authorities
-    on the chosen topic, not just more same-angle reporting."""
-    txt = " " + normalize(it["title"] + " " + it.get("summary", "")) + " "
-    return any(t in txt for t in FAILURE_TERMS)
 
 
 def enrich_lead(cluster: dict, items: list[dict]) -> dict:
@@ -1536,13 +1278,13 @@ def build() -> None:
     # Pick the mode from the lead's own COHESIVE dated-point count (the cohesion filter below).
     own_pts = story.get("points", [])
     # A lead earns the single-case "घटनाक्रम" heading only for points that are genuinely ITS OWN
-    # story. Match on the lead's CASE-IDENTIFYING terms — its distinctive title tokens MINUS the
-    # generic beat/failure vocabulary that many stories share — and require ≥ENRICH_MIN_SHARED of
-    # them. One shared generic word is too loose and would keep unrelated stories together;
-    # case-specific terms (the person/department/place) hold a real developing story together while
-    # shedding a different story or an off-topic item folded in by loose archive matching. Too few
-    # cohere → this isn't a single developing story → fall through to the month's different stories.
-    case_terms = set(_lead_query_terms(top, max_terms=6)) - set(FAILURE_TERMS)
+    # story. Match on the lead's CASE-IDENTIFYING terms — its distinctive title tokens (a
+    # person/department/place) — and require ≥ENRICH_MIN_SHARED of them. One shared generic word is
+    # too loose and would keep unrelated stories together; case-specific terms hold a real developing
+    # story together while shedding a different story or an off-topic item folded in by loose archive
+    # matching. Too few cohere → this isn't a single developing story → fall through to the month's
+    # different stories.
+    case_terms = set(_lead_query_terms(top, max_terms=6))
     need = min(ENRICH_MIN_SHARED, len(case_terms))
     cohesive_pts = ([p for p in own_pts if len(case_terms & keywords(p.get("text_en", ""))) >= need]
                     if need else own_pts)

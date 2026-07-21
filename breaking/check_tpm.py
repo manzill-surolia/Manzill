@@ -40,8 +40,8 @@ def _worst_case(bn):
     """Fabricate a lead + secondaries + a full history that fill the default message caps with
     representative-length strings, so the measured request is a conservative upper bound."""
     now = datetime.datetime.now(datetime.timezone.utc)
-    long_summary = ("Officials accused of years of negligence and delayed action; residents allege "
-                    "eviction without notice and demand compensation, rehabilitation and a probe.")
+    long_summary = ("The development touched several parts of the city; officials, the opposition and "
+                    "residents gave differing accounts, and authorities said a detailed report would follow.")
     long_url = "https://news.google.com/rss/articles/" + ("X" * 48)
 
     def it(title, summary=long_summary):
@@ -49,27 +49,25 @@ def _worst_case(bn):
                 "source": "Rajasthan Patrika", "published": now}
 
     lead = {
-        "headline": "जयपुर विकास प्राधिकरण की वर्षों की अनदेखी से अवैध निर्माण, ध्वंस के बाद प्रभावितों को "
-                    "मुआवज़े और पुनर्वास का इंतज़ार — प्रशासन की जवाबदेही पर सवाल",
-        "items": [it(f"Rajasthan ACB / JDA accused of negligence and delay in Jaipur land demolition case {i}")
+        "headline": "जयपुर विधानसभा में जल आपूर्ति विधेयक पर लंबी बहस के बाद पारित, विपक्ष का वॉकआउट — "
+                    "शहर के कई इलाकों में असर और प्रशासन की अगली कार्रवाई पर नज़र",
+        "items": [it(f"Jaipur assembly passes water supply bill after long debate, opposition walkout {i}")
                   for i in range(6)],
-        "keywords": {"jda", "jaipur", "negligence", "demolition"}, "severity": "high",
-        "fresh": True, "policy_flag": True, "ceremonial": False, "police_flag": False,
-        "issue_rank": 3, "score": 12.0,
+        "keywords": {"jaipur", "assembly", "water", "bill"}, "severity": "high",
+        "fresh": True, "ceremonial": False, "score": 12.0,
     }
     others = [{
-        "headline": "राजस्थान सरकार की स्वास्थ्य योजना में अनियमितता पर कई अस्पताल निलंबित — मरीज़ों की "
-                    "जवाबदेही और मुआवज़े पर सवाल क्रमांक " + str(i),
-        "items": [it(f"Rajasthan govt suspends hospitals over RGHS scheme irregularities probe {i}", "probe")],
-        "keywords": {"rghs", "probe", "suspended"}, "severity": "high", "fresh": True,
-        "policy_flag": True, "ceremonial": False, "police_flag": False, "issue_rank": 1,
-        "score": 6.0 - i * 0.1,
+        "headline": "जयपुर में सड़क दुर्घटना, यातायात प्रभावित और पुलिस जाँच में जुटी — प्रत्यक्षदर्शियों "
+                    "के अलग-अलग बयान, आधिकारिक रिपोर्ट का इंतज़ार क्रमांक " + str(i),
+        "items": [it(f"Jaipur road accident disrupts traffic, police begin probe {i}", "traffic")],
+        "keywords": {"jaipur", "accident", "traffic"}, "severity": "high", "fresh": True,
+        "ceremonial": False, "score": 6.0 - i * 0.1,
     } for i in range(6)]
 
     points = [{
         "date": "2026-07-%02d" % (1 + i), "time_ist": "16:10", "iso": now.isoformat(),
-        "text_en": ("Detail %d: department accused of negligence and delay; residents allege no "
-                    "compensation; opposition and citizens demand a probe and accountability." % i),
+        "text_en": ("Detail %d: the story developed through the day; officials, the opposition and "
+                    "residents gave differing accounts, and authorities said a report would follow." % i),
         "source": "ETV Bharat", "url": long_url,
     } for i in range(bn.TIMELINE_MAX)]
     return [lead] + others, points

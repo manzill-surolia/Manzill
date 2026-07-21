@@ -53,7 +53,7 @@ jobs:
           FORCE_QUERY: ${{ github.event.inputs.force_query }}
           FORCE_URL: ${{ github.event.inputs.force_url }}
           FORCE_HEADLINE: ${{ github.event.inputs.force_headline }}
-        run: python scripts/build_breaking_news.py
+        run: python breaking/build_breaking_news.py
 
       - name: Commit and push if changed
         run: |

@@ -209,7 +209,8 @@ Actions** and commits a static page that Pages serves.
 
 ```
 .github/workflows/breaking-news.yml   # cron (*/20) + manual "Run workflow"; commits the output
-scripts/build_breaking_news.py        # the generator (fetch → drop digests → cluster → policy lead → enrich → archive → Groq → render)
+breaking/build_breaking_news.py       # the generator (fetch → drop digests → cluster → policy lead → enrich → archive → Groq → render)
+breaking/check_tpm.py                 # Groq TPM budget checker (run before shipping a prompt change)
 breaking/index.html                   # the rendered page (bot-committed)
 breaking/rss.xml, breaking/sitemap.xml
 breaking/favicon.svg                  # Hawa Mahal
@@ -282,7 +283,7 @@ By default the lead is auto-picked on newsworthiness. To **pin** a chosen story 
   ages out and a fresher on-beat story takes over instead of the stale lead sticking.
 
 ### Making changes
-- Edit `scripts/build_breaking_news.py` and **bump `RENDER_VERSION`** so the next run repaints.
+- Edit `breaking/build_breaking_news.py` and **bump `RENDER_VERSION`** so the next run repaints.
 - The workflow commits with `git add -A breaking`; only files under `breaking/` are published.
 
 ### Troubleshooting
@@ -295,7 +296,7 @@ By default the lead is auto-picked on newsworthiness. To **pin** a chosen story 
 - **Page shows the empty Hindi holding scaffold (`Groq HTTP 413`):** the request exceeded the
   account's **8000 tokens-per-minute** limit. Groq counts *prompt + `max_tokens`* per request, and
   the Devanagari prompt tokenizes expensively, so a prompt edit can silently trip it
-  (`Requested 8088 > Limit 8000`). **Check any prompt change with `python scripts/check_tpm.py`**
+  (`Requested 8088 > Limit 8000`). **Check any prompt change with `python breaking/check_tpm.py`**
   (offline conservative estimate; `--api` for Groq's exact `usage.prompt_tokens`). The generator now
   **self-heals**: `groq_analyze` preflight-shrinks the request to `TPM_BUDGET` (7000) before sending
   and retries once with a minimal request on a 413. Budget knobs (`GROQ_TPM_LIMIT`, `GROQ_MAX_TOKENS`,

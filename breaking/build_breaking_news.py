@@ -13,8 +13,8 @@ Runs from GitHub Actions on a ~20 min cron. No server, no secrets in the page:
 the Groq key is read from the GROQ_API_KEY environment variable only.
 
 Usage:
-    python scripts/build_breaking_news.py            # full run (needs GROQ_API_KEY)
-    python scripts/build_breaking_news.py --no-ai    # render from feeds only
+    python breaking/build_breaking_news.py            # full run (needs GROQ_API_KEY)
+    python breaking/build_breaking_news.py --no-ai    # render from feeds only
 """
 
 from __future__ import annotations
@@ -72,7 +72,7 @@ RENDER_VERSION = "21"
 # Groq bills prompt_tokens + max_tokens against a per-minute cap; exceeding it returns HTTP 413 and
 # the page falls back to the empty Hindi holding scaffold. The prompt is Devanagari-heavy (Hindi
 # tokenizes expensively), so a growing prompt silently drifts over the cap. Check any prompt change
-# with `python scripts/check_tpm.py` (offline estimate) or `--api` (Groq's exact prompt_tokens).
+# with `python breaking/check_tpm.py` (offline estimate) or `--api` (Groq's exact prompt_tokens).
 GROQ_TPM_LIMIT = 8000        # the account tier's tokens-per-minute cap
 GROQ_MAX_TOKENS = 4500       # output cap; prompt + this must stay < GROQ_TPM_LIMIT (was 5200 → 413)
 TPM_BUDGET = 7000            # design ceiling for (est. prompt + max_tokens); ~1000 tokens of margin
@@ -887,7 +887,7 @@ def estimate_tokens(text: str) -> int:
     """Conservative (over-)estimate of tokens for the o200k-family tokenizer gpt-oss uses. ASCII ≈ 1
     token / 3.5 chars; non-ASCII (Devanagari codepoints + combining marks) ≈ 1 token / 2 chars.
     Over-counting is deliberate — if this says a request FITS, the real call fits. For the exact count
-    use `scripts/check_tpm.py --api` (Groq's usage.prompt_tokens). See the Groq TPM budget constants."""
+    use `breaking/check_tpm.py --api` (Groq's usage.prompt_tokens). See the Groq TPM budget constants."""
     if not text:
         return 0
     ascii_n = sum(1 for ch in text if ord(ch) < 128)
@@ -1188,7 +1188,7 @@ def month_accountability_arc(archive: dict, now: datetime) -> list[dict]:
     points from EVERY archived story within ARCHIVE_DAYS whose report text carries a corruption/
     accountability signal (BRIBE_TERMS ∪ FAILURE_TERMS), dedupes by url/text, sorts oldest→newest and
     down-samples to TIMELINE_MAX. This is the '/breaking = corruption of the month' model (see
-    docs/breaking-benchmark.md): one title on the current case, a घटनाक्रम that spans the month's
+    breaking-benchmark.md): one title on the current case, a घटनाक्रम that spans the month's
     cases, and (via the returned points' outlets) varied sources. Never fabricates — every point is a
     real archived, dated, sourced item. Returns [] if nothing on-beat is archived."""
     signal = set(BRIBE_TERMS) | set(FAILURE_TERMS)

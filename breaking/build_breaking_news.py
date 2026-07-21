@@ -66,7 +66,7 @@ NEWS_SITE = "https://news.manzill.com"
 # Bump whenever the rendered output (template/RSS/sitemap format) changes. A mismatch
 # with the value stored in state forces a one-time re-render even when the feed is
 # unchanged, so a redesign rolls out on the next scheduled run without a manual push.
-RENDER_VERSION = "24"
+RENDER_VERSION = "25"
 
 # --- Groq TPM budget ------------------------------------------------------- #
 # Groq bills prompt_tokens + max_tokens against a per-minute cap; exceeding it returns HTTP 413 and
@@ -263,11 +263,6 @@ MAX_STALE_HOURS = 3.0
 # story has only one dated point; ensure_timeline_depth() then narrates a relative-labelled arc from
 # the already-sourced key_facts/what_next so the timeline is never a lone entry (no fabricated times).
 MIN_TIMELINE_STEPS = 4
-
-# A lead needs at least this many dated points OF ITS OWN to earn a "घटनाक्रम — शुरुआत से अब तक"
-# (a single story's chronology). A one-off lead (fewer points) instead shows the month's DIFFERENT
-# Jaipur stories under "इस महीने". See build()'s timeline-mode pick.
-SINGLE_CASE_MIN = 3
 
 # Max timeline points NARRATED per story. A weeks-long arc is down-sampled to this many points
 # (keeping the first and last, see _arc_sample) so the "घटनाक्रम" still spans शुरुआत → अब. Kept
@@ -648,32 +643,27 @@ def _messages_tokens(messages: list[dict]) -> int:
 
 def _groq_messages(clusters: list[dict], points: list[dict], *,
                    snippets: int = 3, others: int = 4, sources: int = 5,
-                   history_max: int | None = None, source_objs: list[dict] | None = None,
-                   timeline_mode: str = "case") -> list[dict]:
+                   history_max: int | None = None, source_objs: list[dict] | None = None) -> list[dict]:
     """Build the Groq chat `messages` (system + user JSON) for the lead's arc. The caps are parameters
     so groq_analyze's TPM preflight can shrink an over-budget request, and check_tpm.py can measure the
     exact request the generator sends. Kept lean — the prompt is Devanagari-heavy (see the TPM budget);
     the hard guarantees (Devanagari-only via to_hindi) live in code, not in prompt verbosity."""
     lead = clusters[0]
     others_cl = order_secondary(clusters)[:max(others, 0)]
-    # Prefer the clubbed-arc sources (the month's varied outlets) so the AI Hindi-titles the same
-    # cards the page renders; fall back to the lead cluster's own sources.
+    # The arc sources are the lead story's own outlets, so the AI Hindi-titles the same cards the page
+    # renders; fall back to the lead cluster's own sources.
     _src = source_objs if source_objs is not None else cluster_sources(lead, limit=sources)
     lead_sources = [s["title"] for s in _src[:max(sources, 6)]]
     lead_snippets = [i["summary"] for i in lead["items"] if i["summary"]][:max(snippets, 0)]
     pts = points if history_max is None else _arc_sample(points, history_max)
     history = [{"when": _hindi_point_label(p), "report": p.get("text_en", "")} for p in pts]
 
-    if timeline_mode == "month":
-        mode_hint = (
-            "story_history इस महीने की कई अलग-अलग (असंबद्ध) जयपुर खबरों का संग्रह है — इन्हें एक ही घटना की "
-            "कालक्रमिक कड़ी न बनाएँ; developments में हर चरण एक अलग खबर हो (एक-एक पंक्ति: क्या हुआ, कहाँ, "
-            "किसने, क्या असर)। शीर्षक व पहला पैराग्राफ सबसे नई/बड़ी घटना को लीड बनाएँ। ")
-    else:
-        mode_hint = (
-            "story_history इसी एक विकासशील खबर का सिलसिला है — developments उसी एक मामले का कालक्रमिक "
-            "घटनाक्रम हों (पृष्ठभूमि → घटना → कार्रवाई → ताज़ा स्थिति)। शीर्षक व पहला पैराग्राफ सबसे नई "
-            "घटना को लीड बनाएँ। ")
+    # story_history is ALWAYS the ONE lead story's own coverage (built from the lead cluster's
+    # articles), so the headline and the timeline describe the same story.
+    mode_hint = (
+        "story_history इसी एक विकासशील खबर का सिलसिला है — developments उसी एक मामले का कालक्रमिक "
+        "घटनाक्रम हों (पृष्ठभूमि → घटना → कार्रवाई → ताज़ा स्थिति)। शीर्षक, पहला पैराग्राफ और हर चरण उसी "
+        "एक खबर के हों — कोई असंबंधित खबर न मिलाएँ। सबसे नई घटना को लीड बनाएँ। ")
 
     system = (
         "आप जयपुर (राजस्थान, भारत) की एक हिंदी ब्रेकिंग-न्यूज़ वेबसाइट के वरिष्ठ समाचार संपादक हैं। यह पेज "
@@ -763,18 +753,18 @@ def _groq_call(api_key: str, model: str, messages: list[dict], max_tokens: int) 
 
 
 def groq_analyze(api_key: str, clusters: list[dict], points: list[dict],
-                 source_objs: list[dict] | None = None, timeline_mode: str = "case") -> dict | None:
+                 source_objs: list[dict] | None = None) -> dict | None:
     """Ask Groq for the deep HINDI package (analysis, key facts, dated developments, police
     accountability, what-next, Hindi sources/secondary stories). Preflight-shrinks the request to the
     TPM budget before sending (Groq bills prompt+max_tokens against an 8000/min cap), and retries once
     with a minimal request on HTTP 413, so an unusually large day degrades to a smaller-but-real post
     instead of the empty holding page. `points` is the down-sampled arc — see _arc_sample/TIMELINE_MAX.
-    `source_objs` (the clubbed-arc sources) are Hindi-titled by the AI to match the rendered cards."""
+    `source_objs` (the lead story's arc sources) are Hindi-titled by the AI to match the rendered cards."""
     model = groq_pick_model(api_key)
     max_tokens = GROQ_MAX_TOKENS
     snippets, others, hist = 3, 4, None
     messages = _groq_messages(clusters, points, snippets=snippets, others=others, history_max=hist,
-                              source_objs=source_objs, timeline_mode=timeline_mode)
+                              source_objs=source_objs)
     # Preflight: shrink the request until the estimated prompt + output fits the TPM budget. On a
     # normal day the default already fits, so nothing is dropped; only a big enrichment day trims.
     for _ in range(8):
@@ -793,7 +783,7 @@ def groq_analyze(api_key: str, clusters: list[dict], points: list[dict],
         else:
             break
         messages = _groq_messages(clusters, points, snippets=snippets, others=others,
-                                  history_max=hist, source_objs=source_objs, timeline_mode=timeline_mode)
+                                  history_max=hist, source_objs=source_objs)
     est = _messages_tokens(messages)
     print(f"  TPM: est. prompt {est} + max_tokens {max_tokens} = {est + max_tokens} "
           f"(budget {TPM_BUDGET}, cap {GROQ_TPM_LIMIT})")
@@ -802,8 +792,7 @@ def groq_analyze(api_key: str, clusters: list[dict], points: list[dict],
     if data is None and code == 413:
         print("  ! Groq 413 — retrying once with a minimal request.", file=sys.stderr)
         messages = _groq_messages(clusters, points, snippets=0, others=0,
-                                  history_max=min(8, len(points)) or None, source_objs=source_objs,
-                                  timeline_mode=timeline_mode)
+                                  history_max=min(8, len(points)) or None, source_objs=source_objs)
         data, _ = _groq_call(api_key, model, messages, 3500)
     return data
 
@@ -865,8 +854,38 @@ def _hours_since(iso: str | None, now: datetime) -> float:
 # Cross-run "same story" matching. A slightly looser threshold and larger keyword memory than the
 # same-run clustering keep a weeks-long arc mapped to ONE archive entry, instead of fragmenting into
 # several one-day stories as the headline wording drifts day to day.
-ARCHIVE_MATCH_MIN = 0.24   # was 0.30
+ARCHIVE_MATCH_MIN = 0.40   # raised (was 0.24) so distinct activities of the same body don't merge
 ARCHIVE_KW_CAP = 40        # was 24
+
+
+def _item_to_point(it: dict) -> dict:
+    """One dated timeline point from a feed item (IST date/time, ISO, English title, outlet, url)."""
+    return {
+        "date": to_ist(it["published"]).strftime("%Y-%m-%d"),
+        "time_ist": to_ist(it["published"]).strftime("%H:%M"),
+        "iso": it["published"].isoformat(),
+        "text_en": it["title"],
+        "source": it["source"],
+        "url": it["link"],
+    }
+
+
+def _cluster_points(cluster: dict) -> list[dict]:
+    """Dated timeline points from a cluster's OWN items (deduped by url/title, oldest→newest). The
+    narrated arc is built from this so the timeline and the AI headline come from the same coverage."""
+    pts: list[dict] = []
+    seen_urls: set[str] = set()
+    seen_txt: set[str] = set()
+    for it in cluster.get("items", []):
+        url = it.get("link") or ""
+        key = normalize(it.get("title", ""))[:80]
+        if (url and url in seen_urls) or (key and key in seen_txt):
+            continue
+        seen_urls.add(url)
+        seen_txt.add(key)
+        pts.append(_item_to_point(it))
+    pts.sort(key=lambda p: p.get("iso", ""))
+    return pts
 
 
 def ingest_cluster(archive: dict, cluster: dict, now: datetime) -> dict:
@@ -900,14 +919,7 @@ def ingest_cluster(archive: dict, cluster: dict, now: datetime) -> dict:
         key = normalize(it["title"])[:80]
         if it["link"] in seen_urls or key in seen_titles:
             continue
-        best["points"].append({
-            "date": to_ist(it["published"]).strftime("%Y-%m-%d"),
-            "time_ist": to_ist(it["published"]).strftime("%H:%M"),
-            "iso": it["published"].isoformat(),
-            "text_en": it["title"],
-            "source": it["source"],
-            "url": it["link"],
-        })
+        best["points"].append(_item_to_point(it))
         seen_urls.add(it["link"])
         seen_titles.add(key)
     # Chronological history, oldest first.
@@ -926,34 +938,9 @@ def prune_archive(archive: dict, now: datetime) -> None:
                           and s.get("points")]
 
 
-def month_story_arc(archive: dict, now: datetime) -> list[dict]:
-    """Club the MONTH's different Jaipur stories into one 'इस महीने' tracker timeline. Gathers dated
-    points from EVERY archived story within ARCHIVE_DAYS, dedupes by url/text, sorts oldest→newest and
-    down-samples to TIMELINE_MAX. Used when the lead is a one-off with no chronology of its own, so the
-    section shows the month's DIFFERENT stories — one line per story, not a false single-case
-    chronology (see breaking-benchmark.md). Never fabricates — every point is a real archived, dated,
-    sourced item. Returns [] if nothing is archived."""
-    seen_url: set[str] = set()
-    seen_txt: set[str] = set()
-    pts: list[dict] = []
-    for st in archive.get("stories", []):
-        for p in st.get("points", []):
-            if _days_ago(p.get("iso", ""), now) > ARCHIVE_DAYS:
-                continue
-            url = p.get("url") or ""
-            key = normalize(p.get("text_en", ""))[:80]
-            if (url and url in seen_url) or (key and key in seen_txt):
-                continue
-            seen_url.add(url)
-            seen_txt.add(key)
-            pts.append(p)
-    pts.sort(key=lambda p: p.get("iso", ""))
-    return _arc_sample(pts, TIMELINE_MAX)
-
-
 def arc_sources(points: list[dict], limit: int = 6) -> list[dict]:
-    """Distinct sources behind a (clubbed) arc — newest first, deduped by url — so the स्रोत cards show
-    the varied outlets that reported the month's cases instead of one repeated placeholder. Shape
+    """Distinct sources behind the lead story's arc — newest first, deduped by url — so the स्रोत cards
+    show the varied outlets that reported the story instead of one repeated placeholder. Shape
     matches cluster_sources (title=English text_en for AI Hindi-titling, url, source outlet, published)
     so _groq_messages / _lead_from_ai consume it unchanged."""
     out: list[dict] = []
@@ -1272,49 +1259,34 @@ def build() -> None:
     for cl in clusters[1:]:
         ingest_cluster(archive, cl, now)
     prune_archive(archive, now)
-    # "घटनाक्रम — शुरुआत से अब तक" is ONE developing story's chronology, so it only applies when the
-    # lead has a real arc of its own. A one-off lead (a single incident) has no chronology — then the
-    # section becomes "इस महीने", clubbing the month's DIFFERENT Jaipur stories.
-    # Pick the mode from the lead's own COHESIVE dated-point count (the cohesion filter below).
-    own_pts = story.get("points", [])
-    # A lead earns the single-case "घटनाक्रम" heading only for points that are genuinely ITS OWN
-    # story. Match on the lead's CASE-IDENTIFYING terms — its distinctive title tokens (a
-    # person/department/place) — and require ≥ENRICH_MIN_SHARED of them. One shared generic word is
-    # too loose and would keep unrelated stories together; case-specific terms hold a real developing
-    # story together while shedding a different story or an off-topic item folded in by loose archive
-    # matching. Too few cohere → this isn't a single developing story → fall through to the month's
-    # different stories.
+    # The timeline ("घटनाक्रम") is ALWAYS the ONE lead story's own chronology, built from the ENRICHED
+    # LEAD CLUSTER's own articles (top["items"]) — the exact coverage the AI titles from — so the
+    # headline and the timeline can never describe different stories. Older same-story points from the
+    # 30-day archive are folded in only when they share ≥ENRICH_MIN_SHARED of the lead's distinctive
+    # title terms, so a DIFFERENT activity of the same body (that merely shares a generic org word)
+    # never leaks into the arc.
+    cluster_pts = _cluster_points(top)
+    cluster_urls = {p.get("url") for p in cluster_pts}
     case_terms = set(_lead_query_terms(top, max_terms=6))
     need = min(ENRICH_MIN_SHARED, len(case_terms))
-    cohesive_pts = ([p for p in own_pts if len(case_terms & keywords(p.get("text_en", ""))) >= need]
-                    if need else own_pts)
-    clubbed = month_story_arc(archive, now)
-    if len(cohesive_pts) >= SINGLE_CASE_MIN:
-        timeline_mode = "case"
-        arc = _arc_sample(cohesive_pts, TIMELINE_MAX)
-        tl_heading, tl_note = "घटनाक्रम", "इसी खबर का सिलसिला — नवीनतम अपडेट सबसे ऊपर।"
-    elif clubbed:
-        timeline_mode = "month"
-        arc = clubbed
-        tl_heading, tl_note = "इस महीने", "इस महीने की अलग-अलग खबरें — नवीनतम सबसे ऊपर।"
-    else:
-        timeline_mode = "case"
-        arc = _arc_sample(cohesive_pts or own_pts, TIMELINE_MAX)
-        tl_heading, tl_note = "घटनाक्रम", "नवीनतम अपडेट सबसे ऊपर।"
-    print(f"  archive: {len(archive['stories'])} story(ies); lead carries {len(own_pts)} own "
-          f"point(s) ({len(cohesive_pts)} cohesive); mode={timeline_mode}, narrating {len(arc)}")
+    extra_pts = [p for p in story.get("points", [])
+                 if p.get("url") not in cluster_urls and need
+                 and len(case_terms & keywords(p.get("text_en", ""))) >= need]
+    arc = _arc_sample(sorted(cluster_pts + extra_pts, key=lambda p: p.get("iso", "")), TIMELINE_MAX)
+    tl_heading, tl_note = "घटनाक्रम", "इसी खबर का सिलसिला — नवीनतम अपडेट सबसे ऊपर।"
+    print(f"  archive: {len(archive['stories'])} story(ies); lead cluster {len(cluster_pts)} own "
+          f"point(s) + {len(extra_pts)} archived; narrating {len(arc)}")
 
-    # The स्रोत (Source) cards ALWAYS come from the timeline arc's own events — the varied outlets
-    # behind the घटनाक्रम (case mode) or इस महीने (month mode) points — so the bottom links always
-    # match the timeline that's shown. Falls back to the lead cluster's own sources only if the arc
-    # somehow yields none (see _lead_from_ai).
+    # The स्रोत (Source) cards come from the timeline arc's own events — the outlets behind the
+    # घटनाक्रम points — so the bottom links always match the timeline shown. Falls back to the lead
+    # cluster's own sources only if the arc somehow yields none (see _lead_from_ai).
     src_objs = arc_sources(arc) or None
 
     lead = None
     other_stories: list[dict] = []
     if use_ai:
         print("Asking Groq for analysis...")
-        ai = groq_analyze(api_key, clusters, arc, source_objs=src_objs, timeline_mode=timeline_mode)
+        ai = groq_analyze(api_key, clusters, arc, source_objs=src_objs)
         if ai:
             lead, other_stories = _lead_from_ai(ai, clusters, source_objs=src_objs)
 
@@ -1353,7 +1325,7 @@ def build() -> None:
 def _lead_from_ai(ai: dict, clusters: list[dict],
                   source_objs: list[dict] | None = None) -> tuple[dict | None, list[dict]]:
     """Map the Groq Hindi JSON onto the render model. Returns (lead, other_stories). `source_objs`
-    (the clubbed-arc sources) render as the स्रोत cards when given, else the lead cluster's sources."""
+    (the lead story's arc sources) render as the स्रोत cards when given, else the lead cluster's sources."""
     top = clusters[0]
     # to_hindi() strips English/acronyms/field-name tags from every VISIBLE field (not the
     # event_type/severity enums, which drive CSS/cadence) so the page stays Devanagari-only.
@@ -1775,12 +1747,11 @@ def render(state: dict, now: datetime) -> None:
         )
     else:
         timeline_html = '<li class="tl-item"><p>अपडेट हो रहा है।</p></li>'
-    # Heading/note adapt: "घटनाक्रम" (a single story's chronology) vs "इस महीने" (the month's
-    # different Jaipur stories). Set by build()'s timeline-mode pick.
+    # The timeline is always the lead story's own chronology ("घटनाक्रम"). Heading/note come from
+    # build() via state.
     tl_heading = (state.get("timeline_heading") or "घटनाक्रम").strip()
     tl_note = (state.get("timeline_note") or "नवीनतम अपडेट सबसे ऊपर।").strip()
-    count_word = "खबरें" if tl_heading.startswith("इस महीने") else "घटनाक्रम"
-    update_count = f"{len(developments)} {count_word}" if developments else "अपडेट हो रहा है"
+    update_count = f"{len(developments)} घटनाक्रम" if developments else "अपडेट हो रहा है"
 
     # Secondary "अन्य ताज़ा खबरें" — Hindi, links in the same tab.
     if other_stories:
@@ -2403,7 +2374,7 @@ ul.timeline { list-style: none; margin: 0; padding: 0; max-width: 760px; }
   display: inline-block; margin-top: 5px; font-size: .72rem; font-weight: 700;
   color: var(--muted); letter-spacing: .02em;
 }
-.tl-item .tl-src::before { content: "\2014\00a0"; opacity: .7; }
+.tl-item .tl-src::before { content: "— "; opacity: .7; }
 .note { font-size: .8rem; color: var(--muted); margin-top: 14px; }
 footer { max-width: var(--maxw); margin: 0 auto; padding: 0 16px 48px; font-size: .82rem; color: var(--muted); }
 footer a { color: var(--brand); font-weight: 600; }

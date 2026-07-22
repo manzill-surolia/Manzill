@@ -98,24 +98,6 @@ to backfill a slug), or `python breaking/snapshot.py --date 20-july-2026`.
 - **Publish immediately** (don't wait for cron): **Actions → Breaking News Update → Run workflow → main**.
 - The workflow commits with `git add -A breaking`; only files under `breaking/` are published.
 
-### Forcing / pinning a lead story
-
-- **Force a story** for a single run via the dispatch inputs `force_query` (keywords) or
-  `force_url` + `force_headline`. Without a duration this applies to that one run only, so the next
-  `*/20` cron auto-pick can replace it.
-- **Pin it for N days** with the `force_days` input: a fresh force + `force_days=N` writes
-  `data/override.json` with `expires` = now + N days. Every scheduled run then keeps that story as
-  the lead and keeps growing its `घटनाक्रम` timeline until the pin lapses, at which point
-  `load_override()` deletes the file and the auto-pick resumes. A **`query`** pin re-fetches its feed
-  each run so it gains new developments; a bare **`url`+`headline`** pin stays static (no enrichment)
-  but still holds the lead for N days. `force_days` needs an actual force — set alone it is ignored.
-- **Pins only stick if they render.** Persistence is **deferred** (`load_override()` returns
-  `pin_to_persist`; `build()` writes it only after a valid render). Keep this Jaipur-**local**: a
-  national/off-topic story has little local coverage, so Groq returns an empty/malformed body and
-  `_lead_from_ai()` rejects it as hollow (no analysis/facts/timeline). In that case `build()` keeps
-  the **last good page** and does **not** persist the pin — a bad force is a clean no-op, never a
-  blanked or stuck page.
-
 ## ⚠️ Groq TPM gotcha — read before touching the generator
 
 The Groq account's tier caps **8,000 tokens per minute (TPM)**, and Groq counts

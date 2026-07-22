@@ -819,6 +819,15 @@ def save_override(ov: dict) -> None:
     OVERRIDE_PATH.write_text(json.dumps(ov, indent=2, ensure_ascii=False) + "\n")
 
 
+def _is_valid_lead(lead: dict | None) -> bool:
+    """True only for a publishable lead: a real headline AND some substance (analysis, key facts,
+    or a timeline). A headline-only shell or the Hindi holding placeholder does not count — used to
+    decide whether the last good page is worth keeping when a fresh render comes back empty."""
+    if not lead or lead.get("id") == "holding" or not lead.get("headline"):
+        return False
+    return bool(lead.get("analysis") or lead.get("key_facts") or lead.get("developments"))
+
+
 # --------------------------------------------------------------------------- #
 # Story archive — a rolling ~30-day memory of how each story developed
 # --------------------------------------------------------------------------- #
@@ -1010,18 +1019,22 @@ def _parse_days(raw: str) -> int:
         return 0
 
 
-def load_override() -> dict:
+def load_override() -> tuple[dict, dict | None]:
     """A manual pin that forces a chosen story to lead — by keywords (`query`) or an explicit
     `url`+`headline`. Read from breaking/data/override.json, with the FORCE_QUERY/FORCE_URL/
-    FORCE_HEADLINE env vars (workflow inputs) taking precedence. Returns {} when absent,
-    empty, past its optional `expires`, or not actionable.
+    FORCE_HEADLINE env vars (workflow inputs) taking precedence.
 
-    FORCE_DAYS (the workflow's `force_days` input) makes a fresh manual force *sticky*: with a
-    positive value we stamp an `expires` = now + N days and persist override.json, so every later
-    scheduled run keeps leading with — and updating — the pinned story until it lapses (instead of
-    the cron auto-pick replacing it on the next run). Blank/0 keeps the old one-off behaviour: the
-    force applies only to this run. An expired pin is deleted here so it stops leading and the
-    deletion is published on the next commit."""
+    Returns `(override, pin_to_persist)`:
+      * `override` — the pin to apply this run ({} when absent, empty, expired, or not actionable).
+      * `pin_to_persist` — the payload the caller should write to override.json **only after a
+        successful render**, or None. FORCE_DAYS (the workflow's `force_days` input) makes a fresh
+        manual force *sticky*: a positive value stamps `expires` = now + N days so every later
+        scheduled run keeps — and keeps updating — the pinned story until it lapses. Persistence is
+        DEFERRED to the caller so a forced story that renders empty (e.g. a non-local story the AI
+        can't cover) is a clean no-op and never sticks. Blank/0 keeps the one-off behaviour: the
+        force applies only to this run.
+
+    An expired pin is deleted here so it stops leading and the deletion is published next commit."""
     ov: dict = {}
     if OVERRIDE_PATH.exists():
         try:
@@ -1042,17 +1055,22 @@ def load_override() -> dict:
     if env_headline:
         ov = {**ov, "headline": env_headline}
 
-    # A fresh manual dispatch with force_days > 0 pins the chosen story for N days: stamp an
-    # `expires` and persist override.json so later scheduled runs keep it as the lead. Only for a
-    # NEW env-sourced force, so re-running a build never silently pushes an existing pin's expiry
-    # forward.
+    # A fresh manual dispatch with force_days > 0 asks to pin the chosen story for N days. We build
+    # the payload and stamp `expires` here, but leave the WRITE to the caller (after a good render)
+    # — only for a NEW env-sourced force, so re-running a build never silently extends an existing
+    # pin's expiry.
+    pin_to_persist: dict | None = None
     if fresh_force and env_days > 0:
         if env_query or (env_url and env_headline):
             expires_dt = now_utc() + timedelta(days=env_days)
-            ov = {**ov, "expires": expires_dt.isoformat(), "pinned_at": now_utc().isoformat()}
-            save_override(ov)
-            print(f"  override: pin persisted for {env_days} day(s) — "
-                  f"kept as the lead until {expires_dt.isoformat()}.")
+            keep = ("query", "url", "headline", "source", "summary")
+            pin_to_persist = {k: v for k, v in ov.items() if k in keep and v}
+            pin_to_persist["expires"] = expires_dt.isoformat()
+            pin_to_persist["pinned_at"] = now_utc().isoformat()
+            # Mirror the expiry onto this run's override so it is treated as a dated pin too.
+            ov = {**ov, "expires": pin_to_persist["expires"], "pinned_at": pin_to_persist["pinned_at"]}
+            print(f"  override: will pin for {env_days} day(s) if the page renders — "
+                  f"lead until {expires_dt.isoformat()}.")
         else:
             print("  force_days set but the force is incomplete (need force_query, or "
                   "force_url + force_headline); not persisting the pin.", file=sys.stderr)
@@ -1060,7 +1078,7 @@ def load_override() -> dict:
         print("  force_days set but no story forced this run; ignoring.", file=sys.stderr)
 
     if not ov:
-        return {}
+        return {}, None
 
     expires = ov.get("expires")
     if expires:
@@ -1068,15 +1086,15 @@ def load_override() -> dict:
             if now_utc() >= datetime.fromisoformat(str(expires).replace("Z", "+00:00")):
                 print("  override present but expired; ignoring (removing the stale pin).")
                 OVERRIDE_PATH.unlink(missing_ok=True)
-                return {}
+                return {}, None
         except Exception:
             pass  # unparseable expiry -> treat the pin as still active
 
     if ov.get("query") or (ov.get("url") and ov.get("headline")):
-        return ov
+        return ov, pin_to_persist
     print("  override present but not actionable (needs `query` or `url`+`headline`); ignoring.",
           file=sys.stderr)
-    return {}
+    return {}, None
 
 
 def _merge_items(items: list[dict], extra: list[dict]) -> list[dict]:
@@ -1263,8 +1281,10 @@ def build() -> None:
     clusters = filter_local(clusters)  # Jaipur only — drop out-of-area stories
     print(f"  {len(clusters)} Jaipur cluster(s) after locality gate")
 
-    # A manual pin (override.json / FORCE_* inputs) can force a chosen story to lead.
-    override = load_override()
+    # A manual pin (override.json / FORCE_* inputs) can force a chosen story to lead. `pin_to_persist`
+    # is written only after a successful render (below), so a forced story that renders empty never
+    # sticks.
+    override, pin_to_persist = load_override()
     if override:
         clusters = _force_lead(clusters, items, override)
         # Honour the explicit pin as the lead, but keep the secondary pool Jaipur-local.
@@ -1357,6 +1377,12 @@ def build() -> None:
             lead, other_stories = _lead_from_ai(ai, clusters, source_objs=src_objs)
 
     if lead is None:
+        # A forced pin that comes back empty (e.g. a non-local story the AI can't cover) must NOT
+        # blank a good page or stick: keep the last good page and don't persist the pin.
+        if override and OUT_HTML.exists() and _is_valid_lead(state.get("lead")):
+            print("Forced pin produced no usable lead; keeping the last good page and not "
+                  "persisting the pin (no commit).")
+            return
         # No AI / Groq failed: a clean Hindi holding page — never English feed text.
         print("Groq unavailable — rendering Hindi holding page.")
         lead, other_stories = _holding_lead(), []
@@ -1383,6 +1409,12 @@ def build() -> None:
     render(state, now)
     save_state(state)
     save_archive(archive)
+    # The page rendered a real lead — only now is it safe to persist a fresh N-day pin, so a
+    # forced story sticks across scheduled runs ONLY once it has proven it can render (never on a
+    # holding-page fallback).
+    if pin_to_persist is not None and _is_valid_lead(lead):
+        save_override(pin_to_persist)
+        print(f"  override: pin persisted — kept as the lead until {pin_to_persist.get('expires')}.")
     print(f"Done. Lead: {lead.get('headline','')!r} [{lead.get('severity','')}] "
           f"— {len(lead.get('developments', []))} development(s), "
           f"{len(other_stories)} other stor(y/ies).")
@@ -1434,6 +1466,12 @@ def _lead_from_ai(ai: dict, clusters: list[dict],
 
     for d in (ai.get("developments") or []):
         add_dev(d)
+
+    # A headline with no substance (no analysis, no key facts, no timeline) is a malformed/empty
+    # Groq response, not a story — reject it so the caller keeps the last good page instead of
+    # publishing a hollow "developing" shell. (A forced non-local story is the usual trigger.)
+    if not (analysis or key_facts or developments):
+        return None, []
 
     src_objs = source_objs if source_objs is not None else cluster_sources(top, limit=6)
     sources_hi = ai.get("sources_hi") or []

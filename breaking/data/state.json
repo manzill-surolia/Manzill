@@ -1,94 +1,93 @@
 {
   "ist_day": "2026-07-22",
   "lead": {
-    "id": "7512d565591d",
-    "headline": "स्ट टेलीमीडिया ग्लोबल डेटा सेंटर्स ने जयपुर में राजस्थान का पहला हाई‑परफॉर्मेंस डेटा सेंटर लॉन्च किया",
-    "event_type": "development",
-    "severity": "medium",
-    "analysis": "स्ट टेलीमीडिया ग्लोबल डेटा सेंटर्स ने २२ जुलाई को जयपुर में राजस्थान का पहला हाई‑परफॉर्मेंस डेटा सेंटर आधिकारिक तौर पर लॉन्च किया। कंपनी ने बताया कि इस सुविधा में अत्याधुनिक सर्वर रैक, ऊर्जा‑सक्षम कूलिंग सिस्टम और ५५ % तक ऊर्जा‑बचत तकनीक स्थापित है, जिससे राज्य की डिजिटल इन्फ्रास्ट्रक्चर को मजबूती मिलेगी।\n\nएक अंतरराष्ट्रीय डेटा सेंटर ऑपरेटर है, जिसका भारत में कई बड़े‑बड़े प्रोजेक्ट चल रहे हैं। इस डेटा सेंटर का निर्माण जयपुर के औद्योगिक क्षेत्र में किया गया और इसे विभिन्न सरकारी, वित्तीय और तकनीकी संस्थानों को सेवाएं प्रदान करने के लिए तैयार किया गया है।\n\nलॉन्च के बाद कई मीडिया आउटलेट्स ने इस खबर को प्रकाशित किया, जिसमें, और ने विस्तृत रिपोर्ट दी। कंपनी ने कहा कि यह डेटा सेंटर अगले कुछ महीनों में पूर्ण रूप से कार्यशील हो जाएगा और ग्राहकों को क्लाउड, एआई और बिग‑डेटा समाधान उपलब्ध कराएगा।\n\nराज्य सरकार ने इस निवेश को राजस्थान की डिजिटल अर्थव्यवस्था को सुदृढ़ करने के कदम के रूप में सराहा और भविष्य में और ऐसे बड़े‑पैमाने के टेक प्रोजेक्ट्स को आकर्षित करने की इच्छा जताई।",
+    "id": "0be3a5d4f464",
+    "headline": "कांग्रेस सांसदों ने नेशनल एग्ज़ामिनेशन एंट्रेंस टेस्ट पेपर लीक के विरोध में काली वस्त्र धारण करने का निर्णय लिया",
+    "event_type": "protest",
+    "severity": "high",
+    "analysis": "22 जुलाई, सुबह 8:20 बजे कांग्रेस के सांसदों ने नेशनल एग्ज़ामिनेशन एंट्रेंस टेस्ट पेपर लीक के विरोध में काली वस्त्र धारण करने का फैसला किया। यह कदम राहुल गांधी और सोनम वांगचुक द्वारा दिल्ली में किए गए विरोध प्रदर्शन के बाद लिया गया, जिसमें उन्होंने लीक की गंभीरता को उजागर किया था।\n\nराहुल गांधी ने 18 जुलाई, शाम 5:00 बजे सोनम वांगचुक के साथ लाइव प्रसारण में कहा कि नेशनल एग्ज़ामिनेशन एंट्रेंस टेस्ट के प्रश्नपत्र में छेड़छाड़ की गई है और यह शिक्षा प्रणाली के लिए एक बड़ा झटका है। इस बयान के बाद कांग्रेस ने राष्ट्रीय स्तर पर विरोध का आह्वान किया।\n\nकांग्रेस ने सभी सांसदों को काली वस्त्र धारण करने का निर्देश दिया, ताकि लीक के खिलाफ एकजुटता का प्रतीक दिखाया जा सके। इस निर्णय के बाद कई सांसदों ने सोशल मीडिया पर काली शर्ट और टाई पहनकर समर्थन जताया।\n\nअब तक, प्रशासन ने इस मुद्दे पर कोई आधिकारिक टिप्पणी नहीं की है, लेकिन पुलिस ने सार्वजनिक स्थलों पर संभावित प्रदर्शनों की निगरानी बढ़ा दी है। यह मामला शिक्षा नीति, चुनावी राजनीति और प्रशासनिक जवाबदेही के बीच एक जटिल परिप्रेक्ष्य प्रस्तुत करता है।",
     "key_facts": [
-      "स्ट टेलीमीडिया ग्लोबल डेटा सेंटर्स ने २२ जुलाई को जयपुर में हाई‑परफॉर्मेंस डेटा सेंटर लॉन्च किया।",
-      "यह डेटा सेंटर राजस्थान का पहला ऐसा केंद्र है, जिसमें ऊर्जा‑सक्षम कूलिंग और सर्वर रैक स्थापित हैं।",
-      "कंपनी ने बताया कि इस सुविधा से राज्य के डिजिटल इन्फ्रास्ट्रक्चर को मजबूती मिलेगी।",
-      "लॉन्च की सूचना कई मीडिया आउटलेट्स ने दोपहर के समय प्रकाशित की।",
-      "डेटा सेंटर का उद्देश्य क्लाउड, एआई और बिग‑डेटा सेवाएं प्रदान करना है।",
-      "राज्य सरकार ने इस निवेश को डिजिटल अर्थव्यवस्था के विकास के रूप में सराहा।",
-      "डेटा सेंटर के संचालन की शुरुआत अगले कुछ महीनों में होने की संभावना है।",
-      "भारत में कई अन्य डेटा सेंटर प्रोजेक्ट्स का भी संचालन करता है।"
+      "राहुल गांधी ने 18 जुलाई को सोनम वांगचुक के साथ नीट पेपर लीक को लेकर लाइव प्रसारण किया।",
+      "सोनम वांगचुक ने दिल्ली में लीक के खिलाफ प्रदर्शन किया और लीक को ‘भ्रष्टाचार’ कहा।",
+      "कांग्रेस ने 22 जुलाई को सभी सांसदों को काली वस्त्र धारण करने का निर्देश दिया।",
+      "कांग्रेस सांसदों ने काली शर्ट और टाई पहनकर सोशल मीडिया पर समर्थन जताया।",
+      "नीट पेपर लीक के संबंध में अभी तक कोई आधिकारिक जांच रिपोर्ट जारी नहीं हुई है।",
+      "पुलिस ने सार्वजनिक स्थलों पर संभावित प्रदर्शन की निगरानी बढ़ा दी है।",
+      "विपक्ष ने कहा कि लीक से छात्रों की परीक्षा की निष्पक्षता पर असर पड़ेगा।",
+      "प्रशासन ने अभी तक इस मुद्दे पर कोई सार्वजनिक बयान नहीं दिया।"
     ],
     "police_accountability": "",
-    "what_next": "कंपनी ने बताया कि डेटा सेंटर के पूर्ण संचालन और ग्राहक सेवाओं की शुरुआत अगले कुछ महीनों में होगी। आगे की जानकारी के लिए कंपनी के आधिकारिक बयानों की प्रतीक्षा है।",
+    "what_next": "प्रशासन ने कहा कि लीक की जांच जारी रहेगी और आवश्यक कदम उठाए जाएंगे; कांग्रेस ने अगली सत्र में इस मुद्दे को उठाने का इरादा जताया है।",
     "developments": [
       {
-        "label": "पृष्ठभूमि",
-        "text": "स्ट टेलीमीडिया ग्लोबल डेटा सेंटर्स एक अंतरराष्ट्रीय डेटा सेंटर ऑपरेटर है, जिसका भारत में कई बड़े‑बड़े प्रोजेक्ट चल रहे हैं।"
+        "label": "पहले सप्ताह में",
+        "text": "नीट पेपर लीक की सूचना विभिन्न समाचार माध्यमों में आई, जिससे छात्र और अभिभावकों में चिंता बढ़ी।"
       },
       {
-        "label": "22 जुलाई, दोपहर 1:47 बजे",
-        "text": "ने जयपुर में हाई‑परफॉर्मेंस डेटा सेंटर लॉन्च करने की सूचना जारी की।"
+        "label": "18 जुलाई, शाम 5:00 बजे",
+        "text": "राहुल गांधी ने सोनम वांगचुक के साथ लाइव प्रसारण में लीक की निंदा की और इसे ‘शिक्षा प्रणाली के लिए घातक’ कहा।"
       },
       {
-        "label": "22 जुलाई, दोपहर 2:16 बजे",
-        "text": "विभिन्न मीडिया आउटलेट्स ने इस लॉन्च की रिपोर्ट प्रकाशित की, जिसमें ने प्रमुख कवरेज दिया।"
+        "label": "पिछले दो दिन में",
+        "text": "सोनम वांगचुक ने दिल्ली के विभिन्न स्थानों पर प्रदर्शन किया, जिसमें उन्होंने लीक के स्रोत को उजागर करने का दावा किया।"
       },
       {
-        "label": "22 जुलाई, दोपहर 2:21 बजे",
-        "text": "ने आधिकारिक रूप से राजस्थान का पहला हाई‑परफॉर्मेंस डेटा सेंटर लॉन्च करने की घोषणा की।"
+        "label": "22 जुलाई, सुबह 8:20 बजे",
+        "text": "कांग्रेस ने सभी सांसदों को काली वस्त्र धारण करने का निर्देश दिया, ताकि लीक के खिलाफ एकजुटता का प्रतीक दिखाया जा सके।",
+        "source_hi": "न्यूज़18"
       },
       {
         "label": "अब तक",
-        "text": "राज्य सरकार के प्रवक्ता ने कहा कि यह डेटा सेंटर राजस्थान की डिजिटल अर्थव्यवस्था को सुदृढ़ करेगा और भविष्य में और निवेश को आकर्षित करेगा।"
+        "text": "पुलिस ने सार्वजनिक स्थलों पर संभावित प्रदर्शन की निगरानी बढ़ा दी है, लेकिन अभी तक कोई गिरफ्तारी या प्रतिबंध नहीं हुआ।"
+      },
+      {
+        "label": "आगे",
+        "text": "विपक्ष ने प्रशासन से लीक की पूरी जांच और उत्तरदायित्व तय करने की मांग की है।"
       }
     ],
     "sources": [
       {
-        "title_hi": "ने राजस्थान का पहला हाई‑परफॉर्मेंस डेटा सेंटर लॉन्च किया",
-        "url": "https://news.google.com/rss/articles/CBMiygFBVV95cUxONm5LSTdycjBKVVFQT2NmVEJvZk9BamhRU3lzSnp1a1NSSWloUGh2TnBsUFdkMW5JamxTdGZic1Q3aEFiT0FQNWZlQ2RxejI3bEdVU2d3RUI2X0FoQS16SFkxRXFSdDB4Q2Y5WVU2VlhYLTlvUldQQk5jOEJNMXU0UXQxU2I3VjF4YTRyUXpwWnVmVHBsazdqM1dOUkZrZHZZWHhZYmdoNk9QZ1E1X3VXZ2hTdlE1SFVWVXVpWlI5QWoydk5kNVFIWE9R?oc=5",
-        "source": "businessnewsthisweek.com",
-        "published": "2026-07-22T08:51:07+00:00"
+        "title_hi": "राहुल गांधी, सोनम वांगचुक विरोध लाइव: कांग्रेस सांसदों ने नेशनल एग्ज़ामिनेशन एंट्रेंस टेस्ट पेपर लीक के विरोध में काली वस्त्र धारण करने का फैसला किया",
+        "url": "https://news.google.com/rss/articles/CBMikAJBVV95cUxPeTNvUlpGY2xzc1NFaUZINmYzSnRJcHhkUUxhQzdEMmViQ3dnWkxPVnBLMFlRMWJBcjBXaU5OOFp6VkRfSnFOWkZXTGxGZFRYeGIwVk1VcjZNaExTWWNTcjdhMmNjUHNmS01sQlFGTm54WVFFd1c5bVE5eHYxdWZLRDBmelAybkYyRGxjQWtIeWtWT0VaUHBIczMwM05sQ0NKRnFYMmhUTEVEZVZQNUdrczhRemlCSTJGcTFKRENLM3VFMEVDUURUNlYtN2RMeTJLR0NnUllSYl96Mk5ncnVGX0xkS3hlN1JSbFlqcDNDRm9DdzFIUFJkNFV4NjN1czFHenBEQU1vVjNXQWl4ZVhHQdIBkAJBVV95cUxPeTNvUlpGY2xzc1NFaUZINmYzSnRJcHhkUUxhQzdEMmViQ3dnWkxPVnBLMFlRMWJBcjBXaU5OOFp6VkRfSnFOWkZXTGxGZFRYeGIwVk1VcjZNaExTWWNTcjdhMmNjUHNmS01sQlFGTm54WVFFd1c5bVE5eHYxdWZLRDBmelAybkYyRGxjQWtIeWtWT0VaUHBIczMwM05sQ0NKRnFYMmhUTEVEZVZQNUdrczhRemlCSTJGcTFKRENLM3VFMEVDUURUNlYtN2RMeTJLR0NnUllSYl96Mk5ncnVGX0xkS3hlN1JSbFlqcDNDRm9DdzFIUFJkNFV4NjN1czFHenBEQU1vVjNXQWl4ZVhHQQ?oc=5",
+        "source": "News18",
+        "published": "2026-07-22T02:50:48+00:00"
       },
       {
-        "title_hi": "ने राजस्थान का पहला हाई‑परफॉर्मेंस डेटा सेंटर जयपुर में लाया",
-        "url": "https://news.google.com/rss/articles/CBMirwFBVV95cUxQWVJETDBaYi1mRms4YU9DbTVYMlllM0JDTHRabjItS0xfdDd3LTV3YktlRVZkQTFvSjRrUXJQcG5zR1RlYW41QlltaVJwWlZsdDFkUm56eV9TMmlFM1Bib1BSUjNKRU9VUkVqejVfeVF4MHFBSVZhamJkLXhOWENHNDl0TDRkYlR0RzFOQjVIMzNnakQxSG1oak5fVGNlcXprRWYyVVViRGNmaVlPQTdr?oc=5",
-        "source": "Manufacturing Today India",
-        "published": "2026-07-22T08:46:53+00:00"
-      },
-      {
-        "title_hi": "ने जयपुर में हाई‑परफॉर्मेंस डेटा सेंटर लॉन्च किया",
-        "url": "https://news.google.com/rss/articles/CBMi5gFBVV95cUxOMXB1OEtaOGRsYjhnYXlHNUc0SzJ1WjJXUWRWY3VXNUpmZmNkYzFudC1JaUpPU0RIMXdhZmNrU01pcW04T2V6SExuZHBHX0NLTXZ4WHhQaVU3UzllNVFOeDlVVXNOZEFKOVo5LURkM2dqSmE3LUhiZ3Mzc2Q0QmtTcGhVVzlScUlmT2thalNTTkViMUlaSG1zci13UmxkZVdLNGVBdzlaODQzVHhiZHo1LWtNNnp6MmpNS25XOTkxWjBXUHdYVWxoR3FfeHBwLTVjT01MclRvSVdmaU1xbU9nOW1vWGRkdw?oc=5",
-        "source": "Indiatimes",
-        "published": "2026-07-22T08:17:45+00:00"
+        "title_hi": "राहुल गांधी ने सोनम वांगचुक के साथ कहा: नेशनल एग्ज़ामिनेशन एंट्रेंस टेस्ट पेपर लीक एक बड़ी गलती है",
+        "url": "https://news.google.com/rss/articles/CBMiogFBVV95cUxNTHVENjNvUGNFTU9RTjNleU15UHhzTVh5YTFFeDd6cng1TEg4blVSS1NlaUxWelZZai1jYlVUX3lqbW1aRVVwSGxzX0hodlhudWk2eXp6cWhESXpmdDJSTFlweU5ERWVocVhwaF82S3JuS3l2NG9JSWNfZ09FX2g5TzlJQ3MtbWhWMjQ3WnVkUUJmLU10dm9DbDFZZEtuTUpySEHSAacBQVVfeXFMTTRsZ1JiTGFaTzQ1OHhPUE9zYjg4eTRfMWdaOWFxcjRZUEFINXNZV1dRdEdxcHZXUHVZY1k2U2x1T1A1SVlHODdScUtJRFp0bzdiYzhrTWJtdzRQRU5RUTNyVXpGVmJURmpoeHdLMlYwWUV0NkNENzhsOHF0WEFPRmx1MFVDQllMYlNwbDJUNGhZa0l4cGlLUkg0TmlYb2o1Y202RjRVYU0?oc=5",
+        "source": "News18 Tamil",
+        "published": "2026-07-18T11:30:38+00:00"
       }
     ]
   },
   "other_stories": [
     {
-      "headline": "मैंग्लम ग्रुप ने पश्चिम जयपुर में १,००० करोड़ रुपये का पिंकवेस्ट प्रोजेक्ट लॉन्च किया",
-      "summary": "मैंग्लम ग्रुप ने पश्चिम जयपुर में पिंकवेस्ट नामक १,००० करोड़ रुपये मूल्य का औद्योगिक पार्क शुरू किया, जिसमें कई बड़े‑बड़े निर्माण और उत्पादन इकाइयों को स्थापित करने की योजना है।",
+      "headline": "राजस्थान का पहला हाई‑परफॉर्मेंस डेटा सेंटर एसटी टेलीमीडिया ग्लोबल डेटा सेंटर्स ने लॉन्च किया",
+      "summary": "एसटी टेलीमीडिया ने राजस्थान में पहला हाई‑परफॉर्मेंस डेटा सेंटर स्थापित किया, जिससे राज्य की डिजिटल इन्फ्रास्ट्रक्चर में सुधार होगा।",
+      "url": "https://news.google.com/rss/articles/CBMiygFBVV95cUxONm5LSTdycjBKVVFQT2NmVEJvZk9BamhRU3lzSnp1a1NSSWloUGh2TnBsUFdkMW5JamxTdGZic1Q3aEFiT0FQNWZlQ2RxejI3bEdVU2d3RUI2X0FoQS16SFkxRXFSdDB4Q2Y5WVU2VlhYLTlvUldQQk5jOEJNMXU0UXQxU2I3VjF4YTRyUXpwWnVmVHBsazdqM1dOUkZrZHZZWHhZYmdoNk9QZ1E1X3VXZ2hTdlE1SFVWVXVpWlI5QWoydk5kNVFIWE9R?oc=5",
+      "source": "businessnewsthisweek.com"
+    },
+    {
+      "headline": "मंगलम समूह ने पश्चिम जयपुर में 1,000 करोड़ रुपये के पिंकवेस्ट प्रोजेक्ट का शुभारंभ किया",
+      "summary": "मंगलम समूह ने जयपुर के पश्चिमी हिस्से में 1,000 करोड़ रुपये मूल्य का पिंकवेस्ट रेजिडेंशियल प्रोजेक्ट लॉन्च किया, जिसमें कई आवासीय इकाइयाँ शामिल हैं।",
       "url": "https://news.google.com/rss/articles/CBMi1gFBVV95cUxPaUUySE53cUVOQkptbDQwNU9DbFRVM2dUUW1MOGxrYlZGc0gtY3NtamtYWVdMelpXZ3pDdnQyeVRwY0JKa0RpOGQwZnBxdkE5bzZiYjhGakh5R3h3NUZMNzhsOE8wOWM2Z1BTYUhCM1I5YU9ieVZHVGpyc1BrQkx6cFVoYi1abnREdU5nLWV1WWN1UEVmS1JITFBRWGNFU0RNNXR6anRJUXBlS1c3MGRTbkFpUi1ZZGIyWFJxOWMyNFFwNGtYS1A1VVc3OXB2RmFmVzZVY1BB?oc=5",
       "source": "Construction World"
     },
     {
-      "headline": "गहलोत और कांग्रेस के सदस्यों को दिल्ली छात्र लाठी चार्ज विरोधी प्रदर्शन के दौरान जयपुर में हिरासत में लिया गया",
-      "summary": "दिल्ली में छात्रों के लाठी चार्ज के विरोध में जयपुर में आयोजित प्रदर्शन के दौरान मुख्यमंत्री गहलोत और कई कांग्रेस नेताओं को पुलिस ने हिरासत में लिया, जिससे राजनीतिक तनाव बढ़ा।",
+      "headline": "दिल्ली छात्र लाठी चार्ज विरोध में जयपुर में गहलोत और कांग्रेस सदस्यों को हिरासत में लिया गया",
+      "summary": "दिल्ली में छात्र लाठी चार्ज के विरोध के दौरान जयपुर पुलिस ने मुख्यमंत्री गहलोत और कई कांग्रेस सदस्यों को हिरासत में ले लिया।",
       "url": "https://news.google.com/rss/articles/CBMi8AFBVV95cUxOUWZ5bEh3cmlVU1hWX2JoZ3FQYmx3RHc0dDRFNzN5bWlhV3otTVZHR0Z5VThFMjcxeFhIaU9pY2Fuemp0VXhtd09MSGhaclh6Wnp3MzBYQ3R1enREN2pfX19yQXdYR0dVbHlTZk9rQ0hpZG1faHBua0JvSTBCOW9rcUFBcV90ZENka3lwSE5PZ1kycjFKQkFsa0QwbkFhd2ZXanRWbzRDRDRMeXVjRU1OM0dEdHFMT0ZNUlZpbDhhNGVVckJ0bDlMeXRZa0JXZWdIR291U2lPTzJiS0VZajFMQTZwbkJnVnVndXZFbG0yeXrSAfYBQVVfeXFMUDBCQzF0aW9QY01uSjNSaVhCMXFXZTlpR3duV2xhdnZZaUlnU3JTYWZlY251b0JGVERBampaYlVGaGJDcjBYaFVUbVRnSlp5OVE3blZ6QnlrSlJwNC1VanEwYmZULWdNOFJCMndla3hzUTl0WjVxUV9tblAyTVAxVEdqdTRWT254dkI5RGpEZ2ZzOGZoUVFNTGVoVEZqNnlSTTRxS2FrVmVfV3h1NTltZ1NBbnA4Z0t3UVlMS0IybTluZ19xZU1zT1lfeXh2V3JqRzRxZ3JkYlRuRUJ1X3ZLNWxzOVBlSkZtbG14ZFhEVzFRMEFmMW53?oc=5",
       "source": "The Times of India"
     },
     {
-      "headline": "अशोक गहलोत और गोविंद सिंह डोटासरा को नीट विरोधी प्रदर्शन के दौरान जयपुर में हिरासत में लिया गया",
-      "summary": "नीट परीक्षा के विरोध में जयपुर में आयोजित रैलियों के दौरान मुख्यमंत्री अशोक गहलोत और गोविंद सिंह डोटासरा को पुलिस ने हिरासत में लिया, जिससे विरोधी समूहों ने सरकार की नीतियों पर सवाल उठाए।",
+      "headline": "आशोक गहलोत और गोविंद सिंह डोटासरा को नीट विरोध के दौरान जयपुर में हिरासत में लिया गया",
+      "summary": "नीट पेपर लीक विरोध के दौरान जयपुर में कांग्रेस के दो वरिष्ठ नेता, आशोक गहलोत और गोविंद सिंह डोटासरा को पुलिस ने हिरासत में ले लिया।",
       "url": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxQX3k0NXJMRkVmSUMzZ0RUTmVHamFaaXdTUUJDcFZrSlBYMjRIaERGanhhNndLdkNqSUh2Z2ktRWNYNTkzNnpNZnZDTFNmNnRLZEtsOWlKakRDbHJ0Qm5nY1ZpNE8zU3NJZmNnbTdnallHeDd3ODhTbXV5aFZVeDFpRFlTaWwwZEZoNlhlR3F2aWdpT1RESGZSTm5MMXBuTmZSWm5UWVJORUlHbDJBaUNaZ3ptd05Ualdtd3daWklmY05Md9IBwgFBVV95cUxQX3k0NXJMRkVmSUMzZ0RUTmVHamFaaXdTUUJDcFZrSlBYMjRIaERGanhhNndLdkNqSUh2Z2ktRWNYNTkzNnpNZnZDTFNmNnRLZEtsOWlKakRDbHJ0Qm5nY1ZpNE8zU3NJZmNnbTdnallHeDd3ODhTbXV5aFZVeDFpRFlTaWwwZEZoNlhlR3F2aWdpT1RESGZSTm5MMXBuTmZSWm5UWVJORUlHbDJBaUNaZ3ptd05Ualdtd3daWklmY05Mdw?oc=5",
       "source": "zoomnews.in"
-    },
-    {
-      "headline": "केंद्रीय कृषि मंत्री ने जयपुर में एआई‑आधारित किसान मंच ‘भारत‑विस्तार’ का शुभारंभ किया",
-      "summary": "केंद्रीय कृषि मंत्री ने जयपुर में ‘भारत‑विस्तार’ नामक एआई‑आधारित किसान मंच का उद्घाटन किया, जिसका उद्देश्य किसानों को तकनीकी सहायता और बाजार जानकारी प्रदान करना है।",
-      "url": "https://news.google.com/rss/articles/CBMitwFBVV95cUxQV3hTc0E2SGJ4SFM2elhtbERKZzA1a055Y1dzTzJOQ0xTZGxELUs1N195NGtCWEhPUTNuRmM2UTk2SXBlNVR1ZmtWbFBMWlU0WDBYdHlPNHR5N2lKc0owT0x3aWxvTVBnajlnNGVJazBFdnpMOC04SFJYVVB5M1FFQWRldlE5dnNReXN0UFFzYnFBaDJCS0xpRzJhWE5FNEZBTnJUS0EtemVBVzdhSXlxTjROQnVMNzA?oc=5",
-      "source": "News On AIR"
     }
   ],
-  "last_feed_hash": "568e0bd2d9ebc9b5",
-  "last_updated": "2026-07-22T11:20:26.934773+00:00",
+  "last_feed_hash": "76bfa9a658dd6ca9",
+  "last_updated": "2026-07-22T11:24:33.187659+00:00",
   "render_version": "25",
   "timeline_heading": "घटनाक्रम",
   "timeline_note": "इसी खबर का सिलसिला — नवीनतम अपडेट सबसे ऊपर।"

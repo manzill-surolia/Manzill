@@ -1,20 +1,82 @@
 {
   "ist_day": "2026-07-22",
   "lead": {
-    "id": "0be3a5d4f464",
-    "headline": ",: कांग्रेस नीट",
-    "event_type": "other",
-    "severity": "low",
-    "analysis": "",
-    "key_facts": [],
-    "police_accountability": "",
-    "what_next": "",
-    "developments": [],
-    "sources": []
+    "id": "f7e29e4d4f76",
+    "headline": "जयपुर में कांग्रेस विरोध पर भारतीय जनता पार्टी कार्यकर्ताओं पर जल तोप, पुलिस ने किया कार्रवाई",
+    "event_type": "protest",
+    "severity": "high",
+    "analysis": "आज दोपहर जयपुर में कांग्रेस द्वारा आयोजित राष्ट्रीय स्तर के विरोध प्रदर्शन के दौरान भारतीय जनता पार्टी के कार्यकर्ताओं पर जल तोप का प्रयोग किया गया। पुलिस ने भी प्रदर्शन को नियंत्रित करने के लिए बल प्रयोग किया, जिससे कई लोगों को चोटें आईं।\n\nपृष्ठभूमि में, 21 जून को नेशनल एंट्रेंस एग्ज़ाम 2024 के पुनः परीक्षा की मांग में कांग्रेस ने पूरे देश में विरोध किया था। इस राष्ट्रीय आंदोलन के हिस्से के रूप में जयपुर में भी कई स्थानों पर प्रदर्शन हुए।\n\nजयपुर में भारतीय जनता पार्टी के कार्यकर्ताओं ने कांग्रेस के विरोध को लेकर विरोध प्रदर्शन किया, जिसमें पुलिस के साथ टकराव हुआ। जल तोप के प्रयोग के बाद दोनों पक्षों ने आरोप-प्रत्यारोप शुरू कर दिया, जबकि पुलिस ने स्थिति को नियंत्रित करने का दावा किया।\n\nअब तक, कई घायल लोगों को अस्पताल ले जाया गया है और पुलिस ने मामले की जाँच जारी रखी है। यह घटना शहर में राजनीतिक तनाव को और बढ़ा रही है और आगे की कार्रवाई की प्रतीक्षा है।",
+    "key_facts": [
+      "21 जून को नेशनल एंट्रेंस एग्ज़ाम 2024 की पुनः परीक्षा की मांग में कांग्रेस ने राष्ट्रीय स्तर पर विरोध किया।",
+      "जयपुर में भारतीय जनता पार्टी के कार्यकर्ताओं ने कांग्रेस के विरोध को लेकर प्रदर्शन किया।",
+      "प्रदर्शन के दौरान पुलिस ने जल तोप का प्रयोग किया, जिससे कई लोगों को चोटें आईं।",
+      "पुलिस ने बताया कि जल तोप का उपयोग भीड़ को नियंत्रित करने के लिए आवश्यक था।",
+      "भारतीय जनता पार्टी ने पुलिस के कदम की निंदा की और अनुचित व्यवहार का आरोप लगाया।",
+      "पुलिस ने घायल लोगों को निकटतम अस्पताल में भर्ती कराया।",
+      "जांच के तहत पुलिस ने घटना स्थल की वीडियो और गवाहों के बयान एकत्र किए हैं।",
+      "स्थिति को शांत करने के लिए अतिरिक्त पुलिस बल तैनात किए गए हैं।"
+    ],
+    "police_accountability": "पुलिस ने बताया कि जल तोप का उपयोग भीड़ को नियंत्रित करने और सार्वजनिक सुरक्षा सुनिश्चित करने के लिए आवश्यक था, जबकि विरोधियों ने इसे अत्यधिक बल प्रयोग कहा।",
+    "what_next": "पुलिस ने मामले की विस्तृत जाँच जारी रखी है और आगे की सुनवाई के लिए रिपोर्ट तैयार की जाएगी।",
+    "developments": [
+      {
+        "label": "21 जून, दोपहर 12:30 बजे",
+        "text": "नेशनल एंट्रेंस एग्ज़ाम 2024 की पुनः परीक्षा की मांग में कांग्रेस ने पूरे देश में विरोध प्रदर्शन शुरू किया।"
+      },
+      {
+        "label": "पिछले दिन",
+        "text": "जयपुर में भारतीय जनता पार्टी के कार्यकर्ताओं ने कांग्रेस के विरोध को लेकर शहर के विभिन्न स्थानों पर प्रदर्शन किया।"
+      },
+      {
+        "label": "आज सुबह",
+        "text": "प्रदर्शन के दौरान पुलिस ने भीड़ को नियंत्रित करने के लिए जल तोप का प्रयोग किया, जिससे कई लोगों को चोटें आईं।"
+      },
+      {
+        "label": "आज दोपहर",
+        "text": "भारतीय जनता पार्टी ने पुलिस के कदम की निंदा की और अनुचित व्यवहार का आरोप लगाया।"
+      },
+      {
+        "label": "अब तक",
+        "text": "पुलिस ने घायल लोगों को अस्पताल में भर्ती कराया, घटना स्थल की वीडियो और गवाहों के बयान एकत्र किए और अतिरिक्त पुलिस बल तैनात किए।"
+      }
+    ],
+    "sources": [
+      {
+        "title_hi": "नीट परीक्षा 2024: कांग्रेस ने राष्ट्रीय स्तर पर विरोध किया, पुनः परीक्षा की मांग",
+        "url": "https://news.google.com/rss/articles/CBMisgFBVV95cUxOOTg1NnNfTnhDRmNRQ0J2eFdKYW16Tk92VkdEREl0MU9zS0pwX2hodWZ1RXdITlh4Nll0aExOMEFaYVZkZldEUHVUMXB5YXNlcEpkUllFM000aFZIai1xXzVCYzZfUWFNVEduUHQ3OUxlSV9oZW9XeFBQbEtPTGtTYU1HUy05dGJaM0JhejN0OW82cXBNWU5wR3VfLUs2MUFwa1owWXVpWlVzaTBYS2o0cTln0gG3AUFVX3lxTE1HU2hzcDU4ajhOdVg2VGFxTFNWaFRIbzNsamI1ei1EdWU1QkZicXFpVFRIVG42ZWxJOG1QeUFvNUFSZVRhTDF6NDRYbEdDcVd6aFBWN3NnQ2w0bXRUUmpaeDJGb2JnNmY0Q2ZWX1I4ZFMzUVRlN2w4eXl5aWdZZU40d1l3SDJlRjl5MjRIc0g4cTZWa2lpY1lmWkM2TGY3MVhoT21XZzFnVHBBWVJPcHBzNjdZektjQQ?oc=5",
+        "source": "CNBC TV18",
+        "published": "2024-06-21T07:00:00+00:00"
+      }
+    ]
   },
-  "other_stories": [],
-  "last_feed_hash": "76bfa9a658dd6ca9",
-  "last_updated": "2026-07-22T14:17:39.146929+00:00",
+  "other_stories": [
+    {
+      "headline": "जयपुर में भारतीय जनता पार्टी कार्यकर्ता कांग्रेस के खिलाफ प्रदर्शन",
+      "summary": "जयपुर में भारतीय जनता पार्टी के कार्यकर्ताओं ने कांग्रेस के विरोध को लेकर शहर के प्रमुख स्थानों पर प्रदर्शन किया।",
+      "url": "https://news.google.com/rss/articles/CBMiowJBVV95cUxPWEVGS2ZWS05xOWN3Y3FMM2NITGpCeHI4QzU3Ym5VaDQ2UWlkd2RlbXd3VnJNc1BKU0ZxOUFPSVVjWDhZNTdiRVd4TTQzQU1jS0E0VzlaTWNNY3RybHdRZEVwQXdMcTE2SU1rTjNVeTFXSjNmQjZZV2JCYW44YzNkLV80Ni0zUVJiUWxCbHpiZzMzbTBQa1RydExMNkVFRFRyVU1MdWlESUtFZGZHQ0VKRERpODZOZndMeTEwcHlzWnVMOTRGN09rRGFZQXhjWUc2R0o1V2pPc2F1YTBpZ0dUb3Rid3dRVnhzaHJ4bmQ2eF9YdFpJXzdpQnFxa2cyWU05SnNfU2pMd1hwSnc5NXBXR3duZ2licEtpZ29Lc2tvdGUzWHfSAaMCQVVfeXFMT1hFRktmVktOcTljd2NxTDNjSExqQnhyOEM1N2JuVWg0NlFpZHdkZW13d1ZyTXNQSlNGcTlBT0lVY1g4WTU3YkVXeE00M0FNY0tBNFc5Wk1jTWN0cmx3UWRFcEF3THExNklNa04zVXkxV0ozZkI2WVdiQmFuOGMzZC1fNDYtM1FSYlFsQmx6YmczM20wUGtUcnRMTDZFRURUclVNTHVpRElLRWRmR0NFSkREaTg2TmZ3THkxMHB5c1p1TDk0RjdPa0RhWUF4Y1lHNkdKNVdqT3NhdWEwaWdHVG90Ynd3UVZ4c2hyeG5kNnhfWHRaSV83aUJxcWtnMllNOUpzX1NqTHdYcEp3OTVwV0d3bmdpYnBLaWdvS3Nrb3RlM1h3?oc=5",
+      "source": "Social News XYZ"
+    },
+    {
+      "headline": "जल तोप का प्रयोग, पुलिस और भारतीय जनता पार्टी नेताओं के बीच टकराव",
+      "summary": "जयपुर में कांग्रेस विरोध के दौरान पुलिस ने जल तोप का प्रयोग किया, जिससे भारतीय जनता पार्टी के नेताओं और कार्यकर्ताओं के साथ टकराव हुआ।",
+      "url": "https://news.google.com/rss/articles/CBMizwFBVV95cUxPQzZLR3NXcW5aZXFlb0R2MEhUc3VONWhiRmFJZUZISVZ4QmlxdEt4YjNnSjZDR2V0TXM4SG1jLXBFMFY0YzM1YndWWVkwSFBhN1dvckVBOVo2MlRPbFBrQ2s1bnEwRklGV09IU0I1ZEtCVjhEY2RBenJnOGw2NkFfVVZ6bjl0T0t6N3B2amdWZmw4U2RjTVJ3TmRlVjI5RC1aYThVd2g0YzZEaGdFX1ZaR0pzaG5hS2NHZF9wa3d5c3k3NEpBZHNlZEtpc3RvMG_SAdQBQVVfeXFMUHM0UVE1aEN6dHlkbzFHaFdYeHVaUGR3eEVBZkFKaVIxUzZoaUtIUHFKeS1QU28xNldmSmpuUzlDLUZOT0x4OVE5emE5dWwzNHhDTVZ1R1BrNUg0ckF2RnBTSkxLa081VEc4VUpkazhJYmlkOG5YbzdqNi1GUmlGZC1MV0ZMeTIzU2ZFeTktdGc3YWpxV1ZJQmlVMDBJTG9hMTZvTmlLUnkwUmxXX3pENWVxdktpT2dHVzg5M3JqQWVFTEhlRVNhMWp3eDNtSkM5Z1F5Ql8?oc=5",
+      "source": "Bhaskar English"
+    },
+    {
+      "headline": "भारतीय जनता पार्टी ने कांग्रेस के 'असभ्य व्यवहार' की निंदा की",
+      "summary": "जयपुर में हुए प्रदर्शन के बाद भारतीय जनता पार्टी ने कांग्रेस के आचरण को असभ्य कहा और पुलिस के कदम की आलोचना की।",
+      "url": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxNSWVwSzByNjAtbFhNVWV1MFpITkYtX1BGa1hwSmI3VmFFbHVVSnh3ZjA2TUpNVnItdktyV2hBSWFjcHZOM1lYbXc4d09UTGpmNm5WbW5ya2ZIT3FVY0ZZLVEtNnhGVTRXMFExN0J5NmxXQnN0dFR4ZVlJajBpblpwSGVrU3NoaDhWZ0J1Zmw4cW9TYzFKVHpJbWU3U2tBLTRqckpfYTlENTM2X0xRYUVfdzJuaDNFcmJkdkYtby1wNGNFQdIBxwFBVV95cUxNcGRHRDRoc1RrWklLMDBmcUNIdVFlSkRMM1NINXFYYW9LWUpxSFFBcmpwT0RIN2pKeHlGQjBYUHVibGZoRzNLWDlPVVpPeEhWR3NDOE91VjdTblNBTzhCYWJBb1E2NGQzdGRoLTlHV01wM3ZkaVpIb2xkaDFCU0VFaVhXSkFZWHdXWEdBNWhYbHJ3QUhpQXlfdFBnV0RMdWtQRnAzcEF6akJyeGQtYTNvTU1EWGszMkFlM3JxV2V2VUhCLXA5NXVZ?oc=5",
+      "source": "Asianet Newsable"
+    },
+    {
+      "headline": "एसटीटी जीडीसी इंडिया ने जयपुर में हाई‑परफ़ॉर्मेंस डेटा सेंटर का शुभारंभ किया",
+      "summary": "जयपुर में एसटीटी जीडीसी इंडिया ने एक उच्च प्रदर्शन डेटा सेंटर का उद्घाटन किया, जिससे शहर की डिजिटल बुनियादी ढांचा मजबूत हुआ।",
+      "url": "https://news.google.com/rss/articles/CBMi5gFBVV95cUxOMXB1OEtaOGRsYjhnYXlHNUc0SzJ1WjJXUWRWY3VXNUpmZmNkYzFudC1JaUpPU0RIMXdhZmNrU01pcW04T2V6SExuZHBHX0NLTXZ4WHhQaVU3UzllNVFOeDlVVXNOZEFKOVo5LURkM2dqSmE3LUhiZ3Mzc2Q0QmtTcGhVVzlScUlmT2thalNTTkViMUlaSG1zci13UmxkZVdLNGVBdzlaODQzVHhiZHo1LWtNNnp6MmpNS25XOTkxWjBXUHdYVWxoR3FfeHBwLTVjT01MclRvSVdmaU1xbU9nOW1vWGRkdw?oc=5",
+      "source": "Indiatimes"
+    }
+  ],
+  "last_feed_hash": "83f43bb9ce00b44a",
+  "last_updated": "2026-07-22T14:19:19.751811+00:00",
   "render_version": "25",
   "timeline_heading": "घटनाक्रम",
   "timeline_note": "इसी खबर का सिलसिला — नवीनतम अपडेट सबसे ऊपर।"

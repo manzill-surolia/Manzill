@@ -22,10 +22,6 @@ on:
         description: "Headline for the forced URL (required if force_url is set)."
         required: false
         default: ""
-      force_days:
-        description: "Days to keep the forced story pinned as the lead (kept updated with new developments). Blank/0 = this run only."
-        required: false
-        default: ""
 
 permissions:
   contents: write
@@ -57,7 +53,6 @@ jobs:
           FORCE_QUERY: ${{ github.event.inputs.force_query }}
           FORCE_URL: ${{ github.event.inputs.force_url }}
           FORCE_HEADLINE: ${{ github.event.inputs.force_headline }}
-          FORCE_DAYS: ${{ github.event.inputs.force_days }}
         run: python breaking/build_breaking_news.py
 
       - name: Commit and push if changed

@@ -29,7 +29,7 @@ import shutil
 import sys
 import urllib.error
 import urllib.request
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from email.utils import format_datetime, parsedate_to_datetime
 from pathlib import Path
 from xml.etree import ElementTree as ET
@@ -814,6 +814,11 @@ def save_state(state: dict) -> None:
     STATE_PATH.write_text(json.dumps(state, indent=2, ensure_ascii=False) + "\n")
 
 
+def save_override(ov: dict) -> None:
+    OVERRIDE_PATH.parent.mkdir(parents=True, exist_ok=True)
+    OVERRIDE_PATH.write_text(json.dumps(ov, indent=2, ensure_ascii=False) + "\n")
+
+
 # --------------------------------------------------------------------------- #
 # Story archive — a rolling ~30-day memory of how each story developed
 # --------------------------------------------------------------------------- #
@@ -993,11 +998,30 @@ def minutes_since(iso: str | None) -> float:
 # --------------------------------------------------------------------------- #
 # Manual override — force a chosen story to lead
 # --------------------------------------------------------------------------- #
+def _parse_days(raw: str) -> int:
+    """Parse a FORCE_DAYS workflow input into a non-negative whole number of days. Blank or
+    unparseable -> 0 (no pin duration)."""
+    raw = (raw or "").strip()
+    if not raw:
+        return 0
+    try:
+        return max(0, int(float(raw)))
+    except (TypeError, ValueError):
+        return 0
+
+
 def load_override() -> dict:
     """A manual pin that forces a chosen story to lead — by keywords (`query`) or an explicit
     `url`+`headline`. Read from breaking/data/override.json, with the FORCE_QUERY/FORCE_URL/
     FORCE_HEADLINE env vars (workflow inputs) taking precedence. Returns {} when absent,
-    empty, past its optional `expires`, or not actionable."""
+    empty, past its optional `expires`, or not actionable.
+
+    FORCE_DAYS (the workflow's `force_days` input) makes a fresh manual force *sticky*: with a
+    positive value we stamp an `expires` = now + N days and persist override.json, so every later
+    scheduled run keeps leading with — and updating — the pinned story until it lapses (instead of
+    the cron auto-pick replacing it on the next run). Blank/0 keeps the old one-off behaviour: the
+    force applies only to this run. An expired pin is deleted here so it stops leading and the
+    deletion is published on the next commit."""
     ov: dict = {}
     if OVERRIDE_PATH.exists():
         try:
@@ -1009,12 +1033,32 @@ def load_override() -> dict:
     env_query = os.environ.get("FORCE_QUERY", "").strip()
     env_url = os.environ.get("FORCE_URL", "").strip()
     env_headline = os.environ.get("FORCE_HEADLINE", "").strip()
+    env_days = _parse_days(os.environ.get("FORCE_DAYS", ""))
+    fresh_force = bool(env_query or env_url or env_headline)
     if env_query:
         ov = {**ov, "query": env_query}
     if env_url:
         ov = {**ov, "url": env_url}
     if env_headline:
         ov = {**ov, "headline": env_headline}
+
+    # A fresh manual dispatch with force_days > 0 pins the chosen story for N days: stamp an
+    # `expires` and persist override.json so later scheduled runs keep it as the lead. Only for a
+    # NEW env-sourced force, so re-running a build never silently pushes an existing pin's expiry
+    # forward.
+    if fresh_force and env_days > 0:
+        if env_query or (env_url and env_headline):
+            expires_dt = now_utc() + timedelta(days=env_days)
+            ov = {**ov, "expires": expires_dt.isoformat(), "pinned_at": now_utc().isoformat()}
+            save_override(ov)
+            print(f"  override: pin persisted for {env_days} day(s) — "
+                  f"kept as the lead until {expires_dt.isoformat()}.")
+        else:
+            print("  force_days set but the force is incomplete (need force_query, or "
+                  "force_url + force_headline); not persisting the pin.", file=sys.stderr)
+    elif env_days > 0 and not fresh_force and not ov:
+        print("  force_days set but no story forced this run; ignoring.", file=sys.stderr)
+
     if not ov:
         return {}
 
@@ -1022,7 +1066,8 @@ def load_override() -> dict:
     if expires:
         try:
             if now_utc() >= datetime.fromisoformat(str(expires).replace("Z", "+00:00")):
-                print("  override present but expired; ignoring.")
+                print("  override present but expired; ignoring (removing the stale pin).")
+                OVERRIDE_PATH.unlink(missing_ok=True)
                 return {}
         except Exception:
             pass  # unparseable expiry -> treat the pin as still active

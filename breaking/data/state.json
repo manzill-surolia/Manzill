@@ -1,86 +1,17 @@
 {
   "ist_day": "2026-07-22",
   "lead": {
-    "id": "f7e29e4d4f76",
-    "headline": "जयपुर में कांग्रेस विरोधी प्रदर्शन पर पुलिस ने जलधारा चलाई, कई बीजेडी कार्यकर्ता घायल",
-    "event_type": "protest",
-    "severity": "high",
-    "analysis": "दोपहर 12:30 बजे जयपुर में बीजेडी कार्यकर्ताओं द्वारा कांग्रेस के खिलाफ आयोजित विरोध प्रदर्शन के दौरान पुलिस ने जलधारा चलाकर भीड़ को नियंत्रित करने की कोशिश की, जिससे कई कार्यकर्ता घायल हुए।\n\nपिछले सप्ताह बीजेडी ने जयपुर में कांग्रेस के खिलाफ बड़े पैमाने पर प्रदर्शन करने की घोषणा की और 21 जून को सुबह 10 बजे राजभवन के पास मार्च शुरू किया।\n\nपुलिस ने बताया कि जलधारा का उपयोग भीड़ को बिखराने और सार्वजनिक व्यवस्था बनाए रखने के लिए आवश्यक था, जबकि बीजेडी नेताओं ने इसे अत्यधिक कठोर और अनुचित कार्रवाई कहा। कांग्रेस ने इस घटना पर अभी तक कोई टिप्पणी नहीं की, पर स्थानीय पार्टी प्रमुख ने इसे लोकतांत्रिक अधिकारों के उल्लंघन के रूप में उजागर किया।\n\nजिला प्रशासन ने घटना की पूरी जांच का आदेश दिया है और जिम्मेदारियों का निर्धारण करने के लिए एक स्वतंत्र जांच आयोग स्थापित करने की संभावना जताई है।",
-    "key_facts": [
-      "बीजेडी कार्यकर्ताओं ने जयपुर में कांग्रेस के खिलाफ प्रदर्शन करने की घोषणा की।",
-      "21 जून को सुबह 10 बजे, बीजेडी कार्यकर्ता राजभवन के पास मार्च शुरू किया।",
-      "दोपहर 12:30 बजे, पुलिस ने जलधारा चलाकर प्रदर्शन को रोकने की कोशिश की, जिससे कई कार्यकर्ता घायल हुए।",
-      "पुलिस के अनुसार, जलधारा का उपयोग भीड़ को नियंत्रित करने के लिए आवश्यक था।",
-      "बीजेडी नेताओं ने कहा कि यह कार्रवाई अत्यधिक कठोर और अनुचित थी।",
-      "कांग्रेस ने अभी तक इस पर कोई आधिकारिक टिप्पणी नहीं की।",
-      "जिला प्रशासन ने घटना की स्वतंत्र जांच का आदेश दिया है।",
-      "जांच के परिणामस्वरूप जिम्मेदारियों का निर्धारण किया जाएगा।"
-    ],
-    "police_accountability": "पुलिस ने कहा कि जलधारा का उपयोग भीड़ को नियंत्रित करने और सार्वजनिक व्यवस्था बनाए रखने के लिए आवश्यक था, लेकिन उन्होंने यह भी बताया कि यदि कोई अनुचित प्रयोग पाया गया तो जिम्मेदार अधिकारियों को सजा दी जाएगी।",
-    "what_next": "जिला प्रशासन ने स्वतंत्र जांच आयोग स्थापित करने का प्रस्ताव रखा है, जिससे इस घटना की पूरी जाँच और जिम्मेदारियों का निर्धारण होगा।",
-    "developments": [
-      {
-        "label": "पिछले सप्ताह",
-        "text": "बीजेडी कार्यकर्ताओं ने जयपुर में कांग्रेस के खिलाफ प्रदर्शन करने की घोषणा की।"
-      },
-      {
-        "label": "21 जून, सुबह 10 बजे",
-        "text": "बीजेडी कार्यकर्ता राजभवन के पास मार्च शुरू कर रहे थे।"
-      },
-      {
-        "label": "21 जून, दोपहर 12:30 बजे",
-        "text": "पुलिस ने जलधारा चलाकर प्रदर्शन को रोकने की कोशिश की, जिससे कई कार्यकर्ता घायल हुए।"
-      },
-      {
-        "label": "21 जून, बाद में",
-        "text": "पुलिस ने बताया कि जलधारा का उपयोग भीड़ को नियंत्रित करने के लिए आवश्यक था।"
-      },
-      {
-        "label": "21 जून, बाद में",
-        "text": "बीजेडी नेताओं ने इस कार्रवाई को अत्यधिक कठोर और अनुचित कहा।"
-      },
-      {
-        "label": "आज",
-        "text": "जिला प्रशासन ने घटना की स्वतंत्र जांच का आदेश दिया है।"
-      }
-    ],
-    "sources": [
-      {
-        "title_hi": "नीट परीक्षा 2024: कांग्रेस ने राष्ट्रीय स्तर पर विरोध किया, पुनः परीक्षा की मांग",
-        "url": "https://news.google.com/rss/articles/CBMisgFBVV95cUxOOTg1NnNfTnhDRmNRQ0J2eFdKYW16Tk92VkdEREl0MU9zS0pwX2hodWZ1RXdITlh4Nll0aExOMEFaYVZkZldEUHVUMXB5YXNlcEpkUllFM000aFZIai1xXzVCYzZfUWFNVEduUHQ3OUxlSV9oZW9XeFBQbEtPTGtTYU1HUy05dGJaM0JhejN0OW82cXBNWU5wR3VfLUs2MUFwa1owWXVpWlVzaTBYS2o0cTln0gG3AUFVX3lxTE1HU2hzcDU4ajhOdVg2VGFxTFNWaFRIbzNsamI1ei1EdWU1QkZicXFpVFRIVG42ZWxJOG1QeUFvNUFSZVRhTDF6NDRYbEdDcVd6aFBWN3NnQ2w0bXRUUmpaeDJGb2JnNmY0Q2ZWX1I4ZFMzUVRlN2w4eXl5aWdZZU40d1l3SDJlRjl5MjRIc0g4cTZWa2lpY1lmWkM2TGY3MVhoT21XZzFnVHBBWVJPcHBzNjdZektjQQ?oc=5",
-        "source": "CNBC TV18",
-        "published": "2024-06-21T07:00:00+00:00"
-      }
-    ]
+    "id": "holding",
+    "headline": "जयपुर: ताज़ा खबरें अपडेट हो रही हैं",
+    "event_type": "other",
+    "severity": "low",
+    "analysis": "विस्तृत हिंदी कवरेज तैयार हो रहा है। कृपया कुछ ही देर में दोबारा देखें — यह पेज दिनभर अपने-आप अपडेट होता रहता है।",
+    "developments": [],
+    "sources": []
   },
-  "other_stories": [
-    {
-      "headline": "बीजेडी कार्यकर्ताओं ने जयपुर में कांग्रेस के खिलाफ प्रदर्शन किया",
-      "summary": "बीजेडी कार्यकर्ताओं ने जयपुर में कांग्रेस के विरुद्ध विरोध मार्च किया, जिसमें कई सदस्य भाग ले रहे थे।",
-      "url": "https://news.google.com/rss/articles/CBMiowJBVV95cUxPWEVGS2ZWS05xOWN3Y3FMM2NITGpCeHI4QzU3Ym5VaDQ2UWlkd2RlbXd3VnJNc1BKU0ZxOUFPSVVjWDhZNTdiRVd4TTQzQU1jS0E0VzlaTWNNY3RybHdRZEVwQXdMcTE2SU1rTjNVeTFXSjNmQjZZV2JCYW44YzNkLV80Ni0zUVJiUWxCbHpiZzMzbTBQa1RydExMNkVFRFRyVU1MdWlESUtFZGZHQ0VKRERpODZOZndMeTEwcHlzWnVMOTRGN09rRGFZQXhjWUc2R0o1V2pPc2F1YTBpZ0dUb3Rid3dRVnhzaHJ4bmQ2eF9YdFpJXzdpQnFxa2cyWU05SnNfU2pMd1hwSnc5NXBXR3duZ2licEtpZ29Lc2tvdGUzWHfSAaMCQVVfeXFMT1hFRktmVktOcTljd2NxTDNjSExqQnhyOEM1N2JuVWg0NlFpZHdkZW13d1ZyTXNQSlNGcTlBT0lVY1g4WTU3YkVXeE00M0FNY0tBNFc5Wk1jTWN0cmx3UWRFcEF3THExNklNa04zVXkxV0ozZkI2WVdiQmFuOGMzZC1fNDYtM1FSYlFsQmx6YmczM20wUGtUcnRMTDZFRURUclVNTHVpRElLRWRmR0NFSkREaTg2TmZ3THkxMHB5c1p1TDk0RjdPa0RhWUF4Y1lHNkdKNVdqT3NhdWEwaWdHVG90Ynd3UVZ4c2hyeG5kNnhfWHRaSV83aUJxcWtnMllNOUpzX1NqTHdYcEp3OTVwV0d3bmdpYnBLaWdvS3Nrb3RlM1h3?oc=5",
-      "source": "Social News XYZ"
-    },
-    {
-      "headline": "जयपुर में बीजेडी कार्यकर्ताओं पर पुलिस ने जलधारा चलाई",
-      "summary": "पुलिस ने जलधारा का उपयोग करके बीजेडी कार्यकर्ताओं को रोकने की कोशिश की, जिससे कई घायल हुए।",
-      "url": "https://news.google.com/rss/articles/CBMizwFBVV95cUxPQzZLR3NXcW5aZXFlb0R2MEhUc3VONWhiRmFJZUZISVZ4QmlxdEt4YjNnSjZDR2V0TXM4SG1jLXBFMFY0YzM1YndWWVkwSFBhN1dvckVBOVo2MlRPbFBrQ2s1bnEwRklGV09IU0I1ZEtCVjhEY2RBenJnOGw2NkFfVVZ6bjl0T0t6N3B2amdWZmw4U2RjTVJ3TmRlVjI5RC1aYThVd2g0YzZEaGdFX1ZaR0pzaG5hS2NHZF9wa3d5c3k3NEpBZHNlZEtpc3RvMG_SAdQBQVVfeXFMUHM0UVE1aEN6dHlkbzFHaFdYeHVaUGR3eEVBZkFKaVIxUzZoaUtIUHFKeS1QU28xNldmSmpuUzlDLUZOT0x4OVE5emE5dWwzNHhDTVZ1R1BrNUg0ckF2RnBTSkxLa081VEc4VUpkazhJYmlkOG5YbzdqNi1GUmlGZC1MV0ZMeTIzU2ZFeTktdGc3YWpxV1ZJQmlVMDBJTG9hMTZvTmlLUnkwUmxXX3pENWVxdktpT2dHVzg5M3JqQWVFTEhlRVNhMWp3eDNtSkM5Z1F5Ql8?oc=5",
-      "source": "Bhaskar English"
-    },
-    {
-      "headline": "जयपुर में कांग्रेस के विरोध पर बीजेडी नेताओं ने कांग्रेस की 'असभ्य व्यवहार' की निंदा की",
-      "summary": "बीजेडी नेताओं ने कहा कि कांग्रेस ने असभ्य आचरण किया, जिससे सार्वजनिक शांति बिगड़ी।",
-      "url": "https://news.google.com/rss/articles/CBMitwFBVV95cUxNVE5XV2NBUVc0ZWl2N1c3Z0pDVnllMXVRQm1xSFRSSzJDUTZ6UG5ZSjFTUUxpc2F4aGRCUVZoWnhoWkd1aXpoUjF1dlBWRzh5VE5hRWNOVWMySjVWMjhuYTE1eURrMUFzMkZXZ2gwN1pwS0l5YW55ZkJXRGNQTjhQRFJVaTdzT2xxckJpNWpZTVdOSjJvVzVlTnNHRnAwRFBvam0wQmJqN0pkd3p5Y1NuZDROMEJIaTQ?oc=5",
-      "source": "analyticsindiamag.com"
-    },
-    {
-      "headline": "राजस्थान का पहला डेटा सेंटर: जयपुर 1",
-      "summary": "राजस्थान में पहला डेटा सेंटर जयपुर 1 स्थापित किया गया, जो राज्य की डिजिटल इन्फ्रास्ट्रक्चर को सुदृढ़ करेगा।",
-      "url": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxNSWVwSzByNjAtbFhNVWV1MFpITkYtX1BGa1hwSmI3VmFFbHVVSnh3ZjA2TUpNVnItdktyV2hBSWFjcHZOM1lYbXc4d09UTGpmNm5WbW5ya2ZIT3FVY0ZZLVEtNnhGVTRXMFExN0J5NmxXQnN0dFR4ZVlJajBpblpwSGVrU3NoaDhWZ0J1Zmw4cW9TYzFKVHpJbWU3U2tBLTRqckpfYTlENTM2X0xRYUVfdzJuaDNFcmJkdkYtby1wNGNFQdIBxwFBVV95cUxNcGRHRDRoc1RrWklLMDBmcUNIdVFlSkRMM1NINXFYYW9LWUpxSFFBcmpwT0RIN2pKeHlGQjBYUHVibGZoRzNLWDlPVVpPeEhWR3NDOE91VjdTblNBTzhCYWJBb1E2NGQzdGRoLTlHV01wM3ZkaVpIb2xkaDFCU0VFaVhXSkFZWHdXWEdBNWhYbHJ3QUhpQXlfdFBnV0RMdWtQRnAzcEF6akJyeGQtYTNvTU1EWGszMkFlM3JxV2V2VUhCLXA5NXVZ?oc=5",
-      "source": "Asianet Newsable"
-    }
-  ],
-  "last_feed_hash": "83f43bb9ce00b44a",
-  "last_updated": "2026-07-22T13:56:10.925095+00:00",
+  "other_stories": [],
+  "last_feed_hash": "76bfa9a658dd6ca9",
+  "last_updated": "2026-07-22T14:11:40.988206+00:00",
   "render_version": "25",
   "timeline_heading": "घटनाक्रम",
   "timeline_note": "इसी खबर का सिलसिला — नवीनतम अपडेट सबसे ऊपर।"

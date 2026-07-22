@@ -109,6 +109,12 @@ to backfill a slug), or `python breaking/snapshot.py --date 20-july-2026`.
   `load_override()` deletes the file and the auto-pick resumes. A **`query`** pin re-fetches its feed
   each run so it gains new developments; a bare **`url`+`headline`** pin stays static (no enrichment)
   but still holds the lead for N days. `force_days` needs an actual force — set alone it is ignored.
+- **Pins only stick if they render.** Persistence is **deferred** (`load_override()` returns
+  `pin_to_persist`; `build()` writes it only after a valid render). Keep this Jaipur-**local**: a
+  national/off-topic story has little local coverage, so Groq returns an empty/malformed body and
+  `_lead_from_ai()` rejects it as hollow (no analysis/facts/timeline). In that case `build()` keeps
+  the **last good page** and does **not** persist the pin — a bad force is a clean no-op, never a
+  blanked or stuck page.
 
 ## ⚠️ Groq TPM gotcha — read before touching the generator
 

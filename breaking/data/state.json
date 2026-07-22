@@ -1,82 +1,20 @@
 {
   "ist_day": "2026-07-22",
   "lead": {
-    "id": "f7e29e4d4f76",
-    "headline": "नीट 2024 परीक्षा पर कांग्रेस ने राष्ट्रीय स्तर पर पुनः परीक्षा की मांग की",
-    "event_type": "protest",
-    "severity": "high",
-    "analysis": "नीट 2024 परीक्षा के परिणाम जारी होने के बाद कांग्रेस ने पुनः परीक्षा की मांग करते हुए राष्ट्रीय स्तर पर विरोध प्रदर्शन शुरू किया। यह विरोध 21 जून दोपहर 12:30 बजे दिल्ली में शुरू हुआ, जहाँ कई शहरों में कांग्रेस कार्यकर्ताओं ने एकत्रित होकर सरकार से परीक्षा प्रक्रिया की पारदर्शिता की माँग की।\n\nपृष्ठभूमि में, पिछले कुछ हफ्तों से परीक्षा में प्रश्नपत्र में त्रुटियों और उत्तर कुंजी में असंगतियों को लेकर विभिन्न छात्र समूहों ने असंतोष जताया था। कांग्रेस ने इस मुद्दे को उठाते हुए कहा कि परीक्षा की विश्वसनीयता पर सवाल उठते हैं और छात्रों के भविष्य को नुकसान पहुँच रहा है।\n\nप्रदर्शन के दौरान, कई शहरों में पुलिस ने भीड़ नियंत्रण के लिए जलधारा और डिटेनमेंट का प्रयोग किया, जैसा कि जयपुर में हुई टकराव की रिपोर्ट में बताया गया। विरोध के बाद, सरकार ने परीक्षा प्रक्रिया की समीक्षा का आश्वासन दिया, परन्तु अभी तक कोई स्पष्ट निर्णय नहीं लिया गया है।\n\nअब तक, कांग्रेस ने पुनः परीक्षा की मांग को लेकर कई रैलियों और ध्वनि प्रदर्शन जारी रखे हैं, जबकि प्रशासनिक अधिकारियों ने स्थिति को शांत करने के लिए अतिरिक्त सुरक्षा व्यवस्था की है। यह मामला अभी भी जारी है और आगे की कार्रवाई की प्रतीक्षा है।",
-    "key_facts": [
-      "कांग्रेस ने नीट 2024 परीक्षा के परिणामों पर पुनः परीक्षा की मांग की।",
-      "विरोध 21 जून दोपहर 12:30 बजे विभिन्न शहरों में शुरू हुआ।",
-      "प्रदर्शन में छात्र समूह और कांग्रेस कार्यकर्ता शामिल थे।",
-      "पुलिस ने कुछ स्थानों पर जलधारा और डिटेनमेंट का प्रयोग किया।",
-      "जिला प्रशासन ने स्थिति को शांत करने के लिए अतिरिक्त सुरक्षा तैनात की।",
-      "सरकार ने परीक्षा प्रक्रिया की समीक्षा का आश्वासन दिया, परन्तु अभी तक कोई निर्णय नहीं लिया गया।",
-      "विरोध के दौरान कई शहरों में रैलियों और ध्वनि प्रदर्शन हुए।",
-      "वर्तमान में कांग्रेस पुनः परीक्षा की मांग को लेकर आगे की कार्रवाई की अपेक्षा कर रही है।"
-    ],
-    "police_accountability": "पुलिस ने जयपुर में विरोध के दौरान जलधारा और जलकैनन का प्रयोग किया, जिससे कुछ प्रदर्शनकारियों को चोटें आईं; पुलिस ने कहा कि यह कार्रवाई भीड़ को नियंत्रित करने के लिए आवश्यक थी।",
-    "what_next": "प्रशासन ने परीक्षा प्रक्रिया की विस्तृत समीक्षा का आदेश दिया और कांग्रेस ने पुनः परीक्षा के लिए न्यायिक सुनवाई की मांग की।",
-    "developments": [
-      {
-        "label": "पृष्ठभूमि",
-        "text": "नीट परीक्षा में प्रश्नपत्र त्रुटियों और उत्तर कुंजी में असंगतियों को लेकर कई छात्र समूहों ने असंतोष जताया था।"
-      },
-      {
-        "label": "प्राथमिक विरोध",
-        "text": "21 जून दोपहर 12:30 बजे कांग्रेस ने राष्ट्रीय स्तर पर पुनः परीक्षा की मांग करते हुए विरोध प्रदर्शन शुरू किया।"
-      },
-      {
-        "label": "पुलिस कार्रवाई",
-        "text": "कई शहरों में पुलिस ने भीड़ नियंत्रण के लिए जलधारा और डिटेनमेंट का प्रयोग किया, जिसमें जयपुर में भी जलकैनन का उपयोग हुआ।"
-      },
-      {
-        "label": "विरोध जारी",
-        "text": "प्रदर्शन के बाद भी कांग्रेस ने विभिन्न शहरों में रैलियों और ध्वनि प्रदर्शन जारी रखे, पुनः परीक्षा की माँग को दोहराया।"
-      },
-      {
-        "label": "अब तक",
-        "text": "सरकार ने परीक्षा प्रक्रिया की समीक्षा का आश्वासन दिया, परन्तु अभी तक कोई स्पष्ट निर्णय नहीं लिया गया है।"
-      }
-    ],
-    "sources": [
-      {
-        "title_hi": "नीट परीक्षा 2024: कांग्रेस ने राष्ट्रीय स्तर पर विरोध किया, पुनः परीक्षा की मांग",
-        "url": "https://news.google.com/rss/articles/CBMisgFBVV95cUxOOTg1NnNfTnhDRmNRQ0J2eFdKYW16Tk92VkdEREl0MU9zS0pwX2hodWZ1RXdITlh4Nll0aExOMEFaYVZkZldEUHVUMXB5YXNlcEpkUllFM000aFZIai1xXzVCYzZfUWFNVEduUHQ3OUxlSV9oZW9XeFBQbEtPTGtTYU1HUy05dGJaM0JhejN0OW82cXBNWU5wR3VfLUs2MUFwa1owWXVpWlVzaTBYS2o0cTln0gG3AUFVX3lxTE1HU2hzcDU4ajhOdVg2VGFxTFNWaFRIbzNsamI1ei1EdWU1QkZicXFpVFRIVG42ZWxJOG1QeUFvNUFSZVRhTDF6NDRYbEdDcVd6aFBWN3NnQ2w0bXRUUmpaeDJGb2JnNmY0Q2ZWX1I4ZFMzUVRlN2w4eXl5aWdZZU40d1l3SDJlRjl5MjRIc0g4cTZWa2lpY1lmWkM2TGY3MVhoT21XZzFnVHBBWVJPcHBzNjdZektjQQ?oc=5",
-        "source": "CNBC TV18",
-        "published": "2024-06-21T07:00:00+00:00"
-      }
-    ]
+    "id": "8e823cfb2236",
+    "headline": "उपलब्ध स्रोतों में जयपुर से संबंधित कोई ताज़ा राजनीतिक खबर नहीं मिली",
+    "event_type": "other",
+    "severity": "low",
+    "analysis": "प्रदान किए गए स्रोत केवल दिल्ली में राहुल गांधी के विरोध से संबंधित जानकारी देते हैं, जिसमें सभी गिरफ्तार कांग्रेस नेताओं को दिल्ली पुलिस ने रिहा किया। इस सामग्री में जयपुर में कोई घटना, विरोध या प्रशासनिक कार्रवाई का उल्लेख नहीं है, इसलिए जयपुर की ब्रेकिंग‑न्यूज़ के रूप में कोई रिपोर्ट तैयार नहीं की जा सकती।",
+    "key_facts": [],
+    "police_accountability": "",
+    "what_next": "",
+    "developments": [],
+    "sources": []
   },
-  "other_stories": [
-    {
-      "headline": "जयपुर: भाजपा कार्यकर्ताओं ने कांग्रेस पर विरोध प्रदर्शन किया",
-      "summary": "जयपुर में भाजपा कार्यकर्ताओं ने कांग्रेस के विरोध प्रदर्शन के जवाब में विरोध रैली आयोजित की, जिसमें दोनों पक्षों के बीच टकराव की खबरें आईं।",
-      "url": "https://news.google.com/rss/articles/CBMinAFBVV95cUxOLWRuYkN0Tk1oTXFoTVZpUEt0WWVZQkdPbnhMX092U0J2R0FMeWo1c3ljVDhOc0ItQlJ0RU9aMWczdmdoeU1NOVNGV0hmZkR1TTJEUUxBUW1ZZ1VTQ3JkTS1nUm9qdlBBZzBnckQ0Xy05cllnLWdqN01PMDlPaGIzUC1qNWJGcWlsUkZkendRM1ZtSlZNUTBxdnd1LWbSAZwBQVVfeXFMTi1kbmJDdE5NaE1xaE1WaVBLdFllWUJHT254TF9PdlNCdkdBTHlqNXN5Y1Q4TnNCLUJSdEVPWjFnM3ZnaHlNTTlTRldIZmZEdU0yRFFMQVFtWWdVU0NyZE0tZ1JvanZQQWcwZ3JENF8tOXJZZy1najdNTzA5T2hiM1AtajViRnFpbFJGZHp3UTNWbUpWTVEwcXZ3dS1m?oc=5",
-      "source": "Social News XYZ"
-    },
-    {
-      "headline": "जयपुर कांग्रेस विरोध: पुलिस ने डोटासरा में जलधारा का प्रयोग किया",
-      "summary": "डोटासरा में कांग्रेस के विरोध के दौरान पुलिस ने जलधारा का प्रयोग किया, जिससे कई प्रदर्शनकारियों को चोटें आईं।",
-      "url": "https://news.google.com/rss/articles/CBMivgFBVV95cUxOVHN6dnVvZWVoYUhyemRqLXBGSzFqOUotSUxaMHhmUHFqb0NTR3gxaW4yWDh6NXdmM0QxTjQ1STN4QXZWV0Q1dHE2ZU9NMnRCeGRMaXZlWW14WDRuakVsTFBIVE9KSTBKU3dTd25nSElYUWtsNkhGMWRGMFVvbUk2d1ByTmJHdjgxTDE1cTluWlNDLXpuMkVKR3ZMZ1d5LU9tSmtUZ0pNM21aemdTUjgxRG50a2E1d3lVNHBmZ1J30gG-AUFVX3lxTE5Uc3p2dW9lZWhhSHJ6ZGotcEZLMWo5Si1JTFoweGZQcWpvQ1NHeDFpbjJYOHo1d2YzRDFONDVJM3hBdlZXRDV0cTZlT00ydEJ4ZExpdmVZbXhYNG5qRWxMUEhUT0pJMEpTd1N3bmdISVhRa2w2SEYxZEYwVW9tSTZ3UHJOYkd2ODFMMTVxOW5aU0Mtem4yRUpHdkxnV3ktT21Ka1RnSk0zbVp6Z1NSODFEbnRrYTV3eVU0cGZnUnc?oc=5",
-      "source": "zoomnews.in"
-    },
-    {
-      "headline": "भाजपा, कांग्रेस कार्यकर्ता जयपुर में राहुल गांधी के पीएम आवास सिट-इन पर टकराए",
-      "summary": "राहुल गांधी के पीएम आवास सिट-इन के विरोध में भाजपा और कांग्रेस कार्यकर्ताओं के बीच टकराव हुआ, जिसमें पुलिस को हस्तक्षेप करना पड़ा।",
-      "url": "https://news.google.com/rss/articles/CBMi5gFBVV95cUxQVkpnaWRqMlRjNVZfYlVJZFhuLXltaUxqYUNTRUpuOVVraWtQWVdJZDc2MFU3TTdmVjJ2czVCNlFEZ2JmaTlBcFVwVVZ0b1BwZEJvMnRSRWNBWWlBdGZWX2tNQWxQZm9HSHZmVUdQdzZIRFFpZk1SQjdZZjN6NzlsZXVVb05aalJQUlE3MGJPa2pGYk9hUU1WeEhqQURaa0VvYU1oem9KLWFwdThXSmtYOHRhYmM1TWtKb0J5QmFnWE03TGRTSUYxb2JiTDBNNkF6WHJlaU5oMFhENHRBOV9xdW55RHB2Z9IB8wFBVV95cUxPSnpERERtWGI3eDZXMjRJUktVa01Jbm0za2JKVlIzUXRkR29NczRXYnFoOTZTOU9HbkF1M2YteXFTQnhYU1JfbWtVZXRJVzc3NDNVbGs4Qm5aZ3ZkZmx1RzRMM2JGVk85R0g0REEwWkpaZ3lvT0t6U2ZfNlgzZWhZWXRNTE0xSjJVa2RaUFE0MUdTN0ZIOTdMbVI2dXpWZjRMR21KVEZvd3RmeUlpeHpWS09lNFhER0JtVXAyOE9CamtETUI1YnBvRkNrSG1RS3VjYWw0d192WGczcVByTXJWejRtZE9XOXdKSllGNDhVREhhelE?oc=5",
-      "source": "The New Indian Express"
-    },
-    {
-      "headline": "भाजपा ने जयपुर में कांग्रेस के 'असभ्य आचरण' की निंदा की",
-      "summary": "भाजपा ने कांग्रेस के विरोध प्रदर्शन को 'असभ्य' कहा और पुलिस से स्थिति को नियंत्रित करने की अपील की।",
-      "url": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxNSWVwSzByNjAtbFhNVWV1MFpITkYtX1BGa1hwSmI3VmFFbHVVSnh3ZjA2TUpNVnItdktyV2hBSWFjcHZOM1lYbXc4d09UTGpmNm5WbW5ya2ZIT3FVY0ZZLVEtNnhGVTRXMFExN0J5NmxXQnN0dFR4ZVlJajBpblpwSGVrU3NoaDhWZ0J1Zmw4cW9TYzFKVHpJbWU3U2tBLTRqckpfYTlENTM2X0xRYUVfdzJuaDNFcmJkdkYtby1wNGNFQdIBxwFBVV95cUxNcGRHRDRoc1RrWklLMDBmcUNIdVFlSkRMM1NINXFYYW9LWUpxSFFBcmpwT0RIN2pKeHlGQjBYUHVibGZoRzNLWDlPVVpPeEhWR3NDOE91VjdTblNBTzhCYWJBb1E2NGQzdGRoLTlHV01wM3ZkaVpIb2xkaDFCU0VFaVhXSkFZWHdXWEdBNWhYbHJ3QUhpQXlfdFBnV0RMdWtQRnAzcEF6akJyeGQtYTNvTU1EWGszMkFlM3JxV2V2VUhCLXA5NXVZ?oc=5",
-      "source": "Asianet Newsable"
-    }
-  ],
-  "last_feed_hash": "83f43bb9ce00b44a",
-  "last_updated": "2026-07-22T16:05:00.639764+00:00",
+  "other_stories": [],
+  "last_feed_hash": "9033efbbb3c0fabf",
+  "last_updated": "2026-07-22T17:42:40.133316+00:00",
   "render_version": "25",
   "timeline_heading": "घटनाक्रम",
   "timeline_note": "इसी खबर का सिलसिला — नवीनतम अपडेट सबसे ऊपर।"

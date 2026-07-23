@@ -8,11 +8,11 @@ stays permanently readable at a stable URL, e.g.:
     breaking/2026/07/21/index.html  ->  https://www.manzill.com/breaking/2026/07/21
 
 Runs once a day at 12:00 IST from GitHub Actions (see ../.github/workflows/breaking-archive.yml).
-The live page uses ABSOLUTE asset paths (``/breaking/favicon.svg``, ``/breaking/rss.xml``) and an
-absolute canonical, so a verbatim copy renders correctly from the dated subfolder and the canonical
-still consolidates to the live ``/breaking`` page (the snapshot is an archive, not a duplicate to
-rank on its own). Idempotent: re-running on the same day overwrites that day's snapshot with the
-latest front page.
+The live page uses ABSOLUTE asset paths (``/breaking/favicon.svg``, ``/breaking/rss.xml``), so the
+copy renders correctly from the dated subfolder. The page's self-references (canonical, ``og:url``
+and the JSON-LD ``url``) are rewritten to point at this dated URL, so each day is a standalone,
+indexable archive page rather than a duplicate that canonicalises to the live ``/breaking`` page.
+Idempotent: re-running on the same day overwrites that day's snapshot with the latest front page.
 
 Usage:
     python breaking/snapshot.py                        # snapshot today's (IST) page
@@ -21,7 +21,6 @@ Usage:
 from __future__ import annotations
 
 import argparse
-import shutil
 import sys
 from datetime import datetime, timezone
 from pathlib import Path
@@ -35,6 +34,7 @@ except Exception:  # pragma: no cover - fallback if tzdata unavailable
 
 ROOT = Path(__file__).resolve().parent.parent
 SRC = ROOT / "breaking" / "index.html"
+LIVE_URL = "https://www.manzill.com/breaking"
 
 
 def date_slug(d: datetime) -> str:
@@ -57,9 +57,19 @@ def main() -> int:
     dest_dir = ROOT / "breaking" / slug
     dest_dir.mkdir(parents=True, exist_ok=True)
     dest = dest_dir / "index.html"
-    shutil.copyfile(SRC, dest)
+
+    # Copy the live page byte-for-byte, but repoint its self-references
+    # (canonical, og:url and the JSON-LD url — all end in `breaking"`, unlike the
+    # `/breaking/...` asset paths) at this dated URL, so the archived day is a
+    # standalone indexable page instead of a duplicate that canonicalises to the
+    # live /breaking page. Byte-level I/O preserves the source's exact encoding
+    # and line endings.
+    page_url = f"{LIVE_URL}/{slug}"
+    raw = SRC.read_bytes().replace(f'{LIVE_URL}"'.encode(), f'{page_url}"'.encode())
+    dest.write_bytes(raw)
+
     print(f"  snapshot: {SRC.relative_to(ROOT)} -> {dest.relative_to(ROOT)}")
-    print(f"  URL: https://www.manzill.com/breaking/{slug}")
+    print(f"  URL: {page_url}")
     return 0
 
 

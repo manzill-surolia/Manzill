@@ -66,7 +66,7 @@ NEWS_SITE = "https://news.manzill.com"
 # Bump whenever the rendered output (template/RSS/sitemap format) changes. A mismatch
 # with the value stored in state forces a one-time re-render even when the feed is
 # unchanged, so a redesign rolls out on the next scheduled run without a manual push.
-RENDER_VERSION = "25"
+RENDER_VERSION = "26"
 
 # --- Groq TPM budget ------------------------------------------------------- #
 # Groq bills prompt_tokens + max_tokens against a per-minute cap; exceeding it returns HTTP 413 and
@@ -1909,19 +1909,38 @@ def render_rss(state: dict, now: datetime) -> None:
     RSS_PATH.write_text(feed)
 
 
+def _url_block(loc: str, lastmod: str, changefreq: str, priority: str) -> str:
+    return (
+        "  <url>\n"
+        f"    <loc>{loc}</loc>\n"
+        f"    <lastmod>{lastmod}</lastmod>\n"
+        f"    <changefreq>{changefreq}</changefreq>\n"
+        f"    <priority>{priority}</priority>\n"
+        "  </url>\n"
+    )
+
+
 def render_news_sitemap(now: datetime) -> None:
-    """Emit breaking-news/sitemap.xml with a fresh lastmod each run."""
+    """Emit breaking/sitemap.xml: the live page plus every dated archive snapshot.
+
+    The live ``/breaking`` page leads with a fresh lastmod; each ``breaking/YYYY/MM/DD/index.html``
+    archive is listed after it (newest first) as a static, self-canonical page so search engines can
+    index each day on its own. The date glob never matches ``breaking/index.html`` or ``data/``."""
     lastmod = to_ist(now).strftime("%Y-%m-%dT%H:%M:%S+05:30")
+    blocks = [_url_block(PAGE_URL, lastmod, "hourly", "0.9")]
+
+    dated = NEWS_SITEMAP_PATH.parent.glob(
+        "[0-9][0-9][0-9][0-9]/[0-9][0-9]/[0-9][0-9]/index.html")
+    for idx in sorted(dated, key=lambda p: p.parent.parts[-3:], reverse=True):
+        yyyy, mm, dd = idx.parent.parts[-3:]
+        blocks.append(_url_block(
+            f"{PAGE_URL}/{yyyy}/{mm}/{dd}", f"{yyyy}-{mm}-{dd}T12:00:00+05:30", "yearly", "0.5"))
+
     xml = (
         '<?xml version="1.0" encoding="UTF-8"?>\n'
         '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
-        "  <url>\n"
-        f"    <loc>{PAGE_URL}</loc>\n"
-        f"    <lastmod>{lastmod}</lastmod>\n"
-        "    <changefreq>hourly</changefreq>\n"
-        "    <priority>0.9</priority>\n"
-        "  </url>\n"
-        "</urlset>\n"
+        + "".join(blocks)
+        + "</urlset>\n"
     )
     NEWS_SITEMAP_PATH.parent.mkdir(parents=True, exist_ok=True)
     NEWS_SITEMAP_PATH.write_text(xml)

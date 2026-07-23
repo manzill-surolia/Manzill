@@ -19,13 +19,13 @@ the day leads, whatever the subject. The page is **bot-committed** by a GitHub A
 | Path | What it is |
 |------|-----------|
 | `build_breaking_news.py` | The generator (fetch → cluster → lead → enrich → archive → Groq → render). Owns the HTML template, the Groq prompt, and the pipeline. |
-| `snapshot.py` | Copies the live `index.html` into a dated archive folder (`breaking/20-july-2026/`) for the daily 12:00 IST snapshot. |
+| `snapshot.py` | Copies the live `index.html` into a dated archive folder (`breaking/2026/07/20/`) for the daily 12:00 IST snapshot. |
 | `check_tpm.py` | Groq TPM budget checker — run before shipping any prompt change. |
 | `breaking-news.md` | Full spec + operator guide. |
 | `breaking-benchmark.md` | The golden "good-to-follow" worked example (a single lead story's chronology) + the standards the output must match. |
 | `breaking-cases.json` | The same two use cases in machine-readable form (a **reference**, not runtime-injected). |
 | `index.html` | The rendered page (**bot-committed** — do not hand-edit). |
-| `<DD-month-YYYY>/index.html` | Daily archive snapshots (e.g. `20-july-2026/`) — static copies of the live page, published at 12:00 IST. |
+| `<YYYY>/<MM>/<DD>/index.html` | Daily archive snapshots (e.g. `2026/07/20/`) — static copies of the live page, published at 12:00 IST. |
 | `rss.xml`, `sitemap.xml`, `favicon.svg` | Hindi RSS feed, news sitemap, Hawa Mahal favicon. |
 | `data/state.json`, `data/archive.json`, `data/override.json` | Last-render state (+ `render_version` gate), rolling 30-day story archive, optional manual pin. |
 
@@ -82,13 +82,13 @@ word/acronym and the model's `(analysis)`/`(lead_story)` field-name tags from al
 
 `snapshot.py` → `../.github/workflows/breaking-archive.yml` (cron `30 6 * * *` = **12:00 IST** +
 manual dispatch). Once a day it copies the live `breaking/index.html` into a dated folder
-`breaking/<DD-month-YYYY>/index.html` (e.g. `breaking/20-july-2026/`) and commits it, so each day's
-front page stays permanently readable at a stable URL — `www.manzill.com/breaking/20-july-2026`. The
+`breaking/<YYYY>/<MM>/<DD>/index.html` (e.g. `breaking/2026/07/20/`) and commits it, so each day's
+front page stays permanently readable at a stable URL — `www.manzill.com/breaking/2026/07/20`. The
 live page uses **absolute** asset paths (`/breaking/favicon.svg`, `/breaking/rss.xml`) and an
 absolute canonical, so a verbatim copy renders correctly from the subfolder and its canonical
 consolidates to the live `/breaking` page (the snapshot is an archive, not a duplicate to rank on its
 own). Run on demand: **Actions → Breaking News Daily Snapshot → Run workflow** (optional `date` input
-to backfill a slug), or `python breaking/snapshot.py --date 20-july-2026`.
+to backfill a slug), or `python breaking/snapshot.py --date 2026/07/20`.
 
 ## Editing the page
 
@@ -134,5 +134,5 @@ expensively, so a prompt edit can silently drift over the cap → `HTTP 413` →
 - Install deps: `pip install -r ../scripts/requirements.txt` (only `tzdata`).
 - Run without AI/secrets: `python breaking/build_breaking_news.py --no-ai` (renders from
   feeds/holding only — no `GROQ_API_KEY` needed).
-- Snapshot the current page: `python breaking/snapshot.py` (or `--date 20-july-2026`).
+- Snapshot the current page: `python breaking/snapshot.py` (or `--date 2026/07/20`).
 - Check the Groq prompt's TPM budget: `python breaking/check_tpm.py`.

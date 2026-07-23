@@ -1,7 +1,7 @@
 name: Breaking News Daily Snapshot
 
 # Publishes a dated daily snapshot of www.manzill.com/breaking at 12:00 IST, so each day's front
-# page stays permanently readable at a stable URL, e.g. www.manzill.com/breaking/20-july-2026.
+# page stays permanently readable at a stable URL, e.g. www.manzill.com/breaking/2026/07/20.
 # 12:00 IST = 06:30 UTC. Scheduled workflows only run from the default branch, so this begins once
 # merged to main. Use "Run workflow" (workflow_dispatch) to snapshot on demand.
 
@@ -11,7 +11,7 @@ on:
   workflow_dispatch:
     inputs:
       date:
-        description: "Snapshot slug to write (e.g. 20-july-2026). Blank = today (IST)."
+        description: "Snapshot slug to write (e.g. 2026/07/20). Blank = today (IST)."
         required: false
         default: ""
 

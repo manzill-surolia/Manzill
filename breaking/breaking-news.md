@@ -181,10 +181,10 @@ Actions** and commits a static page that Pages serves.
 .github/workflows/breaking-news.yml     # cron (*/20) + manual "Run workflow"; commits the output
 .github/workflows/breaking-archive.yml  # cron (30 6 * * * = 12:00 IST) + manual; publishes the daily snapshot
 breaking/build_breaking_news.py       # the generator (fetch → drop digests → cluster → lead → enrich → archive → Groq → render)
-breaking/snapshot.py                   # copies index.html into breaking/<DD-month-YYYY>/ for the daily snapshot
+breaking/snapshot.py                   # copies index.html into breaking/<YYYY>/<MM>/<DD>/ for the daily snapshot
 breaking/check_tpm.py                 # Groq TPM budget checker (run before shipping a prompt change)
 breaking/index.html                   # the rendered page (bot-committed)
-breaking/<DD-month-YYYY>/index.html    # daily archive snapshots (e.g. 20-july-2026/)
+breaking/<YYYY>/<MM>/<DD>/index.html   # daily archive snapshots (e.g. 2026/07/20/)
 breaking/rss.xml, breaking/sitemap.xml
 breaking/favicon.svg                  # Hawa Mahal
 breaking/data/state.json              # last render state (+ render_version gate)
@@ -201,7 +201,7 @@ coverage (`enrich_lead`) → **archive every story** (`ingest_cluster` for all c
 for the full Hindi package (single-story, rich multi-step sourced timeline) over the lead's arc →
 render `breaking/index.html` (+ RSS + sitemap) → commit **only if something changed**. On a day with
 no fresh Jaipur story, the last page is kept. Separately, at **12:00 IST** `snapshot.py` copies the
-live page into `breaking/<DD-month-YYYY>/` so each day's front page stays permanently archived.
+live page into `breaking/<YYYY>/<MM>/<DD>/` so each day's front page stays permanently archived.
 
 Notes learned along the way:
 - **Groq is behind Cloudflare**, which returns `403 error code 1010` to requests with a

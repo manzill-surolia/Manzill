@@ -1243,9 +1243,12 @@ def build() -> None:
 
     # Web enrichment: search for related coverage of the CHOSEN story across many outlets and fold it
     # into the lead cluster, so the timeline gains more granular, timestamped points from multiple
-    # sources (and the AI has richer, well-attributed material). Only for the auto-picked lead — a
-    # manual pin already ran its own targeted query in _force_lead().
-    if not override:
+    # sources (and the AI has richer, well-attributed material). Run it for the auto-picked lead AND
+    # for a query pin, so a pinned story keeps gathering fresh dated developments each run and its
+    # title — which foregrounds the newest development — evolves day to day instead of freezing (a
+    # 3-day pin would otherwise show one unchanging headline). A url+headline pin is a synthetic
+    # one-item cluster with no real coverage to deepen, so it stays skipped.
+    if not override or override.get("query"):
         top = enrich_lead(top, items)
         clusters[0] = top
 
